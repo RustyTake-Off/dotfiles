@@ -12,16 +12,16 @@
 # Section for hardcoded data
 
 $DriversArray = @(
-  "https://dl.dell.com/FOLDER04001557M/9/Intel-Chipset-Device-Software_HMDR4_WIN_10.1.1.38_A05_06.EXE", # Intel-Chipset-Device-Software_HMDR4_WIN_10.1.1.38_A05_06
-  "https://dl.dell.com/FOLDER05463466M/4/Realtek-Memory-Card-Reader-Driver_R16KJ_WIN_10.0.17763.21313_A02_02.EXE", # Realtek-Memory-Card-Reader-Driver_R16KJ_WIN_10.0.17763.21313_A02_02
-  "https://dl.dell.com/FOLDER06762917M/3/STMicroelectronics-Free-Fall-Data-Protection-Driver_FXX2G_WIN_4.10.106_A02.EXE", # STMicroelectronics-Free-Fall-Data-Protection-Driver_FXX2G_WIN_4.10.106_A02
-  "https://dl.dell.com/FOLDER05629954M/5/Intel-HID-Event-Filter-Driver_33CDY_WIN_2.2.1.377_A11_04.EXE", # Intel-HID-Event-Filter-Driver_33CDY_WIN_2.2.1.377_A11_04
-  "https://dl.dell.com/FOLDER07448178M/2/Dell-Touchpad-Driver_2VV2N_WIN_10.3201.101.216_A10.EXE", # Dell-Touchpad-Driver_2VV2N_WIN_10.3201.101.216_A10
-  "https://dl.dell.com/FOLDER06444713M/1/Dell-Touchpad-Settings-Application_CPPN8_WIN64_10.1.11.0_A03.EXE", # Dell-Touchpad-Settings-Application_CPPN8_WIN64_10.1.11.0_A03
-  "https://dl.dell.com/FOLDER08377421M/3/Intel-9560-9260-8265-7265-3165-Bluetooth-UWD-Driver_MCC7Y_WIN64_22.130.0.2_A34_02.EXE", # Intel-9560-9260-8265-7265-3165-Bluetooth-UWD-Driver_MCC7Y_WIN64_22.130.0.2_A34_02
-  "https://dl.dell.com/FOLDER08377396M/5/Intel-9560-9260-8265-7265-3165-Wi-Fi-Driver_FCCJ9_WIN_22.130.0.5_A30_04.EXE", # Intel-9560-9260-8265-7265-3165-Wi-Fi-Driver_FCCJ9_WIN_22.130.0.5_A30_04
-  "https://dl.dell.com/FOLDER06114266M/2/Realtek-High-Definition-Audio-Driver_88XXX_WIN_6.0.8895.1_A23_01.EXE", # Realtek-High-Definition-Audio-Driver_88XXX_WIN_6.0.8895.1_A23_01
-  "https://download.brother.com/welcome/dlf004452/dcp-j315w-inst-B1-cd5.EXE" # DCP-J315W
+  "https://dl.dell.com/FOLDER04001557M/9/Intel-Chipset-Device-Software_HMDR4_WIN_10.1.1.38_A05_06.EXE",
+  "https://dl.dell.com/FOLDER05463466M/4/Realtek-Memory-Card-Reader-Driver_R16KJ_WIN_10.0.17763.21313_A02_02.EXE",
+  "https://dl.dell.com/FOLDER06762917M/3/STMicroelectronics-Free-Fall-Data-Protection-Driver_FXX2G_WIN_4.10.106_A02.EXE",
+  "https://dl.dell.com/FOLDER05629954M/5/Intel-HID-Event-Filter-Driver_33CDY_WIN_2.2.1.377_A11_04.EXE",
+  "https://dl.dell.com/FOLDER07448178M/2/Dell-Touchpad-Driver_2VV2N_WIN_10.3201.101.216_A10.EXE",
+  "https://dl.dell.com/FOLDER06444713M/1/Dell-Touchpad-Settings-Application_CPPN8_WIN64_10.1.11.0_A03.EXE",
+  "https://dl.dell.com/FOLDER08377421M/3/Intel-9560-9260-8265-7265-3165-Bluetooth-UWD-Driver_MCC7Y_WIN64_22.130.0.2_A34_02.EXE",
+  "https://dl.dell.com/FOLDER08377396M/5/Intel-9560-9260-8265-7265-3165-Wi-Fi-Driver_FCCJ9_WIN_22.130.0.5_A30_04.EXE",
+  "https://dl.dell.com/FOLDER06114266M/2/Realtek-High-Definition-Audio-Driver_88XXX_WIN_6.0.8895.1_A23_01.EXE",
+  "https://download.brother.com/welcome/dlf004452/dcp-j315w-inst-B1-cd5.EXE"
 )
 
 $SoftwareArray = @(
@@ -91,87 +91,179 @@ $VSCodeExtArray = @(
   "yzhang.markdown-all-in-one"
 )
 
+$Command = $args[0]
+
 ####################################################################################################
 # Functions
 
-Function Test-Winget {
-  $Winget = winget -v
-  return $null -ne $Winget
+# Function Test-Winget {
+#   $Winget = winget -v
+#   return $null -ne $Winget
+# }
+
+# Function Test-VSCode {
+#   $VSCode = code -v
+#   return $null -ne $VSCode
+# }
+
+# ####################################################################################################
+# # Execution section
+
+# if ($args[0] -eq "drivers") {
+#   <#
+#     .DESCRIPTION
+#       Meant to download drivers
+#   #>
+#   # Create the drivers directory with -Force parameter
+#   $DriversPath = New-Item -Name drivers -ItemType Directory -Path $HOME\Desktop -Force
+#   Write-Host "Directory created or already exists!"
+
+#   # Download each driver using Start-BitsTransfer
+#   foreach ($Driver in $DriversArray) {
+#     Start-BitsTransfer $Driver -Destination $HOME\Desktop\drivers
+#     Write-Host "Downloading drivers to $DriversPath."
+#     Write-Host "Downloading: $Driver"
+#   }
+# }
+# elseif ($args[0] -eq "software") {
+#   <#
+#     .DESCRIPTION
+#       Meant to download drivers
+#   #>
+#   # Call Test-Winget function
+#   if (Test-Winget) {
+#     foreach ($Software in $SoftwareArray) {
+#       # Check if the software is already installed
+#       $Installed = winget list --exact -q $Software
+#       if ($Installed.Contains($Software)) {
+#         # If not, install it using winget with silent and accept options
+#         Write-Host "Installing: $Software"
+#         winget install -e -h --accept-source-agreements --accept-package-agreements --id $Software
+#       }
+#       else {
+#         # If yes, skip it and print a message
+#         Write-Host "Skipping: $Software (already installed)"
+#       }
+#     }
+#   }
+#   else {
+#     Write-Host "Winget is not installed on this system."
+#     exit 1
+#   }
+# }
+# elseif ($args[0] -eq "code") {
+#   <#
+#     .DESCRIPTION
+#       Meant to download drivers
+#   #>
+#   # Call Test-VSCode function
+#   if (Test-VSCode) {
+#     foreach ($Extension in $VSCodeExtArray) {
+#       # Check if the extension is already installed
+#       $Installed = code --list-extensions | Select-String "$Extension" -Quiet
+#       if (!$Installed) {
+#         # If not, install it
+#         Write-Host "Installing: $Extension"
+#         code --install-extension $Extension
+#       }
+#       else {
+#         # If yes, skip it and print a message
+#         Write-Host "Skipping: $Extension (already installed)"
+#       }
+#     }
+#   }
+#   else {
+#     Write-Host "VSCode is not installed on this system."
+#     exit 1
+#   }
+# }
+
+Function Test-WingetInstalled {
+    return (winget --version) -ne $null
 }
 
-Function Test-VSCode {
-  $VSCode = code -v
-  return $null -ne $VSCode
+Function Test-VSCodeInstalled {
+    return (code --version) -ne $null
 }
 
 ####################################################################################################
 # Execution section
 
-if ($args[0] -eq "drivers") {
-  <#
-    .DESCRIPTION
-      Meant to download drivers
-  #>
-  # Create the drivers directory with -Force parameter
-  $DriversPath = New-Item -Name drivers -ItemType Directory -Path $HOME\Desktop -Force
-  Write-Host "Directory created or already exists!"
 
-  # Download each driver using Start-BitsTransfer
-  foreach ($Driver in $DriversArray) {
-    Start-BitsTransfer $Driver -Destination $HOME\Desktop\drivers
-    Write-Host "Downloading drivers to $DriversPath."
-    Write-Host "Downloading: $Driver"
-  }
-}
-elseif ($args[0] -eq "software") {
-  <#
-    .DESCRIPTION
-      Meant to download drivers
-  #>
-  # Call Test-Winget function
-  if (Test-Winget) {
-    foreach ($Software in $SoftwareArray) {
-      # Check if the software is already installed
-      $Installed = winget list --exact -q $Software
-      if ($Installed.Contains($Software)) {
-        # If not, install it using winget with silent and accept options
-        Write-Host "Installing: $Software"
-        winget install -e -h --accept-source-agreements --accept-package-agreements --id $Software
-      }
-      else {
-        # If yes, skip it and print a message
-        Write-Host "Skipping: $Software (already installed)"
-      }
+
+switch ($Command) {
+    "drivers" {
+        <#
+        .SYNOPSIS
+            Downloads drivers.
+        #>
+
+        # Create the drivers directory with -Force parameter
+        $DriversPath = New-Item -Name drivers -ItemType Directory -Path $HOME\Desktop -Force
+        Write-Host "Directory created or already exists!"
+
+        # Download each driver using Start-BitsTransfer
+        foreach ($Driver in $DriversArray) {
+            Start-BitsTransfer $Driver -Destination $HOME\Desktop\drivers
+            Write-Host "Downloading driver: $Driver"
+        }
     }
-  }
-  else {
-    Write-Host "Winget is not installed on this system."
-    exit 1
-  }
-}
-elseif ($args[0] -eq "code") {
-  <#
-    .DESCRIPTION
-      Meant to download drivers
-  #>
-  # Call Test-VSCode function
-  if (Test-VSCode) {
-    foreach ($Extension in $VSCodeExtArray) {
-      # Check if the extension is already installed
-      $Installed = code --list-extensions | Select-String "$Extension" -Quiet
-      if (!$Installed) {
-        # If not, install it
-        Write-Host "Installing: $Extension"
-        code --install-extension $Extension
-      }
-      else {
-        # If yes, skip it and print a message
-        Write-Host "Skipping: $Extension (already installed)"
-      }
+    "software" {
+        <#
+        .SYNOPSIS
+            Installs software using winget.
+        #>
+
+        if (Test-WingetInstalled) {
+            foreach ($Software in $SoftwareArray) {
+                $Installed = winget list --exact -q $Software -v
+                if ($Installed -cmatch $Software) {
+                    Write-Host "Skipping: $Software (already installed)"
+                }
+                else {
+                    Write-Host "Installing: $Software"
+                    winget install -e -h --accept-source-agreements --accept-package-agreements --id $Software
+                }
+            }
+        }
+        else {
+            Write-Error "Winget is not installed on this system."
+            exit 1
+        }
     }
-  }
-  else {
-    Write-Host "VSCode is not installed on this system."
-    exit 1
-  }
+    "code" {
+        <#
+        .SYNOPSIS
+            Installs VSCode extensions.
+        #>
+
+        if (Test-VSCodeInstalled) {
+            foreach ($Extension in $VSCodeExtArray) {
+                $Installed = code --list-extensions | Select-String -Pattern "$Extension" -Quiet
+                if ($Installed) {
+                    Write-Host "Skipping: $Extension (already installed)"
+                }
+                else {
+                    Write-Host "Installing: $Extension"
+                    code --install-extension $Extension
+                }
+            }
+        }
+        else {
+            Write-Error "VSCode is not installed on this system."
+            exit 1
+        }
+    }
+    default {
+        @"
+
+            Available commands:
+                drivers         - downloads drivers
+                software        - installs software
+                code            - installs vscodes extensions
+
+"@
+        exit 1
+    }
+    
 }
