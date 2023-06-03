@@ -6,7 +6,6 @@
   "workbench.colorTheme": "Default Dark+",
   "workbench.iconTheme": "vscode-icons",
   "window.commandCenter": true,
-  "window.zoomLevel": 1,
   "terminal.integrated.fontSize": 20,
   "terminal.integrated.cursorBlinking": true,
   "terminal.integrated.enableBell": true,
@@ -61,7 +60,7 @@
   },
   // better-comments
   "better-comments.multilineComments": true,
-  "better-comments.highlightPlainText": false,
+  "better-comments.highlightPlainText": true,
   "better-comments.tags": [
     {
       "tag": "!",
@@ -157,4 +156,6 @@
     "powershell",
     "terraform",
   ],
+  //bicep
+  "bicep.enableSurveys": false,
 }
