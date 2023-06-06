@@ -1,63 +1,29 @@
 {
+  // general vscode config
   "telemetry.telemetryLevel": "off",
   "update.showReleaseNotes": false,
   "workbench.startupEditor": "none",
   "workbench.editor.enablePreview": false,
-  "workbench.colorTheme": "Default Dark+",
+  "workbench.colorTheme": "Default High Contrast",
   "workbench.iconTheme": "vscode-icons",
-  "window.commandCenter": true,
+  // general terminal config
   "terminal.integrated.fontSize": 20,
   "terminal.integrated.cursorBlinking": true,
   "terminal.integrated.enableBell": true,
-  "terminal.integrated.scrollback": 10000,
+  "terminal.integrated.scrollback": 9001,
+  "terminal.integrated.shellIntegration.enabled": true,
   "terminal.integrated.shellIntegration.history": 1000,
-  "terminal.integrated.fontFamily": "DroidSansMono Nerd Font Mono",
+  // general editor config
   "editor.fontSize": 20,
   "editor.tabSize": 2,
   "editor.wordWrap": "on",
+  "editor.formatOnSave": true,
   "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
   "editor.guides.bracketPairsHorizontal": true,
   "editor.guides.bracketPairs": true,
-  "editor.formatOnSave": true,
-  // indentRainbow
-  "indentRainbow.colors": [
-    "rgba(148,0,211,0.25)",
-    "rgba(75,0,130,0.25)",
-    "rgba(0,0,255,0.25)",
-    "rgba(0,255,0,0.25)",
-    "rgba(255,255,0,0.25)",
-    "rgba(255,127,0,0.25)",
-    "rgba(255,0,0,0.25)"
-  ],
-  // terraform
-  "[terraform]": {
-    "editor.defaultFormatter": "hashicorp.terraform",
-    "editor.formatOnSave": false,
-    "editor.codeActionsOnSave": {
-      "source.formatAll.terraform": true
-    },
-  },
-  "[terraform-vars]": {
-    "editor.defaultFormatter": "hashicorp.terraform",
-    "editor.formatOnSave": false,
-    "editor.codeActionsOnSave": {
-      "source.formatAll.terraform": true
-    },
-  },
-  // markdown
-  "[markdown]": {
-    "editor.defaultFormatter": "DavidAnson.vscode-markdownlint",
-    "editor.formatOnSave": false,
-    "editor.wordWrap": "on",
-    "editor.codeActionsOnSave": {
-      "source.fixAll.markdownlint": true
-    },
-  },
-  // markdownlint
-  "markdownlint.config": {
-    "MD013": false,
-    "MD033": false
-  },
+  "editor.tabCompletion": "on",
+  "editor.quickSuggestionsDelay": 1,
+  "files.trimTrailingWhitespace": true,
   // better-comments
   "better-comments.multilineComments": true,
   "better-comments.highlightPlainText": true,
@@ -68,7 +34,7 @@
       "strikethrough": false,
       "underline": false,
       "backgroundColor": "transparent",
-      "bold": false,
+      "bold": true,
       "italic": false
     },
     {
@@ -108,9 +74,6 @@
       "italic": false
     }
   ],
-  // gitlens
-  "gitlens.codeLens.recentChange.enabled": false,
-  "gitlens.codeLens.authors.enabled": false,
   // cSpell
   "cSpell.enabledLanguageIds": [
     "asciidoc",
@@ -154,8 +117,77 @@
     "yml",
     // added
     "powershell",
-    "terraform",
+    "terraform"
   ],
-  //bicep
+  // indentRainbow
+  "indentRainbow.colors": [
+    "rgba(148,0,211,0.25)",
+    "rgba(75,0,130,0.25)",
+    "rgba(0,0,255,0.25)",
+    "rgba(0,255,0,0.25)",
+    "rgba(255,255,0,0.25)",
+    "rgba(255,127,0,0.25)",
+    "rgba(255,0,0,0.25)"
+  ],
+  // markdownlint
+  "markdownlint.config": {
+    "MD013": false,
+    "MD033": false
+  },
+  // languages specific
+  // markdown
+  "[markdown]": {
+    "editor.defaultFormatter": "DavidAnson.vscode-markdownlint",
+    "editor.formatOnSave": false,
+    "editor.wordWrap": "on",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.markdownlint": true
+    }
+  },
+  // powershell
+  "powershell.codeFormatting.autoCorrectAliases": true,
+  "powershell.codeFormatting.ignoreOneLineBlock": false,
+  "powershell.codeFormatting.preset": "Stroustrup",
+  "powershell.developer.featureFlags": [
+    "PSReadLine"
+  ],
+  "powershell.enableProfileLoading": true,
+  "powershell.integratedConsole.showOnStartup": false,
+  "powershell.powerShellAdditionalExePaths": {
+    "PS7": "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
+    "PS5.1": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+  },
+  "powershell.powerShellDefaultVersion": "PS7",
+  "powershell.promptToUpdatePowerShell": false,
+  "[powershell]": {
+    "editor.semanticHighlighting.enabled": false,
+    "editor.wordSeparators": "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?"
+  },
+  // bicep
   "bicep.enableSurveys": false,
+  "[bicep]": {
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "files.insertFinalNewline": true,
+    "editor.suggestSelection": "first",
+    "editor.suggest.snippetsPreventQuickSuggestions": false,
+    "editor.suggest.showWords": false
+  },
+  // terraform
+  "[terraform]": {
+    "editor.defaultFormatter": "hashicorp.terraform",
+    "editor.formatOnSave": false,
+    "files.insertFinalNewline": true,
+    "editor.codeActionsOnSave": {
+      "source.formatAll.terraform": true
+    }
+  },
+  "[terraform-vars]": {
+    "editor.defaultFormatter": "hashicorp.terraform",
+    "editor.formatOnSave": false,
+    "files.insertFinalNewline": true,
+    "editor.codeActionsOnSave": {
+      "source.formatAll.terraform": true
+    }
+  }
 }
