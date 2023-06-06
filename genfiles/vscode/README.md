@@ -3,12 +3,16 @@
 ## Install VSCode
 
 ```powershell
-winget install Microsoft.VisualStudioCode -i
+winget install --id Microsoft.VisualStudioCode
 ```
 
 ## Load settings
 
 Load [**settings.json**](https://github.com/RustyTake-Off/my-configs/blob/main/vscode/settings.json) file into VSCode.
+
+or
+
+[**Sync**](https://code.visualstudio.com/docs/editor/settings-sync) settings with GitHub
 
 ## Extensions
 
@@ -24,6 +28,14 @@ code --list-extensions
 code --install-extension <author>.<extension_name>
 ```
 
+### Uninstall extensions
+
+```powershell
+code --uninstall-extension <author>.<extension_name>
+```
+
+### Useful extensions
+
 ```powershell
 code --install-extension aaron-bond.better-comments
 
@@ -38,6 +50,8 @@ code --install-extension eamodio.gitlens
 code --install-extension GitHub.remotehub
 
 code --install-extension hashicorp.terraform
+
+code --install-extension 4ops.terraform
 
 code --install-extension ms-azure-devops.azure-pipelines
 
@@ -60,8 +74,6 @@ code --install-extension ms-azuretools.vscode-bicep
 code --install-extension ms-azuretools.vscode-cosmosdb
 
 code --install-extension ms-azuretools.vscode-docker
-
-code --install-extension ms-dotnettools.vscode-dotnet-runtime
 
 code --install-extension ms-kubernetes-tools.vscode-aks-tools
 
@@ -104,10 +116,4 @@ code --install-extension vscode-icons-team.vscode-icons
 code --install-extension wayou.vscode-todo-highlight
 
 code --install-extension yzhang.markdown-all-in-one
-```
-
-### Uninstall extensions
-
-```powershell
-code --uninstall-extension <author>.<extension_name>
 ```
