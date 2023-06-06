@@ -8,11 +8,7 @@ winget install --id Microsoft.VisualStudioCode
 
 ## Load settings
 
-Load [**settings.json**](https://github.com/RustyTake-Off/my-configs/blob/main/vscode/settings.json) file into VSCode.
-
-or
-
-[**Sync**](https://code.visualstudio.com/docs/editor/settings-sync) settings with GitHub
+[**Sync**](https://code.visualstudio.com/docs/editor/settings-sync) settings with GitHub or load [**settings.json**](https://github.com/RustyTake-Off/dotfiles/blob/main/genfiles/vscode/settings.json) file into VSCode manually.
 
 ## Extensions
 
@@ -35,6 +31,8 @@ code --uninstall-extension <author>.<extension_name>
 ```
 
 ### Useful extensions
+
+Some essential and useful extensions:
 
 ```powershell
 code --install-extension aaron-bond.better-comments
