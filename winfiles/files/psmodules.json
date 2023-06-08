@@ -1,0 +1,14 @@
+{
+  "psmodules": [
+    "PackageManagement",
+    "PowerShellGet",
+    "PSWindowsUpdate",
+    "PSReadLine",
+    "z",
+    "PSColor",
+    "Terminal-Icons",
+    "posh-git",
+    "Az",
+    "CompletionPredictor"
+  ]
+}
