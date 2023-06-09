@@ -2,18 +2,21 @@
   // ----------------------------------------------------------------------------------------------------
   // VSCode configuration file
   // ----------
-  // general config
+  // misc config
   // ----------
   "telemetry.telemetryLevel": "off",
   "update.showReleaseNotes": false,
+  // ----------------------------------------------------------------------------------------------------
+  // workbench config
+  // ----------
   "workbench.startupEditor": "none",
-  "workbench.editor.enablePreview": false,
   "workbench.colorTheme": "Default High Contrast",
   "workbench.iconTheme": "vscode-icons",
+  "workbench.editor.enablePreview": false,
   // ----------------------------------------------------------------------------------------------------
   // terminal config
   // ----------
-  "terminal.integrated.fontSize": 14,
+  "terminal.integrated.fontSize": 18,
   "terminal.integrated.cursorBlinking": true,
   "terminal.integrated.scrollback": 9999,
   // ----------------------------------------------------------------------------------------------------
@@ -152,7 +155,7 @@
     "MD013": false,
     "MD033": false
   },
-  // languages specific
+  // language specific
   // ----------------------------------------------------------------------------------------------------
   // markdown
   // ----------
@@ -227,5 +230,5 @@
     "editor.codeActionsOnSave": {
       "source.formatAll.terraform": true
     }
-  }
+  },
 }
