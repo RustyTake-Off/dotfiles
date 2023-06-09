@@ -1,31 +1,42 @@
 {
+  // ----------------------------------------------------------------------------------------------------
   // VSCode configuration file
+  // ----------
   // general config
+  // ----------
   "telemetry.telemetryLevel": "off",
   "update.showReleaseNotes": false,
   "workbench.startupEditor": "none",
   "workbench.editor.enablePreview": false,
   "workbench.colorTheme": "Default High Contrast",
   "workbench.iconTheme": "vscode-icons",
-  // general integrated terminal config
-  "terminal.integrated.fontSize": 20,
+  // ----------------------------------------------------------------------------------------------------
+  // terminal config
+  // ----------
+  "terminal.integrated.fontSize": 14,
   "terminal.integrated.cursorBlinking": true,
-  "terminal.integrated.enableBell": true,
-  "terminal.integrated.scrollback": 9001,
-  "terminal.integrated.shellIntegration.enabled": true,
-  "terminal.integrated.shellIntegration.history": 1000,
-  // general editor config
+  "terminal.integrated.scrollback": 9999,
+  // ----------------------------------------------------------------------------------------------------
+  // editor config
+  // ----------
   "editor.fontSize": 20,
-  "editor.tabSize": 2,
+  "editor.tabSize": 4,
   "editor.wordWrap": "on",
+  "editor.tabCompletion": "on",
   "editor.formatOnSave": true,
   "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
   "editor.guides.bracketPairsHorizontal": true,
   "editor.guides.bracketPairs": true,
-  "editor.tabCompletion": "on",
-  "editor.quickSuggestionsDelay": 1,
+  "editor.snippetSuggestions": "bottom",
+  "editor.suggest.snippetsPreventQuickSuggestions": false,
+  // ----------------------------------------------------------------------------------------------------
+  // files config
+  // ----------
   "files.trimTrailingWhitespace": true,
+  "files.autoGuessEncoding": true,
+  // ----------------------------------------------------------------------------------------------------
   // better-comments
+  // ----------
   "better-comments.multilineComments": true,
   "better-comments.highlightPlainText": true,
   "better-comments.tags": [
@@ -75,7 +86,9 @@
       "italic": false
     }
   ],
+  // ----------------------------------------------------------------------------------------------------
   // cSpell
+  // ----------
   "cSpell.enabledLanguageIds": [
     "asciidoc",
     "c",
@@ -120,7 +133,9 @@
     "powershell",
     "terraform"
   ],
+  // ----------------------------------------------------------------------------------------------------
   // indentRainbow
+  // ----------
   "indentRainbow.colors": [
     "rgba(148,0,211,0.25)",
     "rgba(75,0,130,0.25)",
@@ -130,13 +145,17 @@
     "rgba(255,127,0,0.25)",
     "rgba(255,0,0,0.25)"
   ],
+  // ----------------------------------------------------------------------------------------------------
   // markdownlint
+  // ----------
   "markdownlint.config": {
     "MD013": false,
     "MD033": false
   },
   // languages specific
+  // ----------------------------------------------------------------------------------------------------
   // markdown
+  // ----------
   "[markdown]": {
     "editor.defaultFormatter": "DavidAnson.vscode-markdownlint",
     "editor.formatOnSave": false,
@@ -145,26 +164,42 @@
       "source.fixAll.markdownlint": true
     }
   },
+  // ----------------------------------------------------------------------------------------------------
   // powershell
-  "powershell.codeFormatting.autoCorrectAliases": true,
-  "powershell.codeFormatting.ignoreOneLineBlock": false,
+  // ----------
+  "powershell.enableProfileLoading": false,
+  "powershell.promptToUpdatePowerShell": false,
+  "powershell.powerShellAdditionalExePaths": {
+    "PS7": "%PROGRAMFILES\\PowerShell\\7\\pwsh.exe",
+    "PS5.1": "%SYSTEMROOT%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+  },
+  "powershell.powerShellDefaultVersion": "PS7",
+  // "powershell.scriptAnalysis.enable": true,
+  // "powershell.scriptAnalysis.settingsPath": "PSScriptAnalyzerSettings.psd1",
+  "powershell.codeFormatting.useCorrectCasing": true,
+  "powershell.codeFormatting.alignPropertyValuePairs": true,
+  "powershell.codeFormatting.ignoreOneLineBlock": true,
+  "powershell.codeFormatting.newLineAfterCloseBrace": true,
+  "powershell.codeFormatting.newLineAfterOpenBrace": true,
+  "powershell.codeFormatting.openBraceOnSameLine": true,
+  "powershell.codeFormatting.whitespaceAroundOperator": true,
+  "powershell.codeFormatting.whitespaceBeforeOpenBrace": true,
+  "powershell.codeFormatting.whitespaceBeforeOpenParen": true,
+  // "powershell.codeFormatting.autoCorrectAliases": true,
   "powershell.codeFormatting.preset": "Stroustrup",
   "powershell.developer.featureFlags": [
     "PSReadLine"
   ],
-  "powershell.enableProfileLoading": true,
   "powershell.integratedConsole.showOnStartup": false,
-  "powershell.powerShellAdditionalExePaths": {
-    "PS7": "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
-    "PS5.1": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
-  },
-  "powershell.powerShellDefaultVersion": "PS7",
-  "powershell.promptToUpdatePowerShell": false,
+  "powershell.integratedConsole.focusConsoleOnExecute": true,
+  "powershell.integratedConsole.suppressStartupBanner": true,
   "[powershell]": {
-    "editor.semanticHighlighting.enabled": false,
+    "files.autoGuessEncoding": true,
     "editor.wordSeparators": "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?"
   },
+  // ----------------------------------------------------------------------------------------------------
   // bicep
+  // ----------
   "bicep.enableSurveys": false,
   "[bicep]": {
     "editor.tabSize": 2,
@@ -174,7 +209,9 @@
     "editor.suggest.snippetsPreventQuickSuggestions": false,
     "editor.suggest.showWords": false
   },
+  // ----------------------------------------------------------------------------------------------------
   // terraform
+  // ----------
   "[terraform]": {
     "editor.defaultFormatter": "hashicorp.terraform",
     "editor.formatOnSave": false,
