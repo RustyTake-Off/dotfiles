@@ -23,7 +23,7 @@
   // editor config
   // ----------
   "editor.fontSize": 20,
-  "editor.tabSize": 4,
+  "editor.tabSize": 2,
   "editor.wordWrap": "on",
   "editor.tabCompletion": "on",
   "editor.formatOnSave": true,
@@ -172,13 +172,6 @@
   // ----------
   "powershell.enableProfileLoading": false,
   "powershell.promptToUpdatePowerShell": false,
-  "powershell.powerShellAdditionalExePaths": {
-    "PS7": "%PROGRAMFILES\\PowerShell\\7\\pwsh.exe",
-    "PS5.1": "%SYSTEMROOT%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
-  },
-  "powershell.powerShellDefaultVersion": "PS7",
-  // "powershell.scriptAnalysis.enable": true,
-  // "powershell.scriptAnalysis.settingsPath": "PSScriptAnalyzerSettings.psd1",
   "powershell.codeFormatting.useCorrectCasing": true,
   "powershell.codeFormatting.alignPropertyValuePairs": true,
   "powershell.codeFormatting.ignoreOneLineBlock": true,
@@ -188,10 +181,12 @@
   "powershell.codeFormatting.whitespaceAroundOperator": true,
   "powershell.codeFormatting.whitespaceBeforeOpenBrace": true,
   "powershell.codeFormatting.whitespaceBeforeOpenParen": true,
-  // "powershell.codeFormatting.autoCorrectAliases": true,
   "powershell.codeFormatting.preset": "Stroustrup",
   "powershell.developer.featureFlags": [
-    "PSReadLine"
+    "PSReadLine",
+    "z",
+    "posh-git",
+    "Terminal-Icons"
   ],
   "powershell.integratedConsole.showOnStartup": false,
   "powershell.integratedConsole.focusConsoleOnExecute": true,
@@ -230,5 +225,5 @@
     "editor.codeActionsOnSave": {
       "source.formatAll.terraform": true
     }
-  },
+  }
 }
