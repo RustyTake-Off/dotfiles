@@ -8,7 +8,5 @@
     "PSColor",
     "Terminal-Icons",
     "posh-git",
-    "Az",
-    "CompletionPredictor"
   ]
 }
