@@ -1,5 +1,5 @@
 {
-  "baseapps": [
+  "apps": [
     "Microsoft.VCRedist.2005.x64",
     "Microsoft.VCRedist.2008.x64",
     "Microsoft.VCRedist.2010.x64",
@@ -15,13 +15,10 @@
     "KeePassXCTeam.KeePassXC",
     "Greenshot.Greenshot",
     "VideoLAN.VLC",
-    "Microsoft.PowerToys"
-  ],
-  "opsapps": [
+    "Microsoft.PowerToys",
     "Git.Git",
     "Microsoft.PowerShell",
     "Microsoft.AzureCLI",
-    "Microsoft.WindowsTerminal",
     "Microsoft.VisualStudioCode"
   ]
 }
