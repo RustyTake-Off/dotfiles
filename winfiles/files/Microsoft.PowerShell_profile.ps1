@@ -40,6 +40,7 @@ else {
 }
 
 Set-PSReadLineOption -HistorySearchCursorMovesToEnd:$true
+Set-PSReadLineOption -Colors @{ InlinePrediction = 'Blue' }
 
 Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
 Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
