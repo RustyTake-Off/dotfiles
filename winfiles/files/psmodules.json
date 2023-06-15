@@ -5,8 +5,7 @@
     "PSWindowsUpdate",
     "PSReadLine",
     "z",
-    "PSColor",
     "Terminal-Icons",
-    "posh-git",
+    "posh-git"
   ]
 }
