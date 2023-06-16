@@ -1,23 +1,54 @@
+<#
+
+.SYNOPSIS
+    Script to automate the download and installation of drivers, applications,
+    PowerShell modules, and configuration files on Windows.
+
+.DESCRIPTION
+    This PowerShell script automates the process of downloading and installing
+    drivers, applications, PowerShell modules, and configuration files on Windows.
+    It provides several actions that can be performed individually,
+    such as downloading drivers, invoking the CTT - winutil, installing applications,
+    installing PowerShell modules, and downloading configuration and settings files.
+
+    Run this command to set the execution policy:
+    PS> Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
+
+    The available actions are:
+    - drivers: Downloads drivers.
+    - ctt: Invokes the CTT - winutil by downloading and executing a script from christitus.com.
+    - apps: Installs applications by downloading a list from a JSON file and using the winget package manager.
+    - psmods: Installs PowerShell modules by downloading a list from a JSON file and using the Install-Module cmdlet.
+    - configs: Downloads configuration and settings files and places them in the appropriate locations.
+
+    Note: Make sure to understand and review the code before executing it,
+    especially when downloading and executing scripts from external sources.
+
+#>
+
+
 param (
   [Parameter(Mandatory = $false, Position = 0)]
   [string]$action
 )
 
+
 function Get-Drivers {
-  Write-Host "`nDownloading drivers + printer drivers..." -ForegroundColor Yellow
+  Write-Host "`nDownloading drivers..." -ForegroundColor Yellow
 
   $downloadsPath = Join-Path $Env:USERPROFILE "Downloads"
   $jsonPath = Join-Path $downloadsPath "winup"
+  $driversPath = Join-Path $jsonPath "drivers"
 
   if (-not (Test-Path -Path $jsonPath -PathType Container)) {
-    Write-Host "Creating 'winup' folder..." -ForegroundColor Yellow
-    New-Item -Path $jsonPath -ItemType Directory | Out-Null
+    Write-Host "Creating " -NoNewline -ForegroundColor Yellow; Write-Host "'drivers' " -NoNewline -ForegroundColor Blue; Write-Host "folder..." -ForegroundColor Yellow
+    New-Item -Path $driversPath -ItemType Directory | Out-Null
   }
 
-  $driversUrl = "https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/winfiles/files/drivers.json"
   $driversJsonPath = Join-Path $jsonPath "drivers.json"
+  $driversUrl = "https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/winfiles/files/drivers.json"
 
-  Write-Host "Downloading drivers.json file..." -ForegroundColor Yellow
+  Write-Host "Downloading " -NoNewline -ForegroundColor Yellow; Write-Host "drivers.json " -NoNewline -ForegroundColor Blue; Write-Host "file..." -ForegroundColor Yellow
   Start-BitsTransfer -Source $driversUrl -Destination $jsonPath
 
   $driversJson = Get-Content -Raw -Path $driversJsonPath | ConvertFrom-Json
@@ -32,13 +63,15 @@ function Get-Drivers {
   Write-Host "Download of drivers completed!" -ForegroundColor Green
 }
 
+
 function Invoke-CTT {
   Write-Host "`nInvoking CTT - winutil..." -ForegroundColor Yellow
 
   Invoke-WebRequest -useb https://christitus.com/win | Invoke-Expression
 
-  Write-Host "Invoke of winutil completed!" -ForegroundColor Green
+  Write-Host "`nInvoke of winutil completed!" -ForegroundColor Green
 }
+
 
 function Get-Apps {
   Write-Host "`nInstalling applications..." -ForegroundColor Yellow
@@ -47,14 +80,14 @@ function Get-Apps {
   $jsonPath = Join-Path $downloadsPath "winup"
 
   if (-not (Test-Path -Path $jsonPath -PathType Container)) {
-    Write-Host "Creating 'winup' folder..." -ForegroundColor Yellow
+    Write-Host "Creating " -NoNewline -ForegroundColor Yellow; Write-Host "'winup' " -NoNewline -ForegroundColor Blue; Write-Host "folder..." -ForegroundColor Yellow
     New-Item -Path $jsonPath -ItemType Directory | Out-Null
   }
 
-  $appsUrl = "https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/winfiles/files/apps.json"
   $appsJsonPath = Join-Path $jsonPath "apps.json"
+  $appsUrl = "https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/winfiles/files/apps.json"
 
-  Write-Host "Downloading apps.json file..." -ForegroundColor Yellow
+  Write-Host "Downloading " -NoNewline -ForegroundColor Yellow; Write-Host "apps.json " -NoNewline -ForegroundColor Blue; Write-Host "file..." -ForegroundColor Yellow
   Start-BitsTransfer -Source $appsUrl -Destination $jsonPath
 
   $appsJson = Get-Content -Raw -Path $appsJsonPath | ConvertFrom-Json
@@ -72,17 +105,6 @@ function Get-Apps {
   Write-Host "Installation of applications completed!" -ForegroundColor Green
 }
 
-# 06. Download arkade - https://github.com/alexellis/arkade
-
-# 07. Install Powershell modules:
-#   01. PSWindowsUpdate
-#   02. PSReadLine
-#   03. z
-#   04. PSColor
-#   05. Terminal-Icons
-#   06. posh-git
-#   07. Az
-#   08. CompletionPredictor
 
 function Get-PSModules {
   Write-Host "`nInstalling PowerShell modules..." -ForegroundColor Yellow
@@ -91,14 +113,14 @@ function Get-PSModules {
   $jsonPath = Join-Path $downloadsPath "winup"
 
   if (-not (Test-Path -Path $jsonPath -PathType Container)) {
-    Write-Host "Creating 'winup' folder..." -ForegroundColor Yellow
+    Write-Host "Creating " -NoNewline -ForegroundColor Yellow; Write-Host "'winup' " -NoNewline -ForegroundColor Blue; Write-Host "folder..." -ForegroundColor Yellow
     New-Item -Path $jsonPath -ItemType Directory | Out-Null
   }
 
-  $psmodulesUrl = "https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/winfiles/files/psmodules.json"
   $psmodulesJsonPath = Join-Path $jsonPath "psmodules.json"
+  $psmodulesUrl = "https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/winfiles/files/psmodules.json"
 
-  Write-Host "Downloading psmodules.json file..." -ForegroundColor Yellow
+  Write-Host "Downloading " -NoNewline -ForegroundColor Yellow; Write-Host "psmodules.json " -NoNewline -ForegroundColor Blue; Write-Host "file..." -ForegroundColor Yellow
   Start-BitsTransfer -Source $psmodulesUrl -Destination $jsonPath
 
   $psmodulesJson = Get-Content -Raw -Path $psmodulesJsonPath | ConvertFrom-Json
@@ -117,23 +139,66 @@ function Get-PSModules {
 }
 
 
-function Update-Configs {
+function Set-Configs {
+  Write-Host "`nSetting configuration files in all the right places..." -ForegroundColor Yellow
 
-  $wingetUrl = "https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/winfiles/files/winget.json"
+  # winget settings
   $wingetConfigPath = Join-Path $Env:LOCALAPPDATA "\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState"
   $wingetSettingsPath = Join-Path $wingetConfigPath "settings.json"
+  $wingetSettingsBackupPath = Join-Path $wingetConfigPath "settings.json.backup"
+  $wingetUrl = "https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/winfiles/files/winget.json"
 
-  Write-Host "Downloading winget.json file..." -ForegroundColor Yellow
+  Write-Host "Downloading " -NoNewline -ForegroundColor Yellow; Write-Host "winget.json " -NoNewline -ForegroundColor Blue; Write-Host "file..." -ForegroundColor Yellow
   Start-BitsTransfer -Source $wingetUrl -Destination $wingetSettingsPath
-  Write-Host "Copying winget settings.json file..." -ForegroundColor Yellow
 
+  Write-Host "Creating " -NoNewline -ForegroundColor Yellow; Write-Host "winget settings.json.backup " -NoNewline -ForegroundColor Blue; Write-Host "file..." -ForegroundColor Yellow
+  Copy-Item -Path $wingetSettingsPath -Destination $wingetSettingsBackupPath
 
+  # images
+  $imagesPath = Join-Path $env:USERPROFILE "\shared\images"
+  $imagesFilePath = Join-Path $imagesPath "\images.zip"
 
+  if (-not (Test-Path -Path $imagesPath -PathType Container)) {
+    Write-Host "Creating " -NoNewline -ForegroundColor Yellow; Write-Host "'images' " -NoNewline -ForegroundColor Blue; Write-Host "folder..." -ForegroundColor Yellow
+    New-Item -Path $imagesPath -ItemType Directory | Out-Null
+  }
 
+  $imagesUrl = "https://github.com/RustyTake-Off/dotfiles/raw/main/winfiles/files/images/images.zip"
+
+  Write-Host "Downloading " -NoNewline -ForegroundColor Yellow; Write-Host "images.zip " -NoNewline -ForegroundColor Blue; Write-Host "file..." -ForegroundColor Yellow
+  Start-BitsTransfer -Source $imagesUrl -Destination $imagesPath
+
+  Write-Host "Extracting " -NoNewline -ForegroundColor Yellow; Write-Host "images.zip " -NoNewline -ForegroundColor Blue; Write-Host "file..." -ForegroundColor Yellow
+  Expand-Archive -Path $imagesFilePath -DestinationPath $imagesPath -Force
+  Remove-Item -Path $imagesFilePath
+
+  # windows terminal
+  $winTerminalConfigPath = Join-Path $env:LOCALAPPDATA "\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState"
+  $winTerminalSettingsPath = Join-Path $winTerminalConfigPath "settings.json"
+  $winTerminalUrl = "https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/winfiles/files/windows-terminal.json"
+
+  Write-Host "Downloading " -NoNewline -ForegroundColor Yellow; Write-Host "windows-terminal.json " -NoNewline -ForegroundColor Blue; Write-Host "file..." -ForegroundColor Yellow
+  Start-BitsTransfer -Source $winTerminalUrl -Destination $winTerminalSettingsPath
+
+  # powershell profiles
+  $powershellProfileFilePath = Join-Path $env:USERPROFILE "\Documents\PowerShell"
+
+  if (-not (Test-Path -Path $powershellProfileFilePath -PathType Container)) {
+    Write-Host "Creating " -NoNewline -ForegroundColor Yellow; Write-Host "'PowerShell' " -NoNewline -ForegroundColor Blue; Write-Host "folder..." -ForegroundColor Yellow
+    New-Item -Path $powershellProfileFilePath -ItemType Directory | Out-Null
+  }
+
+  $powershellMSUrl = "https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/winfiles/files/Microsoft.PowerShell_profile.ps1"
+  $powershellVSUrl = "https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/winfiles/files/Microsoft.VSCode_profile.ps1"
+
+  Write-Host "Downloading " -NoNewline -ForegroundColor Yellow; Write-Host "Microsoft.PowerShell_profile.ps1 " -NoNewline -ForegroundColor Blue; Write-Host "file..." -ForegroundColor Yellow
+  Start-BitsTransfer -Source $powershellMSUrl -Destination $powershellProfileFilePath
+
+  Write-Host "Downloading " -NoNewline -ForegroundColor Yellow; Write-Host "Microsoft.VSCode_profile.ps1 " -NoNewline -ForegroundColor Blue; Write-Host "file..." -ForegroundColor Yellow
+  Start-BitsTransfer -Source $powershellVSUrl -Destination $powershellProfileFilePath
+
+  Write-Host "Configuration files placement completed!" -ForegroundColor Green
 }
-# 08. Setup powershell profile
-
-# 12. Setup Windows Terminal
 
 switch ($action) {
   "drivers" {
@@ -149,7 +214,7 @@ switch ($action) {
     Get-PSModules
   }
   "configs" {
-    Update-Configs
+    Set-Configs
   }
   default {
     Write-Host "
