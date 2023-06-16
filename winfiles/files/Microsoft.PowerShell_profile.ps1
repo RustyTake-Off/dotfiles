@@ -14,12 +14,6 @@ This will create the file and the containing subdirectory if it doesn't already
 
 #>
 
-# From https://serverfault.com/questions/95431/in-a-powershell-script-how-can-i-check-if-im-running-with-administrator-privil#97599
-function Test-Administrator {
-  $user = [Security.Principal.WindowsIdentity]::GetCurrent();
-	(New-Object Security.Principal.WindowsPrincipal $user).IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator)
-}
-
 # Import modules
 # if ($host.Name -eq 'ConsoleHost') {
 #   Import-Module -Name PSReadLine
@@ -55,7 +49,9 @@ else {
   Set-PSReadLineOption -PredictionSource History
 }
 
+Set-PSReadLineOption -EditMode Windows
 Set-PSReadLineOption -HistorySearchCursorMovesToEnd:$true
+Set-PSReadLineOption -PredictionViewStyle ListView
 Set-PSReadLineOption -Colors @{ InlinePrediction = 'Blue' }
 
 Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
