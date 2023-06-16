@@ -19,6 +19,7 @@
     "Git.Git",
     "Microsoft.PowerShell",
     "Microsoft.AzureCLI",
-    "Microsoft.VisualStudioCode"
+    "Microsoft.VisualStudioCode",
+    "Microsoft.WindowsTerminal"
   ]
 }
