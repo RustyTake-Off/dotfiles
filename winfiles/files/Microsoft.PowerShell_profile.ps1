@@ -1,16 +1,41 @@
 <#
 
 .SYNOPSIS
-Configuration for the Microsoft.PowerShell_profile.ps1.
+    This is a configuration script for the Microsoft.PowerShell_profile.ps1 file.
 
 .DESCRIPTION
-Configuration for the Microsoft.PowerShell_profile.ps1.
-This file should be stored in $PROFILE.CurrentUserAllHosts
-If $PROFILE.CurrentUserAllHosts doesn't exist, you can make one with the following:
+    This is a configuration script for the Microsoft.PowerShell_profile.ps1 file.
 
-PS> New-Item $PROFILE.CurrentUserAllHosts -ItemType File -Force
+    Run this command to set the execution policy:
+    PS> Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
 
-This will create the file and the containing subdirectory if it doesn't already
+    This file should be stored in $PROFILE
+    If $PROFILE doesn't exist, you can make one with the following command:
+    PS> New-Item $PROFILE -ItemType File -Force
+
+    This will create the file and the containing subdirectory if it doesn't already have it.
+
+    The script sets up various configurations and imports modules to enhance the PowerShell console experience.
+    Here's a breakdown of what the script does:
+
+    Imports PowerShell modules:
+    Terminal-Icons: Provides support for displaying icons in the console.
+    posh-git: Integrates Git functionality into the console prompt.
+    z: Adds directory jumping capability using the z command.
+
+    Defines useful functions for traversing files and folders:
+    .: Sets the current location to the parent directory.
+    ..: Sets the current location to the grandparent directory.
+    ..., ...., .....: Sets the current location to increasingly higher-level parent directories.
+    hm: Sets the current location to the user profile directory.
+    hpr: Sets the current location to the user profile's pr subdirectory.
+    hwk: Sets the current location to the user profile's wk subdirectory.
+
+    Defines functions for computing file hashes (MD5, SHA1, SHA256) to verify successful downloads.
+    Configures PSReadLine.
+
+    Overall, this script enhances the PowerShell console with features like Git integration,
+    directory jumping, improved history navigation, and convenient key bindings for code editing.
 
 #>
 
