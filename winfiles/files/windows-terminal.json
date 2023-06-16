@@ -10,16 +10,26 @@
       "keys": "ctrl+c"
     },
     {
-      "command": "unbound",
-      "keys": "ctrl+shift+c"
-    },
-    {
-      "command": "unbound",
-      "keys": "ctrl+shift+v"
-    },
-    {
       "command": "paste",
       "keys": "ctrl+v"
+    },
+    {
+      "command": "closePane",
+      "keys": "ctrl+w"
+    },
+    {
+      "command": {
+        "action": "newTab"
+      },
+      "keys": "ctrl+t"
+    },
+    {
+      "command": {
+        "action": "splitPane",
+        "split": "auto",
+        "splitMode": "duplicate"
+      },
+      "keys": "alt+shift+d"
     }
   ],
   "copyFormatting": "none",
@@ -29,6 +39,7 @@
     "defaults": {
       "colorScheme": "Abernathy",
       "font": {
+        "face": "CaskaydiaCove Nerd Font Mono",
         "size": 14.0
       },
       "historySize": 12001,
@@ -76,7 +87,7 @@
         "backgroundImageAlignment": "bottomRight",
         "backgroundImageOpacity": 0.2,
         "backgroundImageStretchMode": "none",
-        "commandline": "\"%PROGRAMFILES%\\Git\\bin\\bash.exe\" -i -l",
+        "commandline": "\"%PROGRAMFILES%\\Git\\bin\\bash.exe\" --cd-to-home",
         "guid": "{ca68375c-52ff-443c-9e71-01094c994ddb}",
         "hidden": false,
         "icon": "%PROGRAMFILES%\\Git\\mingw64\\share\\git\\git-for-windows.ico",
