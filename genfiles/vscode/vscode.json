@@ -17,12 +17,14 @@
   // terminal config
   // ----------
   "terminal.integrated.fontSize": 18,
+  "terminal.integrated.fontFamily": "'CaskaydiaCove Nerd Font Mono', Consolas, 'Courier New', monospace",
   "terminal.integrated.cursorBlinking": true,
-  "terminal.integrated.scrollback": 9999,
+  "terminal.integrated.scrollback": 12001,
   // ----------------------------------------------------------------------------------------------------
   // editor config
   // ----------
   "editor.fontSize": 20,
+  "editor.fontFamily": "'CaskaydiaCove Nerd Font Mono', Consolas, 'Courier New', monospace",
   "editor.tabSize": 2,
   "editor.wordWrap": "on",
   "editor.tabCompletion": "on",
@@ -134,7 +136,8 @@
     "yml",
     // added
     "powershell",
-    "terraform"
+    "terraform",
+    "bicep"
   ],
   // ----------------------------------------------------------------------------------------------------
   // indentRainbow
@@ -171,6 +174,7 @@
   // powershell
   // ----------
   "powershell.enableProfileLoading": false,
+  "powershell.enableReferencesCodeLens": false,
   "powershell.promptToUpdatePowerShell": false,
   "powershell.codeFormatting.useCorrectCasing": true,
   "powershell.codeFormatting.alignPropertyValuePairs": true,
