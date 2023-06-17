@@ -86,7 +86,7 @@ Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
 # parens, and braces a nicer experience. I'd like to include functions
 # in the module that do this, but this implementation still isn't as smart
 # as ReSharper, so I'm just providing it as a sample.
-Set-PSReadLineKeyHandler -Key '"', "'" `
+<#Set-PSReadLineKeyHandler -Key '"', "'" `
   -BriefDescription SmartInsertQuote `
   -LongDescription "Insert paired quotes if not already on a quote" `
   -ScriptBlock {
@@ -179,7 +179,7 @@ Set-PSReadLineKeyHandler -Key '"', "'" `
 
   # We failed to be smart, so just insert a single quote
   [Microsoft.PowerShell.PSConsoleReadLine]::Insert($quote)
-}
+}#>
 
 Set-PSReadLineKeyHandler -Key '(', '{', '[' `
   -BriefDescription InsertPairedBraces `
@@ -300,7 +300,7 @@ Set-PSReadLineKeyHandler -Key Ctrl+V `
 # Sometimes you want to get a property of invoke a member on what you've entered so far
 # but you need parens to do that. This binding will help by putting parens around the current selection,
 # or if nothing is selected, the whole line.
-Set-PSReadLineKeyHandler -Key 'Alt+(' `
+<#Set-PSReadLineKeyHandler -Key 'Alt+(' `
   -BriefDescription ParenthesizeSelection `
   -LongDescription "Put parenthesis around the selection or entire line and move the cursor to after the closing parenthesis" `
   -ScriptBlock {
@@ -321,7 +321,7 @@ Set-PSReadLineKeyHandler -Key 'Alt+(' `
     [Microsoft.PowerShell.PSConsoleReadLine]::Replace(0, $line.Length, '(' + $line + ')')
     [Microsoft.PowerShell.PSConsoleReadLine]::EndOfLine()
   }
-}
+}#>
 
 # Each time you press Alt+', this key handler will change the token
 # under or before the cursor. It will cycle through single quotes, double quotes, or
@@ -380,7 +380,7 @@ Set-PSReadLineKeyHandler -Key "Alt+'" `
 }
 
 # This example will replace any aliases on the command line with the resolved commands.
-Set-PSReadLineKeyHandler -Key "Alt+%" `
+<#Set-PSReadLineKeyHandler -Key "Alt+%" `
   -BriefDescription ExpandAliases `
   -LongDescription "Replace all aliases with the full command" `
   -ScriptBlock {
@@ -413,10 +413,10 @@ Set-PSReadLineKeyHandler -Key "Alt+%" `
       }
     }
   }
-}
+}#>
 
 # F1 for help on the command line - naturally
-Set-PSReadLineKeyHandler -Key F1 `
+<#Set-PSReadLineKeyHandler -Key F1 `
   -BriefDescription CommandHelp `
   -LongDescription "Open the help window for the current command" `
   -ScriptBlock {
@@ -448,7 +448,7 @@ Set-PSReadLineKeyHandler -Key F1 `
       }
     }
   }
-}
+}#>
 
 # This key handler shows the entire or filtered history using Out-GridView. The
 # typed text is used as the substring pattern for filtering. A selected command
