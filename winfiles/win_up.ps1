@@ -33,7 +33,7 @@ param (
 )
 
 
-function Get-Drivers {
+function Get-Driver {
   Write-Host "`nDownloading drivers..." -ForegroundColor Yellow
 
   $downloadsPath = Join-Path $Env:USERPROFILE "Downloads"
@@ -73,7 +73,7 @@ function Invoke-CTT {
 }
 
 
-function Get-Apps {
+function Get-App {
   Write-Host "`nInstalling applications..." -ForegroundColor Yellow
 
   $downloadsPath = Join-Path $Env:USERPROFILE "Downloads"
@@ -106,7 +106,7 @@ function Get-Apps {
 }
 
 
-function Get-PSModules {
+function Get-PSModule {
   Write-Host "`nInstalling PowerShell modules..." -ForegroundColor Yellow
 
   $downloadsPath = Join-Path $Env:USERPROFILE "Downloads"
@@ -139,7 +139,7 @@ function Get-PSModules {
 }
 
 
-function Set-Configs {
+function Set-Config {
   Write-Host "`nSetting configuration files in all the right places..." -ForegroundColor Yellow
 
   # winget settings
@@ -202,19 +202,19 @@ function Set-Configs {
 
 switch ($action) {
   "drivers" {
-    Get-Drivers
+    Get-Driver
   }
   "ctt" {
     Invoke-CTT
   }
   "apps" {
-    Get-Apps
+    Get-App
   }
   "psmods" {
-    Get-PSModules
+    Get-PSModule
   }
   "configs" {
-    Set-Configs
+    Set-Config
   }
   default {
     Write-Host "
