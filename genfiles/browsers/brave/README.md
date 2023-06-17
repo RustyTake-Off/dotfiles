@@ -2,66 +2,41 @@
 
 ## Install Brave
 
+To install Brave, use the following PowerShell command:
+
 ```powershell
-winget install --id Brave.Brave
+winget install --id Brave.Brave --exact
 ```
 
 ## Extensions
 
-Some essential and useful extensions:
+Here are some essential and useful extensions for Brave:
 
-```txt
-uBlock Origin --id cjpalhdlnbpafiamejdnhcphjbkeiagm
+| Extension                             | ID                               |
+| ------------------------------------- | -------------------------------- |
+| uBlock Origin                         | cjpalhdlnbpafiamejdnhcphjbkeiagm |
+| Midnight Lizard                       | pbnndmlekkboofhnbonilimejonapojg |
+| Extensity                             | jjmflmamggggndanpgfnpelongoepncg |
+| User-Agent Switcher and Manager       | bhchdcejhohfmigjafbampogmaanbfkg |
+| Volume Master                         | jghecgabfgfdldnmbfkhmffcabddioke |
+| GoFullPage - Full Page Screen Capture | fdpohaocaechififmbbbbbknoalclacl |
+| BeterTTV                              | ajopnjidmegmdimjlfnijceegpefgped |
+| Momentum                              | laookkfknpbbblfpciffpaejjkokdgca |
+| Todoist                               | jldhpllghnbhlbpcmnajkpdmadaolakh |
+| Dark Reader                           | eimadpbcbfnmbkopoojfekhnkhdbieeh |
 
-Midnight Lizard --id pbnndmlekkboofhnbonilimejonapojg
+## Flags
 
-Extensity --id jjmflmamggggndanpgfnpelongoepncg
+You can access Brave Flags by entering `brave://flags/` in the address bar of your Brave browser.
 
-User-Agent Switcher and Manager --id bhchdcejhohfmigjafbampogmaanbfkg
+The following flags are not necessary but optional:
 
-Volume Master --id jghecgabfgfdldnmbfkhmffcabddioke
-
-GoFullPage - Full Page Screen Capture --id fdpohaocaechififmbbbbbknoalclacl
-
-BeterTTV --id ajopnjidmegmdimjlfnijceegpefgped
-
-Momentum --id laookkfknpbbblfpciffpaejjkokdgca
-
-Todoist --id jldhpllghnbhlbpcmnajkpdmadaolakh
-
-Dark Reader --id eimadpbcbfnmbkopoojfekhnkhdbieeh
-```
-
-## [Flags](brave://flags/)
-
-Not necessary but optional:
-
-```txt
-Enable Brave Wallet
-#native-brave-wallet
-Disabled
-
-Enable Brave News
-#brave-news
-Disabled
-
-Enable Brave News V2
-#brave-news-v2
-Disabled
-
-Brave News prompts on New Tab Page
-#brave-news-peek
-Disabled
-
-Smooth Scrolling
-#smooth-scrolling
-Disabled
-
-Parallel downloading
-#enable-parallel-downloading
-Enabled
-
-Sync Autofill Wallet Usage Data
-#use-dev-updater-url
-Disabled
-```
+| Flag                         | Action   |
+| ---------------------------- | -------- |
+| #native-brave-wallet         | Disabled |
+| #brave-news                  | Disabled |
+| #brave-news-v2               | Disabled |
+| #brave-news-peek             | Disabled |
+| #smooth-scrolling            | Disabled |
+| #enable-parallel-downloading | Enabled  |
+| #use-dev-updater-url         | Disabled |
