@@ -2,17 +2,21 @@
 
 ## Install VSCode
 
+To install Visual Studio Code (VSCode), use the following PowerShell command:
+
 ```powershell
-winget install --id Microsoft.VisualStudioCode
+winget install --id Microsoft.VisualStudioCode --exact
 ```
 
 ## Load settings
 
-[**Sync**](https://code.visualstudio.com/docs/editor/settings-sync) settings with GitHub or load [**settings.json**](https://github.com/RustyTake-Off/dotfiles/blob/main/genfiles/vscode/settings.json) file into VSCode manually.
+You can [**sync**](https://code.visualstudio.com/docs/editor/settings-sync) your settings with GitHub or manually load the [**settings.json**](https://github.com/RustyTake-Off/dotfiles/blob/main/genfiles/vscode/settings.json) file into VSCode.
 
 ## Extensions
 
 ### List extensions
+
+To list the installed extensions in VSCode, use the following PowerShell command:
 
 ```powershell
 code --list-extensions
@@ -20,11 +24,15 @@ code --list-extensions
 
 ### Install extensions
 
+To install extensions in VSCode, use the following PowerShell command:
+
 ```powershell
 code --install-extension <author>.<extension_name>
 ```
 
 ### Uninstall extensions
+
+To uninstall extensions in VSCode, use the following PowerShell command:
 
 ```powershell
 code --uninstall-extension <author>.<extension_name>
@@ -32,86 +40,49 @@ code --uninstall-extension <author>.<extension_name>
 
 ### Useful extensions
 
-Some essential and useful extensions:
+Here are some essential and useful extensions for VSCode:
 
-```powershell
-code --install-extension aaron-bond.better-comments
+| Extension                                    |
+| -------------------------------------------- |
+| aaron-bond.better-comments                   |
+| AzurePolicy.azurepolicyextension             |
+| bencoleman.armview                           |
+| DavidAnson.vscode-markdownlint               |
+| eamodio.gitlens                              |
+| GitHub.remotehub                             |
+| hashicorp.terraform                          |
+| 4ops.terraform                               |
+| ms-azure-devops.azure-pipelines              |
+| ms-azuretools.azure-dev                      |
+| ms-azuretools.vscode-azureappservice         |
+| ms-azuretools.vscode-azurefunctions          |
+| ms-azuretools.vscode-azureresourcegroups     |
+| ms-azuretools.vscode-azurestaticwebapps      |
+| ms-azuretools.vscode-azurestorage            |
+| ms-azuretools.vscode-azurevirtualmachines    |
+| ms-azuretools.vscode-bicep                   |
+| ms-azuretools.vscode-cosmosdb                |
+| ms-azuretools.vscode-docker                  |
+| ms-kubernetes-tools.vscode-aks-tools         |
+| ms-kubernetes-tools.vscode-kubernetes-tools  |
+| ms-vscode-remote.remote-containers           |
+| ms-vscode-remote.remote-ssh                  |
+| ms-vscode-remote.remote-ssh-edit             |
+| ms-vscode-remote.remote-wsl                  |
+| ms-vscode-remote.vscode-remote-extensionpack |
+| ms-vscode.azure-account                      |
+| ms-vscode.azure-repos                        |
+| ms-vscode.powershell                         |
+| ms-vscode.remote-explorer                    |
+| ms-vscode.remote-server                      |
+| ms-vscode.vscode-node-azure-pack             |
+| ms-vsliveshare.vsliveshare                   |
+| msazurermtools.azurerm-vscode-tools          |
+| oderwat.indent-rainbow                       |
+| redhat.vscode-yaml                           |
+| streetsidesoftware.code-spell-checker        |
+| vscode-icons-team.vscode-icons               |
+| wayou.vscode-todo-highlight                  |
+| yzhang.markdown-all-in-one                   |
 
-code --install-extension AzurePolicy.azurepolicyextension
-
-code --install-extension bencoleman.armview
-
-code --install-extension DavidAnson.vscode-markdownlint
-
-code --install-extension eamodio.gitlens
-
-code --install-extension GitHub.remotehub
-
-code --install-extension hashicorp.terraform
-
-code --install-extension 4ops.terraform
-
-code --install-extension ms-azure-devops.azure-pipelines
-
-code --install-extension ms-azuretools.azure-dev
-
-code --install-extension ms-azuretools.vscode-azureappservice
-
-code --install-extension ms-azuretools.vscode-azurefunctions
-
-code --install-extension ms-azuretools.vscode-azureresourcegroups
-
-code --install-extension ms-azuretools.vscode-azurestaticwebapps
-
-code --install-extension ms-azuretools.vscode-azurestorage
-
-code --install-extension ms-azuretools.vscode-azurevirtualmachines
-
-code --install-extension ms-azuretools.vscode-bicep
-
-code --install-extension ms-azuretools.vscode-cosmosdb
-
-code --install-extension ms-azuretools.vscode-docker
-
-code --install-extension ms-kubernetes-tools.vscode-aks-tools
-
-code --install-extension ms-kubernetes-tools.vscode-kubernetes-tools
-
-code --install-extension ms-vscode-remote.remote-containers
-
-code --install-extension ms-vscode-remote.remote-ssh
-
-code --install-extension ms-vscode-remote.remote-ssh-edit
-
-code --install-extension ms-vscode-remote.remote-wsl
-
-code --install-extension ms-vscode-remote.vscode-remote-extensionpack
-
-code --install-extension ms-vscode.azure-account
-
-code --install-extension ms-vscode.azure-repos
-
-code --install-extension ms-vscode.powershell
-
-code --install-extension ms-vscode.remote-explorer
-
-code --install-extension ms-vscode.remote-server
-
-code --install-extension ms-vscode.vscode-node-azure-pack
-
-code --install-extension ms-vsliveshare.vsliveshare
-
-code --install-extension msazurermtools.azurerm-vscode-tools
-
-code --install-extension oderwat.indent-rainbow
-
-code --install-extension redhat.vscode-yaml
-
-code --install-extension streetsidesoftware.code-spell-checker
-
-code --install-extension vscode-icons-team.vscode-icons
-
-code --install-extension wayou.vscode-todo-highlight
-
-code --install-extension yzhang.markdown-all-in-one
-```
+You can install these extensions by using the corresponding `code --install-extension` command for each extension.
