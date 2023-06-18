@@ -120,7 +120,7 @@ function Get-App {
   foreach ($appName in $appsJson.apps) {
     if (-not (winget list --exact --id $appName)) {
       Write-Host "Installing " -NoNewline; Write-Host "$appName" -ForegroundColor Blue
-      winget install --exact --id $appName --silent --no-upgrade
+      winget install --exact --id $appName --silent --no-upgrade --accept-source-agreements --accept-package-agreements
     }
     else {
       Write-Host "$appName " -ForegroundColor Blue -NoNewline; Write-Host "is already installed. " -NoNewline; Write-Host "Skipping installation..." -ForegroundColor Red
