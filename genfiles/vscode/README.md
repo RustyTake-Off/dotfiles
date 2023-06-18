@@ -10,7 +10,7 @@ winget install --id Microsoft.VisualStudioCode --exact
 
 ## Load settings
 
-You can [**sync**](https://code.visualstudio.com/docs/editor/settings-sync) your settings with GitHub or manually load the [**settings.json**](https://github.com/RustyTake-Off/dotfiles/blob/main/genfiles/vscode/settings.json) file into VSCode.
+You can [**sync**](https://code.visualstudio.com/docs/editor/settings-sync) your settings with GitHub or manually load the [**settings.json**](https://github.com/RustyTake-Off/dotfiles/blob/main/genfiles/vscode/vscode.json) file into VSCode.
 
 ## Extensions
 
