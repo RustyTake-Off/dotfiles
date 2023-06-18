@@ -156,6 +156,7 @@
   // ----------
   "markdownlint.config": {
     "MD013": false,
+    "MD029": false,
     "MD033": false
   },
   // language specific
