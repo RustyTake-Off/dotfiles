@@ -1,5 +1,9 @@
 <#
 
+.NOTES
+    Author: RustyTake-Off
+    GitHub: https://github.com/RustyTake-Off/dotfiles/tree/main/winfiles
+
 .SYNOPSIS
     This is a configuration script for the Microsoft.PowerShell_profile.ps1 file.
 
