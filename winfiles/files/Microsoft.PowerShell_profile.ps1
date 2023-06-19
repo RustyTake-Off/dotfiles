@@ -37,13 +37,12 @@
     Overall, this script enhances the PowerShell console with features like Git integration,
     directory jumping, improved history navigation, and convenient key bindings for code editing.
 
+    Note: Make sure to understand and review the code before executing it,
+    especially when downloading and executing scripts from external sources.
+
 #>
 
 # Import modules
-# if ($host.Name -eq 'ConsoleHost') {
-#   Import-Module -Name PSReadLine
-# }
-# Import-Module -Name PSColors
 Import-Module -Name Terminal-Icons
 Import-Module -Name posh-git
 Import-Module -Name z
@@ -279,55 +278,6 @@ Set-PSReadLineKeyHandler -Key "Alt+'" `
       $extent.StartOffset,
       $tokenText.Length,
       $replacement)
-  }
-}
-
-# This key handler shows the entire or filtered history using Out-GridView. The
-# typed text is used as the substring pattern for filtering. A selected command
-# is inserted to the command line without invoking. Multiple command selection
-# is supported, e.g. selected by Ctrl + Click.
-Set-PSReadLineKeyHandler -Key F7 `
-  -BriefDescription History `
-  -LongDescription 'Show command history' `
-  -ScriptBlock {
-  $pattern = $null
-  [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$pattern, [ref]$null)
-  if ($pattern) {
-    $pattern = [regex]::Escape($pattern)
-  }
-
-  $history = [System.Collections.ArrayList]@(
-    $last = ''
-    $lines = ''
-    foreach ($line in [System.IO.File]::ReadLines((Get-PSReadLineOption).HistorySavePath)) {
-      if ($line.EndsWith('`')) {
-        $line = $line.Substring(0, $line.Length - 1)
-        $lines = if ($lines) {
-          "$lines`n$line"
-        }
-        else {
-          $line
-        }
-        continue
-      }
-
-      if ($lines) {
-        $line = "$lines`n$line"
-        $lines = ''
-      }
-
-      if (($line -cne $last) -and (!$pattern -or ($line -match $pattern))) {
-        $last = $line
-        $line
-      }
-    }
-  )
-  $history.Reverse()
-
-  $command = $history | Out-GridView -Title History -PassThru
-  if ($command) {
-    [Microsoft.PowerShell.PSConsoleReadLine]::RevertLine()
-    [Microsoft.PowerShell.PSConsoleReadLine]::Insert(($command -join "`n"))
   }
 }
 
