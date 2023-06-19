@@ -1,5 +1,9 @@
 <#
 
+.NOTES
+    Author: RustyTake-Off
+    GitHub: https://github.com/RustyTake-Off/dotfiles/tree/main/winfiles
+
 .SYNOPSIS
     Script to automate the download and installation of drivers, applications,
     PowerShell modules, and configuration files on Windows.
@@ -13,6 +17,10 @@
 
     Run this command to set the execution policy:
     PS> Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
+
+    Download the script by executing the following command and saving it to your machine:
+
+    PS> Invoke-WebRequest -Uri "https://github.com/RustyTake-Off/dotfiles/raw/main/winfiles/win_up.ps1" -OutFile "$env:USERPROFILE\win_up.ps1"
 
     The available actions are:
     - drivers: Downloads drivers.
@@ -120,7 +128,7 @@ function Get-App {
   foreach ($appName in $appsJson.apps) {
     if (-not (winget list --exact --id $appName)) {
       Write-Host "Installing " -NoNewline; Write-Host "$appName" -ForegroundColor Blue
-      winget install --exact --id $appName --silent --no-upgrade --accept-source-agreements --accept-package-agreements
+      winget install --exact --id $appName --source winget --silent --no-upgrade --accept-source-agreements --accept-package-agreements
     }
     else {
       Write-Host "$appName " -ForegroundColor Blue -NoNewline; Write-Host "is already installed. " -NoNewline; Write-Host "Skipping installation..." -ForegroundColor Red
@@ -152,7 +160,7 @@ function Get-PSModule {
   foreach ($psModsName in $psmodulesJson.psmodules) {
     if (-not (Get-Module -ListAvailable -Name $psModsName)) {
       Write-Host "Installing " -NoNewline; Write-Host "$psModsName" -ForegroundColor Blue
-      Install-Module $psModsName -Force -AcceptLicense
+      Install-Module -Name $psModsName -Repository PSGallery -Force -AcceptLicense
     }
     else {
       Write-Host "$psModsName " -ForegroundColor Blue -NoNewline; Write-Host "is already installed. " -NoNewline; Write-Host "Skipping installation..." -ForegroundColor Red
@@ -167,19 +175,26 @@ function Set-Config {
   Write-Host "`nSetting configuration files in all the right places..." -ForegroundColor Yellow
 
   # --------------------
-  # winget settings todo if check
+  # winget settings
   $wingetSettingsPath = Join-Path $Env:LOCALAPPDATA "\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState"
   $wingetSettingsFilePath = Join-Path $wingetSettingsPath "settings.json"
-  $wingetUrl = "https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/winfiles/files/winget.json"
+  $wingetSettingsContent = Get-Content -Raw -Path $wingetSettingsFilePath | ConvertFrom-Json
 
-  Write-Host "Downloading " -NoNewline -ForegroundColor Yellow; Write-Host "winget.json " -NoNewline -ForegroundColor Blue; Write-Host "file..." -ForegroundColor Yellow
-  Invoke-WebRequest -Uri $wingetUrl -OutFile $wingetSettingsPath\settings.json
+  if ($wingetSettingsContent.visual.progressBar -eq "rainbow") {
+    $wingetUrl = "https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/winfiles/files/winget.json"
 
-  Write-Host "Creating " -NoNewline -ForegroundColor Yellow; Write-Host "winget settings.json.backup " -NoNewline -ForegroundColor Blue; Write-Host "file..." -ForegroundColor Yellow
-  Copy-Item -Path $wingetSettingsFilePath -Destination $wingetSettingsPath\settings.json.backup
+    Write-Host "Downloading " -NoNewline -ForegroundColor Yellow; Write-Host "winget.json " -NoNewline -ForegroundColor Blue; Write-Host "file..." -ForegroundColor Yellow
+    Invoke-WebRequest -Uri $wingetUrl -OutFile $wingetSettingsPath\settings.json
+
+    Write-Host "Creating " -NoNewline -ForegroundColor Yellow; Write-Host "winget settings.json.backup " -NoNewline -ForegroundColor Blue; Write-Host "file..." -ForegroundColor Yellow
+    Copy-Item -Path $wingetSettingsFilePath -Destination $wingetSettingsPath\settings.json.backup
+  }
+  else {
+    Write-Host "Winget " -ForegroundColor Blue -NoNewline; Write-Host "settings are already applied properly. " -NoNewline; Write-Host "Skipping..." -ForegroundColor Red
+  }
 
   # --------------------
-  # images for windows-terminal todo if check
+  # images for windows-terminal
   $imagesPath = Join-Path $env:USERPROFILE "\shared\images"
   $imagesFilePath = Join-Path $imagesPath "\images.zip"
 
