@@ -1,25 +1,25 @@
 {
-  "apps": [
-    "Microsoft.VCRedist.2005.x64",
-    "Microsoft.VCRedist.2008.x64",
-    "Microsoft.VCRedist.2010.x64",
-    "Microsoft.VCRedist.2012.x64",
-    "Microsoft.VCRedist.2013.x64",
-    "Microsoft.VCRedist.2015+.x64",
-    "File-New-Project.EarTrumpet",
-    "7zip.7zip",
-    "CPUID.HWMonitor",
-    "Notepad++.Notepad++",
-    "SumatraPDF.SumatraPDF",
-    "Brave.Brave",
-    "KeePassXCTeam.KeePassXC",
-    "Greenshot.Greenshot",
-    "VideoLAN.VLC",
-    "Microsoft.PowerToys",
-    "Git.Git",
-    "Microsoft.PowerShell",
-    "Microsoft.AzureCLI",
-    "Microsoft.VisualStudioCode",
-    "Microsoft.WindowsTerminal"
-  ]
+    "apps": [
+        "Microsoft.VCRedist.2005.x64",
+        "Microsoft.VCRedist.2008.x64",
+        "Microsoft.VCRedist.2010.x64",
+        "Microsoft.VCRedist.2012.x64",
+        "Microsoft.VCRedist.2013.x64",
+        "Microsoft.VCRedist.2015+.x64",
+        "File-New-Project.EarTrumpet",
+        "7zip.7zip",
+        "CPUID.HWMonitor",
+        "Notepad++.Notepad++",
+        "SumatraPDF.SumatraPDF",
+        "Brave.Brave",
+        "KeePassXCTeam.KeePassXC",
+        "Greenshot.Greenshot",
+        "VideoLAN.VLC",
+        "Microsoft.PowerToys",
+        "Git.Git",
+        "Microsoft.PowerShell",
+        "Microsoft.AzureCLI",
+        "Microsoft.VisualStudioCode",
+        "Microsoft.WindowsTerminal"
+    ]
 }
