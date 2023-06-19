@@ -1,11 +1,11 @@
 {
-  "psmodules": [
-    "PackageManagement",
-    "PowerShellGet",
-    "PSWindowsUpdate",
-    "PSReadLine",
-    "z",
-    "Terminal-Icons",
-    "posh-git"
-  ]
+    "psmodules": [
+        "PackageManagement",
+        "PowerShellGet",
+        "PSWindowsUpdate",
+        "PSReadLine",
+        "z",
+        "Terminal-Icons",
+        "posh-git"
+    ]
 }
