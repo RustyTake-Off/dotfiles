@@ -1,5 +1,9 @@
 <#
 
+.NOTES
+    Author: RustyTake-Off
+    GitHub: https://github.com/RustyTake-Off/dotfiles/tree/main/winfiles
+
 .SYNOPSIS
     Configuration for the Microsoft.VSCode_profile.ps1.
 
