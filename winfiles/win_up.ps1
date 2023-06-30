@@ -51,23 +51,23 @@ param (
 function Get-Driver {
   Write-Host "`nDownloading drivers..." -ForegroundColor Yellow
 
-  $driversPath = Join-Path $Env:USERPROFILE "Downloads\winup\drivers"
+  $driversPath = Join-Path $Env:USERPROFILE 'Downloads\winup\drivers'
 
   if (-not (Test-Path -Path $driversPath -PathType Container)) {
-    Write-Host "Creating " -NoNewline -ForegroundColor Yellow; Write-Host "'drivers' " -NoNewline -ForegroundColor Blue; Write-Host "folder..." -ForegroundColor Yellow
+    Write-Host 'Creating ' -NoNewline -ForegroundColor Yellow; Write-Host "'drivers' " -NoNewline -ForegroundColor Blue; Write-Host 'folder...' -ForegroundColor Yellow
     New-Item -Path $driversPath -ItemType Directory | Out-Null
   }
 
-  $driversJsonPath = Join-Path $driversPath "drivers.json"
-  $driversUrl = "https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/winfiles/files/drivers.json"
+  $driversJsonPath = Join-Path $driversPath 'drivers.json'
+  $driversUrl = 'https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/winfiles/files/drivers.json'
 
-  Write-Host "Downloading " -NoNewline -ForegroundColor Yellow; Write-Host "drivers.json " -NoNewline -ForegroundColor Blue; Write-Host "file..." -ForegroundColor Yellow
+  Write-Host 'Downloading ' -NoNewline -ForegroundColor Yellow; Write-Host 'drivers.json ' -NoNewline -ForegroundColor Blue; Write-Host 'file...' -ForegroundColor Yellow
   Invoke-WebRequest -Uri $driversUrl -OutFile $driversPath\drivers.json
 
   $driversJson = Get-Content -Raw -Path $driversJsonPath | ConvertFrom-Json
 
   foreach ($driverUrl in $driversJson.drivers) {
-    Write-Host "Downloading " -NoNewline; Write-Host "$driverUrl" -ForegroundColor Blue
+    Write-Host 'Downloading ' -NoNewline; Write-Host "$driverUrl" -ForegroundColor Blue
     $outputFileName = Split-Path -Leaf $driverUrl
     $outputFilePath = Join-Path $driversPath $outputFileName
     Start-BitsTransfer -Source $driverUrl -Destination $outputFilePath
@@ -77,20 +77,20 @@ function Get-Driver {
 
   # --------------------
   # fonts
-  $fontsPath = Join-Path $Env:USERPROFILE "Downloads\winup\fonts"
-  $fontsFilePath = Join-Path $fontsPath "fonts.zip"
+  $fontsPath = Join-Path $Env:USERPROFILE 'Downloads\winup\fonts'
+  $fontsFilePath = Join-Path $fontsPath 'fonts.zip'
 
   if (-not (Test-Path -Path $fontsPath -PathType Container)) {
-    Write-Host "Creating " -NoNewline -ForegroundColor Yellow; Write-Host "'fonts' " -NoNewline -ForegroundColor Blue; Write-Host "folder..." -ForegroundColor Yellow
+    Write-Host 'Creating ' -NoNewline -ForegroundColor Yellow; Write-Host "'fonts' " -NoNewline -ForegroundColor Blue; Write-Host 'folder...' -ForegroundColor Yellow
     New-Item -Path $fontsPath -ItemType Directory | Out-Null
   }
 
-  $fontsUrl = "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CascadiaCode.zip"
+  $fontsUrl = 'https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CascadiaCode.zip'
 
-  Write-Host "Downloading " -NoNewline -ForegroundColor Yellow; Write-Host "fonts " -NoNewline -ForegroundColor Blue; Write-Host "file..." -ForegroundColor Yellow
+  Write-Host 'Downloading ' -NoNewline -ForegroundColor Yellow; Write-Host 'fonts ' -NoNewline -ForegroundColor Blue; Write-Host 'file...' -ForegroundColor Yellow
   Invoke-WebRequest -Uri $fontsUrl -OutFile $fontsPath\fonts.zip
 
-  Write-Host "Extracting " -NoNewline -ForegroundColor Yellow; Write-Host "fonts.zip " -NoNewline -ForegroundColor Blue; Write-Host "file..." -ForegroundColor Yellow
+  Write-Host 'Extracting ' -NoNewline -ForegroundColor Yellow; Write-Host 'fonts.zip ' -NoNewline -ForegroundColor Blue; Write-Host 'file...' -ForegroundColor Yellow
   Expand-Archive -Path $fontsFilePath -DestinationPath $fontsPath -Force
   Remove-Item -Path $fontsFilePath
 
@@ -110,28 +110,27 @@ function Invoke-CTT {
 function Get-App {
   Write-Host "`nInstalling applications..." -ForegroundColor Yellow
 
-  $appsPath = Join-Path $Env:USERPROFILE "Downloads\winup"
+  $appsPath = Join-Path $Env:USERPROFILE 'Downloads\winup'
 
   if (-not (Test-Path -Path $appsPath -PathType Container)) {
-    Write-Host "Creating " -NoNewline -ForegroundColor Yellow; Write-Host "'winup' " -NoNewline -ForegroundColor Blue; Write-Host "folder..." -ForegroundColor Yellow
+    Write-Host 'Creating ' -NoNewline -ForegroundColor Yellow; Write-Host "'winup' " -NoNewline -ForegroundColor Blue; Write-Host 'folder...' -ForegroundColor Yellow
     New-Item -Path $appsPath -ItemType Directory | Out-Null
   }
 
-  $appsJsonPath = Join-Path $appsPath "apps.json"
-  $appsUrl = "https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/winfiles/files/apps.json"
+  $appsJsonPath = Join-Path $appsPath 'apps.json'
+  $appsUrl = 'https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/winfiles/files/apps.json'
 
-  Write-Host "Downloading " -NoNewline -ForegroundColor Yellow; Write-Host "apps.json " -NoNewline -ForegroundColor Blue; Write-Host "file..." -ForegroundColor Yellow
+  Write-Host 'Downloading ' -NoNewline -ForegroundColor Yellow; Write-Host 'apps.json ' -NoNewline -ForegroundColor Blue; Write-Host 'file...' -ForegroundColor Yellow
   Invoke-WebRequest -Uri $appsUrl -OutFile $appsPath\apps.json
 
   $appsJson = Get-Content -Raw -Path $appsJsonPath | ConvertFrom-Json
 
   foreach ($appName in $appsJson.apps) {
     if (-not (winget list --exact --id $appName)) {
-      Write-Host "Installing " -NoNewline; Write-Host "$appName" -ForegroundColor Blue
+      Write-Host 'Installing ' -NoNewline; Write-Host "$appName" -ForegroundColor Blue
       winget install --exact --id $appName --source winget --silent --no-upgrade --accept-source-agreements --accept-package-agreements
-    }
-    else {
-      Write-Host "$appName " -ForegroundColor Blue -NoNewline; Write-Host "is already installed. " -NoNewline; Write-Host "Skipping installation..." -ForegroundColor Red
+    } else {
+      Write-Host "$appName " -ForegroundColor Blue -NoNewline; Write-Host 'is already installed. ' -NoNewline; Write-Host 'Skipping installation...' -ForegroundColor Red
     }
   }
 
@@ -142,28 +141,27 @@ function Get-App {
 function Get-PSModule {
   Write-Host "`nInstalling PowerShell modules..." -ForegroundColor Yellow
 
-  $psModsPath = Join-Path $Env:USERPROFILE "Downloads\winup"
+  $psModsPath = Join-Path $Env:USERPROFILE 'Downloads\winup'
 
   if (-not (Test-Path -Path $psModsPath -PathType Container)) {
-    Write-Host "Creating " -NoNewline -ForegroundColor Yellow; Write-Host "'winup' " -NoNewline -ForegroundColor Blue; Write-Host "folder..." -ForegroundColor Yellow
+    Write-Host 'Creating ' -NoNewline -ForegroundColor Yellow; Write-Host "'winup' " -NoNewline -ForegroundColor Blue; Write-Host 'folder...' -ForegroundColor Yellow
     New-Item -Path $psModsPath -ItemType Directory | Out-Null
   }
 
-  $psmodulesJsonPath = Join-Path $psModsPath "psmodules.json"
-  $psmodulesUrl = "https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/winfiles/files/psmodules.json"
+  $psmodulesJsonPath = Join-Path $psModsPath 'psmodules.json'
+  $psmodulesUrl = 'https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/winfiles/files/psmodules.json'
 
-  Write-Host "Downloading " -NoNewline -ForegroundColor Yellow; Write-Host "psmodules.json " -NoNewline -ForegroundColor Blue; Write-Host "file..." -ForegroundColor Yellow
+  Write-Host 'Downloading ' -NoNewline -ForegroundColor Yellow; Write-Host 'psmodules.json ' -NoNewline -ForegroundColor Blue; Write-Host 'file...' -ForegroundColor Yellow
   Invoke-WebRequest -Uri $psmodulesUrl -OutFile $psmodulesJsonPath
 
   $psmodulesJson = Get-Content -Raw -Path $psmodulesJsonPath | ConvertFrom-Json
 
   foreach ($psModsName in $psmodulesJson.psmodules) {
     if (-not (Get-Module -ListAvailable -Name $psModsName)) {
-      Write-Host "Installing " -NoNewline; Write-Host "$psModsName" -ForegroundColor Blue
+      Write-Host 'Installing ' -NoNewline; Write-Host "$psModsName" -ForegroundColor Blue
       Install-Module -Name $psModsName -Repository PSGallery -Force -AcceptLicense
-    }
-    else {
-      Write-Host "$psModsName " -ForegroundColor Blue -NoNewline; Write-Host "is already installed. " -NoNewline; Write-Host "Skipping installation..." -ForegroundColor Red
+    } else {
+      Write-Host "$psModsName " -ForegroundColor Blue -NoNewline; Write-Host 'is already installed. ' -NoNewline; Write-Host 'Skipping installation...' -ForegroundColor Red
     }
   }
 
@@ -176,66 +174,65 @@ function Set-Config {
 
   # --------------------
   # winget settings
-  $wingetSettingsPath = Join-Path $Env:LOCALAPPDATA "\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState"
-  $wingetSettingsFilePath = Join-Path $wingetSettingsPath "settings.json"
+  $wingetSettingsPath = Join-Path $Env:LOCALAPPDATA '\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState'
+  $wingetSettingsFilePath = Join-Path $wingetSettingsPath 'settings.json'
   $wingetSettingsContent = Get-Content -Raw -Path $wingetSettingsFilePath | ConvertFrom-Json
 
-  if ($wingetSettingsContent.visual.progressBar -eq "rainbow") {
-    $wingetUrl = "https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/winfiles/files/winget.json"
+  if ($wingetSettingsContent.visual.progressBar -eq 'rainbow') {
+    $wingetUrl = 'https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/winfiles/files/winget.json'
 
-    Write-Host "Downloading " -NoNewline -ForegroundColor Yellow; Write-Host "winget.json " -NoNewline -ForegroundColor Blue; Write-Host "file..." -ForegroundColor Yellow
+    Write-Host 'Downloading ' -NoNewline -ForegroundColor Yellow; Write-Host 'winget.json ' -NoNewline -ForegroundColor Blue; Write-Host 'file...' -ForegroundColor Yellow
     Invoke-WebRequest -Uri $wingetUrl -OutFile $wingetSettingsPath\settings.json
 
-    Write-Host "Creating " -NoNewline -ForegroundColor Yellow; Write-Host "winget settings.json.backup " -NoNewline -ForegroundColor Blue; Write-Host "file..." -ForegroundColor Yellow
+    Write-Host 'Creating ' -NoNewline -ForegroundColor Yellow; Write-Host 'winget settings.json.backup ' -NoNewline -ForegroundColor Blue; Write-Host 'file...' -ForegroundColor Yellow
     Copy-Item -Path $wingetSettingsFilePath -Destination $wingetSettingsPath\settings.json.backup
-  }
-  else {
-    Write-Host "Winget " -ForegroundColor Blue -NoNewline; Write-Host "settings are already applied properly. " -NoNewline; Write-Host "Skipping..." -ForegroundColor Red
+  } else {
+    Write-Host 'Winget ' -ForegroundColor Blue -NoNewline; Write-Host 'settings are already applied properly. ' -NoNewline; Write-Host 'Skipping...' -ForegroundColor Red
   }
 
   # --------------------
   # images for windows-terminal
-  $imagesPath = Join-Path $env:USERPROFILE "\shared\images"
-  $imagesFilePath = Join-Path $imagesPath "\images.zip"
+  $imagesPath = Join-Path $env:USERPROFILE '\shared\images'
+  $imagesFilePath = Join-Path $imagesPath '\images.zip'
 
   if (-not (Test-Path -Path $imagesPath -PathType Container)) {
-    Write-Host "Creating " -NoNewline -ForegroundColor Yellow; Write-Host "'images' " -NoNewline -ForegroundColor Blue; Write-Host "folder..." -ForegroundColor Yellow
+    Write-Host 'Creating ' -NoNewline -ForegroundColor Yellow; Write-Host "'images' " -NoNewline -ForegroundColor Blue; Write-Host 'folder...' -ForegroundColor Yellow
     New-Item -Path $imagesPath -ItemType Directory | Out-Null
   }
 
-  $imagesUrl = "https://github.com/RustyTake-Off/dotfiles/raw/main/winfiles/files/images/images.zip"
+  $imagesUrl = 'https://github.com/RustyTake-Off/dotfiles/raw/main/winfiles/files/images/images.zip'
 
-  Write-Host "Downloading " -NoNewline -ForegroundColor Yellow; Write-Host "images.zip " -NoNewline -ForegroundColor Blue; Write-Host "file..." -ForegroundColor Yellow
+  Write-Host 'Downloading ' -NoNewline -ForegroundColor Yellow; Write-Host 'images.zip ' -NoNewline -ForegroundColor Blue; Write-Host 'file...' -ForegroundColor Yellow
   Invoke-WebRequest -Uri $imagesUrl -OutFile $imagesPath\images.zip
 
-  Write-Host "Extracting " -NoNewline -ForegroundColor Yellow; Write-Host "images.zip " -NoNewline -ForegroundColor Blue; Write-Host "file..." -ForegroundColor Yellow
+  Write-Host 'Extracting ' -NoNewline -ForegroundColor Yellow; Write-Host 'images.zip ' -NoNewline -ForegroundColor Blue; Write-Host 'file...' -ForegroundColor Yellow
   Expand-Archive -Path $imagesFilePath -DestinationPath $imagesPath -Force
   Remove-Item -Path $imagesFilePath
 
   # --------------------
   # windows-terminal settings
-  $winTerminalSettingsPath = Join-Path $env:LOCALAPPDATA "\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState"
-  $winTerminalUrl = "https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/winfiles/files/windows-terminal.json"
+  $winTerminalSettingsPath = Join-Path $env:LOCALAPPDATA '\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState'
+  $winTerminalUrl = 'https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/winfiles/files/windows-terminal.json'
 
-  Write-Host "Downloading " -NoNewline -ForegroundColor Yellow; Write-Host "windows-terminal.json " -NoNewline -ForegroundColor Blue; Write-Host "file..." -ForegroundColor Yellow
+  Write-Host 'Downloading ' -NoNewline -ForegroundColor Yellow; Write-Host 'windows-terminal.json ' -NoNewline -ForegroundColor Blue; Write-Host 'file...' -ForegroundColor Yellow
   Invoke-WebRequest -Uri $winTerminalUrl -OutFile $winTerminalSettingsPath\settings.json
 
   # --------------------
   # powershell profiles
-  $powershellProfileFilePath = Join-Path $env:USERPROFILE "\Documents\PowerShell"
+  $powershellProfileFilePath = Join-Path $env:USERPROFILE '\Documents\PowerShell'
 
   if (-not (Test-Path -Path $powershellProfileFilePath -PathType Container)) {
-    Write-Host "Creating " -NoNewline -ForegroundColor Yellow; Write-Host "'PowerShell' " -NoNewline -ForegroundColor Blue; Write-Host "folder..." -ForegroundColor Yellow
+    Write-Host 'Creating ' -NoNewline -ForegroundColor Yellow; Write-Host "'PowerShell' " -NoNewline -ForegroundColor Blue; Write-Host 'folder...' -ForegroundColor Yellow
     New-Item -Path $powershellProfileFilePath -ItemType Directory | Out-Null
   }
 
-  $powershellMSUrl = "https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/winfiles/files/Microsoft.PowerShell_profile.ps1"
-  $powershellVSUrl = "https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/winfiles/files/Microsoft.VSCode_profile.ps1"
+  $powershellMSUrl = 'https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/winfiles/files/Microsoft.PowerShell_profile.ps1'
+  $powershellVSUrl = 'https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/winfiles/files/Microsoft.VSCode_profile.ps1'
 
-  Write-Host "Downloading " -NoNewline -ForegroundColor Yellow; Write-Host "Microsoft.PowerShell_profile.ps1 " -NoNewline -ForegroundColor Blue; Write-Host "file..." -ForegroundColor Yellow
+  Write-Host 'Downloading ' -NoNewline -ForegroundColor Yellow; Write-Host 'Microsoft.PowerShell_profile.ps1 ' -NoNewline -ForegroundColor Blue; Write-Host 'file...' -ForegroundColor Yellow
   Invoke-WebRequest -Uri $powershellMSUrl -OutFile $powershellProfileFilePath\Microsoft.PowerShell_profile.ps1
 
-  Write-Host "Downloading " -NoNewline -ForegroundColor Yellow; Write-Host "Microsoft.VSCode_profile.ps1 " -NoNewline -ForegroundColor Blue; Write-Host "file..." -ForegroundColor Yellow
+  Write-Host 'Downloading ' -NoNewline -ForegroundColor Yellow; Write-Host 'Microsoft.VSCode_profile.ps1 ' -NoNewline -ForegroundColor Blue; Write-Host 'file...' -ForegroundColor Yellow
   Invoke-WebRequest -Uri $powershellVSUrl -OutFile $powershellProfileFilePath\Microsoft.VSCode_profile.ps1
 
   Write-Host "Configuration files placement completed!`n" -ForegroundColor Green
@@ -243,19 +240,19 @@ function Set-Config {
 
 
 switch ($action) {
-  "drivers" {
+  'drivers' {
     Get-Driver
   }
-  "ctt" {
+  'ctt' {
     Invoke-CTT
   }
-  "apps" {
+  'apps' {
     Get-App
   }
-  "psmods" {
+  'psmods' {
     Get-PSModule
   }
-  "configs" {
+  'configs' {
     Set-Config
   }
   default {
