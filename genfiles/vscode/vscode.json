@@ -233,7 +233,8 @@
     // markdown
     // ----------
     "[markdown]": {
-        "editor.defaultFormatter": "DavidAnson.vscode-markdownlint",
+        // "editor.defaultFormatter": "DavidAnson.vscode-markdownlint",
+        "editor.defaultFormatter": "yzhang.markdown-all-in-one",
         "editor.formatOnSave": false,
         "editor.codeActionsOnSave": {
             "source.fixAll.markdownlint": true
