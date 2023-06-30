@@ -2,10 +2,9 @@
     "psmodules": [
         "PackageManagement",
         "PowerShellGet",
-        "PSWindowsUpdate",
         "PSReadLine",
-        "z",
         "Terminal-Icons",
-        "posh-git"
+        "posh-git",
+        "z"
     ]
 }
