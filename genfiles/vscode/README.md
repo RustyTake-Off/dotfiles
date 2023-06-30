@@ -84,5 +84,13 @@ Here are some essential and useful extensions for VSCode:
 | vscode-icons-team.vscode-icons               |
 | wayou.vscode-todo-highlight                  |
 | yzhang.markdown-all-in-one                   |
+| codezombiech.gitignore                       |
+| pnp.polacode                                 |
+| christian-kohler.path-intellisense           |
+| ibm.output-colorizer                         |
+| esbenp.prettier-vscode                       |
+| mhutchie.git-graph                           |
+| donjayamanne.githistory                      |
+| esbenp.prettier-vscode                       |
 
 You can install these extensions by using the corresponding `code --install-extension` command for each extension.
