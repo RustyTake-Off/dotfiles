@@ -1,52 +1,72 @@
 {
     // ----------------------------------------------------------------------------------------------------
     // VSCode configuration file
+    // ----------------------------------------------------------------------------------------------------
+    // text editor config
     // ----------
-    // misc config
+    "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+    "editor.codeLensFontFamily": "'CaskaydiaCove Nerd Font Mono', Consolas, 'Courier New', monospace",
+    "editor.guides.bracketPairs": true,
+    "editor.guides.bracketPairsHorizontal": true,
+    "editor.inlayHints.fontFamily": "'CaskaydiaCove Nerd Font Mono', Consolas, 'Courier New', monospace",
+    "editor.insertSpaces": true,
+    "editor.mouseWheelZoom": true,
+    "editor.tabCompletion": "on",
+    "editor.tabSize": 2,
+    "editor.unicodeHighlight.nonBasicASCII": false,
+    "editor.wordWrap": "on",
+    "editor.fontFamily": "'CaskaydiaCove Nerd Font Mono', Consolas, 'Courier New', monospace",
+    "editor.fontSize": 18,
+    "editor.formatOnSave": true,
+    "editor.snippetSuggestions": "bottom",
+    "editor.suggest.preview": true,
+    // ----------------------------------------------------------------------------------------------------
+    // files config
     // ----------
-    "telemetry.telemetryLevel": "off",
-    "update.showReleaseNotes": false,
+    "files.autoGuessEncoding": true,
+    "files.eol": "\n",
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
     // ----------------------------------------------------------------------------------------------------
     // workbench config
     // ----------
     "workbench.startupEditor": "none",
-    "workbench.colorTheme": "Default High Contrast",
     "workbench.iconTheme": "vscode-icons",
     "workbench.editor.enablePreview": false,
     // ----------------------------------------------------------------------------------------------------
+    // window config
+    // ----------
+    "window.autoDetectHighContrast": false,
+    "window.commandCenter": true,
+    // ----------------------------------------------------------------------------------------------------
+    // scm config
+    // ----------
+    "scm.alwaysShowRepositories": true,
+    // ----------------------------------------------------------------------------------------------------
     // terminal config
     // ----------
-    "terminal.integrated.fontSize": 18,
-    "terminal.integrated.fontFamily": "'CaskaydiaCove Nerd Font Mono', Consolas, 'Courier New', monospace",
     "terminal.integrated.cursorBlinking": true,
-    "terminal.integrated.scrollback": 12001,
+    "terminal.integrated.fontFamily": "'CaskaydiaCove Nerd Font Mono', Consolas, 'Courier New', monospace",
+    "terminal.integrated.fontSize": 18,
+    "terminal.integrated.shellIntegration.suggestEnabled": true,
     // ----------------------------------------------------------------------------------------------------
-    // editor config
+    // misc config
     // ----------
-    "editor.fontSize": 20,
-    "editor.fontFamily": "'CaskaydiaCove Nerd Font Mono', Consolas, 'Courier New', monospace",
-    "editor.tabSize": 2,
-    "editor.insertSpaces": true,
-    "editor.wordWrap": "on",
-    "editor.tabCompletion": "on",
-    "editor.formatOnSave": true,
-    "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
-    "editor.guides.bracketPairsHorizontal": true,
-    "editor.guides.bracketPairs": true,
-    "editor.snippetSuggestions": "bottom",
-    "editor.suggest.snippetsPreventQuickSuggestions": false,
-    "editor.unicodeHighlight.nonBasicASCII": false,
+    "remote.tunnels.access.preventSleep": true,
+    "update.showReleaseNotes": false,
+    "telemetry.telemetryLevel": "off",
     // ----------------------------------------------------------------------------------------------------
-    // files config
+    // utility extensions config
+    // ----------------------------------------------------------------------------------------------------
+    // dotnetAcquisitionExtension
     // ----------
-    "files.insertFinalNewline": true,
-    "files.trimTrailingWhitespace": true,
-    "files.autoGuessEncoding": true,
+    "dotnetAcquisitionExtension.enableTelemetry": false,
     // ----------------------------------------------------------------------------------------------------
     // better-comments
     // ----------
-    "better-comments.multilineComments": true,
     "better-comments.highlightPlainText": true,
+    "better-comments.multilineComments": false,
     "better-comments.tags": [
         {
             "tag": "!",
@@ -97,51 +117,25 @@
     // ----------------------------------------------------------------------------------------------------
     // cSpell
     // ----------
-    "cSpell.enabledLanguageIds": [
-        "asciidoc",
-        "c",
-        "cpp",
-        "csharp",
-        "css",
-        "elixir",
-        "erlang",
-        "git-commit",
-        "go",
-        "graphql",
-        "handlebars",
-        "haskell",
-        "html",
-        "jade",
-        "java",
-        "javascript",
-        "javascriptreact",
-        "json",
-        "jsonc",
-        "jupyter",
-        "latex",
-        "less",
-        "markdown",
-        "php",
-        "plaintext",
-        "python",
-        "pug",
-        "restructuredtext",
-        "rust",
-        "scala",
-        "scss",
-        "scminput",
-        "swift",
-        "text",
-        "typescript",
-        "typescriptreact",
-        "vue",
-        "yaml",
-        "yml",
-        // added
+    "cSpell.language": "en,en-GB,en-US,lorem",
+    "cSpell.enableFiletypes": [
+        "bicep",
+        "bicep-params",
+        "dockercompose",
+        "dockerfile",
+        "gitignore",
+        "makefile",
         "powershell",
-        "terraform",
-        "bicep"
+        "shellscript",
+        "terraform"
     ],
+    // ----------------------------------------------------------------------------------------------------
+    // gitlens
+    // ----------
+    "gitlens.showWelcomeOnInstall": false,
+    "gitlens.showWhatsNewAfterUpgrades": false,
+    "gitlens.plusFeatures.enabled": false,
+    "gitlens.codeLens.enabled": false,
     // ----------------------------------------------------------------------------------------------------
     // indentRainbow
     // ----------
@@ -162,97 +156,119 @@
         "MD029": false,
         "MD033": false
     },
-    // language specific
+    // ----------------------------------------------------------------------------------------------------
+    // path-intellisense
+    // ----------
+    "path-intellisense.autoTriggerNextSuggestion": true,
+    // ----------------------------------------------------------------------------------------------------
+    // polacode
+    // ----------
+    "polacode.target": "snippet",
+    // ----------------------------------------------------------------------------------------------------
+    // prettier
+    // ----------
+    "prettier.tabWidth": 4,
+    // ----------------------------------------------------------------------------------------------------
+    // redhat
+    // ----------
+    "redhat.telemetry.enabled": false,
+    // ----------------------------------------------------------------------------------------------------
+    // language specific extensions config
+    // ----------------------------------------------------------------------------------------------------
+    // bicep
+    // ----------
+    "bicep.decompileOnPaste": false,
+    "bicep.enableSurveys": false,
+    "[bicep-params]": {
+        "editor.defaultFormatter": "ms-azuretools.vscode-bicep"
+    },
+    "[bicep]": {
+        "editor.defaultFormatter": "ms-azuretools.vscode-bicep"
+    },
+    // ----------------------------------------------------------------------------------------------------
+    // terraform
+    // ----------
+    "terraform.codelens.referenceCount": true,
+    "terraform.experimentalFeatures.prefillRequiredFields": true,
+    "terraform.experimentalFeatures.validateOnSave": true,
+    "[terraform-vars]": {
+        "editor.defaultFormatter": "hashicorp.terraform",
+        "editor.formatOnSave": false,
+        "editor.codeActionsOnSave": {
+            "source.formatAll.terraform": true
+        }
+    },
+    "[terraform]": {
+        "editor.defaultFormatter": "hashicorp.terraform",
+        "editor.formatOnSave": false,
+        "editor.codeActionsOnSave": {
+            "source.formatAll.terraform": true
+        }
+    },
+    // ----------------------------------------------------------------------------------------------------
+    // json
+    // ----------
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.quickSuggestions": {
+            "strings": true,
+            "comments": "on",
+            "other": "on"
+        },
+        "editor.suggest.insertMode": "replace"
+    },
+    // ----------------------------------------------------------------------------------------------------
+    // yaml
+    // ----------
+    "[yaml]": {
+        "editor.defaultFormatter": "redhat.vscode-yaml",
+        "editor.quickSuggestions": {
+            "strings": true,
+            "comments": "on",
+            "other": "on"
+        },
+        "editor.suggest.insertMode": "replace"
+    },
     // ----------------------------------------------------------------------------------------------------
     // markdown
     // ----------
     "[markdown]": {
         "editor.defaultFormatter": "DavidAnson.vscode-markdownlint",
         "editor.formatOnSave": false,
-        "editor.wordWrap": "on",
         "editor.codeActionsOnSave": {
             "source.fixAll.markdownlint": true
-        }
-    },
-    // json
-    // ----------
-    "[json]": {
-        "editor.defaultFormatter": "vscode.json-language-features",
-        "editor.insertSpaces": true,
-        "editor.tabSize": 4,
-        "editor.detectIndentation": false,
-        "editor.formatOnSave": true
-    },
-    "[yaml]": {
-        "editor.insertSpaces": true,
-        "editor.tabSize": 2,
-        "editor.formatOnSave": true
+        },
+        "editor.quickSuggestions": {
+            "strings": true,
+            "comments": "on",
+            "other": "on"
+        },
+        "editor.suggest.insertMode": "replace"
     },
     // ----------------------------------------------------------------------------------------------------
     // powershell
     // ----------
-    "powershell.enableProfileLoading": false,
-    "powershell.enableReferencesCodeLens": false,
-    "powershell.promptToUpdatePowerShell": false,
+    "powershell.buttons.showPanelMovementButtons": true,
     "powershell.codeFormatting.autoCorrectAliases": true,
-    "powershell.codeFormatting.useCorrectCasing": true,
-    "powershell.codeFormatting.alignPropertyValuePairs": true,
-    "powershell.codeFormatting.ignoreOneLineBlock": true,
-    "powershell.codeFormatting.newLineAfterCloseBrace": false,
-    "powershell.codeFormatting.newLineAfterOpenBrace": true,
-    "powershell.codeFormatting.openBraceOnSameLine": true,
-    "powershell.codeFormatting.whitespaceAroundOperator": true,
-    "powershell.codeFormatting.whitespaceBeforeOpenBrace": true,
-    "powershell.codeFormatting.whitespaceBeforeOpenParen": true,
     "powershell.codeFormatting.pipelineIndentationStyle": "IncreaseIndentationForFirstPipeline",
+    "powershell.codeFormatting.preset": "OTBS",
     "powershell.codeFormatting.trimWhitespaceAroundPipe": true,
     "powershell.codeFormatting.useConstantStrings": true,
+    "powershell.codeFormatting.useCorrectCasing": true,
     "powershell.codeFormatting.whitespaceBetweenParameters": true,
-    "powershell.codeFormatting.preset": "OTBS",
     "powershell.developer.featureFlags": [
         "PSReadLine",
         "Terminal-Icons",
         "posh-git",
         "z"
     ],
+    "powershell.enableProfileLoading": false,
+    "powershell.enableReferencesCodeLens": false,
     "powershell.integratedConsole.showOnStartup": false,
-    "powershell.integratedConsole.focusConsoleOnExecute": true,
     "powershell.integratedConsole.suppressStartupBanner": true,
+    "powershell.promptToUpdatePowerShell": false,
     "[powershell]": {
-        "files.autoGuessEncoding": true,
-        "editor.insertSpaces": true,
-        "editor.tabSize": 4,
-        "editor.wordSeparators": "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?"
-    },
-    // ----------------------------------------------------------------------------------------------------
-    // bicep
-    // ----------
-    "bicep.enableSurveys": false,
-    "[bicep]": {
-        "editor.tabSize": 2,
-        "editor.insertSpaces": true,
-        "files.insertFinalNewline": true,
-        "editor.suggestSelection": "first",
-        "editor.suggest.snippetsPreventQuickSuggestions": false,
-        "editor.suggest.showWords": false
-    },
-    // ----------------------------------------------------------------------------------------------------
-    // terraform
-    // ----------
-    "[terraform]": {
-        "editor.defaultFormatter": "hashicorp.terraform",
-        "editor.formatOnSave": false,
-        "files.insertFinalNewline": true,
-        "editor.codeActionsOnSave": {
-            "source.formatAll.terraform": true
-        }
-    },
-    "[terraform-vars]": {
-        "editor.defaultFormatter": "hashicorp.terraform",
-        "editor.formatOnSave": false,
-        "files.insertFinalNewline": true,
-        "editor.codeActionsOnSave": {
-            "source.formatAll.terraform": true
-        }
+        "editor.defaultFormatter": "ms-vscode.powershell",
+        "editor.suggest.insertMode": "replace"
     }
 }
