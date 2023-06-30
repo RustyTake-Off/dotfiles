@@ -46,10 +46,12 @@
 
 #>
 
+
 # Import modules
 Import-Module -Name Terminal-Icons
 Import-Module -Name posh-git
 Import-Module -Name z
+
 
 # Useful functions
 # Traversing files and folders
@@ -62,60 +64,68 @@ function hm { Set-Location $env:USERPROFILE }
 function hpr { Set-Location $env:USERPROFILE\pr }
 function hwk { Set-Location $env:USERPROFILE\wk }
 
+
 # Compute file hashes - useful for checking successful downloads
 function md5 { Get-FileHash -Algorithm MD5 $args }
 function sha1 { Get-FileHash -Algorithm SHA1 $args }
 function sha256 { Get-FileHash -Algorithm SHA256 $args }
 
+
 function unzip ($file) {
-  Write-Output("Extracting", $file, "to", $pwd)
+  Write-Output('Extracting', $file, 'to', $pwd)
   $fullFile = Get-ChildItem -Path $pwd -Filter .\cove.zip | ForEach-Object { $_.FullName }
   Expand-Archive -Path $fullFile -DestinationPath $pwd
 }
 
+
 function touch ($file) {
-  "" | Out-File $file -Encoding ASCII
+  '' | Out-File $file -Encoding ASCII
 }
+
 
 function which ($name) {
   Get-Command $name | Select-Object -ExpandProperty Definition
 }
 
+
 # Make it easier to edit this profile once it's installed
 function Edit-Profile {
-  if ($host.Name -match "ise") {
+  if ($host.Name -match 'ise') {
     $psISE.CurrentPowerShellTab.Files.Add($PROFILE)
-  }
-  else {
+  } else {
     notepad $PROFILE
   }
 }
 
+
 function Reset-Profile {
   & $PROFILE
 }
+
 
 # PSReadLine configuration
 $psMinimumVersion = [version]'7.1.999'
 
 if (($Host.Name -eq 'ConsoleHost') -and ($PSVersionTable.PSVersion -ge $psMinimumVersion)) {
   Set-PSReadLineOption -PredictionSource HistoryAndPlugin
-}
-else {
+} else {
   Set-PSReadLineOption -PredictionSource History
 }
+
 
 Set-PSReadLineOption -EditMode Windows
 Set-PSReadLineOption -HistorySearchCursorMovesToEnd:$true
 Set-PSReadLineOption -PredictionViewStyle ListView
 Set-PSReadLineOption -Colors @{ InlinePrediction = 'Blue' }
 
+
 Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
 Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
 
+
 Set-PSReadLineKeyHandler -Key '(', '{', '[' `
   -BriefDescription InsertPairedBraces `
-  -LongDescription "Insert matching braces" `
+  -LongDescription 'Insert matching braces' `
   -ScriptBlock {
   param($key, $arg)
 
@@ -137,17 +147,17 @@ Set-PSReadLineKeyHandler -Key '(', '{', '[' `
     # Text is selected, wrap it in brackets
     [Microsoft.PowerShell.PSConsoleReadLine]::Replace($selectionStart, $selectionLength, $key.KeyChar + $line.SubString($selectionStart, $selectionLength) + $closeChar)
     [Microsoft.PowerShell.PSConsoleReadLine]::SetCursorPosition($selectionStart + $selectionLength + 2)
-  }
-  else {
+  } else {
     # No text is selected, insert a pair
     [Microsoft.PowerShell.PSConsoleReadLine]::Insert("$($key.KeyChar)$closeChar")
     [Microsoft.PowerShell.PSConsoleReadLine]::SetCursorPosition($cursor + 1)
   }
 }
 
+
 Set-PSReadLineKeyHandler -Key ')', ']', '}' `
   -BriefDescription SmartCloseBraces `
-  -LongDescription "Insert closing brace or skip" `
+  -LongDescription 'Insert closing brace or skip' `
   -ScriptBlock {
   param($key, $arg)
 
@@ -157,15 +167,15 @@ Set-PSReadLineKeyHandler -Key ')', ']', '}' `
 
   if ($line[$cursor] -eq $key.KeyChar) {
     [Microsoft.PowerShell.PSConsoleReadLine]::SetCursorPosition($cursor + 1)
-  }
-  else {
+  } else {
     [Microsoft.PowerShell.PSConsoleReadLine]::Insert("$($key.KeyChar)")
   }
 }
 
+
 Set-PSReadLineKeyHandler -Key Backspace `
   -BriefDescription SmartBackspace `
-  -LongDescription "Delete previous character or matching quotes/parens/braces" `
+  -LongDescription 'Delete previous character or matching quotes/parens/braces' `
   -ScriptBlock {
   param($key, $arg)
 
@@ -187,12 +197,12 @@ Set-PSReadLineKeyHandler -Key Backspace `
 
     if ($toMatch -ne $null -and $line[$cursor - 1] -eq $toMatch) {
       [Microsoft.PowerShell.PSConsoleReadLine]::Delete($cursor - 1, 2)
-    }
-    else {
+    } else {
       [Microsoft.PowerShell.PSConsoleReadLine]::BackwardDeleteChar($key, $arg)
     }
   }
 }
+
 
 # Sometimes you enter a command but realize you forgot to do something else first.
 # This binding will let you save that command in the history so you can recall it,
@@ -200,7 +210,7 @@ Set-PSReadLineKeyHandler -Key Backspace `
 # undo stack is reset - though redo will still reconstruct the command line.
 Set-PSReadLineKeyHandler -Key Alt+w `
   -BriefDescription SaveInHistory `
-  -LongDescription "Save current line in history but do not execute" `
+  -LongDescription 'Save current line in history but do not execute' `
   -ScriptBlock {
   param($key, $arg)
 
@@ -211,10 +221,11 @@ Set-PSReadLineKeyHandler -Key Alt+w `
   [Microsoft.PowerShell.PSConsoleReadLine]::RevertLine()
 }
 
+
 # Insert text from the clipboard as a here string
 Set-PSReadLineKeyHandler -Key Ctrl+V `
   -BriefDescription PasteAsHereString `
-  -LongDescription "Paste the clipboard text as a here string" `
+  -LongDescription 'Paste the clipboard text as a here string' `
   -ScriptBlock {
   param($key, $arg)
 
@@ -223,18 +234,18 @@ Set-PSReadLineKeyHandler -Key Ctrl+V `
     # Get clipboard text - remove trailing spaces, convert \r\n to \n, and remove the final \n.
     $text = ([System.Windows.Clipboard]::GetText() -replace "\p{Zs}*`r?`n", "`n").TrimEnd()
     [Microsoft.PowerShell.PSConsoleReadLine]::Insert("@'`n$text`n'@")
-  }
-  else {
+  } else {
     [Microsoft.PowerShell.PSConsoleReadLine]::Ding()
   }
 }
+
 
 # Each time you press Alt+', this key handler will change the token
 # under or before the cursor. It will cycle through single quotes, double quotes, or
 # no quotes each time it is invoked.
 Set-PSReadLineKeyHandler -Key "Alt+'" `
   -BriefDescription ToggleQuoteArgument `
-  -LongDescription "Toggle quotes on the argument under the cursor" `
+  -LongDescription 'Toggle quotes on the argument under the cursor' `
   -ScriptBlock {
   param($key, $arg)
 
@@ -268,12 +279,10 @@ Set-PSReadLineKeyHandler -Key "Alt+'" `
     if ($tokenText[0] -eq '"' -and $tokenText[-1] -eq '"') {
       # Switch to no quotes
       $replacement = $tokenText.Substring(1, $tokenText.Length - 2)
-    }
-    elseif ($tokenText[0] -eq "'" -and $tokenText[-1] -eq "'") {
+    } elseif ($tokenText[0] -eq "'" -and $tokenText[-1] -eq "'") {
       # Switch to double quotes
       $replacement = '"' + $tokenText.Substring(1, $tokenText.Length - 2) + '"'
-    }
-    else {
+    } else {
       # Add single quotes
       $replacement = "'" + $tokenText + "'"
     }
@@ -285,13 +294,14 @@ Set-PSReadLineKeyHandler -Key "Alt+'" `
   }
 }
 
+
 # Cycle through arguments on current line and select the text. This makes it easier to quickly change the argument
 # if re-running a previously run command from the history or if using a psreadline predictor.
 # You can also use a digit argument to specify which argument you want to select,
 # i.e. Alt+1, Alt+a selects the first argument on the command line.
 Set-PSReadLineKeyHandler -Key Alt+a `
   -BriefDescription SelectCommandArguments `
-  -LongDescription "Set current selection to next command argument in the command line. Use of digit argument selects argument by position" `
+  -LongDescription 'Set current selection to next command argument in the command line. Use of digit argument selects argument by position' `
   -ScriptBlock {
   param($key, $arg)
 
@@ -314,8 +324,7 @@ Set-PSReadLineKeyHandler -Key Alt+a `
 
   if ($null -ne $arg) {
     $nextAst = $asts[$arg - 1]
-  }
-  else {
+  } else {
     foreach ($ast in $asts) {
       if ($ast.Extent.StartOffset -ge $cursor) {
         $nextAst = $ast
@@ -342,6 +351,7 @@ Set-PSReadLineKeyHandler -Key Alt+a `
   [Microsoft.PowerShell.PSConsoleReadLine]::SelectForwardChar($null, ($nextAst.Extent.EndOffset - $nextAst.Extent.StartOffset) - $endOffsetAdjustment)
 }
 
+
 # Tab completion
 # Tab completion for winget https://learn.microsoft.com/en-us/windows/package-manager/winget/tab-completion
 Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
@@ -353,6 +363,7 @@ Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
     [System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)
   }
 }
+
 
 # Tab completion for azcli https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-windows?view=azure-cli-latest&tabs=winget#enable-tab-completion-on-powershell
 Register-ArgumentCompleter -Native -CommandName az -ScriptBlock {
@@ -367,7 +378,7 @@ Register-ArgumentCompleter -Native -CommandName az -ScriptBlock {
   $env:_ARGCOMPLETE_IFS = "`n"
   az 2>&1 | Out-Null
   Get-Content $completion_file | Sort-Object | ForEach-Object {
-    [System.Management.Automation.CompletionResult]::new($_, $_, "ParameterValue", $_)
+    [System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)
   }
   Remove-Item $completion_file, Env:\_ARGCOMPLETE_STDOUT_FILENAME, Env:\ARGCOMPLETE_USE_TEMPFILES, Env:\COMP_LINE, Env:\COMP_POINT, Env:\_ARGCOMPLETE, Env:\_ARGCOMPLETE_SUPPRESS_SPACE, Env:\_ARGCOMPLETE_IFS
 }
