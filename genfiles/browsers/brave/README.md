@@ -24,6 +24,7 @@ Here are some essential and useful extensions for Brave:
 | Momentum                              | laookkfknpbbblfpciffpaejjkokdgca |
 | Todoist                               | jldhpllghnbhlbpcmnajkpdmadaolakh |
 | Dark Reader                           | eimadpbcbfnmbkopoojfekhnkhdbieeh |
+| Enhancer for YouTube                  | ponfpcnoihfmfllpaingbgckeeldkhle |
 
 ## Flags
 
