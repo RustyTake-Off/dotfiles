@@ -220,6 +220,7 @@
     // ----------------------------------------------------------------------------------------------------
     // yaml
     // ----------
+    "yaml.format.singleQuote": true,
     "[yaml]": {
         "editor.defaultFormatter": "redhat.vscode-yaml",
         "editor.quickSuggestions": {
