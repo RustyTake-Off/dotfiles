@@ -230,6 +230,15 @@
         },
         "editor.suggest.insertMode": "replace"
     },
+    "[jsonc]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.quickSuggestions": {
+            "strings": true,
+            "comments": "on",
+            "other": "on"
+        },
+        "editor.suggest.insertMode": "replace"
+    },
     // ----------------------------------------------------------------------------------------------------
     // markdown
     // ----------
