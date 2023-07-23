@@ -1,43 +1,43 @@
 <#
 
 .NOTES
-    Author: RustyTake-Off
-    GitHub: https://github.com/RustyTake-Off/dotfiles/tree/main/winfiles
+  Author: RustyTake-Off
+  GitHub: https://github.com/RustyTake-Off/dotfiles/tree/main/winfiles
 
 .SYNOPSIS
-    Script to automate the download and installation of drivers, applications,
-    PowerShell modules, and configuration files on Windows.
+  Script to automate the download and installation of drivers, applications,
+  PowerShell modules, and configuration files on Windows.
 
 .DESCRIPTION
-    This PowerShell script automates the process of downloading and installing
-    drivers, applications, PowerShell modules, and configuration files on Windows.
-    It provides several actions that can be performed individually,
-    such as downloading drivers, invoking the CTT - winutil, installing applications,
-    installing PowerShell modules, and downloading configuration and settings files.
+  This PowerShell script automates the process of downloading and installing
+  drivers, applications, PowerShell modules, and configuration files on Windows.
+  It provides several actions that can be performed individually,
+  such as downloading drivers, invoking the CTT - winutil, installing applications,
+  installing PowerShell modules, and downloading configuration and settings files.
 
-    Run this command to set the execution policy:
-    PS> Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
+  Run this command to set the execution policy:
+  PS> Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
 
-    Download the script by executing the following command and saving it to your machine:
+  Download the script by executing the following command and saving it to your machine:
 
-    PS> Invoke-WebRequest -Uri "https://github.com/RustyTake-Off/dotfiles/raw/main/winfiles/win_up.ps1" -OutFile "$env:USERPROFILE\win_up.ps1"
+  PS> Invoke-WebRequest -Uri "https://github.com/RustyTake-Off/dotfiles/raw/main/winfiles/win_up.ps1" -OutFile "$env:USERPROFILE\win_up.ps1"
 
-    The available actions are:
-    - drivers: Downloads drivers.
-    - ctt: Invokes the CTT - winutil by downloading and executing a script from christitus.com.
-    - apps: Installs applications by downloading a list from a JSON file and using the winget package manager.
-    - psmods: Installs PowerShell modules by downloading a list from a JSON file and using the Install-Module cmdlet.
-    - configs: Downloads configuration and settings files and places them in the appropriate locations.
+  The available actions are:
+  - drivers: Downloads drivers.
+  - ctt: Invokes the CTT - winutil by downloading and executing a script from christitus.com.
+  - apps: Installs applications by downloading a list from a JSON file and using the winget package manager.
+  - psmods: Installs PowerShell modules by downloading a list from a JSON file and using the Install-Module cmdlet.
+  - configs: Downloads configuration and settings files and places them in the appropriate locations.
 
-    It is recommended to execute the actions in the following order:
-    1. drivers
-    2. ctt
-    3. apps
-    4. psmods
-    5. configs
+  It is recommended to execute the actions in the following order:
+  1. drivers
+  2. ctt
+  3. apps
+  4. psmods
+  5. configs
 
-    Note: Make sure to understand and review the code before executing it,
-    especially when downloading and executing scripts from external sources.
+  Note: Make sure to understand and review the code before executing it,
+  especially when downloading and executing scripts from external sources.
 
 #>
 
@@ -128,7 +128,7 @@ function Get-App {
   foreach ($appName in $appsJson.apps) {
     if (-not (winget list --exact --id $appName)) {
       Write-Host 'Installing ' -NoNewline; Write-Host "$appName" -ForegroundColor Blue
-      winget install --exact --id $appName --source winget --silent --no-upgrade --accept-source-agreements --accept-package-agreements
+      winget install --exact --id $appName --silent --accept-package-agreements --accept-source-agreements
     } else {
       Write-Host "$appName " -ForegroundColor Blue -NoNewline; Write-Host 'is already installed. ' -NoNewline; Write-Host 'Skipping installation...' -ForegroundColor Red
     }
