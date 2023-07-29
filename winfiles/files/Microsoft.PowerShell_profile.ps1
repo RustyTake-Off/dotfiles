@@ -1,48 +1,52 @@
 <#
 
 .NOTES
-    Author: RustyTake-Off
-    GitHub: https://github.com/RustyTake-Off/dotfiles/tree/main/winfiles
+  Author: RustyTake-Off
+  GitHub: https://github.com/RustyTake-Off/dotfiles/tree/main/winfiles
 
 .SYNOPSIS
-    This is a configuration script for the Microsoft.PowerShell_profile.ps1 file.
+  This is a configuration script for the Microsoft.PowerShell_profile.ps1 file.
 
 .DESCRIPTION
-    This is a configuration script for the Microsoft.PowerShell_profile.ps1 file.
+  This is a configuration script for the Microsoft.PowerShell_profile.ps1 file.
 
-    Run this command to set the execution policy:
-    PS> Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
+  Run this command to set the execution policy:
+  PS> Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
 
-    This file should be stored in $PROFILE
-    If $PROFILE doesn't exist, you can make one with the following command:
-    PS> New-Item $PROFILE -ItemType File -Force
+  This file should be stored in $PROFILE
+  If $PROFILE doesn't exist, you can make one with the following command:
+  PS> New-Item $PROFILE -ItemType File -Force
 
-    This will create the file and the containing subdirectory if it doesn't already have it.
+  This will create the file and the containing subdirectory if it doesn't already have it.
 
-    The script sets up various configurations and imports modules to enhance the PowerShell console experience.
-    Here's a breakdown of what the script does:
+  The script sets up various configurations and imports modules to enhance the PowerShell console experience.
+  Here's a breakdown of what the script does:
 
-    Imports PowerShell modules:
-    Terminal-Icons: Provides support for displaying icons in the console.
-    posh-git: Integrates Git functionality into the console prompt.
-    z: Adds directory jumping capability using the z command.
+  Script imports several PowerShell modules:
+  Terminal-Icons: This module adds support for displaying icons in the console.
+  posh-git: Integrates Git functionality into the console prompt, making it easier to work with Git repositories from the command line.
+  z: This module enables directory jumping capabilities using the 'z' command, allowing users to quickly navigate to frequently accessed directories.
 
-    Defines useful functions for traversing files and folders:
-    .: Sets the current location to the parent directory.
-    ..: Sets the current location to the grandparent directory.
-    ..., ...., .....: Sets the current location to increasingly higher-level parent directories.
-    hm: Sets the current location to the user profile directory.
-    hpr: Sets the current location to the user profile's pr subdirectory.
-    hwk: Sets the current location to the user profile's wk subdirectory.
+  Defines useful functions for traversing files and folders:
+  '.': Sets the current location to the parent directory.
+  '..': Sets the current location to the grandparent directory.
+  '...', '....', '.....': Sets the current location to increasingly higher-level parent directories.
+  'hm': Sets the current location to the user profile directory.
+  'hpr': Sets the current location to the user profile's pr subdirectory.
+  'hwk': Sets the current location to the user profile's wk subdirectory.
 
-    Defines functions for computing file hashes (MD5, SHA1, SHA256) to verify successful downloads.
-    Configures PSReadLine.
+  Defines functions for computing file hashes (MD5, SHA1, SHA256) to verify successful downloads.
+  Configures PSReadLine.
 
-    Overall, this script enhances the PowerShell console with features like Git integration,
-    directory jumping, improved history navigation, and convenient key bindings for code editing.
+  The script also registers argument completers for two commands:
+  'winget': Enables tab completion for the 'winget' command, making it easier to complete package names.
+  'az': Provides tab completion for the 'az' command (Azure CLI), enhancing the command line experience when interacting with Azure resources.
 
-    Note: Make sure to understand and review the code before executing it,
-    especially when downloading and executing scripts from external sources.
+  Overall, this script enhances the PowerShell console with features like Git integration,
+  directory jumping, improved history navigation, and convenient key bindings for code editing.
+
+  Note: Make sure to understand and review the code before executing it,
+  especially when downloading and executing scripts from external sources.
 
 #>
 
