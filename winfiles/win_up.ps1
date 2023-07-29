@@ -5,8 +5,7 @@
   GitHub: https://github.com/RustyTake-Off/dotfiles/tree/main/winfiles
 
 .SYNOPSIS
-  Script to automate the download and installation of drivers, applications,
-  PowerShell modules, and configuration files on Windows.
+  The script "win_up.ps1" automates the download and installation of drivers, applications, PowerShell modules, and configuration files on Windows. It provides various actions that can be executed individually. These actions include downloading drivers, invoking the CTT - winutil from christitus.com, installing applications using the winget package manager, installing PowerShell modules using Install-Module cmdlet, and downloading configuration and settings files.
 
 .DESCRIPTION
   This PowerShell script automates the process of downloading and installing
@@ -36,8 +35,9 @@
   4. psmods
   5. configs
 
-  Note: Make sure to understand and review the code before executing it,
-  especially when downloading and executing scripts from external sources.
+  Note: It is crucial to review the code before execution, especially when it involves
+  downloading and executing scripts from external sources, to ensure security and understanding
+  of the actions being performed.
 
 #>
 
