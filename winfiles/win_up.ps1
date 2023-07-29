@@ -48,7 +48,7 @@ param (
 )
 
 
-function Get-Driver {
+function Get-WinupDriver {
   Write-Host "`nDownloading drivers..." -ForegroundColor Yellow
 
   $driversPath = Join-Path $Env:USERPROFILE 'Downloads\winup\drivers'
@@ -98,7 +98,7 @@ function Get-Driver {
 }
 
 
-function Invoke-CTT {
+function Invoke-WinupCTT {
   Write-Host "`nInvoking CTT - winutil..." -ForegroundColor Yellow
 
   Invoke-WebRequest -useb https://christitus.com/win | Invoke-Expression
@@ -107,7 +107,7 @@ function Invoke-CTT {
 }
 
 
-function Get-App {
+function Get-WinupApp {
   Write-Host "`nInstalling applications..." -ForegroundColor Yellow
 
   $appsPath = Join-Path $Env:USERPROFILE 'Downloads\winup'
@@ -138,7 +138,7 @@ function Get-App {
 }
 
 
-function Get-PSModule {
+function Get-WinupPSModule {
   Write-Host "`nInstalling PowerShell modules..." -ForegroundColor Yellow
 
   $psModsPath = Join-Path $Env:USERPROFILE 'Downloads\winup'
@@ -169,7 +169,7 @@ function Get-PSModule {
 }
 
 
-function Set-Config {
+function Set-WinupConfig {
   Write-Host "`nSetting configuration files in all the right places..." -ForegroundColor Yellow
 
   # --------------------
@@ -241,19 +241,19 @@ function Set-Config {
 
 switch ($action) {
   'drivers' {
-    Get-Driver
+    Get-WinupDriver
   }
   'ctt' {
-    Invoke-CTT
+    Invoke-WinupCTT
   }
   'apps' {
-    Get-App
+    Get-WinupApp
   }
   'psmods' {
-    Get-PSModule
+    Get-WinupPSModule
   }
   'configs' {
-    Set-Config
+    Set-WinupConfig
   }
   default {
     Write-Host "
