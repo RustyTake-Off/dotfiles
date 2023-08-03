@@ -3,7 +3,7 @@
 [wsl2]
 
 # How much memory to assign to the WSL 2 VM.
-memory=4GB
+memory=8GB
 
 # Boolean specifying if ports bound to wildcard or localhost in the WSL 2 VM should be connectable from the host via localhost:port.
 localhostForwarding=true
