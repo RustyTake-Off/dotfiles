@@ -92,5 +92,6 @@ Here are some essential and useful extensions for VSCode:
 | mhutchie.git-graph                           |
 | donjayamanne.githistory                      |
 | esbenp.prettier-vscode                       |
+| postman.postman-for-vscode                   |
 
 You can install these extensions by using the corresponding `code --install-extension` command for each extension.
