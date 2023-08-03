@@ -26,18 +26,31 @@ Here are some essential and useful extensions for Brave:
 | Dark Reader                           | eimadpbcbfnmbkopoojfekhnkhdbieeh |
 | Enhancer for YouTube                  | ponfpcnoihfmfllpaingbgckeeldkhle |
 
+## Useful domains to allow
+
+Sometimes something breaks so its good to throw it into the allowlist.
+
+| Domain                   |
+| ------------------------ |
+| [*.]microsoft.com        |
+| [*.]microsoftonline.com  |
+| [*.]teams.skype.com      |
+| [*.]teams.microsoft.com  |
+| [*.]sfbassets.com        |
+| [*.]skypeforbusiness.com |
+
 ## Flags
 
-You can access Brave Flags by entering `brave://flags/` in the address bar of your Brave browser.
+You can access Brave Flags by entering `brave://flags` in the address bar of your Brave browser.
 
 The following flags are not necessary but optional:
 
-| Flag                         | Action   |
-| ---------------------------- | -------- |
-| #native-brave-wallet         | Disabled |
-| #brave-news                  | Disabled |
-| #brave-news-v2               | Disabled |
-| #brave-news-peek             | Disabled |
-| #smooth-scrolling            | Disabled |
-| #enable-parallel-downloading | Enabled  |
-| #use-dev-updater-url         | Disabled |
+| Flag                             | Action   |
+| -------------------------------- | -------- |
+| #native-brave-wallet             | Disabled |
+| #brave-news                      | Disabled |
+| #brave-news-v2                   | Disabled |
+| #brave-news-peek                 | Disabled |
+| #smooth-scrolling                | Disabled |
+| #enable-parallel-downloading     | Enabled  |
+| #sync-autofill-wallet-usage-data | Disabled |
