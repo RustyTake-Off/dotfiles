@@ -221,12 +221,8 @@
         },
         "editor.suggest.insertMode": "replace"
     },
-    // ----------------------------------------------------------------------------------------------------
-    // yaml
-    // ----------
-    "yaml.format.singleQuote": true,
-    "[yaml]": {
-        "editor.defaultFormatter": "redhat.vscode-yaml",
+    "[jsonc]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
         "editor.quickSuggestions": {
             "strings": true,
             "comments": "on",
@@ -234,8 +230,12 @@
         },
         "editor.suggest.insertMode": "replace"
     },
-    "[jsonc]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode",
+    // ----------------------------------------------------------------------------------------------------
+    // yaml
+    // ----------
+    "yaml.format.singleQuote": true,
+    "[yaml]": {
+        "editor.defaultFormatter": "redhat.vscode-yaml",
         "editor.quickSuggestions": {
             "strings": true,
             "comments": "on",
