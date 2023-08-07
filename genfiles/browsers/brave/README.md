@@ -10,7 +10,7 @@ winget install --id Brave.Brave --exact
 
 ## Extensions
 
-Here are some essential and useful extensions for Brave:
+Here are some essential and useful extensions for Brave. Use the `id` in the web store to search for them.
 
 | Extension                             | ID                               |
 | ------------------------------------- | -------------------------------- |
