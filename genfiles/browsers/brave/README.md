@@ -26,6 +26,26 @@ Here are some essential and useful extensions for Brave. Use the `id` in the web
 | Dark Reader                           | eimadpbcbfnmbkopoojfekhnkhdbieeh |
 | Enhancer for YouTube                  | ponfpcnoihfmfllpaingbgckeeldkhle |
 
+## Some uBlock Origin filter lists
+
+Helps with filtering unwanted content. May break some websites or cause unwanted effects so make sure what filters you're adding.
+
+| Filter list                                                                                                         |
+| ------------------------------------------------------------------------------------------------------------------- |
+| <https://raw.githubusercontent.com/FiltersHeroes/KAD/master/KAD.txt>                                                |
+| <https://raw.githubusercontent.com/FiltersHeroes/KADhosts/master/KADhosts.txt>                                      |
+| <https://raw.githubusercontent.com/MajkiIT/polish-ads-filter/master/adblock_social_filters/adblock_social_list.txt> |
+| <https://raw.githubusercontent.com/MajkiIT/polish-ads-filter/master/polish-adblock-filters/adblock_ublock.txt>      |
+| <https://raw.githubusercontent.com/MajkiIT/polish-ads-filter/master/polish-adblock-filters/adblock_adguard.txt>     |
+| <https://raw.githubusercontent.com/hoshsadiq/adblock-nocoin-list/master/nocoin.txt>                                 |
+| <https://raw.githubusercontent.com/hoshsadiq/adblock-nocoin-list/master/nocoin-ublock.txt>                          |
+| <https://raw.githubusercontent.com/hoshsadiq/adblock-nocoin-list/master/hosts.txt>                                  |
+| <https://raw.githubusercontent.com/DandelionSprout/adfilt/master/LegitimateURLShortener.txt>                        |
+| <https://raw.githubusercontent.com/DandelionSprout/adfilt/master/ClearURLs%20for%20uBo/clear_urls_uboified.txt>     |
+| <https://alleblock.pl/alleblock/alleblock.txt>                                                                      |
+| <https://secure.fanboy.co.nz/fanboy-annoyance_ubo.txt>                                                              |
+| <https://filters.adtidy.org/extension/ublock/filters/14.txt>                                                        |
+
 ## Useful domains to allow
 
 Sometimes something breaks so its good to throw it into the allowlist.
