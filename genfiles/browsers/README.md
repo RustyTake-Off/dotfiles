@@ -76,6 +76,7 @@ Here are some essential and useful extensions for Firefox. Use the `id` in the w
 | Extensions                            |
 | ------------------------------------- |
 | uBlock Origin                         |
+| Firefox Multi-Account Containers                         |
 | Midnight Lizard                       |
 | User-Agent Switcher and Manager       |
 | BeterTTV                              |
