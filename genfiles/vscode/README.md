@@ -1,5 +1,16 @@
 # VSCode Configuration
 
+Configuration for VSCode and extensions.
+
+- [VSCode Configuration](#vscode-configuration)
+  - [Install VSCode](#install-vscode)
+  - [Load settings](#load-settings)
+  - [Extensions](#extensions)
+    - [List extensions](#list-extensions)
+    - [Install extensions](#install-extensions)
+    - [Uninstall extensions](#uninstall-extensions)
+    - [Useful extensions](#useful-extensions)
+
 ## Install VSCode
 
 To install Visual Studio Code (VSCode), use the following PowerShell command:
@@ -10,7 +21,7 @@ winget install --id Microsoft.VisualStudioCode --exact
 
 ## Load settings
 
-You can [**sync**](https://code.visualstudio.com/docs/editor/settings-sync) your settings with GitHub or manually load the [**settings.json**](https://github.com/RustyTake-Off/dotfiles/blob/main/genfiles/vscode/vscode.json) file into VSCode.
+You can [**sync**](https://code.visualstudio.com/docs/editor/settings-sync) your settings with GitHub or manually load the [**settings.json**](https://github.com/RustyTake-Off/dotfiles/blob/main/genfiles/vscode/vscode-config.json) file into VSCode.
 
 ## Extensions
 
@@ -94,4 +105,6 @@ Here are some essential and useful extensions for VSCode:
 | esbenp.prettier-vscode                       |
 | postman.postman-for-vscode                   |
 
-You can install these extensions by using the corresponding `code --install-extension` command for each extension.
+You can install these extensions by using the corresponding `code --install-extension <author>.<extension_name>` command for each extension.
+
+[back to top](#vscode-configuration)
