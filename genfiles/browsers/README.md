@@ -2,6 +2,19 @@
 
 Configurations for browsers and extensions.
 
+- [Browsers configuration](#browsers-configuration)
+  - [Brave configuration](#brave-configuration)
+    - [Install Brave](#install-brave)
+    - [Brave Extensions](#brave-extensions)
+    - [Useful domains to allow in Brave](#useful-domains-to-allow-in-brave)
+    - [Flags (optional)](#flags-optional)
+  - [Firefox configuration](#firefox-configuration)
+    - [Install Firefox](#install-firefox)
+    - [Firefox Extensions](#firefox-extensions)
+    - [Useful domains to allow in Firefox](#useful-domains-to-allow-in-firefox)
+    - [Firefox about:config (optional)](#firefox-aboutconfig-optional)
+  - [uBlock Origin filters](#ublock-origin-filters)
+
 ## Brave configuration
 
 ### Install Brave
@@ -73,17 +86,17 @@ winget install --id Mozilla.Firefox --exact
 
 Here are some essential and useful extensions for Firefox. Use the `id` in the web store to search for them.
 
-| Extensions                            |
-| ------------------------------------- |
-| uBlock Origin                         |
-| Firefox Multi-Account Containers                         |
-| Midnight Lizard                       |
-| User-Agent Switcher and Manager       |
-| BeterTTV                              |
-| Momentum                              |
-| Todoist                               |
-| Dark Reader                           |
-| Enhancer for YouTube                  |
+| Extensions                       |
+| -------------------------------- |
+| uBlock Origin                    |
+| Firefox Multi-Account Containers |
+| Midnight Lizard                  |
+| User-Agent Switcher and Manager  |
+| BeterTTV                         |
+| Momentum                         |
+| Todoist                          |
+| Dark Reader                      |
+| Enhancer for YouTube             |
 
 ### Useful domains to allow in Firefox
 
@@ -97,6 +110,17 @@ Sometimes something breaks so its good to throw them into allowlist.
 | <https://teams.microsoft.com>  |
 | <https://sfbassets.com>        |
 | <https://skypeforbusiness.com> |
+
+### Firefox about:config (optional)
+
+Some changes to the `about:config` in Firefox.
+
+| Flags                         | Action   |
+| ----------------------------- | -------- |
+| browser.cache.disk.enable     | false    |
+| browser.cache.memory.capacity | 524288   |
+| browser.sessionstore.interval | 15000000 |
+| browser.urlbar.maxRichResults | 0        |
 
 ## uBlock Origin filters
 
