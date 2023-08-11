@@ -8,8 +8,7 @@
   Configuration for the Microsoft.VSCode_profile.ps1.
 
 .DESCRIPTION
-  Configuration for the Microsoft.VSCode_profile.ps1.
-  Loads the Microsoft.PowerShell_profile.ps1.
+  Configuration for the Microsoft.VSCode_profile.ps1 which loads the Microsoft.PowerShell_profile.ps1 file.
 
 #>
 
