@@ -178,7 +178,7 @@ function Set-WinupConfig {
   $wingetSettingsFilePath = Join-Path $wingetSettingsPath 'settings.json'
   $wingetSettingsContent = Get-Content -Raw -Path $wingetSettingsFilePath | ConvertFrom-Json
 
-  if ($wingetSettingsContent.visual.progressBar -eq 'rainbow') {
+  if ($wingetSettingsContent.visual.progressBar -ne 'rainbow') {
     $wingetUrl = 'https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/winfiles/files/winget.json'
 
     Write-Host 'Downloading ' -NoNewline -ForegroundColor Yellow; Write-Host 'winget.json ' -NoNewline -ForegroundColor Blue; Write-Host 'file...' -ForegroundColor Yellow
