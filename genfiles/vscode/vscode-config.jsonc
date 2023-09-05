@@ -20,6 +20,11 @@
     "editor.formatOnSave": true,
     "editor.snippetSuggestions": "bottom",
     "editor.suggest.preview": true,
+    "editor.quickSuggestions": {
+        "strings": "on",
+        "comments": "on",
+        "other": "on"
+    },
     // ----------------------------------------------------------------------------------------------------
     // files config
     // ----------
@@ -217,35 +222,17 @@
     // json
     // ----------
     "[json]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode",
-        "editor.quickSuggestions": {
-            "strings": true,
-            "comments": "on",
-            "other": "on"
-        },
-        "editor.suggest.insertMode": "replace"
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "[jsonc]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode",
-        "editor.quickSuggestions": {
-            "strings": true,
-            "comments": "on",
-            "other": "on"
-        },
-        "editor.suggest.insertMode": "replace"
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     // ----------------------------------------------------------------------------------------------------
     // yaml
     // ----------
     "yaml.format.singleQuote": true,
     "[yaml]": {
-        "editor.defaultFormatter": "redhat.vscode-yaml",
-        "editor.quickSuggestions": {
-            "strings": true,
-            "comments": "on",
-            "other": "on"
-        },
-        "editor.suggest.insertMode": "replace"
+        "editor.defaultFormatter": "redhat.vscode-yaml"
     },
     // ----------------------------------------------------------------------------------------------------
     // markdown
@@ -256,13 +243,7 @@
         "editor.formatOnSave": false,
         "editor.codeActionsOnSave": {
             "source.fixAll.markdownlint": true
-        },
-        "editor.quickSuggestions": {
-            "strings": true,
-            "comments": "on",
-            "other": "on"
-        },
-        "editor.suggest.insertMode": "replace"
+        }
     },
     // ----------------------------------------------------------------------------------------------------
     // powershell
@@ -287,7 +268,6 @@
     "powershell.integratedConsole.suppressStartupBanner": true,
     "powershell.promptToUpdatePowerShell": false,
     "[powershell]": {
-        "editor.defaultFormatter": "ms-vscode.powershell",
-        "editor.suggest.insertMode": "replace"
+        "editor.defaultFormatter": "ms-vscode.powershell"
     }
 }
