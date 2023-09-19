@@ -18,13 +18,7 @@
     "editor.fontFamily": "'CaskaydiaCove Nerd Font Mono', Consolas, 'Courier New', monospace",
     "editor.fontSize": 18,
     "editor.formatOnSave": true,
-    "editor.snippetSuggestions": "bottom",
-    "editor.suggest.preview": true,
-    "editor.quickSuggestions": {
-        "strings": "on",
-        "comments": "on",
-        "other": "on"
-    },
+    "editor.acceptSuggestionOnEnter": "off",
     // ----------------------------------------------------------------------------------------------------
     // files config
     // ----------
@@ -67,6 +61,12 @@
     // dotnetAcquisitionExtension
     // ----------
     "dotnetAcquisitionExtension.enableTelemetry": false,
+    // ----------------------------------------------------------------------------------------------------
+    // azureResourceManagerTools
+    // ----------
+    "[arm-template]": {
+        "editor.defaultFormatter": "msazurermtools.azurerm-vscode-tools"
+    },
     // ----------------------------------------------------------------------------------------------------
     // better-comments
     // ----------
@@ -135,6 +135,12 @@
         "terraform"
     ],
     // ----------------------------------------------------------------------------------------------------
+    // github-actions
+    // ----------
+    // "[github-actions-workflow]": {
+    //     "editor.defaultFormatter": "redhat.vscode-yaml"
+    // },
+    // ----------------------------------------------------------------------------------------------------
     // gitlens
     // ----------
     "gitlens.showWelcomeOnInstall": false,
@@ -176,7 +182,7 @@
     // ----------------------------------------------------------------------------------------------------
     // prettier
     // ----------
-    "prettier.tabWidth": 4,
+    "prettier.tabWidth": 2,
     // ----------------------------------------------------------------------------------------------------
     // redhat
     // ----------
@@ -192,10 +198,10 @@
     // ----------
     "bicep.decompileOnPaste": false,
     "bicep.enableSurveys": false,
-    "[bicep-params]": {
+    "[bicep]": {
         "editor.defaultFormatter": "ms-azuretools.vscode-bicep"
     },
-    "[bicep]": {
+    "[bicep-params]": {
         "editor.defaultFormatter": "ms-azuretools.vscode-bicep"
     },
     // ----------------------------------------------------------------------------------------------------
@@ -204,14 +210,14 @@
     "terraform.codelens.referenceCount": true,
     "terraform.experimentalFeatures.prefillRequiredFields": true,
     "terraform.experimentalFeatures.validateOnSave": true,
-    "[terraform-vars]": {
+    "[terraform]": {
         "editor.defaultFormatter": "hashicorp.terraform",
         "editor.formatOnSave": false,
         "editor.codeActionsOnSave": {
             "source.formatAll.terraform": true
         }
     },
-    "[terraform]": {
+    "[terraform-vars]": {
         "editor.defaultFormatter": "hashicorp.terraform",
         "editor.formatOnSave": false,
         "editor.codeActionsOnSave": {
@@ -222,10 +228,10 @@
     // json
     // ----------
     "[json]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+        "editor.defaultFormatter": "vscode.json-language-features"
     },
     "[jsonc]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+        "editor.defaultFormatter": "vscode.json-language-features"
     },
     // ----------------------------------------------------------------------------------------------------
     // yaml
