@@ -24,11 +24,11 @@
     ],
     "psmodules": [
         "PackageManagement",
-        "posh-git",
         "PowerShellGet",
+        "z",
         "PSReadLine",
         "Terminal-Icons",
-        "z"
+        "posh-git"
     ],
     "fonts": [
         "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CascadiaCode.zip"
