@@ -1,6 +1,6 @@
 # Browsers configuration
 
-Configurations for browsers and extensions.
+Configurations for browsers 👓 and extensions 📎.
 
 - [Browsers configuration](#browsers-configuration)
   - [Brave configuration](#brave-configuration)
@@ -19,15 +19,15 @@ Configurations for browsers and extensions.
 
 ### Install Brave
 
-To install Brave, use the following PowerShell command:
+To install Brave ⛑️, use the following PowerShell 🟦 command:
 
 ```powershell
-winget install --id Brave.Brave --exact
+winget install --exact --id Brave.Brave 
 ```
 
 ### Brave Extensions
 
-Here are some essential and useful extensions for Brave. Use the `id` in the web store to search for them.
+Here are some essential and useful extensions 📎 for Brave ⛑️. Use the name of the extension or the `id` in the web store to search for them.
 
 | Extensions                            | IDs                              |
 | ------------------------------------- | -------------------------------- |
@@ -45,7 +45,7 @@ Here are some essential and useful extensions for Brave. Use the `id` in the web
 
 ### Useful domains to allow in Brave
 
-Sometimes something breaks so its good to throw them into allowlist.
+Sometimes something breaks so its good to throw them into allowlist ✔️.
 
 | Domains                  |
 | ------------------------ |
@@ -58,7 +58,7 @@ Sometimes something breaks so its good to throw them into allowlist.
 
 ### Flags (optional)
 
-You can access Brave flags by entering `brave://flags` in the address bar.
+You can access Brave ⛑️ flags 🏁 by entering `brave://flags` in the address bar.
 
 The following flags are not necessary but optional:
 
@@ -78,15 +78,15 @@ The following flags are not necessary but optional:
 
 ### Install Firefox
 
-To install Firefox, use the following PowerShell command:
+To install Firefox 🔥🦊, use the following PowerShell 🟦 command:
 
 ```powershell
-winget install --id Mozilla.Firefox --exact
+winget install --exact --id Mozilla.Firefox 
 ```
 
 ### Firefox Extensions
 
-Here are some essential and useful extensions for Firefox. Use the `id` in the web store to search for them.
+Here are some essential and useful extensions 📎 for Firefox 🔥🦊. Use the name of the extension or the `id` in the web store to search for them.
 
 | Extensions                       |
 | -------------------------------- |
@@ -115,7 +115,7 @@ Sometimes something breaks so its good to throw them into allowlist.
 
 ### Firefox about:config (optional)
 
-Some changes to the `about:config` in Firefox.
+Some changes to the 🛠️ `about:config` in Firefox 🔥🦊.
 
 | Flags                         | Action   |
 | ----------------------------- | -------- |
@@ -128,7 +128,7 @@ Some changes to the `about:config` in Firefox.
 
 ## uBlock Origin filters
 
-Helps with filtering unwanted content but might break some websites or cause unwanted effects so make sure what filters you're adding.
+Helps with ☕ filtering unwanted content but might break some websites or cause 😩 unwanted effects so make sure what filters you're adding.
 
 | Filters                                                                                                             |
 | ------------------------------------------------------------------------------------------------------------------- |
