@@ -2,42 +2,31 @@
     // ----------------------------------------------------------------------------------------------------
     // VSCode configuration file ##########################################################################
     // ----------------------------------------------------------------------------------------------------
-    // text editor config
+    // text editor
     // ----------
     "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
-    "editor.codeLensFontFamily": "'CaskaydiaCove Nerd Font Mono', Consolas, 'Courier New', monospace",
     "editor.guides.bracketPairs": true,
-    "editor.guides.bracketPairsHorizontal": true,
-    "editor.inlayHints.fontFamily": "'CaskaydiaCove Nerd Font Mono', Consolas, 'Courier New', monospace",
-    "editor.insertSpaces": true,
+    "editor.linkedEditing": true,
     "editor.mouseWheelZoom": true,
     "editor.tabCompletion": "on",
-    "editor.tabSize": 2,
-    "editor.unicodeHighlight.nonBasicASCII": false,
-    "editor.wordWrap": "on",
-    "editor.fontFamily": "'CaskaydiaCove Nerd Font Mono', Consolas, 'Courier New', monospace",
     "editor.fontSize": 18,
     "editor.formatOnSave": true,
     "editor.acceptSuggestionOnEnter": "off",
     // ----------------------------------------------------------------------------------------------------
-    // files config
+    // files
     // ----------
     "files.autoGuessEncoding": true,
     "files.eol": "\n",
-    "files.insertFinalNewline": true,
-    "files.trimFinalNewlines": true,
-    "files.trimTrailingWhitespace": true,
     // ----------------------------------------------------------------------------------------------------
-    // workbench config
+    // workbench
     // ----------
-    "workbench.startupEditor": "none",
     "workbench.iconTheme": "vscode-icons",
+    "workbench.startupEditor": "none",
     "workbench.editor.enablePreview": false,
     // ----------------------------------------------------------------------------------------------------
     // window config
     // ----------
     "window.autoDetectHighContrast": false,
-    "window.commandCenter": true,
     // ----------------------------------------------------------------------------------------------------
     // scm config
     // ----------
@@ -46,7 +35,6 @@
     // terminal config
     // ----------
     "terminal.integrated.cursorBlinking": true,
-    "terminal.integrated.fontFamily": "'CaskaydiaCove Nerd Font Mono', Consolas, 'Courier New', monospace",
     "terminal.integrated.fontSize": 18,
     "terminal.integrated.shellIntegration.suggestEnabled": true,
     // ----------------------------------------------------------------------------------------------------
@@ -122,7 +110,7 @@
     // ----------------------------------------------------------------------------------------------------
     // cSpell
     // ----------
-    "cSpell.language": "en,en-GB,en-US,lorem",
+    "cSpell.language": "en,en-GB,en-US,pl,lorem",
     "cSpell.enableFiletypes": [
         "bicep",
         "bicep-params",
@@ -135,18 +123,14 @@
         "terraform"
     ],
     // ----------------------------------------------------------------------------------------------------
-    // github-actions
-    // ----------
-    // "[github-actions-workflow]": {
-    //     "editor.defaultFormatter": "redhat.vscode-yaml"
-    // },
-    // ----------------------------------------------------------------------------------------------------
     // gitlens
     // ----------
     "gitlens.showWelcomeOnInstall": false,
     "gitlens.showWhatsNewAfterUpgrades": false,
     "gitlens.plusFeatures.enabled": false,
     "gitlens.codeLens.enabled": false,
+    "gitlens.hovers.enabled": false,
+    "gitlens.telemetry.enabled": false,
     // ----------------------------------------------------------------------------------------------------
     // indentRainbow
     // ----------
@@ -198,10 +182,7 @@
     // ----------
     "bicep.decompileOnPaste": false,
     "bicep.enableSurveys": false,
-    "[bicep]": {
-        "editor.defaultFormatter": "ms-azuretools.vscode-bicep"
-    },
-    "[bicep-params]": {
+    "[bicep,bicep-params]": {
         "editor.defaultFormatter": "ms-azuretools.vscode-bicep"
     },
     // ----------------------------------------------------------------------------------------------------
@@ -210,27 +191,17 @@
     "terraform.codelens.referenceCount": true,
     "terraform.experimentalFeatures.prefillRequiredFields": true,
     "terraform.experimentalFeatures.validateOnSave": true,
-    "[terraform]": {
+    "[terraform,terraform-vars]": {
         "editor.defaultFormatter": "hashicorp.terraform",
         "editor.formatOnSave": false,
         "editor.codeActionsOnSave": {
-            "source.formatAll.terraform": true
-        }
-    },
-    "[terraform-vars]": {
-        "editor.defaultFormatter": "hashicorp.terraform",
-        "editor.formatOnSave": false,
-        "editor.codeActionsOnSave": {
-            "source.formatAll.terraform": true
+            "source.fixAll.terraform": true
         }
     },
     // ----------------------------------------------------------------------------------------------------
     // json
     // ----------
-    "[json]": {
-        "editor.defaultFormatter": "vscode.json-language-features"
-    },
-    "[jsonc]": {
+    "[json,jsonc]": {
         "editor.defaultFormatter": "vscode.json-language-features"
     },
     // ----------------------------------------------------------------------------------------------------
@@ -263,9 +234,9 @@
     "powershell.codeFormatting.useCorrectCasing": true,
     "powershell.codeFormatting.whitespaceBetweenParameters": true,
     "powershell.developer.featureFlags": [
+        "posh-git",
         "PSReadLine",
         "Terminal-Icons",
-        "posh-git",
         "z"
     ],
     "powershell.enableProfileLoading": false,
@@ -273,6 +244,7 @@
     "powershell.integratedConsole.showOnStartup": false,
     "powershell.integratedConsole.suppressStartupBanner": true,
     "powershell.promptToUpdatePowerShell": false,
+    // "powershell.startAutomatically": false,
     "[powershell]": {
         "editor.defaultFormatter": "ms-vscode.powershell"
     }
