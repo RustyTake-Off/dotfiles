@@ -3,7 +3,7 @@
 [wsl2]
 
 # How much memory to assign to the WSL 2 VM
-memory=8GB
+memory=4GB
 
 # How many logical processors to assign to the WSL 2 VM
 processors=2
