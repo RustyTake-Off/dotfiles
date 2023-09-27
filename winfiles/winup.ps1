@@ -307,7 +307,7 @@ switch ($Action) {
     'apps' {
         Invoke-WUPApps
     }
-    'psmodules' {
+    'psmods' {
         Invoke-WUPPSModules
     }
     'ctt' {
