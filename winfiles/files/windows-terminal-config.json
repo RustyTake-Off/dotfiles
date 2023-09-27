@@ -42,7 +42,6 @@
         "defaults": {
             "colorScheme": "Abernathy",
             "font": {
-                "face": "CaskaydiaCove Nerd Font",
                 "size": 14.0
             },
             "opacity": 65,
@@ -122,6 +121,5 @@
             "yellow": "#CDCD00"
         }
     ],
-    "themes": [],
     "useAcrylicInTabRow": true
 }
