@@ -281,7 +281,7 @@ function Invoke-WUPConfigs {
     $WinTerminalConfigPath = Join-Path -Path $Env:LOCALAPPDATA -ChildPath '\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState'
 
     Write-Host 'Setting up ' -NoNewline; Write-Host 'Windows Terminal ' -ForegroundColor Blue -NoNewline; Write-Host 'config...'
-    $JsonConfigContent.win_terminal | ConvertTo-Json | Set-Content -Path (Join-Path -Path $WinTerminalConfigPath -ChildPath 'settings.json')
+    $JsonConfigContent.win_terminal | ConvertTo-Json -Depth 100 | Set-Content -Path (Join-Path -Path $WinTerminalConfigPath -ChildPath 'settings.json')
 
     # powershell profiles
     $PowershellProfileFilePath = Join-Path $env:USERPROFILE '\Documents\PowerShell'
