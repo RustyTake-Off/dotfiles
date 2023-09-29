@@ -1,3 +1,39 @@
+<#
+.SYNOPSIS
+This script automates various system configuration tasks on a Windows system.
+
+.DESCRIPTION
+This PowerShell script provides a set of functions and options to perform
+various system configuration tasks, such as downloading drivers, installing
+fonts, setting up configurations, and more, based on the content of a JSON
+configuration file under this link:
+https://github.com/RustyTake-Off/dotfiles/blob/main/winfiles/files/config.json
+
+.PARAMETER Action
+Specifies the action to perform. Choose from the following options:
+-   drivers: Downloads drivers specified in the JSON configuration file.
+-   fonts: Downloads and installs fonts specified in the JSON configuration
+    file.
+-   apps: Installs some base applications using the Windows Package Manager
+    (winget).
+-   psmods: Installs PowerShell modules from the PowerShell Gallery.
+-   ctt: Invokes a script for Windows optimization (CTT - winutil).
+-   configs: Sets up configurations for various applications.
+
+.EXAMPLE
+    PS> .\winup.ps1 -Action fonts
+
+.EXAMPLE
+    PS> .\winup.ps1 -Action psmods
+
+.EXAMPLE
+    PS> .\winup.ps1 -Action ctt
+
+.NOTES
+Make sure to understand and review the code before executing it, especially
+when downloading and executing scripts from external sources.
+#>
+
 [CmdletBinding()]
 
 param (
