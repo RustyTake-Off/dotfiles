@@ -49,7 +49,7 @@ integration, directory jumping, improved history navigation, and convenient
 key bindings for code editing.
 
 .LINK
-https://github.com/RustyTake-Off/dotfiles/blob/main/winfiles/win_up.ps1
+https://github.com/RustyTake-Off/dotfiles/blob/main/winfiles/files/Microsoft.PowerShell_profile.ps1
 
 .NOTES
 Make sure to understand and review the code before executing it, especially
