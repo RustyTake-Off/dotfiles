@@ -51,6 +51,12 @@
                 "keys": "ctrl+c"
             },
             {
+                "command": {
+                    "action": "newTab"
+                },
+                "keys": "ctrl+t"
+            },
+            {
                 "command": "paste",
                 "keys": "ctrl+v"
             },
@@ -60,25 +66,25 @@
             },
             {
                 "command": {
-                    "action": "newTab"
-                },
-                "keys": "ctrl+t"
-            },
-            {
-                "command": "closePane",
-                "keys": "ctrl+w"
-            },
-            {
-                "command": {
                     "action": "splitPane",
                     "split": "auto",
                     "splitMode": "duplicate"
                 },
                 "keys": "alt+shift+d"
+            },
+            {
+                "command": "closePane",
+                "keys": "ctrl+w"
             }
         ],
         "copyFormatting": "none",
+        "copyOnSelect": false,
         "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
+        "newTabMenu": [
+            {
+                "type": "remainingProfiles"
+            }
+        ],
         "profiles": {
             "defaults": {
                 "colorScheme": "Abernathy",
@@ -90,50 +96,76 @@
             },
             "list": [
                 {
-                    "name": "PS7",
-                    "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
-                    "hidden": false,
-                    "source": "Windows.Terminal.PowershellCore",
-                    "backgroundImage": "%USERPROFILE%\\shared\\images\\ps7-128x128.png",
-                    "backgroundImageAlignment": "bottomRight",
-                    "backgroundImageOpacity": 0.2,
-                    "backgroundImageStretchMode": "none"
-                },
-                {
-                    "name": "PS5.1",
-                    "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
-                    "hidden": false,
-                    "backgroundImage": "%USERPROFILE%\\shared\\images\\ps5.1-128x128.png",
-                    "backgroundImageAlignment": "bottomRight",
-                    "backgroundImageOpacity": 0.2,
-                    "backgroundImageStretchMode": "none"
-                },
-                {
-                    "name": "CMD",
-                    "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
-                    "hidden": false,
-                    "backgroundImage": "%USERPROFILE%\\shared\\images\\msdos-120x128.png",
-                    "backgroundImageAlignment": "bottomRight",
-                    "backgroundImageOpacity": 0.2,
-                    "backgroundImageStretchMode": "none"
-                },
-                {
-                    "name": "Git Bash",
-                    "guid": "{ca68375c-52ff-443c-9e71-01094c994ddb}",
-                    "hidden": false,
-                    "commandline": "\"%PROGRAMFILES%\\Git\\bin\\bash.exe\" --cd-to-home -l",
-                    "startingDirectory": "%USERPROFILE%",
-                    "backgroundImage": "%USERPROFILE%\\shared\\images\\git-bash-128x128.png",
+                    "backgroundImage": "%USERPROFILE%\\media\\images\\ps5.1-128x128.png",
                     "backgroundImageAlignment": "bottomRight",
                     "backgroundImageOpacity": 0.2,
                     "backgroundImageStretchMode": "none",
-                    "icon": "%PROGRAMFILES%\\Git\\mingw64\\share\\git\\git-for-windows.ico"
+                    "bellStyle": "window",
+                    "commandline": "%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+                    "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+                    "hidden": false,
+                    "name": "Windows PowerShell"
                 },
                 {
-                    "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
+                    "backgroundImage": "%USERPROFILE%\\media\\images\\msdos-120x128.png",
+                    "backgroundImageAlignment": "bottomRight",
+                    "backgroundImageOpacity": 0.2,
+                    "backgroundImageStretchMode": "none",
+                    "bellStyle": "window",
+                    "commandline": "%SystemRoot%\\System32\\cmd.exe",
+                    "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+                    "hidden": false,
+                    "name": "Command Prompt"
+                },
+                {
+                    "backgroundImage": "%USERPROFILE%\\media\\images\\ps7-128x128.png",
+                    "backgroundImageAlignment": "bottomRight",
+                    "backgroundImageOpacity": 0.2,
+                    "backgroundImageStretchMode": "none",
+                    "bellStyle": "window",
+                    "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
+                    "hidden": false,
+                    "name": "PowerShell",
+                    "source": "Windows.Terminal.PowershellCore"
+                },
+                {
+                    "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
                     "hidden": true,
+                    "name": "Ubuntu",
+                    "source": "Windows.Terminal.Wsl"
+                },
+                {
+                    "backgroundImage": "%USERPROFILE%\\media\\images\\azure-128x128.png",
+                    "backgroundImageAlignment": "bottomRight",
+                    "backgroundImageOpacity": 0.2,
+                    "backgroundImageStretchMode": "none",
+                    "bellStyle": "window",
+                    "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
+                    "hidden": false,
                     "name": "Azure Cloud Shell",
                     "source": "Windows.Terminal.Azure"
+                },
+                {
+                    "backgroundImage": "%USERPROFILE%\\media\\images\\git-bash-128x128.png",
+                    "backgroundImageAlignment": "bottomRight",
+                    "backgroundImageOpacity": 0.2,
+                    "backgroundImageStretchMode": "none",
+                    "bellStyle": "window",
+                    "guid": "{2ece5bfe-50ed-5f3a-ab87-5cd4baafed2b}",
+                    "hidden": false,
+                    "name": "Git Bash",
+                    "source": "Git"
+                },
+                {
+                    "backgroundImage": "%USERPROFILE%\\media\\images\\ubuntu-128x128.png",
+                    "backgroundImageAlignment": "bottomRight",
+                    "backgroundImageOpacity": 0.2,
+                    "backgroundImageStretchMode": "none",
+                    "bellStyle": "window",
+                    "guid": "{51855cb2-8cce-5362-8f54-464b92b32386}",
+                    "hidden": false,
+                    "name": "Ubuntu",
+                    "source": "CanonicalGroupLimited.Ubuntu_79rhkp1fndgsc"
                 }
             ]
         },
@@ -162,6 +194,7 @@
                 "yellow": "#CDCD00"
             }
         ],
+        "themes": [],
         "useAcrylicInTabRow": true
     }
 }
