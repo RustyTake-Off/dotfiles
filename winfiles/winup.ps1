@@ -44,9 +44,9 @@ param (
 
 # ================================================================================
 # Main variables
-$WinupFolderPath = Join-Path -Path $env:USERPROFILE\Desktop -ChildPath winup
-$ConfigJsonUrl = 'https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/winfiles/files/config.json'
-$JsonConfigContent = Invoke-WebRequest -Uri $ConfigJsonUrl | ConvertFrom-Json
+$WinupFolderPath = Join-Path -Path $env:USERPROFILE\Desktop -ChildPath 'winup'
+$WinfilesUrl = 'https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/winfiles/files'
+$JsonConfigContent = Invoke-WebRequest -Uri "$WinfilesUrl/config.json" | ConvertFrom-Json
 $ImagesZipUrl = 'https://github.com/RustyTake-Off/dotfiles/raw/main/genfiles/media/images.zip'
 
 # ================================================================================
@@ -328,8 +328,13 @@ function Invoke-WUPConfigs {
     foreach ($PSProfileItem in @('PowerShell', 'VSCode')) {
         $PSProfile = 'Microsoft.' + $PSProfileItem + '_profile.ps1'
         Write-Host $PSProfileItem -ForegroundColor Blue -NoNewline; Write-Host 'profile...'
-        Invoke-WebRequest -Uri "https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/winfiles/files/$PSProfile" -OutFile "$powershellProfileFilePath\$PSProfile"
+        Invoke-WebRequest -Uri "$WinfilesUrl/$PSProfile" -OutFile "$powershellProfileFilePath\$PSProfile"
     }
+
+    # wsl config
+    Write-Host 'Setting up ' -NoNewline; Write-Host 'WSL ' -ForegroundColor Blue -NoNewline; Write-Host 'config...'
+    Invoke-WebRequest -Uri "$WinfilesUrl/.wslconfig" -OutFile $env:USERPROFILE
+
     Write-Host 'Done setting up configs!' -ForegroundColor Green
 }
 
