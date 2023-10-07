@@ -15,7 +15,6 @@
     // ----------------------------------------------------------------------------------------------------
     // files
     // ----------
-    "files.autoGuessEncoding": true,
     "files.eol": "\n",
     // ----------------------------------------------------------------------------------------------------
     // workbench
@@ -24,27 +23,43 @@
     "workbench.startupEditor": "none",
     "workbench.editor.enablePreview": false,
     // ----------------------------------------------------------------------------------------------------
-    // window config
+    // window
     // ----------
-    "window.autoDetectHighContrast": false,
+    "window.title": "${dirty}${activeEditorMedium}${separator}${rootName}",
+    "window.newWindowDimensions": "maximized",
+    "window.openFilesInNewWindow": "default",
     // ----------------------------------------------------------------------------------------------------
-    // scm config
+    // search
+    // ----------
+    "search.showLineNumbers": true,
+    "search.smartCase": true,
+    // ----------------------------------------------------------------------------------------------------
+    // scm
     // ----------
     "scm.alwaysShowRepositories": true,
     // ----------------------------------------------------------------------------------------------------
-    // terminal config
+    // extensions
     // ----------
+    "extensions.closeExtensionDetailsOnViewChange": true,
+    // ----------------------------------------------------------------------------------------------------
+    // terminal
+    // ----------
+    "terminal.external.windowsExec": "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
+    "terminal.integrated.confirmOnExit": "hasChildProcesses",
     "terminal.integrated.cursorBlinking": true,
+    "terminal.integrated.defaultProfile.linux": "zsh",
+    "terminal.integrated.defaultProfile.windows": "PowerShell",
     "terminal.integrated.fontSize": 18,
+    "terminal.integrated.scrollback": 100000,
     "terminal.integrated.shellIntegration.suggestEnabled": true,
     // ----------------------------------------------------------------------------------------------------
-    // misc config
+    // misc
     // ----------
     "remote.tunnels.access.preventSleep": true,
     "update.showReleaseNotes": false,
     "telemetry.telemetryLevel": "off",
     // ----------------------------------------------------------------------------------------------------
-    // utility extensions config ##########################################################################
+    // utility extensions #################################################################################
     // ----------------------------------------------------------------------------------------------------
     // dotnetAcquisitionExtension
     // ----------
@@ -59,7 +74,6 @@
     // better-comments
     // ----------
     "better-comments.highlightPlainText": true,
-    "better-comments.multilineComments": false,
     "better-comments.tags": [
         {
             "tag": "!",
@@ -110,7 +124,8 @@
     // ----------------------------------------------------------------------------------------------------
     // cSpell
     // ----------
-    "cSpell.language": "en,en-GB,en-US,pl,lorem",
+    "cSpell.language": "en,en-US",
+    "cSpell.showStatus": false,
     "cSpell.enableFiletypes": [
         "bicep",
         "bicep-params",
@@ -122,6 +137,11 @@
         "shellscript",
         "terraform"
     ],
+    // ----------------------------------------------------------------------------------------------------
+    // git
+    // ----------
+    "git.autofetch": true,
+    "git.autoStash": true,
     // ----------------------------------------------------------------------------------------------------
     // gitlens
     // ----------
@@ -176,7 +196,7 @@
     // ----------
     "vsicons.dontShowNewVersionMessage": true,
     // ----------------------------------------------------------------------------------------------------
-    // language specific extensions config ################################################################
+    // language specific extensions #######################################################################
     // ----------------------------------------------------------------------------------------------------
     // bicep
     // ----------
@@ -239,7 +259,7 @@
         "Terminal-Icons",
         "z"
     ],
-    "powershell.enableProfileLoading": false,
+    // "powershell.enableProfileLoading": false,
     "powershell.enableReferencesCodeLens": false,
     "powershell.integratedConsole.showOnStartup": false,
     "powershell.integratedConsole.suppressStartupBanner": true,
@@ -247,5 +267,14 @@
     // "powershell.startAutomatically": false,
     "[powershell]": {
         "editor.defaultFormatter": "ms-vscode.powershell"
-    }
+    },
+    // ----------------------------------------------------------------------------------------------------
+    // shell
+    // ----------
+    "shellcheck.customArgs": [
+        "--shell=bash",
+        "--enable=all"
+    ],
+    "shellcheck.executablePath": "shellcheck",
+    "shellcheck.run": "onSave"
 }
