@@ -298,8 +298,10 @@ function Invoke-WUPConfigs {
 
     # winget
     $WingetConfigPath = Join-Path -Path $env:LOCALAPPDATA -ChildPath '\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState'
-
     Write-Host 'Setting up ' -NoNewline; Write-Host 'Winget ' -ForegroundColor Blue -NoNewline; Write-Host 'config...'
+
+    Get-WUPFolder -FolderPath $WingetConfigPath
+
     $JsonConfigContent.winget | ConvertTo-Json | Set-Content -Path (Join-Path -Path $WingetConfigPath -ChildPath 'settings.json')
     $JsonConfigContent.winget | ConvertTo-Json | Set-Content -Path (Join-Path -Path $WingetConfigPath -ChildPath 'settings.json.backup')
 
@@ -315,8 +317,10 @@ function Invoke-WUPConfigs {
 
     # windows terminal
     $WinTerminalConfigPath = Join-Path -Path $env:LOCALAPPDATA -ChildPath '\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState'
-
     Write-Host 'Setting up ' -NoNewline; Write-Host 'Windows Terminal ' -ForegroundColor Blue -NoNewline; Write-Host 'config...'
+
+    Get-WUPFolder -FolderPath $WinTerminalConfigPath
+
     $JsonConfigContent.win_terminal | ConvertTo-Json -Depth 100 | Set-Content -Path (Join-Path -Path $WinTerminalConfigPath -ChildPath 'settings.json')
 
     # powershell profiles
