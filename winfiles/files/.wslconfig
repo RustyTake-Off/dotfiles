@@ -3,7 +3,7 @@
 [wsl2]
 
 # How much memory to assign to the WSL 2 VM
-memory=4GB
+memory=6GB
 
 # How many logical processors to assign to the WSL 2 VM
 processors=2
@@ -12,9 +12,6 @@ processors=2
 # should be connectable from the host via localhost:port
 localhostForwarding=true
 
-# How much swap space to add to the WSL 2 VM, 0 for no swap file. Swap storage is
-# disk-based RAM used when memory demand exceeds limit on hardware device
+# How much swap space to add to the WSL 2 VM, 0 for no swap file. Swap storage
+# is disk-based RAM used when memory demand exceeds limit on hardware device
 swap=0
-
-# Enable systemd
-systemd=true
