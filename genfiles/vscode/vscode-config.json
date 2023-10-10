@@ -12,6 +12,8 @@
     "editor.fontSize": 18,
     "editor.formatOnSave": true,
     "editor.acceptSuggestionOnEnter": "off",
+    "editor.screenReaderAnnounceInlineSuggestion": false,
+    "editor.snippetSuggestions": "bottom",
     // ----------------------------------------------------------------------------------------------------
     // files
     // ----------
@@ -19,8 +21,9 @@
     // ----------------------------------------------------------------------------------------------------
     // workbench
     // ----------
-    "workbench.iconTheme": "vscode-icons",
     "workbench.startupEditor": "none",
+    "workbench.iconTheme": "vscode-icons",
+    "workbench.sideBar.location": "right",
     "workbench.editor.enablePreview": false,
     // ----------------------------------------------------------------------------------------------------
     // window
@@ -38,10 +41,6 @@
     // ----------
     "scm.alwaysShowRepositories": true,
     // ----------------------------------------------------------------------------------------------------
-    // extensions
-    // ----------
-    "extensions.closeExtensionDetailsOnViewChange": true,
-    // ----------------------------------------------------------------------------------------------------
     // terminal
     // ----------
     "terminal.external.windowsExec": "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
@@ -55,21 +54,15 @@
     // ----------------------------------------------------------------------------------------------------
     // misc
     // ----------
-    "remote.tunnels.access.preventSleep": true,
     "update.showReleaseNotes": false,
     "telemetry.telemetryLevel": "off",
+    "security.workspace.trust.enabled": false,
     // ----------------------------------------------------------------------------------------------------
     // utility extensions #################################################################################
     // ----------------------------------------------------------------------------------------------------
     // dotnetAcquisitionExtension
     // ----------
     "dotnetAcquisitionExtension.enableTelemetry": false,
-    // ----------------------------------------------------------------------------------------------------
-    // azureResourceManagerTools
-    // ----------
-    "[arm-template]": {
-        "editor.defaultFormatter": "msazurermtools.azurerm-vscode-tools"
-    },
     // ----------------------------------------------------------------------------------------------------
     // better-comments
     // ----------
@@ -125,18 +118,9 @@
     // cSpell
     // ----------
     "cSpell.language": "en,en-US",
+    "cSpell.maxDuplicateProblems": 3,
+    "cSpell.maxNumberOfProblems": 50,
     "cSpell.showStatus": false,
-    "cSpell.enableFiletypes": [
-        "bicep",
-        "bicep-params",
-        "dockercompose",
-        "dockerfile",
-        "gitignore",
-        "makefile",
-        "powershell",
-        "shellscript",
-        "terraform"
-    ],
     // ----------------------------------------------------------------------------------------------------
     // git
     // ----------
@@ -227,10 +211,10 @@
     // ----------------------------------------------------------------------------------------------------
     // yaml
     // ----------
-    "yaml.format.singleQuote": true,
-    "[yaml]": {
-        "editor.defaultFormatter": "redhat.vscode-yaml"
-    },
+    // "yaml.format.singleQuote": true,
+    // "[yaml]": {
+    //     "editor.defaultFormatter": "redhat.vscode-yaml"
+    // },
     // ----------------------------------------------------------------------------------------------------
     // markdown
     // ----------
