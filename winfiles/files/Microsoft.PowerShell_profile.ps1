@@ -57,7 +57,7 @@ when downloading and executing scripts from external sources.
 #>
 
 # Import modules
-Import-Module -Name Terminal-Icons
+# Import-Module -Name Terminal-Icons
 Import-Module -Name posh-git
 Import-Module -Name z
 
@@ -87,11 +87,7 @@ function which ($name) {
 
 # Make it easier to edit this profile once it's installed
 function Edit-Profile {
-    if ($host.Name -match 'ise') {
-        $psISE.CurrentPowerShellTab.Files.Add($PROFILE)
-    } else {
-        notepad $PROFILE
-    }
+    code $PROFILE
 }
 
 function Reset-Profile {
