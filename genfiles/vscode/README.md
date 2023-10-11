@@ -110,6 +110,7 @@ Here are some essential and useful 👷 extensions for VSCode:
 | vscode-icons-team.vscode-icons               | Icons for Visual Studio Code                            |
 | wayou.vscode-todo-highlight                  | Highlight TODOs and FIXMEs in your code                 |
 | yzhang.markdown-all-in-one                   | All-in-one extension for Markdown                       |
+| timonwong.shellcheck                         | Linter for Shell scripts                                |
 
 You can install these extensions 📎 by using this command `code --install-extension <author>.<extension_name>` for each extension.
 
