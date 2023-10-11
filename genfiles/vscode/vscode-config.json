@@ -243,7 +243,7 @@
         "Terminal-Icons",
         "z"
     ],
-    // "powershell.enableProfileLoading": false,
+    "powershell.enableProfileLoading": false,
     "powershell.enableReferencesCodeLens": false,
     "powershell.integratedConsole.showOnStartup": false,
     "powershell.integratedConsole.suppressStartupBanner": true,
