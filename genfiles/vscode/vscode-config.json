@@ -121,6 +121,9 @@
     "cSpell.maxDuplicateProblems": 3,
     "cSpell.maxNumberOfProblems": 50,
     "cSpell.showStatus": false,
+    "cSpell.enableFiletypes": [
+        "*"
+    ],
     // ----------------------------------------------------------------------------------------------------
     // git
     // ----------
