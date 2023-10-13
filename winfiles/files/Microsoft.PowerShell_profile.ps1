@@ -57,9 +57,15 @@ when downloading and executing scripts from external sources.
 #>
 
 # Import modules
-# Import-Module -Name Terminal-Icons
+Import-Module -Name Terminal-Icons
+Import-Module -Name PSReadLine
 Import-Module -Name posh-git
 Import-Module -Name z
+
+# Start needed services
+if ((Get-Service -Name ssh-agent | Select-Object -ExpandProperty 'Status') -eq 'Stopped') {
+    Start-Service ssh-agent
+}
 
 # Useful functions
 # Traversing files and folders
