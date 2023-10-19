@@ -13,7 +13,7 @@
         "backgroundcolor": "#000000",
         "backgroundopacity": 85,
         "blackbars": false,
-        "blockads": true,
+        "blockads": false,
         "blockadsexceptforsubs": false,
         "blockautoplay": false,
         "blockhfrformats": false,
