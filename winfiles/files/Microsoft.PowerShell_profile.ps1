@@ -6,7 +6,7 @@ This is a configuration script for the Microsoft.PowerShell_profile.ps1 file.
 This is a configuration script for the Microsoft.PowerShell_profile.ps1 file.
 
 Run this command to set the execution policy:
-    PS> Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
+    PS> Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
 
 This file should be stored in $PROFILE
 If $PROFILE doesn't exist, you can make one with the following command:
@@ -15,18 +15,7 @@ If $PROFILE doesn't exist, you can make one with the following command:
 This will create the file and the containing subdirectory if it doesn't already
 have it.
 
-The script sets up various configurations and imports modules to enhance the
-PowerShell console experience.
-Here's a breakdown of what the script does:
-
-Script imports several PowerShell modules:
--   Terminal-Icons: This module adds support for displaying icons in the console.
--   posh-git: Integrates Git functionality into the console prompt, making it
-    easier to work with Git repositories from the command line.
--   z: This module enables directory jumping capabilities using the 'z' command,
-    allowing users to quickly navigate to frequently accessed directories.
-
-Defines useful functions for traversing files and folders:
+Script defines useful functions for traversing files and folders:
 -   '.': Sets the current location to the parent directory.
 -   '..': Sets the current location to the grandparent directory.
 -   '...', '....', '.....': Sets the current location to increasingly higher-level
@@ -44,10 +33,6 @@ The script also registers argument completers for two commands:
 -   'az': Provides tab completion for the 'az' command (Azure CLI), enhancing
     the command line experience when interacting with Azure resources.
 
-Overall, this script enhances the PowerShell console with features like Git
-integration, directory jumping, improved history navigation, and convenient
-key bindings for code editing.
-
 .LINK
 https://github.com/RustyTake-Off/dotfiles/blob/main/winfiles/files/Microsoft.PowerShell_profile.ps1
 
@@ -57,10 +42,10 @@ when downloading and executing scripts from external sources.
 #>
 
 # Import modules
-Import-Module -Name Terminal-Icons
-Import-Module -Name PSReadLine
-Import-Module -Name posh-git
 Import-Module -Name z
+
+# Set oh-my-posh theme
+oh-my-posh init pwsh --config 'https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/atomicBit.omp.json' | Invoke-Expression
 
 # Start needed services
 if ((Get-Service -Name ssh-agent | Select-Object -ExpandProperty 'Status') -eq 'Stopped') {
@@ -118,54 +103,6 @@ Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
 Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
 Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
 
-Set-PSReadLineKeyHandler -Key '(', '{', '[' `
-    -BriefDescription InsertPairedBraces `
-    -LongDescription 'Insert matching braces' `
-    -ScriptBlock {
-    param($key, $arg)
-
-    $closeChar = switch ($key.KeyChar) {
-        <#case#> '(' { [char]')'; break }
-        <#case#> '{' { [char]'}'; break }
-        <#case#> '[' { [char]']'; break }
-    }
-
-    $selectionStart = $null
-    $selectionLength = $null
-    [Microsoft.PowerShell.PSConsoleReadLine]::GetSelectionState([ref]$selectionStart, [ref]$selectionLength)
-
-    $line = $null
-    $cursor = $null
-    [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
-
-    if ($selectionStart -ne -1) {
-        # Text is selected, wrap it in brackets
-        [Microsoft.PowerShell.PSConsoleReadLine]::Replace($selectionStart, $selectionLength, $key.KeyChar + $line.SubString($selectionStart, $selectionLength) + $closeChar)
-        [Microsoft.PowerShell.PSConsoleReadLine]::SetCursorPosition($selectionStart + $selectionLength + 2)
-    } else {
-        # No text is selected, insert a pair
-        [Microsoft.PowerShell.PSConsoleReadLine]::Insert("$($key.KeyChar)$closeChar")
-        [Microsoft.PowerShell.PSConsoleReadLine]::SetCursorPosition($cursor + 1)
-    }
-}
-
-Set-PSReadLineKeyHandler -Key ')', ']', '}' `
-    -BriefDescription SmartCloseBraces `
-    -LongDescription 'Insert closing brace or skip' `
-    -ScriptBlock {
-    param($key, $arg)
-
-    $line = $null
-    $cursor = $null
-    [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
-
-    if ($line[$cursor] -eq $key.KeyChar) {
-        [Microsoft.PowerShell.PSConsoleReadLine]::SetCursorPosition($cursor + 1)
-    } else {
-        [Microsoft.PowerShell.PSConsoleReadLine]::Insert("$($key.KeyChar)")
-    }
-}
-
 Set-PSReadLineKeyHandler -Key Backspace `
     -BriefDescription SmartBackspace `
     -LongDescription 'Delete previous character or matching quotes/parens/braces' `
@@ -196,10 +133,6 @@ Set-PSReadLineKeyHandler -Key Backspace `
     }
 }
 
-# Sometimes you enter a command but realize you forgot to do something else first.
-# This binding will let you save that command in the history so you can recall it,
-# but it doesn't actually execute. It also clears the line with RevertLine so the
-# undo stack is reset - though redo will still reconstruct the command line.
 Set-PSReadLineKeyHandler -Key Alt+w `
     -BriefDescription SaveInHistory `
     -LongDescription 'Save current line in history but do not execute' `
@@ -230,7 +163,6 @@ Set-PSReadLineKeyHandler -Key Ctrl+V `
     }
 }
 
-# Tab completion
 # Tab completion for winget https://learn.microsoft.com/en-us/windows/package-manager/winget/tab-completion
 Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
     param($wordToComplete, $commandAst, $cursorPosition)
