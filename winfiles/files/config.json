@@ -20,15 +20,13 @@
         "https://dl.dell.com/FOLDER06444713M/2/Dell-Touchpad-Settings-Application_CPPN8_WIN64_10.1.11.0_A03_01.EXE",
         "https://dl.dell.com/FOLDER10176031M/1/Dell-Power-Manager-Service_YX9MN_WIN64_3.15.0_A00.EXE",
         "https://dl.dell.com/FOLDER06762917M/4/STMicroelectronics-Free-Fall-Data-Protection-Driver_FXX2G_WIN_4.10.106_A02_01.EXE",
-        "https://download.brother.com/welcome/dlf004452/dcp-j315w-inst-B1-cd5.EXE"
+        "https://download.brother.com/welcome/dlf105119/Y20A_C1_ULWC_PP-inst-E1.EXE"
     ],
     "psmodules": [
         "PackageManagement",
         "PowerShellGet",
-        "z",
         "PSReadLine",
-        "Terminal-Icons",
-        "posh-git"
+        "z"
     ],
     "fonts": [
         "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CascadiaCode.zip"
@@ -91,8 +89,7 @@
                 "font": {
                     "size": 14.0
                 },
-                "opacity": 65,
-                "useAcrylic": true
+                "opacity": 65
             },
             "list": [
                 {
