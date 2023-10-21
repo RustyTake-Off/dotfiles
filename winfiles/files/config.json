@@ -31,6 +31,47 @@
     "fonts": [
         "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CascadiaCode.zip"
     ],
+    "vscode_ext": [
+        "4ops.terraform",
+        "aaron-bond.better-comments",
+        "bierner.emojisense",
+        "christian-kohler.path-intellisense",
+        "codezombiech.gitignore",
+        "DavidAnson.vscode-markdownlint",
+        "donjayamanne.githistory",
+        "eamodio.gitlens",
+        "EditorConfig.EditorConfig",
+        "esbenp.prettier-vscode",
+        "github.vscode-github-actions",
+        "GitHub.vscode-pull-request-github",
+        "hashicorp.terraform",
+        "IBM.output-colorizer",
+        "mhutchie.git-graph",
+        "ms-azuretools.vscode-bicep",
+        "ms-azuretools.vscode-docker",
+        "ms-dotnettools.vscode-dotnet-runtime",
+        "ms-vscode-remote.remote-containers",
+        "ms-vscode-remote.remote-ssh",
+        "ms-vscode-remote.remote-ssh-edit",
+        "ms-vscode-remote.remote-wsl",
+        "ms-vscode-remote.vscode-remote-extensionpack",
+        "ms-vscode.powershell",
+        "ms-vscode.remote-explorer",
+        "ms-vscode.remote-server",
+        "ms-vsliveshare.vsliveshare",
+        "msazurermtools.azurerm-vscode-tools",
+        "oderwat.indent-rainbow",
+        "pnp.polacode",
+        "Postman.postman-for-vscode",
+        "rangav.vscode-thunder-client",
+        "redhat.vscode-yaml",
+        "richie5um2.vscode-sort-json",
+        "streetsidesoftware.code-spell-checker",
+        "timonwong.shellcheck",
+        "Tyriar.sort-lines",
+        "vscode-icons-team.vscode-icons",
+        "yzhang.markdown-all-in-one"
+    ],
     "winget": {
         "$schema": "https://aka.ms/winget-settings.schema.json",
         "visual": {
@@ -87,9 +128,10 @@
             "defaults": {
                 "colorScheme": "Abernathy",
                 "font": {
+                    "face": "CaskaydiaCove Nerd Font Mono",
                     "size": 14.0
                 },
-                "opacity": 65
+                "opacity": 86
             },
             "list": [
                 {
@@ -191,7 +233,6 @@
                 "yellow": "#CDCD00"
             }
         ],
-        "themes": [],
-        "useAcrylicInTabRow": true
+        "themes": []
     }
 }
