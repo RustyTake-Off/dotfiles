@@ -9,6 +9,9 @@ fonts, setting up configurations, and more, based on the content of a JSON
 configuration file under this link:
 https://github.com/RustyTake-Off/dotfiles/blob/main/winfiles/files/config.json
 
+Run this command to set the execution policy:
+    PS> Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
+
 .PARAMETER Action
 Specifies the action to perform. Choose from the following options:
 -   drivers: Downloads drivers specified in the JSON configuration file.
@@ -157,7 +160,7 @@ function Install-WUPFont {
 
 # ================================================================================
 # Main functions
-function Invoke-WUPDrivers {
+function Get-WUPDrivers {
     <#
     .SYNOPSIS
     Downloads drivers.
@@ -178,7 +181,7 @@ function Invoke-WUPDrivers {
     Write-Host 'Download complete!' -ForegroundColor Green
 }
 
-function Invoke-WUPFonts {
+function Install-WUPFonts {
     <#
     .SYNOPSIS
     Downloads and extracts fonts.
@@ -221,7 +224,7 @@ function Invoke-WUPFonts {
     }
 }
 
-function Invoke-WUPApps {
+function Install-WUPApps {
     <#
     .SYNOPSIS
     Installs essential applications.
@@ -242,7 +245,7 @@ function Invoke-WUPApps {
     Write-Host 'Installation complete!' -ForegroundColor Green
 }
 
-function Invoke-WUPPSModules {
+function Install-WUPPowerShellModules {
     <#
     .SYNOPSIS
     Installs Powershell modules.
@@ -285,7 +288,7 @@ function Invoke-WUPCtt {
     Write-Host 'Invoke complete!' -ForegroundColor Green
 }
 
-function Invoke-WUPConfigs {
+function Set-WUPConfigs {
     <#
     .SYNOPSIS
     Installs configurations.
@@ -342,24 +345,53 @@ function Invoke-WUPConfigs {
     Write-Host 'Done setting up configs!' -ForegroundColor Green
 }
 
+function Install-WUPVSCodeExtensions {
+    <#
+    .SYNOPSIS
+    Installs VSCode extensions.
+
+    .DESCRIPTION
+    This function installs VSCode extensions.
+    #>
+
+    if (code --version) {
+        Write-Host 'Installing VSCode extensions...' -ForegroundColor Green
+        foreach ($Ext in $JsonConfigContent.vscode_ext) {
+            if (-not (code --list-extensions | Select-String -Pattern $Ext)) {
+                Write-Host 'Installing ' -NoNewline; Write-Host "$Ext..." -ForegroundColor Blue
+                Start-Process -FilePath code -ArgumentList "--install-extension $Ext --force" -NoNewWindow -Wait
+            } else {
+                Write-Host 'Extension is already installed: ' -NoNewline; Write-Host $Ext -ForegroundColor Blue
+            }
+        }
+        Write-Host 'Installation complete!' -ForegroundColor Green
+    } else {
+        Write-Host 'It looks like ' -NoNewline; Write-Host 'VSCode ' -ForegroundColor Blue -NoNewline; Write-Host 'is not installed.'
+        exit
+    }
+}
+
 switch ($Action) {
     'drivers' {
-        Invoke-WUPDrivers
+        Get-WUPDrivers
     }
     'fonts' {
-        Invoke-WUPFonts
+        Install-WUPFonts
     }
     'apps' {
-        Invoke-WUPApps
+        Install-WUPApps
     }
     'psmods' {
-        Invoke-WUPPSModules
+        Install-WUPPowerShellModules
     }
     'ctt' {
         Invoke-WUPCtt
     }
     'configs' {
-        Invoke-WUPConfigs
+        Set-WUPConfigs
+    }
+    'code' {
+        Install-WUPVSCodeExtensions
     }
     default {
         Write-Host 'Available actions to take:' -ForegroundColor Green
@@ -369,7 +401,8 @@ switch ($Action) {
     apps      -   Installs some base applications
     psmods    -   Installs PowerShell modules
     ctt       -   Invokes the CTT - winutil
-    configs   -   Installs config files
+    configs   -   Sets config files
+    code      -   Installs VSCode extensions
             '
     }
 }
