@@ -1,12 +1,30 @@
 {
-    "apps": [
-        "Microsoft.VCRedist.2005.x64",
-        "Microsoft.VCRedist.2008.x64",
-        "Microsoft.VCRedist.2010.x64",
-        "Microsoft.VCRedist.2012.x64",
-        "Microsoft.VCRedist.2013.x64",
-        "Microsoft.VCRedist.2015+.x64"
-    ],
+    "apps": {
+        "base": [
+            "Microsoft.VCRedist.2005.x64",
+            "Microsoft.VCRedist.2008.x64",
+            "Microsoft.VCRedist.2010.x64",
+            "Microsoft.VCRedist.2012.x64",
+            "Microsoft.VCRedist.2013.x64",
+            "Microsoft.VCRedist.2015+.x64",
+            "Microsoft.PowerShell"
+        ],
+        "other": [
+            "7zip.7zip",
+            "Brave.Brave",
+            "Mozilla.Firefox",
+            "File-New-Project.EarTrumpet",
+            "xanderfrangos.twinkletray",
+            "Notepad++.Notepad++",
+            "SumatraPDF.SumatraPDF",
+            "KeePassXCTeam.KeePassXC",
+            "Microsoft.PowerToys",
+            "Git.Git --interactive",
+            "Microsoft.WindowsTerminal",
+            "JanDeDobbeleer.OhMyPosh",
+            "Microsoft.VisualStudioCode"
+        ]
+    },
     "drivers": [
         "https://dl.dell.com/FOLDER04001557M/9/Intel-Chipset-Device-Software_HMDR4_WIN_10.1.1.38_A05_06.EXE",
         "https://dl.dell.com/FOLDER08493502M/2/Intel-Dynamic-Tuning-Driver_H5M3J_WIN64_8.7.10802.26924_A16_01.EXE",
