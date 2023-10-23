@@ -22,6 +22,7 @@ Specifies the action to perform. Choose from the following options:
 -   psmods: Installs PowerShell modules from the PowerShell Gallery.
 -   ctt: Invokes a script for Windows optimization (CTT - winutil).
 -   configs: Sets up configurations for various applications.
+-   code: Installs VSCode extensions.
 
 .EXAMPLE
     PS> .\winup.ps1 -Action fonts
@@ -41,8 +42,10 @@ when downloading and executing scripts from external sources.
 
 param (
     [Parameter(Mandatory = $false, Position = 0)]
-    [String]
-    $Action
+    [String] $Action,
+
+    [Parameter(Mandatory = $false, Position = 1)]
+    [String] $SubAction
 )
 
 # ================================================================================
@@ -233,8 +236,14 @@ function Install-WUPApps {
     This function installs some essential applications with winget.
     #>
 
+    param (
+        [Parameter(Mandatory = $true, Position = 0)]
+        [ValidateSet('base', 'other')]
+        [String] $AppType
+    )
+
     Write-Host 'Installing applications...' -ForegroundColor Green
-    foreach ($App in $JsonConfigContent.apps) {
+    foreach ($App in $JsonConfigContent.apps.$AppType) {
         if (-not (winget list --exact --id $App)) {
             Write-Host 'Installing ' -NoNewline; Write-Host "$App..." -ForegroundColor Blue
             Start-Process -FilePath winget -ArgumentList "install --exact --id $App --silent --accept-package-agreements --accept-source-agreements" -NoNewWindow -Wait
@@ -379,7 +388,7 @@ switch ($Action) {
         Install-WUPFonts
     }
     'apps' {
-        Install-WUPApps
+        Install-WUPApps -AppType $SubAction
     }
     'psmods' {
         Install-WUPPowerShellModules
@@ -399,6 +408,8 @@ switch ($Action) {
     drivers   -   Downloads drivers
     fonts     -   Downloads and installs fonts
     apps      -   Installs some base applications
+    : base    -   Installs base applications
+    : other   -   Installs other applications
     psmods    -   Installs PowerShell modules
     ctt       -   Invokes the CTT - winutil
     configs   -   Sets config files
