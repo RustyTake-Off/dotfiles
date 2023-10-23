@@ -24,22 +24,16 @@ Invoke-WebRequest -Uri "https://github.com/RustyTake-Off/dotfiles/raw/main/winfi
 
 Replace `<action_name>` with one of the available actions:
 
-| Action  | Description                              |
-| ------- | ---------------------------------------- |
-| drivers | Downloads drivers                        |
-| fonts   | Downloads and installs fonts             |
-| apps    | Installs some base applications          |
-| psmods  | Installs PowerShell modules              |
-| ctt     | Invokes the CTT - winutil                |
-| configs | Installs configuration and settings files |
-
-It is recommended to execute the actions in the following order 🌌:
-
-1. drivers
-2. fonts
-3. ctt
-4. apps
-5. psmods
-6. configs
+| Action  | Description                  |
+| ------- | ---------------------------- |
+| drivers | Downloads drivers            |
+| fonts   | Downloads and installs fonts |
+| apps    | Installs applications        |
+| : base  | Installs base applications   |
+| : other | Installs other applications  |
+| psmods  | Installs PowerShell modules  |
+| ctt     | Invokes the CTT - winutil    |
+| configs | Sets config files            |
+| code    | Installs VSCode extensions   |
 
 ❗ Note: Make sure to understand and review the code before executing it, especially when downloading and executing scripts from external sources.
