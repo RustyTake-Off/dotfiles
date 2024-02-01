@@ -72,7 +72,7 @@ The following flags are not necessary but optional:
 | #enable-parallel-downloading     | Enabled  |
 | #sync-autofill-wallet-usage-data | Disabled |
 
-[back to top](#browsers-configuration)
+[back to top ☝️](#browsers-configuration)
 
 ## Firefox configuration
 
@@ -124,7 +124,7 @@ Some changes to the 🛠️ `about:config` in Firefox 🔥🦊.
 | browser.sessionstore.interval | 15000000 |
 | browser.urlbar.maxRichResults | 0        |
 
-[back to top](#browsers-configuration)
+[back to top ☝️](#browsers-configuration)
 
 ## uBlock Origin filters
 
@@ -146,4 +146,4 @@ Helps with ☕ filtering unwanted content but might break some websites or cause
 | <https://secure.fanboy.co.nz/fanboy-annoyance_ubo.txt>                                                              |
 | <https://filters.adtidy.org/extension/ublock/filters/14.txt>                                                        |
 
-[back to top](#browsers-configuration)
+[back to top ☝️](#browsers-configuration)

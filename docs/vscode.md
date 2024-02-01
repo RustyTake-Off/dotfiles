@@ -1,6 +1,6 @@
 # VSCode Configuration
 
-Configuration for VSCode 📘
+Configuration for VSCode 📘.
 
 - [VSCode Configuration](#vscode-configuration)
   - [Install VSCode](#install-vscode)
