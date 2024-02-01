@@ -22,7 +22,7 @@ Configurations for browsers 👓 and extensions 📎.
 To install Brave ⛑️, use the following PowerShell 🟦 command:
 
 ```powershell
-winget install --exact --id Brave.Brave 
+winget install --exact --id Brave.Brave
 ```
 
 ### Brave Extensions
@@ -81,7 +81,7 @@ The following flags are not necessary but optional:
 To install Firefox 🔥🦊, use the following PowerShell 🟦 command:
 
 ```powershell
-winget install --exact --id Mozilla.Firefox 
+winget install --exact --id Mozilla.Firefox
 ```
 
 ### Firefox Extensions
