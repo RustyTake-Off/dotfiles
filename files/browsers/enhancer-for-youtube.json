@@ -1,5 +1,5 @@
 {
-    "version": "2.0.121",
+    "version": "2.0.122.1",
     "settings": {
         "blur": 0,
         "brightness": 100,
@@ -11,10 +11,8 @@
         "sepia": 0,
         "applyvideofilters": false,
         "backgroundcolor": "#000000",
-        "backgroundopacity": 85,
+        "backgroundopacity": 95,
         "blackbars": false,
-        "blockads": false,
-        "blockadsexceptforsubs": false,
         "blockautoplay": false,
         "blockhfrformats": false,
         "blockwebmformats": false,
@@ -31,13 +29,11 @@
             "loop",
             "reverse-playlist",
             "volume-booster",
-            "not-interested",
             "cards-end-screens",
             "cinema-mode",
             "size",
             "pop-up-player",
             "speed",
-            "video-filters",
             "flip-horizontally",
             "flip-vertically",
             "screenshot",
@@ -49,7 +45,7 @@
         "controlspeedmousebutton": false,
         "controlvolume": false,
         "controlvolumemousebutton": false,
-        "convertshorts": false,
+        "convertshorts": true,
         "customcolors": {
             "--dimmer-text": "#cccccc",
             "--hover-background": "#232323",
@@ -63,6 +59,7 @@
         "customscript": "",
         "customtheme": false,
         "darktheme": true,
+        "date": 0,
         "defaultvolume": false,
         "disableautoplay": false,
         "executescript": false,
@@ -75,6 +72,8 @@
         "hideshorts": true,
         "ignoreplaylists": true,
         "ignorepopupplayer": true,
+        "localecode": "pl",
+        "localedir": "ltr",
         "message": false,
         "miniplayer": true,
         "miniplayerposition": "_top-left",
@@ -105,8 +104,7 @@
         "volume": 50,
         "volumemultiplier": 3,
         "volumevariation": 5,
-        "whitelist": "",
         "wideplayer": false,
-        "wideplayerviewport": false
+        "wideplayerviewport": true
     }
 }
