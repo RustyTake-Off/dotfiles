@@ -1,17 +1,18 @@
 {
     "description": "Midnight Lizard Color Scheme File",
     "version": "10.7.0",
+    "timestamp": "2024-01-01T00:00:00.000Z",
     "colorSchemes": [
         {
-            "colorSchemeId": "dimmedDust",
-            "colorSchemeName": "Dimmed Dust",
+            "colorSchemeId": "4e1f0742528247899ae01d6993e595b9",
+            "colorSchemeName": "JustDark",
             "runOnThisSite": false,
             "doNotInvertContent": false,
             "blueFilter": 0,
             "mode": "complex",
             "modeAutoSwitchLimit": 5000,
             "useDefaultSchedule": false,
-            "scheduleStartHour": 15,
+            "scheduleStartHour": 17,
             "scheduleFinishHour": 9,
             "includeMatches": "",
             "excludeMatches": "",
