@@ -1,0 +1,10 @@
+# Ignore everything
+/*
+
+# Except
+!.config/
+!.gitconfig
+!.gitignore
+!docs/
+!LICENSE
+!README.md

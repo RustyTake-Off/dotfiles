@@ -1,0 +1,17 @@
+# Settings apply across all Linux distributions running on WSL 2
+# https://learn.microsoft.com/en-us/windows/wsl/wsl-config
+[wsl2]
+
+# How much memory to assign to the WSL 2 VM
+memory=6GB
+
+# How many logical processors to assign to the WSL 2 VM
+processors=2
+
+# Boolean specifying if ports bound to wildcard or localhost in the WSL 2 VM
+# should be connectable from the host via localhost:port
+localhostForwarding=true
+
+# How much swap space to add to the WSL 2 VM, 0 for no swap file. Swap storage
+# is disk-based RAM used when memory demand exceeds limit on hardware device
+swap=0
