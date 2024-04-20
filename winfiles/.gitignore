@@ -1,10 +1,10 @@
-# Ignore everything
-/*
+# # Ignore everything
+# /*
 
-# Except
-!.config/
-!.gitconfig
-!.gitignore
-!docs/
-!LICENSE
-!README.md
+# # Except
+# !.config/
+# !.gitconfig
+# !.gitignore
+# !docs/
+# !LICENSE
+# !README.md

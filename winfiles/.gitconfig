@@ -1,41 +1,41 @@
-[core]
-    eol = crlf
-    untrackedCache = true
+# [core]
+#     eol = crlf
+#     untrackedCache = true
 
-[includeIf "gitdir:~/pr/"]
-    path = ~/pr/.gitconfig
+# [includeIf "gitdir:~/pr/"]
+#     path = ~/pr/.gitconfig
 
-[includeIf "gitdir:~/wk/"]
-    path = ~/wk/.gitconfig
+# [includeIf "gitdir:~/wk/"]
+#     path = ~/wk/.gitconfig
 
-[color "branch"]
-    current = yellow reverse
-    local = yellow
-    remote = green
+# [color "branch"]
+#     current = yellow reverse
+#     local = yellow
+#     remote = green
 
-[color "diff"]
-    meta = yellow bold
-    frag = magenta bold
-    old = red bold
-    new = green bold
+# [color "diff"]
+#     meta = yellow bold
+#     frag = magenta bold
+#     old = red bold
+#     new = green bold
 
-[color "status"]
-    added = yellow
-    changed = green
-    untracked = cyan
-    branch = magenta
+# [color "status"]
+#     added = yellow
+#     changed = green
+#     untracked = cyan
+#     branch = magenta
 
-[merge]
-    log = true
+# [merge]
+#     log = true
 
-[alias]
-    i = init
-    cl = clone
-    s = status --short
-    a = add
-    c = commit
-    cm = commit -m
-    cam = commit -m --amend
-    pl = pull
-    pu = push
-    chb = checkout -b
+# [alias]
+#     i = init
+#     cl = clone
+#     s = status --short
+#     a = add
+#     c = commit
+#     cm = commit -m
+#     cam = commit -m --amend
+#     pl = pull
+#     pu = push
+#     chb = checkout -b

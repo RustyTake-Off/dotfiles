@@ -1,14 +1,14 @@
-# Ignore everything
-/*
+# # Ignore everything
+# /*
 
-# Except
-!.config/
-!.bash_logout
-!.bash_profile
-!.bashrc
-!.hushlogin
-!.inputrc
-!.gitconfig
-!.gitignore
-!LICENSE
-!README.md
+# # Except
+# !.config/
+# !.bash_logout
+# !.bash_profile
+# !.bashrc
+# !.hushlogin
+# !.inputrc
+# !.gitconfig
+# !.gitignore
+# !LICENSE
+# !README.md

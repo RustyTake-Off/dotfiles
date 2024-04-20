@@ -4,8 +4,9 @@
 # │ ╓─┐ ╓╜  │  ║  │  ║ │  ║  https://github.com/RustyTake-Off
 # │ ║ │ ╚╗  │  ║  │  ╚═╛  ║
 # └─╜ └──╜  └──╜  └───────╜
-# Starship config
-# Starship docs: https://starship.rs
+# Starship settings
+
+# Starship: https://starship.rs
 # Unicode characters: https://unicodes.jessetane.com
 
 "$schema" = 'https://starship.rs/config-schema.json'
@@ -40,7 +41,7 @@ Macos = '󰀵'
 
 [username]
 format = '[$user]($style)'
-style_user = 'orange bold'
+style_user = 'blue bold'
 style_root = 'red bold'
 show_always = true
 disabled = false
@@ -90,50 +91,8 @@ symbol = '𝑃𝑌'
 style = 'green bold'
 disabled = false
 
-[nodejs]
-format = '\[[$symbol]($style)\] '
-symbol = '𝑁𝑂'
-style = 'orange bold'
-disabled = true
-
-[golang]
-format = '\[[($symbol)]($style)\] '
-symbol = '𝐺𝑂'
-style = 'cyan bold'
-disabled = true
-
-[rust]
-format = '\[[$symbol]($style)\] '
-symbol = '🦀'
-style = 'red bold'
-disabled = true
-
 [kubernetes]
 format = '\[[$symbol $context]($style)\] '
 symbol = '☸'
 style = 'purple bold'
-disabled = true
-
-[terraform]
-format = '\[[$symbol]($style)\] '
-symbol = '𝑇𝐹'
-style = 'purple bold'
-disabled = true
-
-[azure]
-format = '\[[$symbol]($style)\] '
-symbol = '𝐴𝑍'
-style = 'blue bold'
-disabled = true
-
-[aws]
-format = '\[[$symbol]($style)\] '
-symbol = '𝐴𝑊𝑆'
-style = 'red bold'
-disabled = true
-
-[gcloud]
-format = '\[[$symbol]($style)\] '
-symbol = '𝐺𝐶𝑃'
-style = 'white bold'
 disabled = true
