@@ -1,10 +1,10 @@
-# files
+# genfiles
 
 📄 Configurations and settings for different things. 🛠️
 
 ## Current 🛠️ configs
 
-| Configs                | Description                 |
-| :--------------------- | :-------------------------- |
-| [Browsers](./browsers) | Configuration for browsers. |
-| [VSCode](./vscode)     | Configuration for VSCode.   |
+| Configs                | Description                                 |
+| :--------------------- | :------------------------------------------ |
+| [Browsers](./browsers) | Configurations for browsers and extensions. |
+| [VSCode](./vscode)     | Configuration for VSCode.                   |
