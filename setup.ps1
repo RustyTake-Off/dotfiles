@@ -28,7 +28,10 @@ function CheckAndAskToInstall([string]$packageName) {
     Checks if a specified package is installed and prompts the user to install it if not found.
 
     .DESCRIPTION
-    This function verifies whether a given package (specified by `$packageName`) is installed on the system. If the package is not detected, it prompts the user to decide whether to proceed with the installation. The user is asked to confirm installation by entering 'y' or decline by entering 'n'. If no response is provided, the default action is to abort the script.
+    This function verifies whether a given package (specified by `$packageName`) is installed on the system. If
+    the package is not detected, it prompts the user to decide whether to proceed with the installation. The user
+    is asked to confirm installation by entering 'y' or decline by entering 'n'. If no response is provided, the
+    default action is to abort the script.
 
     .PARAMETER packageName
     Specifies the name of the package to be checked for installation.
