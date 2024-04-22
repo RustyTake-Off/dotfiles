@@ -4,7 +4,17 @@
 # │ ╓─┐ ╓╜  │  ║  │  ║ │  ║  https://github.com/RustyTake-Off
 # │ ║ │ ╚╗  │  ║  │  ╚═╛  ║  https://github.com/RustyTake-Off/dotfiles
 # └─╜ └──╜  └──╜  └───────╜
-# setup script
+# Dotfiles setup script
+
+<#
+.SYNOPSIS
+This script is designed to streamline the process of setting up personalized configurations by leveraging version-controlled dotfiles, ensuring consistency and ease of deployment across different systems. It installs necessary tools like Git and Winget, clones the dotfiles repository, and checks out specified directories/files into the user's profile directory.
+
+.DESCRIPTION
+The script begins by defining directories to be checked out from a specified dotfiles repository. It checks for the presence of required tools (Git and Winget) and prompts the user for installation if not found. Upon installation of these tools, it proceeds to clone the dotfiles repository and checks out the specified directories/files into the user's profile directory.
+
+The script utilizes ANSI escape sequences to display colored output for clarity and user interaction. It handles user input to confirm installation choices and gracefully exits if prerequisites are not met. Additionally, error handling is implemented to provide informative messages in case of failures during the setup process.
+#>
 
 [CmdletBinding(SupportsShouldProcess)]
 
@@ -71,9 +81,9 @@ if (CheckAndAskToInstall 'winget') {
 
     # https://github.com/ChrisTitusTech/winutil
     # https://github.com/asheroto/winget-install
-    # (Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/asheroto/winget-install/master/winget-install.ps1').Content | Invoke-Expression
+    (Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/asheroto/winget-install/master/winget-install.ps1').Content | Invoke-Expression
 
-    Write-Host "Installed $($greenColor)Winget$($resetColor) and its dependencies!"
+    Write-Host "Installed $($greenColor)Winget$($resetColor) and its dependencies."
 } elseif (Get-Command -Name winget -ErrorAction SilentlyContinue) {
     Write-Host "$($greenColor)Winget$($resetColor) is installed."
 }
@@ -81,14 +91,14 @@ if (CheckAndAskToInstall 'winget') {
 if (CheckAndAskToInstall 'git') {
     Write-Host "Installing $($yellowColor)Git$($resetColor)..."
 
-    # Start-Process winget -ArgumentList 'install --exact --id Git.Git --source winget --interactive --accept-package-agreements --accept-source-agreements' -NoNewWindow -Wait
+    Start-Process winget -ArgumentList 'install --exact --id Git.Git --source winget --interactive --accept-package-agreements --accept-source-agreements' -NoNewWindow -Wait
 
-    Write-Host "Installed $($greenColor)Git$($resetColor)!"
+    Write-Host "Installed $($greenColor)Git$($resetColor)."
 } elseif (Get-Command -Name git -ErrorAction SilentlyContinue) {
     Write-Host "$($greenColor)Git$($resetColor) is installed."
 }
 
-if (-not (Test-Path -Path "$env:USERPROFILE\.dot" -PathType Container)) {
+if (-not (Test-Path -Path "$env:USERPROFILE\.dotfiles" -PathType Container)) {
     if (Get-Command -Name 'git' -ErrorAction SilentlyContinue) {
         $paths = @()
 
@@ -127,10 +137,10 @@ if (-not (Test-Path -Path "$env:USERPROFILE\.dot" -PathType Container)) {
             exit 1
         }
     } else {
-        Write-Host "$($redColor)Git$($resetColor) is not installed!"
+        Write-Host "$($redColor)Git$($resetColor) is not installed."
         exit 1
     }
 } else {
-    Write-Host "Directory $($purpleColor)dotfiles$($resetColor) already exists! $($redColor)Stopping$($resetColor) script."
+    Write-Host "Directory $($purpleColor)dotfiles$($resetColor) already exists. $($redColor)Stopping$($resetColor) script."
     exit 1
 }
