@@ -87,7 +87,7 @@ disabled = false
 # Tools and languages prompts
 [python]
 format = '\[[$symbol(\($virtualenv\))]($style)\] '
-symbol = '𝑃𝑌'
+symbol = 'PY'
 style = 'green bold'
 disabled = false
 
