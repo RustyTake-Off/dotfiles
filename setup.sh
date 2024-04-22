@@ -3,7 +3,6 @@
 # │ ╓──┐ ║════════╗  ╓─┐  ║
 # │ ╚══╛ ║──┐  ╓──╜  ║ │  ║  RustyTake-Off
 # │ ╓─┐ ╓╜  │  ║  │  ║ │  ║  https://github.com/RustyTake-Off
-# │ ║ │ ╚╗  │  ║  │  ╚═╛  ║
+# │ ║ │ ╚╗  │  ║  │  ╚═╛  ║  https://github.com/RustyTake-Off/dotfiles
 # └─╜ └──╜  └──╜  └───────╜
-# Setup script
-
+# Dotfiles setup script
