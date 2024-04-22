@@ -8,12 +8,20 @@
 
 <#
 .SYNOPSIS
-This script is designed to streamline the process of setting up personalized configurations by leveraging version-controlled dotfiles, ensuring consistency and ease of deployment across different systems. It installs necessary tools like Git and Winget, clones the dotfiles repository, and checks out specified directories/files into the user's profile directory.
+This script is designed to streamline the process of setting up personalized configurations by leveraging
+version-controlled dotfiles, ensuring consistency and ease of deployment across different systems. It installs
+necessary tools like Git and Winget, clones the dotfiles repository, and checks out specified directories/files
+into the user's profile directory.
 
 .DESCRIPTION
-The script begins by defining directories to be checked out from a specified dotfiles repository. It checks for the presence of required tools (Git and Winget) and prompts the user for installation if not found. Upon installation of these tools, it proceeds to clone the dotfiles repository and checks out the specified directories/files into the user's profile directory.
+The script begins by defining directories to be checked out from a specified dotfiles repository. It checks for
+the presence of required tools (Git and Winget) and prompts the user for installation if not found. Upon
+installation of these tools, it proceeds to clone the dotfiles repository and checks out the specified directories/
+files into the user's profile directory.
 
-The script utilizes ANSI escape sequences to display colored output for clarity and user interaction. It handles user input to confirm installation choices and gracefully exits if prerequisites are not met. Additionally, error handling is implemented to provide informative messages in case of failures during the setup process.
+The script utilizes ANSI escape sequences to display colored output for clarity and user interaction. It handles
+user input to confirm installation choices and gracefully exits if prerequisites are not met. Additionally, error
+handling is implemented to provide informative messages in case of failures during the setup process.
 #>
 
 [CmdletBinding(SupportsShouldProcess)]
