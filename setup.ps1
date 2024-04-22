@@ -8,8 +8,11 @@
 
 [CmdletBinding(SupportsShouldProcess)]
 
-# directories to checkout from repo
-$gitDirs = '.dots .gitconfig'
+# directories to checkout from cloned dotfiles repository
+$toCheckout = @{
+    docs     = @('images')
+    winfiles = @('.dots', '.gitconfig')
+}
 
 # ANSI escape sequences for different colors
 $redColor = [char]27 + '[31m'
@@ -22,11 +25,16 @@ $resetColor = [char]27 + '[0m'
 function CheckAndAskToInstall([string]$packageName) {
     <#
     .SYNOPSIS
+    Checks if a specified package is installed and prompts the user to install it if not found.
 
     .DESCRIPTION
+    This function verifies whether a given package (specified by `$packageName`) is installed on the system. If the package is not detected, it prompts the user to decide whether to proceed with the installation. The user is asked to confirm installation by entering 'y' or decline by entering 'n'. If no response is provided, the default action is to abort the script.
 
     .PARAMETER packageName
+    Specifies the name of the package to be checked for installation.
 
+    .EXAMPLE
+    CheckAndAskToInstall -packageName "git"
     #>
 
     if (-not (Get-Command -Name $packageName -ErrorAction SilentlyContinue)) {
@@ -44,7 +52,7 @@ function CheckAndAskToInstall([string]$packageName) {
             }
 
             if ($choice -eq 'n') {
-                Write-Host 'Stopping script.'
+                Write-Host "$($redColor)Stopping$($resetColor) script."
                 exit 1
             } elseif ($choice -eq 'y') {
                 return $true
@@ -77,19 +85,49 @@ if (CheckAndAskToInstall 'git') {
     Write-Host "$($greenColor)Git$($resetColor) is installed."
 }
 
-try {
+if (-not (Test-Path -Path "$env:USERPROFILE\.dot" -PathType Container)) {
     if (Get-Command -Name 'git' -ErrorAction SilentlyContinue) {
-        git clone --bare 'https://github.com/RustyTake-Off/dotfiles.git' "$env:USERPROFILE\.dotfiles"
+        $paths = @()
 
-        git --git-dir="$env:USERPROFILE\.dotfiles" --work-tree=$env:USERPROFILE checkout $gitDirs
+        foreach ($key in $toCheckout.Keys) {
+            foreach ($item in $toCheckout[$key]) {
+                $paths += "$key\$item"
+            }
+        }
 
-        git --git-dir="$env:USERPROFILE\.dotfiles" --work-tree=$env:USERPROFILE config status.showUntrackedFiles no
+        Write-Host "Cloning $($yellowColor)dotfiles$($resetColor)..."
+        try {
+            git clone --bare 'https://github.com/RustyTake-Off/dotfiles.git' "$env:USERPROFILE\.dotfiles"
+            git --git-dir="$env:USERPROFILE\.dotfiles" --work-tree="$env:USERPROFILE" checkout $paths
+            git --git-dir="$env:USERPROFILE\.dotfiles" --work-tree="$env:USERPROFILE" config status.showUntrackedFiles no
+        } catch {
+            Write-Error 'Failed cloning dotfiles.'
+            Write-Error $_
+            Write-Error $_.ScriptStackTrace
+            exit 1
+        }
+
+        $winfilesPath = Join-Path -Path $env:USERPROFILE -ChildPath 'winfiles'
+        if (Test-Path -Path $winfilesPath -PathType Container) {
+            foreach ($item in $toCheckout['winfiles']) {
+                $sourcePath = Join-Path -Path $winfilesPath -ChildPath $item
+                if (Test-Path -Path $sourcePath -PathType Container) {
+                    Get-ChildItem -Path $sourcePath | ForEach-Object {
+                        Move-Item -Path $_.FullName -Destination $env:USERPROFILE -Force
+                    }
+                } elseif (Test-Path -Path $sourcePath -PathType Leaf) {
+                    Move-Item -Path $sourcePath -Destination $env:USERPROFILE -Force
+                }
+            }
+        } else {
+            Write-Host "Directory $($redColor)winfiles$($resetColor) not found in $($env:USERPROFILE)."
+            exit 1
+        }
     } else {
         Write-Host "$($redColor)Git$($resetColor) is not installed!"
         exit 1
     }
-} catch {
-    Write-Error "Failed setting up dotfiles: $_"
-    Write-Error "Line: $($_.ScriptStackTrace)"
+} else {
+    Write-Host "Directory $($purpleColor)dotfiles$($resetColor) already exists! $($redColor)Stopping$($resetColor) script."
     exit 1
 }
