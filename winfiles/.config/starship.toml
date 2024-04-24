@@ -91,8 +91,50 @@ symbol = 'PY'
 style = 'green bold'
 disabled = false
 
+[nodejs]
+format = '\[[$symbol]($style)\] '
+symbol = 'NO'
+style = 'orange bold'
+disabled = true
+
+[golang]
+format = '\[[($symbol)]($style)\] '
+symbol = 'GO'
+style = 'cyan bold'
+disabled = true
+
+[rust]
+format = '\[[$symbol]($style)\] '
+symbol = 'RS'
+style = 'red bold'
+disabled = true
+
 [kubernetes]
 format = '\[[$symbol $context]($style)\] '
 symbol = '☸'
+style = 'blue bold'
+disabled = true
+
+[terraform]
+format = '\[[$symbol]($style)\] '
+symbol = 'TF'
 style = 'purple bold'
+disabled = true
+
+[azure]
+format = '\[[$symbol]($style)\] '
+symbol = AZ'
+style = 'blue bold'
+disabled = true
+
+[aws]
+format = '\[[$symbol]($style)\] '
+symbol = 'AWS'
+style = 'red bold'
+disabled = true
+
+[gcloud]
+format = '\[[$symbol]($style)\] '
+symbol = 'GCP'
+style = 'white bold'
 disabled = true
