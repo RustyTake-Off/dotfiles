@@ -1,41 +1,82 @@
-# [core]
-#     eol = lf
-#     untrackedCache = true
+# Useful references
+# Git - https://git-scm.com/docs/git-config
+# https://github.com/henrebotha/dotfiles/blob/main/git/dot-gitconfig
 
-# [includeIf "gitdir:~/pr/"]
-#     path = ~/pr/.gitconfig
+[core]
+    ignoreCase = false
+    # https://github.blog/2022-06-29-improve-git-monorepo-performance-with-a-file-system-monitor/
+    fsmonitor = true
+    untrackedCache = true
+    # https://git-scm.com/docs/git-config#Documentation/git-config.txt-coresafecrlf
+    eol = lf
+    autocrlf = input
+    safecrlf = true
+    # excludesFile = ~/.gitignore  # global gitignore
+    # attributesFile = ~/.gitattributes  # global gitattributes
+    # editor = vim
+    # https://blog.thomasheartman.com/posts/change-your-git-comment-character
+    # commentChar = ";"
+    # https://github.com/dandavison/delta
+    # pager = delta --line-numbers
 
-# [includeIf "gitdir:~/wk/"]
-#     path = ~/wk/.gitconfig
+[branch]
+    sort = -committerdate
 
-# [color "branch"]
-#     current = yellow reverse
-#     local = yellow
-#     remote = green
+[commit]
+    # gpgSign = true
+    verbose = true
 
-# [color "diff"]
-#     meta = yellow bold
-#     frag = magenta bold
-#     old = red bold
-#     new = green bold
+[diff]
+    # https://luppeng.wordpress.com/2020/10/10/when-to-use-each-of-the-git-diff-algorithms/
+    algorithm = histogram
+    colorMoved = default
 
-# [color "status"]
-#     added = yellow
-#     changed = green
-#     untracked = cyan
-#     branch = magenta
+[init]
+    defaultBranch = main
 
-# [merge]
-#     log = true
+[merge]
+    conflictStyle = zdiff3  # https://ductile.systems/zdiff3/
+    # log = true
 
-# [alias]
+[pull]
+    # ff = only
+    # rebase = true
+
+[push]
+    # autoSetupRemote = true
+    # gpgSign = true
+
+[rebase]
+    # autoStash = true
+
+[rerere]
+    # https://stackoverflow.com/questions/49500943/what-is-git-rerere-and-how-does-it-work
+    # enabled = true
+
+[tag]
+    # sort = -taggerdate
+    # gpgSign = true
+
+# include separate gitconfigs
+[includeIf "gitdir:~/pr/"]
+    path = ~/pr/.gitconfig
+
+[includeIf "gitdir:~/wk/"]
+    path = ~/wk/.gitconfig
+
+[alias]
+	aliases = ! git config --list | awk '/alias/{ print $1 }' | perl -pe 's/alias\\.//g' | perl -pe 's/=.+//g'
 #     i = init
 #     cl = clone
 #     s = status --short
 #     a = add
 #     c = commit
 #     cm = commit -m
-#     cam = commit -m --amend
+#     cam = commit --amend -m
 #     pl = pull
+#     plr = pull --rebase
 #     pu = push
 #     chb = checkout -b
+#     log = log --graph --oneline --color
+
+#     chdef = "!git checkout $(git rev-parse --abbrev-ref origin/HEAD | sed 's@^origin/@@')"
