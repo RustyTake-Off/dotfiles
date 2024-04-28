@@ -54,7 +54,7 @@
     # enabled = true
 
 [tag]
-    # sort = -taggerdate
+    sort = -taggerdate
     # gpgSign = true
 
 # include separate gitconfigs
