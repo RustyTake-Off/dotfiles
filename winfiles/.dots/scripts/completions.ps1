@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-Completions for various cli tools.
+Completions for various cli tools
 
 .DESCRIPTION
 Loads completions for various cli tools, modules.

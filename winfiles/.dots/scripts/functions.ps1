@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-Various functions/aliases.
+Various functions/aliases
 
 .DESCRIPTION
 Loads useful functions/aliases for doing various things.
