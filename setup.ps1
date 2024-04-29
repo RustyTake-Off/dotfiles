@@ -8,10 +8,7 @@
 
 <#
 .SYNOPSIS
-This script is designed to streamline the process of setting up personalized configurations by leveraging
-version-controlled dotfiles, ensuring consistency and ease of deployment across different systems. It installs
-necessary tools like Git and Winget, clones the dotfiles repository, and checks out specified directories/files
-into the user's profile directory.
+Dotfiles setup script
 
 .DESCRIPTION
 The script begins by defining directories to be checked out from a specified dotfiles repository. It checks for
@@ -22,6 +19,13 @@ files into the user's profile directory.
 The script utilizes ANSI escape sequences to display colored output for clarity and user interaction. It handles
 user input to confirm installation choices and gracefully exits if prerequisites are not met. Additionally, error
 handling is implemented to provide informative messages in case of failures during the setup process.
+
+.LINK
+GitHub - https://github.com/RustyTake-Off
+GitHub Repo - https://github.com/RustyTake-Off/dotfiles
+
+.NOTES
+Author - RustyTake-Off
 #>
 
 [CmdletBinding(SupportsShouldProcess)]
@@ -33,11 +37,11 @@ $toCheckout = @{
 }
 
 # ANSI escape sequences for different colors
-$redColor = [char]27 + '[31m'
-$greenColor = [char]27 + '[32m'
-$yellowColor = [char]27 + '[33m'
-$blueColor = [char]27 + '[34m'
-$purpleColor = [char]27 + '[35m'
+$red = [char]27 + '[31m'
+$green = [char]27 + '[32m'
+$yellow = [char]27 + '[33m'
+$blue = [char]27 + '[34m'
+$purple = [char]27 + '[35m'
 $resetColor = [char]27 + '[0m'
 
 function CheckAndAskToInstall([string]$packageName) {
@@ -60,11 +64,11 @@ function CheckAndAskToInstall([string]$packageName) {
 
     if (-not (Get-Command -Name $packageName -ErrorAction SilentlyContinue)) {
         $packageNameCapitalized = $packageName.Substring(0, 1).ToUpper() + $packageName.Substring(1)
-        Write-Host "$redColor$packageNameCapitalized$resetColor is not installed."
+        Write-Host "$red$packageNameCapitalized$resetColor is not installed."
 
         $loop = $true
         while ($loop) {
-            $choice = Read-Host "Do you want to install $yellowColor$packageNameCapitalized$resetColor (y/N)?"
+            $choice = Read-Host "Do you want to install $yellow$packageNameCapitalized$resetColor (y/N)?"
 
             if ([string]::IsNullOrWhiteSpace($choice)) {
                 $choice = 'n' # set default value to 'n' if no input is provided
@@ -73,82 +77,82 @@ function CheckAndAskToInstall([string]$packageName) {
             }
 
             if ($choice -eq 'n') {
-                Write-Host "$($redColor)Stopping$($resetColor) script."
+                Write-Host "$($red)Stopping$($resetColor) script."
                 exit 1
             } elseif ($choice -eq 'y') {
                 return $true
             } else {
-                Write-Host "$($redColor)Invalid input$($resetColor) please enter 'y' or 'n'."
+                Write-Host "$($red)Invalid input$($resetColor) please enter 'y' or 'n'."
             }
         }
     }
 }
 
-if (CheckAndAskToInstall 'winget') {
-    Write-Host "Installing $($yellowColor)Winget$($resetColor) and its dependencies..."
+try {
+    if (CheckAndAskToInstall 'winget') {
+        Write-Host "Installing $($yellow)Winget$($resetColor) and its dependencies..."
 
-    # https://github.com/ChrisTitusTech/winutil
-    # https://github.com/asheroto/winget-install
-    (Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/asheroto/winget-install/master/winget-install.ps1').Content | Invoke-Expression
+        # https://github.com/asheroto/winget-install
+        # https://github.com/ChrisTitusTech/winutil
+        Invoke-RestMethod -Uri 'https://github.com/asheroto/winget-install/releases/latest/download/winget-install.ps1' | Invoke-Expression
 
-    Write-Host "Installed $($greenColor)Winget$($resetColor) and its dependencies."
-} elseif (Get-Command -Name winget -ErrorAction SilentlyContinue) {
-    Write-Host "$($greenColor)Winget$($resetColor) is installed."
-}
+        Write-Host "Installed $($green)Winget$($resetColor) and its dependencies."
+    } elseif (Get-Command -Name winget) {
+        Write-Host "$($green)Winget$($resetColor) is installed."
+    }
 
-if (CheckAndAskToInstall 'git') {
-    Write-Host "Installing $($yellowColor)Git$($resetColor)..."
+    if (CheckAndAskToInstall 'git') {
+        Write-Host "Installing $($yellow)Git$($resetColor)..."
 
-    Start-Process winget -ArgumentList 'install --exact --id Git.Git --source winget --interactive --accept-package-agreements --accept-source-agreements' -NoNewWindow -Wait
+        Start-Process winget -ArgumentList 'install --exact --id Git.Git --source winget --interactive --accept-package-agreements --accept-source-agreements' -NoNewWindow -Wait
 
-    Write-Host "Installed $($greenColor)Git$($resetColor)."
-} elseif (Get-Command -Name git -ErrorAction SilentlyContinue) {
-    Write-Host "$($greenColor)Git$($resetColor) is installed."
-}
+        Write-Host "Installed $($green)Git$($resetColor)."
+    } elseif (Get-Command -Name git) {
+        Write-Host "$($green)Git$($resetColor) is installed."
+    }
 
-if (-not (Test-Path -Path "$env:USERPROFILE\.dotfiles" -PathType Container)) {
-    if (Get-Command -Name 'git' -ErrorAction SilentlyContinue) {
-        $paths = @()
+    if (-not (Test-Path -Path "$HOME/.dotfiles" -PathType Container)) {
+        if (Get-Command -Name 'git') {
+            $paths = @()
 
-        foreach ($key in $toCheckout.Keys) {
-            foreach ($item in $toCheckout[$key]) {
-                $paths += "$key\$item"
-            }
-        }
-
-        Write-Host "Cloning $($yellowColor)dotfiles$($resetColor)..."
-        try {
-            git clone --bare 'https://github.com/RustyTake-Off/dotfiles.git' "$env:USERPROFILE\.dotfiles"
-            git --git-dir="$env:USERPROFILE\.dotfiles" --work-tree="$env:USERPROFILE" checkout $paths
-            git --git-dir="$env:USERPROFILE\.dotfiles" --work-tree="$env:USERPROFILE" config status.showUntrackedFiles no
-        } catch {
-            Write-Error 'Failed cloning dotfiles.'
-            Write-Error $_
-            Write-Error $_.ScriptStackTrace
-            exit 1
-        }
-
-        $winfilesPath = Join-Path -Path $env:USERPROFILE -ChildPath 'winfiles'
-        if (Test-Path -Path $winfilesPath -PathType Container) {
-            foreach ($item in $toCheckout['winfiles']) {
-                $sourcePath = Join-Path -Path $winfilesPath -ChildPath $item
-                if (Test-Path -Path $sourcePath -PathType Container) {
-                    Get-ChildItem -Path $sourcePath | ForEach-Object {
-                        Move-Item -Path $_.FullName -Destination $env:USERPROFILE -Force
-                    }
-                } elseif (Test-Path -Path $sourcePath -PathType Leaf) {
-                    Move-Item -Path $sourcePath -Destination $env:USERPROFILE -Force
+            foreach ($key in $toCheckout.Keys) {
+                foreach ($item in $toCheckout[$key]) {
+                    $paths += "$key/$item"
                 }
             }
+
+            Write-Host "Cloning $($yellow)dotfiles$($resetColor)..."
+            git clone --bare 'https://github.com/RustyTake-Off/dotfiles.git' "$HOME/.dotfiles"
+            git --git-dir="$HOME/.dotfiles" --work-tree="$HOME" checkout $paths
+            git --git-dir="$HOME/.dotfiles" --work-tree="$HOME" config status.showUntrackedFiles no
+
+            $winfilesPath = Resolve-Path -Path "$HOME/winfiles"
+            if (Test-Path -Path $winfilesPath -PathType Container) {
+                foreach ($item in $toCheckout['winfiles']) {
+                    $sourcePath = Resolve-Path -Path "$winfilesPath/$item"
+                    if (Test-Path -Path $sourcePath -PathType Container) {
+                        Get-ChildItem -Path $sourcePath | ForEach-Object {
+                            Move-Item -Path $_.FullName -Destination $HOME -Force
+                        }
+                    } elseif (Test-Path -Path $sourcePath -PathType Leaf) {
+                        Move-Item -Path $sourcePath -Destination $HOME -Force
+                    }
+                }
+            } else {
+                Write-Host "Directory $($red)winfiles$($resetColor) not found in $($HOME)."
+                exit 1
+            }
         } else {
-            Write-Host "Directory $($redColor)winfiles$($resetColor) not found in $($env:USERPROFILE)."
+            Write-Host "$($red)Git$($resetColor) is not installed."
             exit 1
         }
     } else {
-        Write-Host "$($redColor)Git$($resetColor) is not installed."
+        Write-Host "Directory $($purple)dotfiles$($resetColor) already exists. $($red)Stopping$($resetColor) script."
         exit 1
     }
-} else {
-    Write-Host "Directory $($purpleColor)dotfiles$($resetColor) already exists. $($redColor)Stopping$($resetColor) script."
+
+    exit 0 # success
+} catch {
+    "Error in line $($_.InvocationInfo.ScriptLineNumber): $($Error[0])"
     exit 1
 }
