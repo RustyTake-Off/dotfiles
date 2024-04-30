@@ -6,7 +6,8 @@ PowerShell profile script
 Loads PowerShell profile script when a shell is opened.
 
 .LINK
-GitHub - https://github.com/RustyTake-Off/dotfiles
+GitHub      - https://github.com/RustyTake-Off
+GitHub Repo - https://github.com/RustyTake-Off/dotfiles
 
 .NOTES
 Author - RustyTake-Off
@@ -15,7 +16,7 @@ Author - RustyTake-Off
 try {
     # Loads powershell profile scripts
     $profileScripts = @('functions', 'completions')
-    $profilePath = Resolve-Path "$HOME/.dots/scripts"
+    $profilePath = "$HOME/.dots/scripts"
 
     foreach ($script in $profileScripts) {
         if (Test-Path -Path "$profilePath/$script" -PathType Leaf) {
