@@ -6,7 +6,8 @@ Various functions/aliases
 Loads useful functions/aliases for doing various things.
 
 .LINK
-GitHub - https://github.com/RustyTake-Off/dotfiles
+GitHub      - https://github.com/RustyTake-Off
+GitHub Repo - https://github.com/RustyTake-Off/dotfiles
 
 .NOTES
 Author - RustyTake-Off

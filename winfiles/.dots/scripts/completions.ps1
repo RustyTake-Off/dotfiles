@@ -6,7 +6,8 @@ Completions for various cli tools
 Loads completions for various cli tools, modules.
 
 .LINK
-GitHub - https://github.com/RustyTake-Off/dotfiles
+GitHub      - https://github.com/RustyTake-Off
+GitHub Repo - https://github.com/RustyTake-Off/dotfiles
 
 .NOTES
 Author - RustyTake-Off
