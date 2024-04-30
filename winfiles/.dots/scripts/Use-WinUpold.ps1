@@ -8,6 +8,8 @@
 
 #Requires -RunAsAdministrator
 
+# ! rewrite
+
 <#
 .SYNOPSIS
 Script for setting up Windows.
