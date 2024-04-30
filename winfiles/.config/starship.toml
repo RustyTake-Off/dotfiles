@@ -1,11 +1,3 @@
-# ╒══════╗        ╒═══════╗
-# │ ╓──┐ ║════════╗  ╓─┐  ║
-# │ ╚══╛ ║──┐  ╓──╜  ║ │  ║  RustyTake-Off
-# │ ╓─┐ ╓╜  │  ║  │  ║ │  ║  https://github.com/RustyTake-Off
-# │ ║ │ ╚╗  │  ║  │  ╚═╛  ║  https://github.com/RustyTake-Off/dotfiles
-# └─╜ └──╜  └──╜  └───────╜
-# Starship settings
-
 # Starship: https://starship.rs
 # Unicode characters: https://unicodes.jessetane.com
 

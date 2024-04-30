@@ -1,6 +1,6 @@
 # Useful references
 # Git - https://git-scm.com/docs/git-config
-# https://github.com/henrebotha/dotfiles/blob/main/git/dot-gitconfig
+# henrebotha - https://github.com/henrebotha/dotfiles/blob/main/git/dot-gitconfig
 
 [core]
     ignoreCase = false
