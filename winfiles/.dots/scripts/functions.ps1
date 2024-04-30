@@ -77,7 +77,7 @@ try {
             Start-Process wt -Verb RunAs -ArgumentList "pwsh -NoExit -NoLogo -ExecutionPolicy Bypass -WorkingDirectory $(Get-Location)"
         }
 
-        # This is a backup command if for some reason the whole thing brakes
+        # This is a backup command if for some reason the whole thing breaks
         # wt --profile "PowerShell (Admin)" --suppressApplicationTitle --startingDirectory "$(Get-Location)"
     }
 
