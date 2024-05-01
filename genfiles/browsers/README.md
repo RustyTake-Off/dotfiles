@@ -18,11 +18,12 @@
 
 ## Current settings files
 
-| Name                                                | Description                             |
-| :-------------------------------------------------- | :-------------------------------------- |
-| [ublock-origin](./ublock-origin.json)               | Settings file for uBlock Origin.        |
-| [midnight-lizard](./midnight-lizard.json)           | Settings file for Midnight Lizard.      |
-| [enhancer-for-youtube](./enhancer-for-youtube.json) | Settings file for Enhancer for YouTube. |
+| Name                                                | Description                            |
+| :-------------------------------------------------- | :------------------------------------- |
+| [ublock-origin](./ublock-origin.json)               | Settings file for uBlock Origin        |
+| [midnight-lizard](./midnight-lizard.json)           | Settings file for Midnight Lizard      |
+| [enhancer-for-youtube](./enhancer-for-youtube.json) | Settings file for Enhancer for YouTube |
+| [betterttv](./betterttv.json)                       | Settings file for BetterTTV            |
 
 ## Brave configuration
 
