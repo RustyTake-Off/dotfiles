@@ -61,19 +61,6 @@ alias psmem="ps auxf | sort -nr -k 4"
 alias pubip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias locip="sudo ifconfig | grep -Eo 'inet (addr:)?([0-9]*\\.){3}[0-9]*' | grep -Eo '([0-9]*\\.){3}[0-9]*' | grep -v '127.0.0.1'"
 
-# Git aliases
-alias g="git"
-# alias gi="git init"
-# alias gcl="git clone"
-# alias gs="git status --short"
-# alias ga="git add"
-# alias gc="git commit"
-# alias gcm="git commit -m"
-# alias gcam="git commit -m --amend"
-# alias gpll="git pull"
-# alias gpsh="git push"
-# alias gchb="git checkout -b"
-
 # Python aliases
 alias py="python3"
 alias pysetup="python3 -m venv .venv && source .venv/bin/activate"
