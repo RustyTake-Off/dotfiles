@@ -1,13 +1,13 @@
-# Starship: https://starship.rs
-# Unicode characters: https://unicodes.jessetane.com
+# starship: https://starship.rs
+# unicode characters: https://unicodes.jessetane.com
 
 "$schema" = 'https://starship.rs/config-schema.json'
 
-# Set prompt format
+# set prompt format
 format = '$os$username@$hostname$directory$python$git_branch$git_status'
 add_newline = false
 
-# Change some of the colors
+# custom colors
 palette = 'custom'
 
 [palettes.custom]
@@ -16,7 +16,6 @@ orange = '#ffa700'
 pink = '#ff71ce'
 purple = '#8b00fd'
 
-# Base prompt
 [character]
 success_symbol = ''
 error_symbol = ''
@@ -53,7 +52,6 @@ read_only_style = 'red'
 style = 'cyan bold'
 disabled = false
 
-# Git prompt
 [git_branch]
 format = '\[ [$branch]($style) '
 truncation_symbol = '…/'
@@ -76,7 +74,6 @@ up_to_date = ''
 style = 'green bold'
 disabled = false
 
-# Tools and languages prompts
 [python]
 format = '\[[$symbol(\($virtualenv\))]($style)\] '
 symbol = 'PY'

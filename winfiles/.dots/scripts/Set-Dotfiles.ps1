@@ -81,7 +81,7 @@ function Invoke-HashAndCopyOrCopy ([string]$sourceFile, [string]$targetFile) {
 }
 
 try {
-    # Set dotfiles
+    # set dotfiles
     if (Get-Command -Name git -ErrorAction SilentlyContinue) {
         $dotfilesPathExists = Test-Path -Path $dotfilesPath -PathType Container
         $paths = @()
@@ -141,7 +141,7 @@ try {
         exit 1
     }
 
-    # Set powershell profile
+    # set powershell profile
     $profileFiles = Get-ChildItem -Path $dotProfilePath -File -Recurse
     if ($profileFiles) {
         $profilePathExists = Test-Path -Path $profilePath -PathType Container
@@ -159,7 +159,7 @@ try {
         Write-Host "$($red)PowerShell profile config is missing from dotfiles$($resetColor)"
     }
 
-    # Set windows terminal config
+    # set windows terminal config
     if (Get-Command -Name wt -ErrorAction SilentlyContinue) {
         $wtFiles = Get-ChildItem -Path $dotWTPath -File -Recurse
         if ($wtFiles) {
@@ -181,7 +181,7 @@ try {
         Write-Host "$($red)Windows Terminal is not installed$($resetColor)"
     }
 
-    # Set winget config
+    # set winget config
     if (Get-Command -Name winget -ErrorAction SilentlyContinue) {
         $wingetFiles = Get-ChildItem -Path $dotWingetPath -File -Recurse
         if ($wingetFiles) {
@@ -205,7 +205,7 @@ try {
         Write-Host "$($red)Winget is not installed$($resetColor)"
     }
 
-    # Set wsl config
+    # set wsl config
     $wslFiles = Get-ChildItem -Path $dotWSLPath -File -Recurse
     if ($wslFiles) {
         $wslPathExists = Test-Path -Path "$wslPath/.wslconfig" -PathType Leaf

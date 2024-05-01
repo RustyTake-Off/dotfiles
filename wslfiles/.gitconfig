@@ -1,6 +1,6 @@
-# Useful references
-# Git - https://git-scm.com/docs/git-config
-# https://github.com/henrebotha/dotfiles/blob/main/git/dot-gitconfig
+# useful references
+# git - https://git-scm.com/docs/git-config
+# henrebotha - https://github.com/henrebotha/dotfiles/blob/main/git/dot-gitconfig
 
 [core]
     ignoreCase = false
@@ -9,8 +9,8 @@
     untrackedCache = true
     # https://git-scm.com/docs/git-config#Documentation/git-config.txt-coresafecrlf
     eol = lf
-    autocrlf = input
-    safecrlf = true
+    # autocrlf = input
+    # safecrlf = true
     # excludesFile = ~/.gitignore  # global gitignore
     # attributesFile = ~/.gitattributes  # global gitattributes
     # editor = vim

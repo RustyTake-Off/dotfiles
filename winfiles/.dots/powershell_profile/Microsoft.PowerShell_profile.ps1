@@ -14,7 +14,7 @@ Author - RustyTake-Off
 #>
 
 try {
-    # Loads powershell profile scripts
+    # load powershell profile scripts
     $profileScripts = @('functions', 'completions')
     $profilePath = "$HOME/.dots/scripts"
 
@@ -24,7 +24,7 @@ try {
         }
     }
 
-    # Initialize other tools
+    # initialize other tools
     Get-Command -Name starship && Invoke-Expression (&starship init powershell)
     Get-Command -Name zoxide && Invoke-Expression (& { (zoxide init powershell | Out-String) })
 

@@ -14,7 +14,7 @@ Author - RustyTake-Off
 #>
 
 try {
-    # Quick movement around directories
+    # quick movement around directories
     function cd...... { Set-Location ../../../../../.. }
     function cd..... { Set-Location ../../../../.. }
     function cd.... { Set-Location ../../../.. }
@@ -35,7 +35,6 @@ try {
     function la { Get-ChildItem }
     function ll { Get-ChildItem }
 
-    # *nix like
     function touch ([string] $fileName) {
         Write-Output '' | Out-File -FilePath $fileName -Encoding ASCII
     }
@@ -44,19 +43,19 @@ try {
         Get-Command -Name $Args | Select-Object -ExpandProperty Path
     }
 
-    # Check file hashes
+    # check file hashes
     function md5 { Get-FileHash -Algorithm MD5 $Args }
     function sha1 { Get-FileHash -Algorithm SHA1 $Args }
     function sha256 { Get-FileHash -Algorithm SHA256 $Args }
 
-    # Get public IP
+    # get public ip
     function pubip4 { (Invoke-WebRequest -Uri 'https://api.ipify.org/').Content }
     function pubip6 { (Invoke-WebRequest -Uri 'https://ifconfig.me/ip').Content }
 
-    # Open windows explorer
+    # open windows explorer
     function open { explorer.exe $Args }
 
-    # Manage dotfiles in $HOME directory
+    # manage dotfiles in $HOME directory
     function dot {
         git --git-dir="$HOME/.dots" --work-tree=$HOME $Args
     }
@@ -65,12 +64,12 @@ try {
         Invoke-Expression ("$HOME/.dots/scripts/set-dots.ps1")
     }
 
-    # Use WinUp script
+    # use winup script
     function winup {
         Invoke-Expression ("$HOME/.dots/scripts/winup.ps1 $Args")
     }
 
-    # Quick admin switch
+    # quick admin
     function admin {
         if ($Args) {
             Start-Process wt -Verb RunAs -ArgumentList "pwsh -NoExit -NoLogo -ExecutionPolicy Bypass -WorkingDirectory $(Get-Location) -Command $Args"
@@ -78,11 +77,11 @@ try {
             Start-Process wt -Verb RunAs -ArgumentList "pwsh -NoExit -NoLogo -ExecutionPolicy Bypass -WorkingDirectory $(Get-Location)"
         }
 
-        # This is a backup command if for some reason the whole thing breaks
+        # this is a backup command if for some reason the whole thing breaks
         # wt --profile "PowerShell (Admin)" --suppressApplicationTitle --startingDirectory "$(Get-Location)"
     }
 
-    # Manage powershell profile
+    # manage powershell profile
     function edit-profile {
         notepad ("$HOME/Documents/PowerShell/Microsoft.PowerShell_profile.ps1")
     }
