@@ -11,7 +11,7 @@ GitHub Repo - https://github.com/RustyTake-Off/dotfiles
 
 .NOTES
 Author  - RustyTake-Off
-Version - 0.1.0
+Version - 0.1.1
 #>
 
 try {
@@ -67,7 +67,7 @@ try {
     # find files
     function ff ([string]$name) {
         Get-ChildItem -Recurse -Filter "*$name*" -ErrorAction SilentlyContinue | ForEach-Object {
-            Write-Output "$($_.directory)\$($_)"
+            Write-Output $_.FullName
         }
     }
 
@@ -94,19 +94,6 @@ try {
         explorer.exe $path
     }
 
-    # manage dotfiles in $HOME directory
-    function dot {
-        git --git-dir="$HOME/.dots" --work-tree=$HOME $args
-    }
-
-    function setdots {
-        Invoke-Expression ("$HOME/.dots/scripts/set-dots.ps1")
-    }
-
-    function winup {
-        Invoke-Expression ("$HOME/.dots/scripts/winup.ps1 $args")
-    }
-
     # quick admin
     function admin {
         if ($args) {
@@ -114,9 +101,6 @@ try {
         } else {
             Start-Process wt -Verb RunAs -ArgumentList "pwsh -NoExit -NoLogo -ExecutionPolicy Bypass -WorkingDirectory $(Get-Location)"
         }
-
-        # this is a backup command if for some reason the whole thing breaks
-        # wt --profile "PowerShell (Admin)" --suppressApplicationTitle --startingDirectory "$(Get-Location)"
     }
 
     # manage powershell profile
@@ -130,6 +114,19 @@ try {
 
     function reset-vscprofile {
         Invoke-Expression "$HOME/Documents/PowerShell/Microsoft.VSCode_profile.ps1"
+    }
+
+    # manage dotfiles in $HOME directory
+    function dot {
+        git --git-dir="$HOME/.dots" --work-tree=$HOME $args
+    }
+
+    function setdots {
+        Invoke-Expression ("$HOME/.dots/scripts/set-dots.ps1")
+    }
+
+    function winup {
+        Invoke-Expression ("$HOME/.dots/scripts/winup.ps1 $args")
     }
 
     exit 0 # success
