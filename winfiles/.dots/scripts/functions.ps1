@@ -11,7 +11,7 @@ GitHub Repo - https://github.com/RustyTake-Off/dotfiles
 
 .NOTES
 Author  - RustyTake-Off
-Version - 0.1.1
+Version - 0.1.2
 #>
 
 try {
@@ -39,7 +39,7 @@ try {
         Get-Volume
     }
 
-    # create new env variable
+    # Create new env variable
     function export ([string]$name, [string]$value) {
         Set-Item -Path "env:$name" -Value $value -Force
     }
@@ -64,14 +64,14 @@ try {
         Write-Output '' | Out-File -FilePath $file -Encoding ASCII
     }
 
-    # find files
+    # Find files
     function ff ([string]$name) {
         Get-ChildItem -Recurse -Filter "*$name*" -ErrorAction SilentlyContinue | ForEach-Object {
             Write-Output $_.FullName
         }
     }
 
-    # find commands
+    # Find commands
     function which {
         Get-Command -Name $args | Select-Object -ExpandProperty Definition
     }
@@ -80,21 +80,21 @@ try {
     function sha1 { Get-FileHash -Algorithm SHA1 $args }
     function sha256 { Get-FileHash -Algorithm SHA256 $args }
 
-    # get public ips
+    # Get public ips
     function pubip4 { (Invoke-WebRequest -Uri 'https://api.ipify.org/').Content }
     function pubip6 { (Invoke-WebRequest -Uri 'https://ifconfig.me/ip').Content }
 
-    # get system information
+    # Get system information
     function sysinfo { Get-ComputerInfo }
 
     function flushdns { Clear-DnsClientCache }
 
-    # open windows explorer
+    # Open windows explorer
     function open ([string]$path) {
         explorer.exe $path
     }
 
-    # quick admin
+    # Quick admin
     function admin {
         if ($args) {
             Start-Process wt -Verb RunAs -ArgumentList "pwsh -NoExit -NoLogo -ExecutionPolicy Bypass -WorkingDirectory $(Get-Location) -Command $args"
@@ -103,7 +103,7 @@ try {
         }
     }
 
-    # manage powershell profile
+    # Manage powershell profile
     function edit-profile {
         notepad "$HOME/Documents/PowerShell/Microsoft.PowerShell_profile.ps1"
     }
@@ -116,7 +116,7 @@ try {
         Invoke-Expression "$HOME/Documents/PowerShell/Microsoft.VSCode_profile.ps1"
     }
 
-    # manage dotfiles in $HOME directory
+    # Manage dotfiles in $HOME directory
     function dot {
         git --git-dir="$HOME/.dots" --work-tree=$HOME $args
     }

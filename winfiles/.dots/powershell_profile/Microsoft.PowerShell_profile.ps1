@@ -11,11 +11,11 @@ GitHub Repo - https://github.com/RustyTake-Off/dotfiles
 
 .NOTES
 Author  - RustyTake-Off
-Version - 0.1.0
+Version - 0.1.1
 #>
 
 try {
-    # load powershell profile scripts
+    # Load powershell profile scripts
     $profileScripts = @('functions', 'completions')
     $profilePath = "$HOME/.dots/scripts"
 
@@ -25,7 +25,7 @@ try {
         }
     }
 
-    # initialize other tools
+    # Initialize other tools
     Get-Command -Name starship && Invoke-Expression (&starship init powershell)
     Get-Command -Name zoxide && Invoke-Expression (& { (zoxide init powershell | Out-String) })
 

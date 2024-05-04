@@ -1,5 +1,5 @@
-# useful references
-# git - https://git-scm.com/docs/git-config
+# Useful references
+# Git - https://git-scm.com/docs/git-config
 # henrebotha - https://github.com/henrebotha/dotfiles/blob/main/git/dot-gitconfig
 
 [core]
@@ -57,7 +57,7 @@
     sort = -taggerdate
     # gpgSign = true
 
-# include separate gitconfigs
+# Include separate gitconfigs
 [includeIf "gitdir:~/pr/"]
     path = ~/pr/.gitconfig
 
@@ -65,7 +65,6 @@
     path = ~/wk/.gitconfig
 
 [alias]
-	aliases = ! git config --list | awk '/alias/{ print $1 }' | perl -pe 's/alias\\.//g' | perl -pe 's/=.+//g'
 #     i = init
 #     cl = clone
 #     s = status --short
@@ -80,3 +79,4 @@
 #     log = log --graph --oneline --color
 
 #     chdef = "!git checkout $(git rev-parse --abbrev-ref origin/HEAD | sed 's@^origin/@@')"
+#	  aliases = ! git config --list | awk '/alias/{ print $1 }' | perl -pe 's/alias\\.//g' | perl -pe 's/=.+//g'

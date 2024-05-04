@@ -1,13 +1,12 @@
-# starship: https://starship.rs
-# unicode characters: https://unicodes.jessetane.com
+# Starship: https://starship.rs
+# Unicode characters: https://unicodes.jessetane.com
 
 "$schema" = 'https://starship.rs/config-schema.json'
 
-# set prompt format
+# Set prompt format
 format = '$os$username@$hostname$directory$python$git_branch$git_status'
 add_newline = false
 
-# custom colors
 palette = 'custom'
 
 [palettes.custom]
@@ -112,7 +111,7 @@ disabled = true
 
 [azure]
 format = '\[[$symbol]($style)\] '
-symbol = AZ'
+symbol = 'AZ'
 style = 'blue bold'
 disabled = true
 

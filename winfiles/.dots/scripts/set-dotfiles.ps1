@@ -11,7 +11,7 @@ GitHub Repo - https://github.com/RustyTake-Off/dotfiles
 
 .NOTES
 Author  - RustyTake-Off
-Version - 0.1.1
+Version - 0.1.2
 #>
 
 [CmdletBinding(SupportsShouldProcess)]
@@ -82,7 +82,7 @@ function Invoke-HashAndCopyOrCopy ([string]$sourceFile, [string]$targetFile) {
 }
 
 try {
-    # set dotfiles
+    # Set dotfiles
     if (Get-Command -Name git -ErrorAction SilentlyContinue) {
         $dotfilesPathExists = Test-Path -Path $dotfilesPath -PathType Container
         $paths = @()
@@ -142,7 +142,7 @@ try {
         exit 1
     }
 
-    # set powershell profile
+    # Set powershell profile
     $profileFiles = Get-ChildItem -Path $dotProfilePath -File -Recurse
     if ($profileFiles) {
         $profilePathExists = Test-Path -Path $profilePath -PathType Container
@@ -160,7 +160,7 @@ try {
         Write-Host "$($red)PowerShell profile config is missing from dotfiles$($resetColor)"
     }
 
-    # set windows terminal config
+    # Set windows terminal config
     if (Get-Command -Name wt -ErrorAction SilentlyContinue) {
         $wtFiles = Get-ChildItem -Path $dotWTPath -File -Recurse
         if ($wtFiles) {
@@ -182,7 +182,7 @@ try {
         Write-Host "$($red)Windows Terminal is not installed$($resetColor)"
     }
 
-    # set winget config
+    # Set winget config
     if (Get-Command -Name winget -ErrorAction SilentlyContinue) {
         $wingetFiles = Get-ChildItem -Path $dotWingetPath -File -Recurse
         if ($wingetFiles) {
@@ -206,7 +206,7 @@ try {
         Write-Host "$($red)Winget is not installed$($resetColor)"
     }
 
-    # set wsl config
+    # Set wsl config
     $wslFiles = Get-ChildItem -Path $dotWSLPath -File -Recurse
     if ($wslFiles) {
         $wslPathExists = Test-Path -Path "$wslPath/.wslconfig" -PathType Leaf

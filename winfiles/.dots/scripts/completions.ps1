@@ -11,11 +11,11 @@ GitHub Repo - https://github.com/RustyTake-Off/dotfiles
 
 .NOTES
 Author  - RustyTake-Off
-Version - 0.1.1
+Version - 0.1.2
 #>
 
 try {
-    # completion, history for powershell
+    # Completion and history for powershell
     if (Get-Module -Name PSReadLine -ErrorAction SilentlyContinue) {
         $psMinimumVersion = [version]'7.1.999'
 
@@ -37,7 +37,7 @@ try {
         Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
     }
 
-    # completion for git
+    # Completion for git
     if (Get-Module -Name posh-git -ErrorAction SilentlyContinue) {
         $GitPromptSettings.EnablePromptStatus = $false
         $GitPromptSettings.EnableFileStatus = $false
@@ -47,7 +47,7 @@ try {
         $GitPromptSettings.EnableFileStatus = $false
     }
 
-    # completion for winget - https://learn.microsoft.com/en-us/windows/package-manager/winget/tab-completion#enable-tab-completion
+    # Completion for winget - https://learn.microsoft.com/en-us/windows/package-manager/winget/tab-completion#enable-tab-completion
     if (Get-Command -Name winget -ErrorAction SilentlyContinue) {
         Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
             param($wordToComplete, $commandAst, $cursorPosition)
@@ -60,7 +60,7 @@ try {
         }
     }
 
-    # completion for azure-cli - https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-windows?view=azure-cli-latest&tabs=winget#enable-tab-completion-in-powershell
+    # Completion for azure-cli - https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-windows?view=azure-cli-latest&tabs=winget#enable-tab-completion-in-powershell
     if (Get-Command -Name az -ErrorAction SilentlyContinue) {
         Register-ArgumentCompleter -Native -CommandName az -ScriptBlock {
             param($commandName, $wordToComplete, $cursorPosition)
