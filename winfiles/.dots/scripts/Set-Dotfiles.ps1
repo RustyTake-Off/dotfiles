@@ -10,7 +10,8 @@ GitHub      - https://github.com/RustyTake-Off
 GitHub Repo - https://github.com/RustyTake-Off/dotfiles
 
 .NOTES
-Author - RustyTake-Off
+Author  - RustyTake-Off
+Version - 0.1.0
 #>
 
 [CmdletBinding(SupportsShouldProcess)]

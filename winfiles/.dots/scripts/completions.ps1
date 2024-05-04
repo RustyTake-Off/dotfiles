@@ -10,7 +10,8 @@ GitHub      - https://github.com/RustyTake-Off
 GitHub Repo - https://github.com/RustyTake-Off/dotfiles
 
 .NOTES
-Author - RustyTake-Off
+Author  - RustyTake-Off
+Version - 0.1.0
 #>
 
 try {
@@ -27,7 +28,11 @@ try {
         Set-PSReadLineOption -HistoryNoDuplicates:$true
         Set-PSReadLineOption -HistorySearchCursorMovesToEnd:$true
         Set-PSReadLineOption -PredictionViewStyle ListView
-        Set-PSReadLineOption -Colors @{ InlinePrediction = 'Blue' }
+        Set-PSReadLineOption -Colors @{
+            Command   = 'Yellow'
+            Parameter = 'Green'
+            String    = 'DarkCyan'
+        }
         Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
         Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
     }
