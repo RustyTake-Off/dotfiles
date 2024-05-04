@@ -11,7 +11,7 @@ GitHub Repo - https://github.com/RustyTake-Off/dotfiles
 
 .NOTES
 Author  - RustyTake-Off
-Version - 0.1.0
+Version - 0.1.1
 #>
 
 [CmdletBinding(SupportsShouldProcess)]
@@ -94,7 +94,7 @@ try {
         }
 
         if (-not $dotfilesPathExists) {
-            Write-Host "$($yellow)Cloning dotfiles...$($resetColor)"
+            Write-Host "Cloning $($yellow)dotfiles$($resetColor)..."
             git clone --bare $repoUrl $dotfilesPath
             git --git-dir=$dotfilesPath --work-tree=$HOME checkout $paths
             git --git-dir=$dotfilesPath --work-tree=$HOME config status.showUntrackedFiles no
@@ -116,9 +116,9 @@ try {
                 exit 1
             }
         } else {
-            Write-Host "$($yellow)Dotfiles are set. Checking for updates...$($resetColor)"
-            git --git-dir="$HOME/.dotfiles" --work-tree="$HOME" reset --hard
-            git --git-dir="$HOME/.dotfiles" --work-tree="$HOME" pull
+            Write-Host 'Dotfiles are set. Checking for updates...'
+            git --git-dir=$dotfilesPath --work-tree=$HOME reset --hard
+            git --git-dir=$dotfilesPath --work-tree=$HOME pull
 
             if (Test-Path -Path $winfilesPath -PathType Container) {
                 foreach ($item in $toCheckout['winfiles']) {
