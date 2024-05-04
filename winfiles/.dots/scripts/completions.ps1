@@ -11,12 +11,12 @@ GitHub Repo - https://github.com/RustyTake-Off/dotfiles
 
 .NOTES
 Author  - RustyTake-Off
-Version - 0.1.0
+Version - 0.1.1
 #>
 
 try {
     # completion, history for powershell
-    if (Get-Module -Name PSReadLine) {
+    if (Get-Module -Name PSReadLine -ErrorAction SilentlyContinue) {
         $psMinimumVersion = [version]'7.1.999'
 
         if (($Host.Name -eq 'ConsoleHost') -and ($PSVersionTable.PSVersion -ge $psMinimumVersion)) {
@@ -38,10 +38,10 @@ try {
     }
 
     # completion for git
-    if (Get-Module -Name posh-git) {
+    if (Get-Module -Name posh-git -ErrorAction SilentlyContinue) {
         $GitPromptSettings.EnablePromptStatus = $false
         $GitPromptSettings.EnableFileStatus = $false
-    } elseif (-not (Get-Module -Name posh-git)) {
+    } elseif (-not (Get-Module -Name posh-git -ErrorAction SilentlyContinue)) {
         Import-Module -Name posh-git
         $GitPromptSettings.EnablePromptStatus = $false
         $GitPromptSettings.EnableFileStatus = $false
