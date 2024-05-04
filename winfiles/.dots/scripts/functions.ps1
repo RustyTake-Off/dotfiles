@@ -15,7 +15,6 @@ Version - 0.1.0
 #>
 
 try {
-    # quick movement around directories
     function cd...... { Set-Location ../../../../../.. }
     function cd..... { Set-Location ../../../../.. }
     function cd.... { Set-Location ../../../.. }
@@ -40,6 +39,7 @@ try {
         Get-Volume
     }
 
+    # create new env variable
     function export ([string]$name, [string]$value) {
         Set-Item -Path "env:$name" -Value $value -Force
     }
@@ -56,7 +56,7 @@ try {
         Get-Content -Path $path -Head $n
     }
 
-    function head ([string]$path, [int]$n = 10) {
+    function tail ([string]$path, [int]$n = 10) {
         Get-Content -Path $path -Tail $n
     }
 
@@ -64,34 +64,34 @@ try {
         Write-Output '' | Out-File -FilePath $file -Encoding ASCII
     }
 
+    # find files
     function ff ([string]$name) {
         Get-ChildItem -Recurse -Filter "*$name*" -ErrorAction SilentlyContinue | ForEach-Object {
             Write-Output "$($_.directory)\$($_)"
         }
     }
 
+    # find commands
     function which {
         Get-Command -Name $args | Select-Object -ExpandProperty Definition
     }
 
-    # check file hashes
     function md5 { Get-FileHash -Algorithm MD5 $args }
     function sha1 { Get-FileHash -Algorithm SHA1 $args }
     function sha256 { Get-FileHash -Algorithm SHA256 $args }
 
-    # get public ip
+    # get public ips
     function pubip4 { (Invoke-WebRequest -Uri 'https://api.ipify.org/').Content }
     function pubip6 { (Invoke-WebRequest -Uri 'https://ifconfig.me/ip').Content }
 
-    # quick access to system information
+    # get system information
     function sysinfo { Get-ComputerInfo }
 
-    # Networking Utilities
     function flushdns { Clear-DnsClientCache }
 
     # open windows explorer
-    function open ([string]$name) {
-        explorer.exe $name
+    function open ([string]$path) {
+        explorer.exe $path
     }
 
     # manage dotfiles in $HOME directory
