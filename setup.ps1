@@ -18,7 +18,7 @@ GitHub Repo - https://github.com/RustyTake-Off/dotfiles
 
 .NOTES
 Author  - RustyTake-Off
-Version - 0.1.0
+Version - 0.1.1
 #>
 
 [CmdletBinding(SupportsShouldProcess)]
@@ -61,11 +61,11 @@ function CheckAndAskToInstall([string]$packageName) {
 
     if (-not (Get-Command -Name $packageName -ErrorAction SilentlyContinue)) {
         $packageNameCapitalized = $packageName.Substring(0, 1).ToUpper() + $packageName.Substring(1)
-        Write-Host "$red$packageNameCapitalized is not installed$($resetColor)"
+        Write-Host "$($red)$packageNameCapitalized is not installed$($resetColor)"
 
         $loop = $true
         while ($loop) {
-            $choice = Read-Host "$($yellow)Do you want to install $packageNameCapitalized (y/N)?$($resetColor)"
+            $choice = Read-Host "Do you want to install $($yellow)$packageNameCapitalized$($resetColor) (y/N)?"
 
             if ([string]::IsNullOrWhiteSpace($choice)) {
                 $choice = 'n' # set default value to 'n' if no input is provided
@@ -86,27 +86,30 @@ function CheckAndAskToInstall([string]$packageName) {
 }
 
 try {
+    # Check winget
     if (CheckAndAskToInstall 'winget') {
-        Write-Host "$($yellow)Installing Winget and its dependencies...$($resetColor)"
+        Write-Host "Installing $($yellow)Winget$($resetColor) and its dependencies..."
 
         # https://github.com/asheroto/winget-install
         Invoke-RestMethod -Uri 'https://github.com/asheroto/winget-install/releases/latest/download/winget-install.ps1' | Invoke-Expression
 
-        Write-Host "$($green)Installed Winget and its dependencies$($resetColor)"
+        Write-Host "Installed $($green)Winget$($resetColor) and its dependencies"
     } elseif (Get-Command -Name winget) {
-        Write-Host "$($green)Winget is installed$($resetColor)"
+        Write-Host "$($green)Winget$($resetColor) is installed"
     }
 
+    # Check git
     if (CheckAndAskToInstall 'git') {
-        Write-Host "$($yellow)Installing Git...$($resetColor)"
+        Write-Host "Installing $($yellow)Git$($resetColor)..."
 
         Start-Process winget -ArgumentList 'install --exact --id Git.Git --source winget --interactive --accept-package-agreements --accept-source-agreements' -NoNewWindow -Wait
 
-        Write-Host "$($green)Installed Git$($resetColor)"
+        Write-Host "Installed $($green)Git$($resetColor)"
     } elseif (Get-Command -Name git) {
-        Write-Host "$($green)Git is installed$($resetColor)"
+        Write-Host "$($green)Git$($resetColor) is installed"
     }
 
+    # Get dotfiles
     if (Get-Command -Name git -ErrorAction SilentlyContinue) {
         $dotfilesPathExists = Test-Path -Path $dotfilesPath -PathType Container
         $paths = @()
@@ -118,7 +121,7 @@ try {
         }
 
         if (-not $dotfilesPathExists) {
-            Write-Host "$($yellow)Cloning dotfiles...$($resetColor)"
+            Write-Host "Cloning $($yellow)dotfiles$($resetColor)..."
             git clone --bare $repoUrl $dotfilesPath
             git --git-dir=$dotfilesPath --work-tree=$HOME checkout $paths
             git --git-dir=$dotfilesPath --work-tree=$HOME config status.showUntrackedFiles no
@@ -139,20 +142,23 @@ try {
                 Write-Host "$($red)Directory 'winfiles' not found in '$HOME'$($resetColor)"
                 exit 1
             }
+        } else {
+            Write-Host "$($red)Directory '.dotfiles' already exists in '$HOME'$($resetColor)"
+            exit 1
         }
     } else {
-        Write-Host "$($red)Directory dotfiles already exists$($resetColor)"
+        Write-Host "$($red)Git is not installed$($resetColor)"
         exit 1
     }
 
     if (Test-Path -Path $scriptPath -PathType Container) {
-        Write-Host "$($yellow)Setting dotfiles...$($resetColor)"
+        Write-Host "Setting $($yellow)dotfiles$($resetColor)..."
 
         Invoke-Expression $scriptPath
 
-        Write-Host "$($green)Dotfiles are set$($resetColor)"
+        Write-Host "$($green)Dotfiles$($resetColor) are set"
     } else {
-        Write-Host "$($red)Script 'set-dotfiles.ps1' in path '$scriptPath' does not exist$($resetColor)"
+        Write-Host "$($red)Script in path '$scriptPath' does not exist$($resetColor)"
         exit 1
     }
 
