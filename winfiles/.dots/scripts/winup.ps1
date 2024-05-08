@@ -5,16 +5,64 @@ Winup setup script
 .DESCRIPTION
 Script for initial setup of a fresh system install.
 
+.EXAMPLE
+winup.ps1 -command drivers -subCommand min
+Downloads minimum needed drivers
+
+.EXAMPLE
+winup.ps1 -command drivers -subCommand all
+Downloads all drivers
+
+.EXAMPLE
+winup.ps1 -command fonts
+Downloads and installs fonts
+
+.EXAMPLE
+winup.ps1 -command ctt
+Invokes the CTT - winutil script
+
+.EXAMPLE
+winup.ps1 -command apps -subCommand base
+Installs base applications
+
+.EXAMPLE
+winup.ps1 -command apps -subCommand util
+Installs utility applications
+
+.EXAMPLE
+winup.ps1 -command psmods
+Installs PowerShell modules
+
+.EXAMPLE
+winup.ps1 -command dots
+Invokes dotfiles setup script
+
+.EXAMPLE
+winup.ps1 -command wsl -subCommand Ubuntu-22.04
+Installs Ubuntu-22.04 on WSL
+
 .LINK
 GitHub      - https://github.com/RustyTake-Off
 GitHub Repo - https://github.com/RustyTake-Off/dotfiles
 
 .NOTES
 Author  - RustyTake-Off
-Version - 0.1.0
+Version - 0.1.1
 #>
 
 [CmdletBinding(SupportsShouldProcess)]
+
+param (
+    [Parameter(Mandatory = $false, Position = 0)]
+    [ValidateSet('drivers', 'fonts', 'ctt', 'psmods', 'apps', 'dots', 'wsl', 'help')]
+    [Alias('-c')]
+    [String] $Command,
+
+    [Parameter(Mandatory = $false, Position = 1)]
+    [ValidateSet('min', 'all', 'base', 'util', 'Debian', 'Ubuntu-22.04', 'Ubuntu-20.04', 'kali-linux', 'help')]
+    [Alias('-s')]
+    [String] $SubCommand
+)
 
 $dotsPath = "$HOME/.dots"
 $configPath = "$HOME/.dots/config.json"
