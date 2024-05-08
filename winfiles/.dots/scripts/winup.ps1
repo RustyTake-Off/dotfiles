@@ -47,7 +47,7 @@ GitHub Repo - https://github.com/RustyTake-Off/dotfiles
 
 .NOTES
 Author  - RustyTake-Off
-Version - 0.1.2
+Version - 0.2.0
 #>
 
 [CmdletBinding(SupportsShouldProcess)]
@@ -56,12 +56,12 @@ param (
     [Parameter(Mandatory = $false, Position = 0)]
     [ValidateSet('drivers', 'fonts', 'ctt', 'psmods', 'apps', 'dots', 'wsl', 'help')]
     [Alias('-c')]
-    [String] $Command,
+    [String] $command,
 
     [Parameter(Mandatory = $false, Position = 1)]
-    [ValidateSet('min', 'all', 'base', 'util', 'Debian', 'Ubuntu-22.04', 'Ubuntu-20.04', 'kali-linux', 'help')]
+    [ValidateSet('min', 'all', 'base', 'util', 'Debian', 'Ubuntu-24.04', 'Ubuntu-22.04', 'Ubuntu-20.04', 'kali-linux', 'help')]
     [Alias('-s')]
-    [String] $SubCommand
+    [String] $subCommand
 )
 
 $dotsPath = "$HOME/.dots"
@@ -108,6 +108,7 @@ function Get-Help {
     dots        -   Invoke dotfiles setup script
     wsl
     :   Debian          -   Install Debian on WSL
+    :   Ubuntu-24.04    -   Install Ubuntu-24.04 on WSL
     :   Ubuntu-22.04    -   Install Ubuntu-22.04 on WSL
     :   Ubuntu-20.04    -   Install Ubuntu-20.04 on WSL
     :   kali-linux      -   Install kali-linux on WSL
@@ -117,21 +118,34 @@ function Get-Help {
     }
 }
 
-function New-Directory ([string]$path) {
+function New-Directory {
+    param (
+        [Parameter(Mandatory = $true)]
+        [string]$path
+    )
+
     try {
-        Write-Host "Creating $yellow$path$resetColor..."
+        Write-Host "Creating $($yellow)$path$($resetColor)..."
         $null = New-Item -Path $path -ItemType Directory -ErrorAction SilentlyContinue
     } catch {
         "Error in line $($_.InvocationInfo.ScriptLineNumber): $($Error[0])"
     }
 }
 
-function Invoke-Download ([string]$url, [string]$path) {
+function Invoke-Download {
+    param (
+        [Parameter(Mandatory = $true)]
+        [string]$url,
+
+        [Parameter(Mandatory = $true)]
+        [string]$path
+    )
+
     try {
         $fileName = Split-Path -Path $url -Leaf
         $downloadPath = Join-Path -Path $path -ChildPath $fileName
 
-        Write-Host "Downloading $yellow$url$resetColor..."
+        Write-Host "Downloading $($yellow)$url$($resetColor)..."
         Invoke-WebRequest -Uri $url -UserAgent $userAgent -OutFile $downloadPath -ProgressAction SilentlyContinue
     } catch {
         Write-Error "Error downloading $fontName"
@@ -139,7 +153,13 @@ function Invoke-Download ([string]$url, [string]$path) {
     }
 }
 
-function Install-Fonts ([System.IO.FileInfo][object]$fontFile) {
+function Install-Fonts {
+    param (
+        [Parameter(Mandatory = $true)]
+        [System.IO.FileInfo]
+        [object]$fontFile
+    )
+
     try {
         $fontsGTF = [Windows.Media.GlyphTypeface]::New($fontFile.FullName)
 
@@ -163,20 +183,20 @@ function Install-Fonts ([System.IO.FileInfo][object]$fontFile) {
             }
         }
 
-        Write-Host "Installing $yellow$fontName$resetColor..."
+        Write-Host "Installing $($yellow)$fontName$($resetColor)..."
         $fontPath = "$env:SystemRoot/fonts/$($fontFile.Name)"
         if (-not (Test-Path -Path $fontPath)) {
-            Write-Host "Copying font $yellow$fontName$resetColor..."
+            Write-Host "Copying font $($yellow)$fontName$($resetColor)..."
             Copy-Item -Path $fontFile.FullName -Destination $fontPath -Force
         } else {
-            Write-Host "Font already in place $green$fontName$resetColor"
+            Write-Host "Font already in place $($green)$fontName$($resetColor)"
         }
 
         if (-not (Get-ItemProperty -Name $fontName -Path 'HKLM:\Software\Microsoft\Windows NT\CurrentVersion\Fonts' -ErrorAction SilentlyContinue)) {
-            Write-Host "Registering $yellow$fontName$resetColor..."
+            Write-Host "Registering $($yellow)$fontName$($resetColor)..."
             $null = New-ItemProperty -Name $fontName -Path 'HKLM:\Software\Microsoft\Windows NT\CurrentVersion\Fonts' -PropertyType String -Value $fontFile.Name -Force -ErrorAction SilentlyContinue
         } else {
-            Write-Host "Font already registered $green$fontName$resetColor"
+            Write-Host "Font already registered $($green)$fontName$($resetColor)"
         }
     } catch {
         Write-Error "Error installing $fontName"
@@ -184,7 +204,13 @@ function Install-Fonts ([System.IO.FileInfo][object]$fontFile) {
     }
 }
 
-function Invoke-GetDrivers ([ValidateSet('min', 'all')][string]$type) {
+function Invoke-GetDrivers {
+    param (
+        [Parameter(Mandatory = $true)]
+        [ValidateSet('min', 'all')]
+        [string]$type
+    )
+
     $driversPath = "$HOME/Desktop/drivers"
     if (-not (Test-Path -Path $driversPath -PathType Container)) {
         New-Directory -path $driversPath
@@ -194,11 +220,13 @@ function Invoke-GetDrivers ([ValidateSet('min', 'all')][string]$type) {
     foreach ($driverUrl in $config.drivers.$type) {
         Invoke-Download -url $driverUrl -path $driversPath
     }
+
     Write-Host "Download $($green)complete$($resetColor)"
 }
 
 function Invoke-InstallFonts {
     $fontsPath = "$HOME/Desktop/fonts"
+
     if (-not (Test-Path -Path $fontsPath -PathType Container)) {
         New-Directory -path $fontsPath
     }
@@ -207,49 +235,58 @@ function Invoke-InstallFonts {
     foreach ($fontUrl in $config.fonts) {
         Invoke-Download -url $fontUrl -path $fontsPath
     }
+
     Write-Host "Download $($green)complete$($resetColor)"
 
-    $fontsZipFiles = Get-ChildItem -Path $fontsPath -Filter '*.zip'
-
     Write-Host "Extracting $($yellow)fonts$($resetColor)..."
+    $fontsZipFiles = Get-ChildItem -Path $fontsPath -Filter '*.zip'
     foreach ($zipFile in $fontsZipFiles) {
         $extractionDirectoryPath = "$fontsPath/$zipFile.BaseName"
+
         if (-not (Test-Path -Path $extractionDirectoryPath -PathType Container)) {
             New-Directory -path $extractionDirectoryPath
         }
 
-        Write-Host "Extracting $yellow$($zipFile.Name)$resetColor to $purple$extractionDirectoryPath$resetColor"
+        Write-Host "Extracting $($yellow)$($zipFile.Name)$($resetColor) to $($purple)$extractionDirectoryPath$($resetColor)"
         Expand-Archive -Path $zipFile.FullName -DestinationPath $extractionDirectoryPath -Force
         Remove-Item -Path $zipFile.FullName -Force
         Write-Host "Extraction $($green)complete$($resetColor)"
 
-        Write-Host "Installing fonts $yellow$($zipFile.BaseName)$resetColor..."
+        Write-Host "Installing fonts $($yellow)$($zipFile.BaseName)$($resetColor)..."
         $fonts = Get-ChildItem -Path $extractionDirectoryPath | Where-Object { ($_.Name -like '*.ttf') -or ($_.Name -like '*.otf') }
         Add-Type -AssemblyName PresentationCore
         foreach ($fontItem in $fonts) {
             Install-Fonts -fontFile $fontItem.FullName
         }
-        Write-Host "Installation of $green$($zipFile.BaseName) complete$($resetColor)"
+
+        Write-Host "Installation of $($green)$($zipFile.BaseName) complete$($resetColor)"
     }
 }
 
 function Invoke-CTT {
     Write-Host "Invoking $($yellow)CTT - winutil$($resetColor)..."
+
     try {
         Invoke-WebRequest 'https://christitus.com/win' | Invoke-Expression
     } catch {
         Write-Error 'Failed to invoke CTT - winutil'
         "Error in line $($_.InvocationInfo.ScriptLineNumber): $($Error[0])"
     }
+
     Write-Host "Invoke $($green)complete$($resetColor)"
 }
 
-function Get-Apps ([ValidateSet('base', 'util')][string]$type) {
+function Get-Apps {
+    param (
+        [Parameter(Mandatory = $true)]
+        [ValidateSet('base', 'util')]
+        [string]$type
+    )
+
     if (Get-Command -Name winget -ErrorAction SilentlyContinue) {
         $null = winget list --accept-source-agreements
     } else {
         Write-Error 'Winget is not installed'
-        "Error in line $($_.InvocationInfo.ScriptLineNumber): $($Error[0])"
         exit 1
     }
 
@@ -257,20 +294,21 @@ function Get-Apps ([ValidateSet('base', 'util')][string]$type) {
     foreach ($app in $config.apps.$type) {
         if ($app.source -eq 'winget') {
             if (-not (winget list --exact --id $app.name | Select-String -SimpleMatch $app.name)) {
-                Write-Host "Installing $yellow$($app.name)$resetColor $purple($($app.source))$resetColor..."
+                Write-Host "Installing $($yellow)$($app.name)$($resetColor) $($purple)($($app.source))$($resetColor)..."
                 Start-Process winget -ArgumentList "install --exact --id $($app.name) --source $($app.source) $($app.args) --accept-package-agreements --accept-source-agreements" -NoNewWindow -Wait
             } else {
-                Write-Host "App is already installed $yellow$($app.name)$resetColor $purple($($app.source))$resetColor"
+                Write-Host "App is already installed $($yellow)$($app.name)$($resetColor) $($purple)($($app.source))$($resetColor)"
             }
         } elseif ($app.source -eq 'msstore') {
             if (-not (winget list --exact --id $app.id | Select-String -SimpleMatch $app.id)) {
-                Write-Host "Installing $yellow$($app.name)$resetColor $purple($($app.id))($($app.source))$resetColor..."
+                Write-Host "Installing $($yellow)$($app.name)$($resetColor) $($purple)($($app.id))($($app.source))$($resetColor)..."
                 Start-Process winget -ArgumentList "install --exact --id $($app.id) --source $($app.source) $($app.args) --accept-package-agreements --accept-source-agreements" -NoNewWindow -Wait
             } else {
-                Write-Host "App is already installed $yellow$($app.name)$resetColor $purple($($app.id))($($app.source))$resetColor"
+                Write-Host "App is already installed $($yellow)$($app.name)$($resetColor) $($purple)($($app.id))($($app.source))$($resetColor)"
             }
         }
     }
+
     Write-Host "Installation $($green)complete$($resetColor)"
 }
 
@@ -284,16 +322,17 @@ function Get-PSModules {
     Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
 
     foreach ($module in $config.psmodules) {
-        Write-Host "Installing $yellow$Module$resetColor..."
+        Write-Host "Installing $($yellow)$module$($resetColor)..."
         Install-Module -Name $module -Repository PSGallery -Force
     }
 
     Set-PSRepository -Name PSGallery -InstallationPolicy Untrusted
+
     Write-Host "Installation $($green)complete$($resetColor)"
 }
 
 function Invoke-DotfilesScript {
-    Write-Host 'Invoking Dotfiles setup script ...'
+    Write-Host "Invoking $($yellow)Dotfiles$($resetColor) setup script..."
 
     try {
         $dotfilesScriptPath = "$dotsPath/scripts/set-dotfiles.ps1"
@@ -307,11 +346,17 @@ function Invoke-DotfilesScript {
         "Error in line $($_.InvocationInfo.ScriptLineNumber): $($Error[0])"
     }
 
-    Write-Host "Invoke $($green)complete$($resetColor)"
+    Write-Host "Invocation $($green)complete$($resetColor)"
 }
 
-function Install-WSL ([ValidateSet('Debian', 'Ubuntu-22.04', 'Ubuntu-20.04', 'kali-linux')][string]$distribution) {
-    Write-Host 'Invoking Dotfiles setup script ...'
+function Install-WSL {
+    param (
+        [Parameter(Mandatory = $true)]
+        [ValidateSet('Debian', 'Ubuntu-24.04', 'Ubuntu-22.04', 'Ubuntu-20.04', 'kali-linux')]
+        [string]$distribution
+    )
+
+    Write-Host "Installing $($yellow)$distribution$($resetColor) on WSL..."
 
     try {
         wsl --install --distribution $distribution
@@ -320,7 +365,7 @@ function Install-WSL ([ValidateSet('Debian', 'Ubuntu-22.04', 'Ubuntu-20.04', 'ka
         "Error in line $($_.InvocationInfo.ScriptLineNumber): $($Error[0])"
     }
 
-    Write-Host "Invoke $($green)complete$($resetColor)"
+    Write-Host "Installation $($green)complete$($resetColor)"
 }
 
 try {
@@ -372,6 +417,9 @@ try {
         'wsl' {
             switch ($subCommand) {
                 'Debian' {
+                    Install-WSL -distribution $subCommand
+                }
+                'Ubuntu-24.04' {
                     Install-WSL -distribution $subCommand
                 }
                 'Ubuntu-22.04' {
