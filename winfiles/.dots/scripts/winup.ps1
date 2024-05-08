@@ -47,7 +47,7 @@ GitHub Repo - https://github.com/RustyTake-Off/dotfiles
 
 .NOTES
 Author  - RustyTake-Off
-Version - 0.1.1
+Version - 0.1.2
 #>
 
 [CmdletBinding(SupportsShouldProcess)]
@@ -79,7 +79,7 @@ $blue = [char]27 + '[34m'
 $purple = [char]27 + '[35m'
 $resetColor = [char]27 + '[0m'
 
-$UserAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36'
+$userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36'
 
 if (-not (Test-Path -Path "$HOME\pr" -PathType Container)) {
     Write-Host "Creating '$($yellow)personal$($resetColor)' directory"
