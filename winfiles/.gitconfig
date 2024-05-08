@@ -1,6 +1,7 @@
 # Useful references
 # Git - https://git-scm.com/docs/git-config
 # henrebotha - https://github.com/henrebotha/dotfiles/blob/main/git/dot-gitconfig
+# mwhite - https://gist.github.com/mwhite/6887990
 
 [core]
     ignoreCase = false
@@ -9,8 +10,8 @@
     untrackedCache = true
     # https://git-scm.com/docs/git-config#Documentation/git-config.txt-coresafecrlf
     eol = lf
-    autocrlf = input
-    safecrlf = true
+    # autocrlf = input
+    # safecrlf = true
     # excludesFile = ~/.gitignore  # global gitignore
     # attributesFile = ~/.gitattributes  # global gitattributes
     # editor = vim
@@ -65,18 +66,25 @@
     path = ~/wk/.gitconfig
 
 [alias]
-#     i = init
-#     cl = clone
-#     s = status --short
-#     a = add
-#     c = commit
-#     cm = commit -m
-#     cam = commit --amend -m
-#     pl = pull
-#     plr = pull --rebase
-#     pu = push
-#     chb = checkout -b
-#     log = log --graph --oneline --color
+    ali = config --get-regexp '^alias\.' # Print all aliases
 
-#     chdef = "!git checkout $(git rev-parse --abbrev-ref origin/HEAD | sed 's@^origin/@@')"
-#	  aliases = ! git config --list | awk '/alias/{ print $1 }' | perl -pe 's/alias\\.//g' | perl -pe 's/=.+//g'
+    i = init
+    a = add
+    cl = clone
+    s = status --short
+
+    c = commit
+    cm = commit -m
+    ca = commit --amend
+    cam = commit --amend -m
+
+    pl = pull
+    plr = pull --rebase
+    pu = push
+
+    br = branch
+    sw = switch
+    ch = checkout
+    chb = checkout -b
+
+    log = log --graph --oneline
