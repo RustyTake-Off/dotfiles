@@ -11,10 +11,16 @@ GitHub Repo - https://github.com/RustyTake-Off/dotfiles
 
 .NOTES
 Author  - RustyTake-Off
-Version - 0.1.2
+Version - 0.1.3
 #>
 
+# [CmdletBinding(SupportsShouldProcess)]
 [CmdletBinding(SupportsShouldProcess)]
+
+param (
+    [Parameter(HelpMessage = 'Skips getting dotfiles and just sets them in their locations.')]
+    [switch]$skipDotfiles
+)
 
 $repoUrl = 'https://github.com/RustyTake-Off/dotfiles.git'
 $dotfilesPath = "$HOME/.dotfiles"
@@ -24,6 +30,7 @@ $toCheckout = @{
     winfiles = @('.dots', '.gitconfig')
 }
 
+# Paths for config files
 $dotProfilePath = "$HOME/.dots/powershell_profile"
 $profilePath = "$HOME/Documents/PowerShell"
 $dotWTPath = "$HOME/.dots/windows_terminal"
@@ -83,63 +90,67 @@ function Invoke-HashAndCopyOrCopy ([string]$sourceFile, [string]$targetFile) {
 
 try {
     # Set dotfiles
-    if (Get-Command -Name git -ErrorAction SilentlyContinue) {
-        $dotfilesPathExists = Test-Path -Path $dotfilesPath -PathType Container
-        $paths = @()
+    if ($skipDotfiles) {
+        if (Get-Command -Name git -ErrorAction SilentlyContinue) {
+            $dotfilesPathExists = Test-Path -Path $dotfilesPath -PathType Container
+            $paths = @()
 
-        foreach ($key in $toCheckout.Keys) {
-            foreach ($item in $toCheckout[$key]) {
-                $paths += "$key/$item"
+            foreach ($key in $toCheckout.Keys) {
+                foreach ($item in $toCheckout[$key]) {
+                    $paths += "$key/$item"
+                }
             }
-        }
 
-        if (-not $dotfilesPathExists) {
-            Write-Host "Cloning $($yellow)dotfiles$($resetColor)..."
-            git clone --bare $repoUrl $dotfilesPath
-            git --git-dir=$dotfilesPath --work-tree=$HOME checkout $paths
-            git --git-dir=$dotfilesPath --work-tree=$HOME config status.showUntrackedFiles no
+            if (-not $dotfilesPathExists) {
+                Write-Host "Cloning $($yellow)dotfiles$($resetColor)..."
+                git clone --bare $repoUrl $dotfilesPath
+                git --git-dir=$dotfilesPath --work-tree=$HOME checkout $paths
+                git --git-dir=$dotfilesPath --work-tree=$HOME config status.showUntrackedFiles no
 
-            if (Test-Path -Path $winfilesPath -PathType Container) {
-                foreach ($item in $toCheckout['winfiles']) {
-                    $sourcePath = "$winfilesPath/$item"
+                if (Test-Path -Path $winfilesPath -PathType Container) {
+                    foreach ($item in $toCheckout['winfiles']) {
+                        $sourcePath = "$winfilesPath/$item"
 
-                    if (Test-Path -Path $sourcePath -PathType Container) {
-                        Get-ChildItem -Path $sourcePath | ForEach-Object {
-                            Move-Item -Path $_.FullName -Destination $HOME -Force
+                        if (Test-Path -Path $sourcePath -PathType Container) {
+                            Get-ChildItem -Path $sourcePath | ForEach-Object {
+                                Move-Item -Path $_.FullName -Destination $HOME -Force
+                            }
+                        } elseif (Test-Path -Path $sourcePath -PathType Leaf) {
+                            Move-Item -Path $sourcePath -Destination $HOME -Force
                         }
-                    } elseif (Test-Path -Path $sourcePath -PathType Leaf) {
-                        Move-Item -Path $sourcePath -Destination $HOME -Force
                     }
+                } else {
+                    Write-Host "$($red)Directory 'winfiles' not found in '$HOME'$($resetColor)"
+                    exit 1
                 }
             } else {
-                Write-Host "$($red)Directory 'winfiles' not found in '$HOME'$($resetColor)"
-                exit 1
+                Write-Host "$($red)Dotfiles$($resetColor) are set. Checking for $($yellow)updates$($resetColor)..."
+                git --git-dir=$dotfilesPath --work-tree=$HOME reset --hard
+                git --git-dir=$dotfilesPath --work-tree=$HOME pull
+
+                if (Test-Path -Path $winfilesPath -PathType Container) {
+                    foreach ($item in $toCheckout['winfiles']) {
+                        $sourcePath = "$winfilesPath/$item"
+
+                        if (Test-Path -Path $sourcePath -PathType Container) {
+                            Get-ChildItem -Path $sourcePath | ForEach-Object {
+                                Move-Item -Path $_.FullName -Destination $HOME -Force
+                            }
+                        } elseif (Test-Path -Path $sourcePath -PathType Leaf) {
+                            Move-Item -Path $sourcePath -Destination $HOME -Force
+                        }
+                    }
+                } else {
+                    Write-Host "$($red)Directory 'winfiles' not found in '$HOME'$($resetColor)"
+                    exit 1
+                }
             }
         } else {
-            Write-Host 'Dotfiles are set. Checking for updates...'
-            git --git-dir=$dotfilesPath --work-tree=$HOME reset --hard
-            git --git-dir=$dotfilesPath --work-tree=$HOME pull
-
-            if (Test-Path -Path $winfilesPath -PathType Container) {
-                foreach ($item in $toCheckout['winfiles']) {
-                    $sourcePath = "$winfilesPath/$item"
-
-                    if (Test-Path -Path $sourcePath -PathType Container) {
-                        Get-ChildItem -Path $sourcePath | ForEach-Object {
-                            Move-Item -Path $_.FullName -Destination $HOME -Force
-                        }
-                    } elseif (Test-Path -Path $sourcePath -PathType Leaf) {
-                        Move-Item -Path $sourcePath -Destination $HOME -Force
-                    }
-                }
-            } else {
-                Write-Host "$($red)Directory 'winfiles' not found in '$HOME'$($resetColor)"
-                exit 1
-            }
+            Write-Host "$($red)Git is not installed$($resetColor)"
+            exit 1
         }
     } else {
-        Write-Host "$($red)Git is not installed$($resetColor)"
-        exit 1
+        Write-Host 'Skipping dotfiles'
     }
 
     # Set powershell profile

@@ -18,7 +18,7 @@ GitHub Repo - https://github.com/RustyTake-Off/dotfiles
 
 .NOTES
 Author  - RustyTake-Off
-Version - 0.1.1
+Version - 0.1.2
 #>
 
 [CmdletBinding(SupportsShouldProcess)]
@@ -154,7 +154,7 @@ try {
     if (Test-Path -Path $scriptPath -PathType Container) {
         Write-Host "Setting $($yellow)dotfiles$($resetColor)..."
 
-        Invoke-Expression $scriptPath
+        Invoke-Expression $scriptPath -skipDotfiles
 
         Write-Host "$($green)Dotfiles$($resetColor) are set"
     } else {
