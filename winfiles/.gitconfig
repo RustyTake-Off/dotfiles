@@ -87,4 +87,6 @@
     ch = checkout
     chb = checkout -b
 
-    log = log --graph --oneline
+    lo = log --graph --oneline
+    los = log --graph --oneline --stat -5
+
