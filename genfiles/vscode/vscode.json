@@ -1,53 +1,42 @@
 {
-    // ----------------------------------------------------------------------------------------------------
-    // VSCode configuration file ##########################################################################
-    // ----------------------------------------------------------------------------------------------------
-    // text editor
-    // ----------
+    // VSCode settings
+    // editor
     "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
     "editor.guides.bracketPairs": true,
+    "editor.lineNumbers": "relative",
     "editor.linkedEditing": true,
     "editor.mouseWheelZoom": true,
     "editor.tabCompletion": "on",
-    "editor.cursorSmoothCaretAnimation": "on",
+    "editor.wordWrap": "wordWrapColumn",
+    "editor.wordWrapColumn": 120,
+    "editor.cursorSmoothCaretAnimation": "off",
     "editor.fontFamily": "'RobotoMono Nerd Font Mono', monospace",
     "editor.fontSize": 18,
     "editor.formatOnSave": true,
     "editor.acceptSuggestionOnEnter": "off",
-    // ----------------------------------------------------------------------------------------------------
     // files
-    // ----------
     "files.eol": "\n",
     "files.trimTrailingWhitespace": true,
-    // ----------------------------------------------------------------------------------------------------
     // workbench
-    // ----------
     "workbench.startupEditor": "none",
     "workbench.colorCustomizations": {
         "editor.background": "#000000"
     },
-    "workbench.colorTheme": "GitHub Dark Default",
+    // "workbench.colorTheme": "GitHub Dark Default",
     "workbench.iconTheme": "material-icon-theme",
     "workbench.sideBar.location": "right",
     "workbench.editor.enablePreview": false,
-    // ----------------------------------------------------------------------------------------------------
     // window
-    // ----------
     "window.title": "${dirty}${activeEditorMedium}${separator}${rootName}",
     "window.newWindowDimensions": "maximized",
     "window.openFilesInNewWindow": "default",
-    // ----------------------------------------------------------------------------------------------------
     // search
-    // ----------
     "search.showLineNumbers": true,
     "search.smartCase": true,
-    // ----------------------------------------------------------------------------------------------------
-    // scm
-    // ----------
+    // scm, diff
     "scm.alwaysShowRepositories": true,
-    // ----------------------------------------------------------------------------------------------------
+    "diffEditor.maxComputationTime": 0,
     // terminal
-    // ----------
     "terminal.external.windowsExec": "%PROGRAMFILES%\\PowerShell\\7\\pwsh.exe",
     "terminal.integrated.confirmOnExit": "hasChildProcesses",
     "terminal.integrated.cursorBlinking": true,
@@ -56,22 +45,14 @@
     "terminal.integrated.fontSize": 18,
     "terminal.integrated.scrollback": 100000,
     "terminal.integrated.shellIntegration.enabled": false,
-    "terminal.integrated.shellIntegration.suggestEnabled": true,
-    // ----------------------------------------------------------------------------------------------------
     // misc
-    // ----------
     "update.showReleaseNotes": false,
     "telemetry.telemetryLevel": "off",
     "security.workspace.trust.enabled": false,
-    // ----------------------------------------------------------------------------------------------------
-    // utility extensions #################################################################################
-    // ----------------------------------------------------------------------------------------------------
+    // extensions settings
     // dotnetAcquisitionExtension
-    // ----------
     "dotnetAcquisitionExtension.enableTelemetry": false,
-    // ----------------------------------------------------------------------------------------------------
     // better-comments
-    // ----------
     "better-comments.highlightPlainText": true,
     "better-comments.tags": [
         {
@@ -120,9 +101,7 @@
             "italic": false
         }
     ],
-    // ----------------------------------------------------------------------------------------------------
     // cSpell
-    // ----------
     "cSpell.language": "en,en-US",
     "cSpell.maxDuplicateProblems": 3,
     "cSpell.maxNumberOfProblems": 50,
@@ -130,23 +109,17 @@
     "cSpell.enableFiletypes": [
         "*"
     ],
-    // ----------------------------------------------------------------------------------------------------
     // git
-    // ----------
     "git.autofetch": true,
     "git.autoStash": true,
-    // ----------------------------------------------------------------------------------------------------
     // gitlens
-    // ----------
     "gitlens.showWelcomeOnInstall": false,
     "gitlens.showWhatsNewAfterUpgrades": false,
     "gitlens.plusFeatures.enabled": false,
     "gitlens.codeLens.enabled": false,
     "gitlens.hovers.enabled": false,
     "gitlens.telemetry.enabled": false,
-    // ----------------------------------------------------------------------------------------------------
     // indentRainbow
-    // ----------
     "indentRainbow.colors": [
         "rgba(148,0,211,0.25)",
         "rgba(75,0,130,0.25)",
@@ -156,84 +129,27 @@
         "rgba(255,127,0,0.25)",
         "rgba(255,0,0,0.25)"
     ],
-    // ----------------------------------------------------------------------------------------------------
     // markdownlint
-    // ----------
     "markdownlint.config": {
         // "MD013": false,
         // "MD029": false,
         // "MD022": false,
-        "MD024": false,
+        // "MD024": false,
         // "MD032": false,
-        "MD033": false
+        // "MD033": false
     },
-    // ----------------------------------------------------------------------------------------------------
     // path-intellisense
-    // ----------
     "path-intellisense.autoTriggerNextSuggestion": true,
-    // ----------------------------------------------------------------------------------------------------
     // polacode
-    // ----------
     "polacode.target": "snippet",
-    // ----------------------------------------------------------------------------------------------------
     // postman
-    // ----------
     "postman.telemetry.enabled": false,
-    // ----------------------------------------------------------------------------------------------------
     // redhat
-    // ----------
     "redhat.telemetry.enabled": false,
-    // ----------------------------------------------------------------------------------------------------
     // vsicons
-    // ----------
     "vsicons.dontShowNewVersionMessage": true,
-    // ----------------------------------------------------------------------------------------------------
-    // language specific extensions #######################################################################
-    // ----------------------------------------------------------------------------------------------------
-    // bicep
-    // ----------
-    "bicep.decompileOnPaste": false,
-    "bicep.enableSurveys": false,
-    "[bicep,bicep-params]": {
-        "editor.defaultFormatter": "ms-azuretools.vscode-bicep"
-    },
-    // ----------------------------------------------------------------------------------------------------
-    // terraform
-    // ----------
-    "terraform.experimentalFeatures.prefillRequiredFields": true,
-    "terraform.experimentalFeatures.validateOnSave": true,
-    "[terraform,terraform-vars]": {
-        "editor.defaultFormatter": "hashicorp.terraform",
-        "editor.formatOnSave": false,
-        "editor.codeActionsOnSave": {
-            "source.fixAll.terraform": "explicit"
-        }
-    },
-    // ----------------------------------------------------------------------------------------------------
-    // html
-    // ----------
-    "[html]": {
-        "editor.defaultFormatter": "vscode.html-language-features"
-    },
-    // ----------------------------------------------------------------------------------------------------
-    // json
-    // ----------
-    "[json]": {
-        "editor.defaultFormatter": "vscode.json-language-features"
-    },
-    "[jsonc]": {
-        "editor.defaultFormatter": "vscode.json-language-features"
-    },
-    // ----------------------------------------------------------------------------------------------------
-    // yaml
-    // ----------
-    // "yaml.format.singleQuote": true,
-    // "[yaml]": {
-    //     "editor.defaultFormatter": "redhat.vscode-yaml"
-    // },
-    // ----------------------------------------------------------------------------------------------------
+    // language specific settings
     // markdown
-    // ----------
     "[markdown]": {
         // "editor.defaultFormatter": "DavidAnson.vscode-markdownlint",
         "editor.defaultFormatter": "yzhang.markdown-all-in-one",
@@ -242,9 +158,20 @@
             "source.fixAll.markdownlint": "never"
         }
     },
-    // ----------------------------------------------------------------------------------------------------
+    // html
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features"
+    },
+    // json
+    "[json,jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    // yaml
+    "yaml.keyOrdering": true,
+    "[yaml]": {
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
     // powershell
-    // ----------
     "powershell.buttons.showPanelMovementButtons": true,
     "powershell.codeFormatting.autoCorrectAliases": true,
     "powershell.codeFormatting.pipelineIndentationStyle": "IncreaseIndentationForFirstPipeline",
@@ -259,13 +186,33 @@
     "powershell.integratedConsole.suppressStartupBanner": true,
     "powershell.promptToUpdatePowerShell": false,
     "[powershell]": {
-        "editor.defaultFormatter": "ms-vscode.powershell",
-        "editor.wordWrap": "wordWrapColumn",
-        "editor.wordWrapColumn": 115
+        "editor.defaultFormatter": "ms-vscode.powershell"
     },
-    // ----------------------------------------------------------------------------------------------------
+    // shell
+    "shellcheck.run": "onType",
+    "[shellscript]": {
+        "editor.defaultFormatter": "timonwong.shellcheck",
+        "editor.codeActionsOnSave": {
+            "source.fixAll.shellcheck": "explicit"
+        }
+    },
+    // bicep
+    "bicep.decompileOnPaste": false,
+    "bicep.enableSurveys": false,
+    "[bicep,bicep-params]": {
+        "editor.defaultFormatter": "ms-azuretools.vscode-bicep"
+    },
+    // terraform
+    "terraform.experimentalFeatures.prefillRequiredFields": true,
+    "terraform.experimentalFeatures.validateOnSave": true,
+    "[terraform,terraform-vars]": {
+        "editor.defaultFormatter": "hashicorp.terraform",
+        "editor.formatOnSave": false,
+        "editor.codeActionsOnSave": {
+            "source.fixAll.terraform": "explicit"
+        }
+    },
     // python
-    // ----------
     "python.analysis.autoFormatStrings": true,
     "python.analysis.autoImportCompletions": true,
     "python.analysis.completeFunctionParens": true,
@@ -273,21 +220,10 @@
     "python.analysis.typeCheckingMode": "basic",
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter",
-        "editor.wordWrap": "wordWrapColumn",
         "editor.wordWrapColumn": 88,
         "editor.formatOnSave": true,
         "editor.codeActionsOnSave": {
             "source.fixAll.python": "explicit"
-        }
-    },
-    // ----------------------------------------------------------------------------------------------------
-    // shell
-    // ----------
-    "shellcheck.run": "onType",
-    "[shellscript]": {
-        "editor.defaultFormatter": "timonwong.shellcheck",
-        "editor.codeActionsOnSave": {
-            "source.fixAll.shellcheck": "explicit"
         }
     }
 }
