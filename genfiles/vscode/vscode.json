@@ -20,7 +20,11 @@
     // workbench
     "workbench.startupEditor": "none",
     "workbench.colorCustomizations": {
-        "editor.background": "#000000"
+        "editor.background": "#000000",
+        "panel.background": "#000000",
+        "sideBar.background": "#000000",
+        "tab.inactiveBackground": "#000000",
+        "terminal.background": "#000000",
     },
     // "workbench.colorTheme": "GitHub Dark Default",
     "workbench.iconTheme": "material-icon-theme",
@@ -102,7 +106,7 @@
         }
     ],
     // cSpell
-    "cSpell.language": "en,en-US",
+    "cSpell.language": "en,pl",
     "cSpell.maxDuplicateProblems": 1,
     "cSpell.maxNumberOfProblems": 10,
     "cSpell.numSuggestions": 6,
