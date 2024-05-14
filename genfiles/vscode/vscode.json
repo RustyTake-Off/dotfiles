@@ -103,8 +103,9 @@
     ],
     // cSpell
     "cSpell.language": "en,en-US",
-    "cSpell.maxDuplicateProblems": 3,
-    "cSpell.maxNumberOfProblems": 50,
+    "cSpell.maxDuplicateProblems": 1,
+    "cSpell.maxNumberOfProblems": 10,
+    "cSpell.numSuggestions": 6,
     "cSpell.showStatus": false,
     "cSpell.enableFiletypes": [
         "*"
@@ -144,6 +145,8 @@
     "polacode.target": "snippet",
     // postman
     "postman.telemetry.enabled": false,
+    // code-runner
+    "code-runner.enableAppInsights": false,
     // redhat
     "redhat.telemetry.enabled": false,
     // vsicons
