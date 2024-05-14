@@ -232,5 +232,8 @@
         "editor.codeActionsOnSave": {
             "source.fixAll.python": "explicit"
         }
-    }
+    },
+    // jupyter
+    "jupyter.interactiveWindow.textEditor.executeSelection": true,
+    "notebook.lineNumbers": "on"
 }
