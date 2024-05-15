@@ -101,15 +101,11 @@ try {
         Start-Process winget -ArgumentList 'install --exact --id Git.Git --source winget --interactive --accept-package-agreements --accept-source-agreements' -NoNewWindow -Wait
 
         Write-Host "Installed $($green)Git$($resetColor)"
-    } elseif (Get-Command -Name git) {
+    } else {
         Write-Host "$($green)Git$($resetColor) is installed"
     }
 
     # Get dotfiles
-    if (-not (Get-Command -Name git)) {
-        throw "$($red)Git is not installed$($resetColor)"
-    }
-
     if (-not (Test-Path -Path $dotfilesPath -PathType Container)) {
         $paths = @()
 
