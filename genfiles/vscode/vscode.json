@@ -10,7 +10,7 @@
     "editor.wordWrap": "wordWrapColumn",
     "editor.wordWrapColumn": 120,
     "editor.cursorSmoothCaretAnimation": "off",
-    "editor.fontFamily": "'RobotoMono Nerd Font Mono', monospace",
+    "editor.fontFamily": "'CaskaydiaCove Nerd Font Mono', 'RobotoMono Nerd Font Mono', 'Lucida Console', monospace",
     "editor.fontSize": 18,
     "editor.formatOnSave": true,
     "editor.acceptSuggestionOnEnter": "off",
