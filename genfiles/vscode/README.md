@@ -11,15 +11,16 @@
     - [Uninstall extension](#uninstall-extension)
   - [Useful extensions](#useful-extensions)
     - [Miscellaneous extensions](#miscellaneous-extensions)
-    - [Markdown extensions](#markdown-extensions)
     - [Git/GitHub extensions](#gitgithub-extensions)
-    - [Azure extensions](#azure-extensions)
+    - [Linters/Formatters/Intellisense/LSPs/Debuggers/Languages extensions](#lintersformattersintellisenselspsdebuggerslanguages-extensions)
+    - [API extensions](#api-extensions)
+    - [AI assistance extensions](#ai-assistance-extensions)
     - [Infrastructure as Code extensions](#infrastructure-as-code-extensions)
+    - [Azure extensions](#azure-extensions)
     - [Live Preview extensions](#live-preview-extensions)
-    - [Linters/Formatters/Intellisense extensions](#lintersformattersintellisense-extensions)
+    - [Markdown extensions](#markdown-extensions)
     - [Containers extensions](#containers-extensions)
     - [Remote Development extensions](#remote-development-extensions)
-    - [API extensions](#api-extensions)
 
 ## Current settings files
 
@@ -71,6 +72,7 @@ Here are some essential and useful 👷 extensions for VSCode.
 | bierner.emojisense                    | Adds suggestions and autocomplete for emojis           |
 | christian-kohler.path-intellisense    | Provides intelligent path autocompletion               |
 | editorconfig.editorconfig             | EditorConfig support for consistent coding styles      |
+| formulahendry.code-runner             | Run code snippet or code file for multiple languages   |
 | github.github-vscode-theme            | GitHub theme for VS Code                               |
 | ibm.output-colorizer                  | Colorizes log files for better readability             |
 | ms-vsliveshare.vsliveshare            | Real-time collaborative development in VS Code         |
@@ -86,14 +88,6 @@ Here are some essential and useful 👷 extensions for VSCode.
 
 [back to top ☝️](#vscode-configuration)
 
-### Markdown extensions
-
-| Extension 📎                    | Description 📰                                                                    |
-| ------------------------------ | -------------------------------------------------------------------------------- |
-| bierner.markdown-mermaid       | Adds Mermaid diagram and flowchart support to VS Code's builtin markdown preview |
-| DavidAnson.vscode-markdownlint | Markdown linting and style checking                                              |
-| yzhang.markdown-all-in-one     | All-in-one extension for Markdown                                                |
-
 ### Git/GitHub extensions
 
 | Extension 📎                       | Description 📰                                    |
@@ -105,6 +99,56 @@ Here are some essential and useful 👷 extensions for VSCode.
 | github.vscode-github-actions      | GitHub Actions workflow support                  |
 | github.vscode-pull-request-github | Manage pull requests and issues from GitHub      |
 | mhutchie.git-graph                | Visualize and explore Git history                |
+
+### Linters/Formatters/Intellisense/LSPs/Debuggers/Languages extensions
+
+| Extension 📎                             | Description 📰                                                                                                  |
+| --------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| bradlc.vscode-tailwindcss               | Intelligent Tailwind CSS tooling for VS Code                                                                   |
+| donjayamanne.python-environment-manager | View and manage Python environments & packages                                                                 |
+| ecmel.vscode-html-css                   | CSS Intellisense for HTML                                                                                      |
+| esbenp.prettier-vscode                  | Code formatter using Prettier                                                                                  |
+| kevinrose.vsc-python-indent             | Correct Python indentation                                                                                     |
+| ms-python.black-formatter               | Formatting support for Python files using the Black formatter                                                  |
+| ms-python.debugpy                       | Python debugger                                                                                                |
+| ms-python.python                        | Python linting and formatting support                                                                          |
+| ms-python.vscode-pylance                | Performant, feature-rich language server for Python in VS Code                                                 |
+| ms-toolsai.jupyter                      | Jupyter notebook support, interactive programming and computing that supports Intellisense, debugging and more |
+| ms-toolsai.jupyter-keymap               | Jupyter keymaps for notebooks                                                                                  |
+| ms-toolsai.jupyter-renderers            | Renderers for Jupyter Notebooks                                                                                |
+| ms-toolsai.vscode-jupyter-cell-tags     | Jupyter Cell Tags support for VS Code                                                                          |
+| ms-toolsai.vscode-jupyter-slideshow     | Jupyter Slide Show support for VS Code                                                                         |
+| ms-vscode.powershell                    | PowerShell support for Visual Studio Code                                                                      |
+| njpwerner.autodocstring                 | Generates python docstrings automatically                                                                      |
+| timonwong.shellcheck                    | Linter for Shell scripts                                                                                       |
+
+[back to top ☝️](#vscode-configuration)
+
+### API extensions
+
+| Extension 📎                  | Description 📰                          |
+| ---------------------------- | -------------------------------------- |
+| humao.rest-client            | REST Client for Visual Studio Code     |
+| postman.postman-for-vscode   | Postman integration for VS Code        |
+| rangav.vscode-thunder-client | Thunder client for RESTful API testing |
+
+### AI assistance extensions
+
+| Extension 📎                                         | Description 📰                                                                            |
+| --------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| visualstudioexptteam.intellicode-api-usage-examples | AI-assisted development                                                                  |
+| visualstudioexptteam.vscodeintellicode              | See relevant code examples from GitHub for over 100K different APIs right in your editor |
+
+### Infrastructure as Code extensions
+
+| Extension 📎                | Description 📰                                           |
+| -------------------------- | ------------------------------------------------------- |
+| 4ops.terraform             | Terraform support for Visual Studio Code                |
+| bencoleman.armview         | View and interact with Azure Resource Manager templates |
+| hashicorp.terraform        | Terraform language support                              |
+| ms-azuretools.vscode-bicep | Bicep language support                                  |
+
+[back to top ☝️](#vscode-configuration)
 
 ### Azure extensions
 
@@ -126,17 +170,6 @@ Here are some essential and useful 👷 extensions for VSCode.
 | ms-vscode.vscode-node-azure-pack          | Azure Node.js extension pack                 |
 | msazurermtools.azurerm-vscode-tools       | Azure Resource Manager tools for VS Code     |
 
-[back to top ☝️](#vscode-configuration)
-
-### Infrastructure as Code extensions
-
-| Extension 📎                | Description 📰                                           |
-| -------------------------- | ------------------------------------------------------- |
-| 4ops.terraform             | Terraform support for Visual Studio Code                |
-| bencoleman.armview         | View and interact with Azure Resource Manager templates |
-| hashicorp.terraform        | Terraform language support                              |
-| ms-azuretools.vscode-bicep | Bicep language support                                  |
-
 ### Live Preview extensions
 
 | Extension 📎           | Description 📰                                                                         |
@@ -144,20 +177,15 @@ Here are some essential and useful 👷 extensions for VSCode.
 | ms-vscode.live-server | Hosts a local server in your workspace for you to preview your webpages on            |
 | ritwickdey.liveserver | Launch a development local Server with live reload feature for static & dynamic pages |
 
-### Linters/Formatters/Intellisense extensions
-
-| Extension 📎                 | Description 📰                                                 |
-| --------------------------- | ------------------------------------------------------------- |
-| bradlc.vscode-tailwindcss   | Intelligent Tailwind CSS tooling for VS Code                  |
-| ecmel.vscode-html-css       | CSS Intellisense for HTML                                     |
-| esbenp.prettier-vscode      | Code formatter using Prettier                                 |
-| kevinrose.vsc-python-indent | Correct Python indentation                                    |
-| ms-python.black-formatter   | Formatting support for Python files using the Black formatter |
-| ms-python.python            | Python linting and formatting support                         |
-| ms-vscode.powershell        | PowerShell support for Visual Studio Code                     |
-| timonwong.shellcheck        | Linter for Shell scripts                                      |
-
 [back to top ☝️](#vscode-configuration)
+
+### Markdown extensions
+
+| Extension 📎                    | Description 📰                                                                    |
+| ------------------------------ | -------------------------------------------------------------------------------- |
+| bierner.markdown-mermaid       | Adds Mermaid diagram and flowchart support to VS Code's builtin markdown preview |
+| DavidAnson.vscode-markdownlint | Markdown linting and style checking                                              |
+| yzhang.markdown-all-in-one     | All-in-one extension for Markdown                                                |
 
 ### Containers extensions
 
@@ -177,12 +205,5 @@ Here are some essential and useful 👷 extensions for VSCode.
 | ms-vscode-remote.vscode-remote-extensionpack | VS Code Remote Extension Pack             |
 | ms-vscode.remote-explorer                    | Explore remote development environments   |
 | ms-vscode.remote-server                      | VS Code Server for remote development     |
-
-### API extensions
-
-| Extension 📎                  | Description 📰                          |
-| ---------------------------- | -------------------------------------- |
-| postman.postman-for-vscode   | Postman integration for VS Code        |
-| rangav.vscode-thunder-client | Thunder client for RESTful API testing |
 
 [back to top ☝️](#vscode-configuration)
