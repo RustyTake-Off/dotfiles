@@ -18,10 +18,11 @@ GitHub Repo - https://github.com/RustyTake-Off/dotfiles
 
 .NOTES
 Author  - RustyTake-Off
-Version - 0.1.2
+Version - 0.1.3
 #>
 
 [CmdletBinding(SupportsShouldProcess)]
+$ErrorActionPreference = 'SilentlyContinue'
 
 $repoUrl = 'https://github.com/RustyTake-Off/dotfiles.git'
 $dotfilesPath = "$HOME/.dotfiles"
@@ -46,12 +47,6 @@ function CheckAndAskToInstall([string]$packageName) {
     .SYNOPSIS
     Checks if a specified package is installed and prompts the user to install it if not found.
 
-    .DESCRIPTION
-    This function verifies whether a given package (specified by `$packageName`) is installed on the system. If
-    the package is not detected, it prompts the user to decide whether to proceed with the installation. The user
-    is asked to confirm installation by entering 'y' or decline by entering 'n'. If no response is provided, the
-    default action is to abort the script.
-
     .PARAMETER packageName
     Specifies the name of the package to be checked for installation.
 
@@ -59,28 +54,29 @@ function CheckAndAskToInstall([string]$packageName) {
     CheckAndAskToInstall -packageName "git"
     #>
 
-    if (-not (Get-Command -Name $packageName -ErrorAction SilentlyContinue)) {
-        $packageNameCapitalized = $packageName.Substring(0, 1).ToUpper() + $packageName.Substring(1)
-        Write-Host "$($red)$packageNameCapitalized is not installed$($resetColor)"
+    if (Get-Command -Name $packageName) {
+        return $false
+    }
 
-        $loop = $true
-        while ($loop) {
-            $choice = Read-Host "Do you want to install $($yellow)$packageNameCapitalized$($resetColor) (y/N)?"
+    $packageNameCapitalized = $packageName.Substring(0, 1).ToUpper() + $packageName.Substring(1)
+    Write-Host "$($red)$packageNameCapitalized is not installed$($resetColor)"
 
-            if ([string]::IsNullOrWhiteSpace($choice)) {
-                $choice = 'n' # set default value to 'n' if no input is provided
-            } else {
-                $choice = $choice.Trim().ToLower()
-            }
+    while ($true) {
+        $choice = Read-Host "Do you want to install $($yellow)$packageNameCapitalized$($resetColor) (y/N)?"
 
-            if ($choice -eq 'n') {
-                Write-Host "$($red)Stopping script$($resetColor)"
-                exit 1
-            } elseif ($choice -eq 'y') {
-                return $true
-            } else {
-                Write-Host "$($red)Invalid input please enter 'y' or 'n'$($resetColor)"
-            }
+        if ([string]::IsNullOrWhiteSpace($choice)) {
+            $choice = 'n' # set default value to 'n' if no input is provided
+        } else {
+            $choice = $choice.Trim().ToLower()
+        }
+
+        if ($choice -eq 'n') {
+            Write-Host "$($red)Stopping script. Bye, bye$($resetColor)"
+            exit 1
+        } elseif ($choice -eq 'y') {
+            return $true
+        } else {
+            Write-Host "$($red)Invalid input please enter 'y' or 'n'$($resetColor)"
         }
     }
 }
@@ -110,8 +106,11 @@ try {
     }
 
     # Get dotfiles
-    if (Get-Command -Name git -ErrorAction SilentlyContinue) {
-        $dotfilesPathExists = Test-Path -Path $dotfilesPath -PathType Container
+    if (-not (Get-Command -Name git)) {
+        throw "$($red)Git is not installed$($resetColor)"
+    }
+
+    if (-not (Test-Path -Path $dotfilesPath -PathType Container)) {
         $paths = @()
 
         foreach ($key in $toCheckout.Keys) {
@@ -120,35 +119,30 @@ try {
             }
         }
 
-        if (-not $dotfilesPathExists) {
-            Write-Host "Cloning $($yellow)dotfiles$($resetColor)..."
-            git clone --bare $repoUrl $dotfilesPath
-            git --git-dir=$dotfilesPath --work-tree=$HOME checkout $paths
-            git --git-dir=$dotfilesPath --work-tree=$HOME config status.showUntrackedFiles no
+        Write-Host "Cloning $($yellow)dotfiles$($resetColor)..."
 
-            if (Test-Path -Path $winfilesPath -PathType Container) {
-                foreach ($item in $toCheckout['winfiles']) {
-                    $sourcePath = "$winfilesPath/$item"
+        git clone --bare $repoUrl $dotfilesPath
+        git --git-dir=$dotfilesPath --work-tree=$HOME checkout $paths
+        git --git-dir=$dotfilesPath --work-tree=$HOME config status.showUntrackedFiles no
 
-                    if (Test-Path -Path $sourcePath -PathType Container) {
-                        Get-ChildItem -Path $sourcePath | ForEach-Object {
-                            Move-Item -Path $_.FullName -Destination $HOME -Force
-                        }
-                    } elseif (Test-Path -Path $sourcePath -PathType Leaf) {
-                        Move-Item -Path $sourcePath -Destination $HOME -Force
-                    }
+    } else {
+        throw "$($red)Directory '.dotfiles' already exists in '$HOME'$($resetColor)"
+    }
+
+    if (Test-Path -Path $winfilesPath -PathType Container) {
+        foreach ($item in $toCheckout['winfiles']) {
+            $sourcePath = "$winfilesPath/$item"
+
+            if (Test-Path -Path $sourcePath -PathType Container) {
+                Get-ChildItem -Path $sourcePath | ForEach-Object {
+                    Move-Item -Path $_.FullName -Destination $HOME -Force
                 }
-            } else {
-                Write-Host "$($red)Directory 'winfiles' not found in '$HOME'$($resetColor)"
-                exit 1
+            } elseif (Test-Path -Path $sourcePath -PathType Leaf) {
+                Move-Item -Path $sourcePath -Destination $HOME -Force
             }
-        } else {
-            Write-Host "$($red)Directory '.dotfiles' already exists in '$HOME'$($resetColor)"
-            exit 1
         }
     } else {
-        Write-Host "$($red)Git is not installed$($resetColor)"
-        exit 1
+        throw "$($red)Directory 'winfiles' not found in '$HOME'$($resetColor)"
     }
 
     if (Test-Path -Path $scriptPath -PathType Container) {
@@ -158,12 +152,12 @@ try {
 
         Write-Host "$($green)Dotfiles$($resetColor) are set"
     } else {
-        Write-Host "$($red)Script in path '$scriptPath' does not exist$($resetColor)"
-        exit 1
+        throw "$($red)Script file in path '$scriptPath' does not exist$($resetColor)"
     }
 
+    $ErrorActionPreference = 'Continue'
     exit 0 # success
 } catch {
-    "Error in line $($_.InvocationInfo.ScriptLineNumber): $($Error[0])"
+    "Error in line $($_.InvocationInfo.ScriptLineNumber): $($red)$($Error[0])$($resetColor)"
     exit 1
 }
