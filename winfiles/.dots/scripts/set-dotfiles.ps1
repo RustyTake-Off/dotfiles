@@ -11,11 +11,11 @@ GitHub Repo - https://github.com/RustyTake-Off/dotfiles
 
 .NOTES
 Author  - RustyTake-Off
-Version - 0.1.3
+Version - 0.1.4
 #>
 
-# [CmdletBinding(SupportsShouldProcess)]
 [CmdletBinding(SupportsShouldProcess)]
+$ErrorActionPreference = 'SilentlyContinue'
 
 param (
     [Parameter(HelpMessage = 'Skips getting dotfiles and just sets them in their locations.')]
@@ -49,50 +49,45 @@ $purple = [char]27 + '[35m'
 $resetColor = [char]27 + '[0m'
 
 function New-CopyFile ([string]$sourceFile, [string]$targetFile) {
-    try {
-        Write-Host "Copying $yellow$($(Split-Path -Path $sourceFile) -replace [Regex]::Escape($HOME), '...')/$((Get-Item $sourceFile).Name)$resetColor -> $purple$($(Split-Path -Path $targetFile) -replace [Regex]::Escape($HOME), '...')/$((Get-Item $targetFile).Name)$resetColor"
-        Copy-Item -Path $sourceFile -Destination $targetFile
-    } catch {
-        "Error in line $($_.InvocationInfo.ScriptLineNumber): $($Error[0])"
-    }
+    Write-Host "Copying $($yellow)$($(Split-Path -Path $sourceFile) -replace [Regex]::Escape($HOME), '...')/$((Get-Item $sourceFile).Name)$($resetColor) -> $($purple)$($(Split-Path -Path $targetFile) -replace [Regex]::Escape($HOME), '...')/$((Get-Item $targetFile).Name)$($resetColor)"
+    Copy-Item -Path $sourceFile -Destination $targetFile
 }
 
 function New-HashThenCopyFile ([string]$sourceFile, [string]$targetFile) {
-    try {
-        $hashOne = Get-FileHash -Path $sourceFile -Algorithm SHA256
-        $hashTwo = Get-FileHash -Path $targetFile -Algorithm SHA256
+    $hashOne = Get-FileHash -Path $sourceFile -Algorithm SHA256
+    $hashTwo = Get-FileHash -Path $targetFile -Algorithm SHA256
 
-        if ($hashOne.Hash -ne $hashTwo.Hash) {
-            New-CopyFile -sourceFile $sourceFile -targetFile $targetFile
-        } else {
-            Write-Host "File already set $yellow$($(Split-Path -Path $sourceFile) -replace [Regex]::Escape($HOME), '...')/$((Get-Item $sourceFile).Name)$resetColor -> $purple$($(Split-Path -Path $targetFile) -replace [Regex]::Escape($HOME), '...')/$((Get-Item $targetFile).Name)$resetColor"
-        }
-    } catch {
-        "Error in line $($_.InvocationInfo.ScriptLineNumber): $($Error[0])"
+    if ($hashOne.Hash -ne $hashTwo.Hash) {
+        New-CopyFile -sourceFile $sourceFile -targetFile $targetFile
+    } else {
+        Write-Host "File already set $($yellow)$($(Split-Path -Path $sourceFile) -replace [Regex]::Escape($HOME), '...')/$((Get-Item $sourceFile).Name)$($resetColor) -> $($purple)$($(Split-Path -Path $targetFile) -replace [Regex]::Escape($HOME), '...')/$((Get-Item $targetFile).Name)$($resetColor)"
     }
 }
 
 function Invoke-HashAndCopyOrCopy ([string]$sourceFile, [string]$targetFile) {
-    try {
-        if ((Test-Path -Path $sourceFile -PathType Leaf) -and (-not (Test-Path -Path $targetFile -PathType Leaf))) {
-            New-CopyFile -sourceFile $sourceFile -targetFile $targetFile
+    $source = Test-Path -Path $sourceFile -PathType Leaf
+    $target = Test-Path -Path $targetFile -PathType Leaf
 
-        } elseif ((Test-Path -Path $sourceFile -PathType Leaf) -and (Test-Path -Path $targetFile -PathType Leaf)) {
-            New-HashThenCopyFile -sourceFile $sourceFile -targetFile $targetFile
+    if (($source) -and (-not ($target))) {
+        New-CopyFile -sourceFile $sourceFile -targetFile $targetFile
 
-        } elseif ((-not (Test-Path -Path $sourceFile -PathType Leaf)) -and (Test-Path -Path $targetFile -PathType Leaf)) {
-            Write-Host "$($red)File '$sourceFile' does not exist$($resetColor)"
-        }
-    } catch {
-        "Error in line $($_.InvocationInfo.ScriptLineNumber): $($Error[0])"
+    } elseif (($source) -and ($target)) {
+        New-HashThenCopyFile -sourceFile $sourceFile -targetFile $targetFile
+
+    } elseif ((-not ($source)) -and ($target)) {
+        Write-Host "$($red)File '$sourceFile' does not exist$($resetColor)"
     }
 }
 
 try {
     # Set dotfiles
     if ($skipDotfiles) {
-        if (Get-Command -Name git -ErrorAction SilentlyContinue) {
-            $dotfilesPathExists = Test-Path -Path $dotfilesPath -PathType Container
+
+        if (-not (Get-Command -Name git)) {
+            throw "$($red)Git is not installed$($resetColor)"
+        }
+
+        if (-not (Test-Path -Path $dotfilesPath -PathType Container)) {
             $paths = @()
 
             foreach ($key in $toCheckout.Keys) {
@@ -101,53 +96,48 @@ try {
                 }
             }
 
-            if (-not $dotfilesPathExists) {
-                Write-Host "Cloning $($yellow)dotfiles$($resetColor)..."
-                git clone --bare $repoUrl $dotfilesPath
-                git --git-dir=$dotfilesPath --work-tree=$HOME checkout $paths
-                git --git-dir=$dotfilesPath --work-tree=$HOME config status.showUntrackedFiles no
+            Write-Host "Cloning $($yellow)dotfiles$($resetColor)..."
 
-                if (Test-Path -Path $winfilesPath -PathType Container) {
-                    foreach ($item in $toCheckout['winfiles']) {
-                        $sourcePath = "$winfilesPath/$item"
+            git clone --bare $repoUrl $dotfilesPath
+            git --git-dir=$dotfilesPath --work-tree=$HOME checkout $paths
+            git --git-dir=$dotfilesPath --work-tree=$HOME config status.showUntrackedFiles no
 
-                        if (Test-Path -Path $sourcePath -PathType Container) {
-                            Get-ChildItem -Path $sourcePath | ForEach-Object {
-                                Move-Item -Path $_.FullName -Destination $HOME -Force
-                            }
-                        } elseif (Test-Path -Path $sourcePath -PathType Leaf) {
-                            Move-Item -Path $sourcePath -Destination $HOME -Force
+            if (Test-Path -Path $winfilesPath -PathType Container) {
+                foreach ($item in $toCheckout['winfiles']) {
+                    $sourcePath = "$winfilesPath/$item"
+
+                    if (Test-Path -Path $sourcePath -PathType Container) {
+                        Get-ChildItem -Path $sourcePath | ForEach-Object {
+                            Move-Item -Path $_.FullName -Destination $HOME -Force
                         }
+                    } elseif (Test-Path -Path $sourcePath -PathType Leaf) {
+                        Move-Item -Path $sourcePath -Destination $HOME -Force
                     }
-                } else {
-                    Write-Host "$($red)Directory 'winfiles' not found in '$HOME'$($resetColor)"
-                    exit 1
                 }
             } else {
-                Write-Host "$($red)Dotfiles$($resetColor) are set. Checking for $($yellow)updates$($resetColor)..."
-                git --git-dir=$dotfilesPath --work-tree=$HOME reset --hard
-                git --git-dir=$dotfilesPath --work-tree=$HOME pull
-
-                if (Test-Path -Path $winfilesPath -PathType Container) {
-                    foreach ($item in $toCheckout['winfiles']) {
-                        $sourcePath = "$winfilesPath/$item"
-
-                        if (Test-Path -Path $sourcePath -PathType Container) {
-                            Get-ChildItem -Path $sourcePath | ForEach-Object {
-                                Move-Item -Path $_.FullName -Destination $HOME -Force
-                            }
-                        } elseif (Test-Path -Path $sourcePath -PathType Leaf) {
-                            Move-Item -Path $sourcePath -Destination $HOME -Force
-                        }
-                    }
-                } else {
-                    Write-Host "$($red)Directory 'winfiles' not found in '$HOME'$($resetColor)"
-                    exit 1
-                }
+                throw "$($red)Directory 'winfiles' not found in '$HOME'$($resetColor)"
             }
         } else {
-            Write-Host "$($red)Git is not installed$($resetColor)"
-            exit 1
+            Write-Host "$($red)Dotfiles$($resetColor) are set. Checking for $($yellow)updates$($resetColor)..."
+
+            git --git-dir=$dotfilesPath --work-tree=$HOME reset --hard
+            git --git-dir=$dotfilesPath --work-tree=$HOME pull
+
+            if (Test-Path -Path $winfilesPath -PathType Container) {
+                foreach ($item in $toCheckout['winfiles']) {
+                    $sourcePath = "$winfilesPath/$item"
+
+                    if (Test-Path -Path $sourcePath -PathType Container) {
+                        Get-ChildItem -Path $sourcePath | ForEach-Object {
+                            Move-Item -Path $_.FullName -Destination $HOME -Force
+                        }
+                    } elseif (Test-Path -Path $sourcePath -PathType Leaf) {
+                        Move-Item -Path $sourcePath -Destination $HOME -Force
+                    }
+                }
+            } else {
+                throw "$($red)Directory 'winfiles' not found in '$HOME'$($resetColor)"
+            }
         }
     } else {
         Write-Host 'Skipping dotfiles'
@@ -156,9 +146,8 @@ try {
     # Set powershell profile
     $profileFiles = Get-ChildItem -Path $dotProfilePath -File -Recurse
     if ($profileFiles) {
-        $profilePathExists = Test-Path -Path $profilePath -PathType Container
 
-        if (-not $profilePathExists) {
+        if (-not (Test-Path -Path $profilePath -PathType Container)) {
             $null = New-Item -Path $profilePath -ItemType Directory
         }
 
@@ -172,12 +161,11 @@ try {
     }
 
     # Set windows terminal config
-    if (Get-Command -Name wt -ErrorAction SilentlyContinue) {
+    if (Get-Command -Name wt) {
         $wtFiles = Get-ChildItem -Path $dotWTPath -File -Recurse
-        if ($wtFiles) {
-            $wtPathExists = Test-Path -Path $wtPath -PathType Container
 
-            if (-not $wtPathExists) {
+        if ($wtFiles) {
+            if (-not (Test-Path -Path $wtPath -PathType Container)) {
                 $null = New-Item -Path $wtPath -ItemType Directory
             }
 
@@ -194,12 +182,11 @@ try {
     }
 
     # Set winget config
-    if (Get-Command -Name winget -ErrorAction SilentlyContinue) {
+    if (Get-Command -Name winget) {
         $wingetFiles = Get-ChildItem -Path $dotWingetPath -File -Recurse
-        if ($wingetFiles) {
-            $wingetPathExists = Test-Path -Path $wingetPath -PathType Container
 
-            if (-not $wingetPathExists) {
+        if ($wingetFiles) {
+            if (-not (Test-Path -Path $wingetPath -PathType Container)) {
                 $null = New-Item -Path $wingetPath -ItemType Directory
             }
 
@@ -220,9 +207,7 @@ try {
     # Set wsl config
     $wslFiles = Get-ChildItem -Path $dotWSLPath -File -Recurse
     if ($wslFiles) {
-        $wslPathExists = Test-Path -Path "$wslPath/.wslconfig" -PathType Leaf
-
-        if (-not $wslPathExists) {
+        if (-not (Test-Path -Path "$wslPath/.wslconfig" -PathType Leaf)) {
             foreach ($file in $wslFiles) {
                 $sourceFile = Join-Path -Path $dotWSLPath -ChildPath $file.Name
                 $targetFile = Join-Path -Path $wslPath -ChildPath '.wslconfig'
@@ -233,8 +218,9 @@ try {
         Write-Host "$($red)WSL config is missing from dotfiles$($resetColor)"
     }
 
+    $ErrorActionPreference = 'Continue'
     exit 0 # success
 } catch {
-    "Error in line $($_.InvocationInfo.ScriptLineNumber): $($Error[0])"
+    "Error in line $($_.InvocationInfo.ScriptLineNumber): $($red)$($Error[0])$($resetColor)"
     exit 1
 }
