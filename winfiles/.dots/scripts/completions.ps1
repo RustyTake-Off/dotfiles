@@ -11,12 +11,14 @@ GitHub Repo - https://github.com/RustyTake-Off/dotfiles
 
 .NOTES
 Author  - RustyTake-Off
-Version - 0.1.2
+Version - 0.1.3
 #>
+
+$ErrorActionPreference = 'SilentlyContinue'
 
 try {
     # Completion and history for powershell
-    if (Get-Module -Name PSReadLine -ErrorAction SilentlyContinue) {
+    if (Get-Module -Name PSReadLine) {
         $psMinimumVersion = [version]'7.1.999'
 
         if (($Host.Name -eq 'ConsoleHost') -and ($PSVersionTable.PSVersion -ge $psMinimumVersion)) {
@@ -38,17 +40,17 @@ try {
     }
 
     # Completion for git
-    if (Get-Module -Name posh-git -ErrorAction SilentlyContinue) {
+    if (Get-Module -Name posh-git) {
         $GitPromptSettings.EnablePromptStatus = $false
         $GitPromptSettings.EnableFileStatus = $false
-    } elseif (-not (Get-Module -Name posh-git -ErrorAction SilentlyContinue)) {
+    } else {
         Import-Module -Name posh-git
         $GitPromptSettings.EnablePromptStatus = $false
         $GitPromptSettings.EnableFileStatus = $false
     }
 
     # Completion for winget - https://learn.microsoft.com/en-us/windows/package-manager/winget/tab-completion#enable-tab-completion
-    if (Get-Command -Name winget -ErrorAction SilentlyContinue) {
+    if (Get-Command -Name winget) {
         Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
             param($wordToComplete, $commandAst, $cursorPosition)
             [Console]::InputEncoding = [Console]::OutputEncoding = $OutputEncoding = [System.Text.Utf8Encoding]::new()
@@ -61,7 +63,7 @@ try {
     }
 
     # Completion for azure-cli - https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-windows?view=azure-cli-latest&tabs=winget#enable-tab-completion-in-powershell
-    if (Get-Command -Name az -ErrorAction SilentlyContinue) {
+    if (Get-Command -Name az) {
         Register-ArgumentCompleter -Native -CommandName az -ScriptBlock {
             param($commandName, $wordToComplete, $cursorPosition)
             $completion_file = New-TemporaryFile
@@ -81,8 +83,9 @@ try {
         }
     }
 
+    $ErrorActionPreference = 'Continue'
     exit 0 # success
 } catch {
-    "Error in line $($_.InvocationInfo.ScriptLineNumber): $($Error[0])"
+    "Error in line $($_.InvocationInfo.ScriptLineNumber): $($red)$($Error[0])$($resetColor)"
     exit 1
 }
