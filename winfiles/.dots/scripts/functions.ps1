@@ -11,7 +11,7 @@ GitHub Repo - https://github.com/RustyTake-Off/dotfiles
 
 .NOTES
 Author  - RustyTake-Off
-Version - 0.1.2
+Version - 0.1.3
 #>
 
 try {
@@ -131,6 +131,6 @@ try {
 
     exit 0 # success
 } catch {
-    "Error in line $($_.InvocationInfo.ScriptLineNumber): $($Error[0])"
+    "Error in line $($_.InvocationInfo.ScriptLineNumber): $($red)$($Error[0])$($resetColor)"
     exit 1
 }
