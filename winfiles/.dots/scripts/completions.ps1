@@ -11,10 +11,12 @@ GitHub Repo - https://github.com/RustyTake-Off/dotfiles
 
 .NOTES
 Author  - RustyTake-Off
-Version - 0.1.3
+Version - 0.1.4
 #>
 
-$ErrorActionPreference = 'SilentlyContinue'
+# ANSI escape sequences for different colors
+$red = [char]27 + '[31m'
+$resetColor = [char]27 + '[0m'
 
 try {
     # Completion and history for powershell
@@ -83,7 +85,6 @@ try {
         }
     }
 
-    $ErrorActionPreference = 'Continue'
     exit 0 # success
 } catch {
     "Error in line $($_.InvocationInfo.ScriptLineNumber): $($red)$($Error[0])$($resetColor)"

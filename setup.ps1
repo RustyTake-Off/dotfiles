@@ -18,7 +18,7 @@ GitHub Repo - https://github.com/RustyTake-Off/dotfiles
 
 .NOTES
 Author  - RustyTake-Off
-Version - 0.1.4
+Version - 0.1.5
 #>
 
 [CmdletBinding(SupportsShouldProcess)]
@@ -31,8 +31,7 @@ $toCheckout = @{
     docs     = @('images')
     winfiles = @('.dots', '.gitconfig')
 }
-
-$scriptPath = "$HOME/.dots/scripts/set-dotfiles.ps1"
+$dotfilesScriptPath = "$HOME/.dots/scripts/set-dotfiles.ps1"
 
 # ANSI escape sequences for different colors
 $red = [char]27 + '[31m'
@@ -43,17 +42,6 @@ $purple = [char]27 + '[35m'
 $resetColor = [char]27 + '[0m'
 
 function CheckAndAskToInstall([string]$packageName) {
-    <#
-    .SYNOPSIS
-    Checks if a specified package is installed and prompts the user to install it if not found.
-
-    .PARAMETER packageName
-    Specifies the name of the package to be checked for installation.
-
-    .EXAMPLE
-    CheckAndAskToInstall -packageName "git"
-    #>
-
     if (Get-Command -Name $packageName) {
         return $false
     }
@@ -141,14 +129,14 @@ try {
         throw "$($red)Directory 'winfiles' not found in '$HOME'$($resetColor)"
     }
 
-    if (Test-Path -Path $scriptPath -PathType Container) {
+    if (Test-Path -Path $dotfilesScriptPath -PathType Container) {
         Write-Host "Setting $($yellow)dotfiles$($resetColor)..."
 
-        Invoke-Expression $scriptPath -skipDotfiles
+        Invoke-Expression $dotfilesScriptPath -skipDotfiles
 
         Write-Host "$($green)Dotfiles$($resetColor) are set"
     } else {
-        throw "$($red)Script file in path '$scriptPath' does not exist$($resetColor)"
+        throw "$($red)Script file in path '$dotfilesScriptPath' does not exist$($resetColor)"
     }
 
     $ErrorActionPreference = 'Continue'

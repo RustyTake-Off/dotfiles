@@ -11,8 +11,12 @@ GitHub Repo - https://github.com/RustyTake-Off/dotfiles
 
 .NOTES
 Author  - RustyTake-Off
-Version - 0.1.3
+Version - 0.1.4
 #>
+
+# ANSI escape sequences for different colors
+$red = [char]27 + '[31m'
+$resetColor = [char]27 + '[0m'
 
 try {
     function cd...... { Set-Location ../../../../../.. }
@@ -84,9 +88,7 @@ try {
     function pubip4 { (Invoke-WebRequest -Uri 'https://api.ipify.org/').Content }
     function pubip6 { (Invoke-WebRequest -Uri 'https://ifconfig.me/ip').Content }
 
-    # Get system information
     function sysinfo { Get-ComputerInfo }
-
     function flushdns { Clear-DnsClientCache }
 
     # Open windows explorer
