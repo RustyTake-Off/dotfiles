@@ -1,6 +1,7 @@
-# useful references
-# git - https://git-scm.com/docs/git-config
+# Useful references
+# Git - https://git-scm.com/docs/git-config
 # henrebotha - https://github.com/henrebotha/dotfiles/blob/main/git/dot-gitconfig
+# mwhite - https://gist.github.com/mwhite/6887990
 
 [core]
     ignoreCase = false
@@ -23,7 +24,6 @@
     sort = -committerdate
 
 [commit]
-    # gpgSign = true
     verbose = true
 
 [diff]
@@ -40,43 +40,49 @@
 
 [pull]
     # ff = only
-    # rebase = true
+    rebase = true
 
 [push]
     # autoSetupRemote = true
-    # gpgSign = true
 
 [rebase]
     # autoStash = true
 
 [rerere]
     # https://stackoverflow.com/questions/49500943/what-is-git-rerere-and-how-does-it-work
-    # enabled = true
+    enabled = true
 
 [tag]
-    # sort = -taggerdate
-    # gpgSign = true
+    sort = -taggerdate
 
-# include separate gitconfigs
+# Include separate gitconfigs
 [includeIf "gitdir:~/pr/"]
-    path = ~/pr/.gitconfig
+    path = ~/pr/.gitconfig-pr
 
 [includeIf "gitdir:~/wk/"]
-    path = ~/wk/.gitconfig
+    path = ~/wk/.gitconfig-wk
 
 [alias]
-	aliases = ! git config --list | awk '/alias/{ print $1 }' | perl -pe 's/alias\\.//g' | perl -pe 's/=.+//g'
-#     i = init
-#     cl = clone
-#     s = status --short
-#     a = add
-#     c = commit
-#     cm = commit -m
-#     cam = commit --amend -m
-#     pl = pull
-#     plr = pull --rebase
-#     pu = push
-#     chb = checkout -b
-#     log = log --graph --oneline --color
+    alias = config --get-regexp '^alias\.' # Print all aliases
 
-#     chdef = "!git checkout $(git rev-parse --abbrev-ref origin/HEAD | sed 's@^origin/@@')"
+    i = init
+    a = add
+    cl = clone
+    s = status --short
+
+    c = commit
+    cm = commit -m
+    ca = commit --amend
+    cam = commit --amend -m
+
+    pl = pull
+    plr = pull --rebase
+    pu = push
+
+    br = branch
+    sw = switch
+    ch = checkout
+    chb = checkout -b
+
+    lo = log --graph --oneline
+    los = log --graph --oneline --stat -5
