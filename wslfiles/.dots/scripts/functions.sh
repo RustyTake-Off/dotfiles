@@ -1,12 +1,10 @@
 #!/usr/bin/env bash
-# ╒══════╗        ╒═══════╗
-# │ ╓──┐ ║════════╗  ╓─┐  ║
-# │ ╚══╛ ║──┐  ╓──╜  ║ │  ║  RustyTake-Off
-# │ ╓─┐ ╓╜  │  ║  │  ║ │  ║  https://github.com/RustyTake-Off
-# │ ║ │ ╚╗  │  ║  │  ╚═╛  ║
-# └─╜ └──╜  └──╜  └───────╜
-# Bash functions
-# File executed from ~/.bashrc
+# Various functions
+
+# GitHub        - https://github.com/RustyTake-Off
+# GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
+# Author        - RustyTake-Off
+# Version       - 0.1.0
 
 function rebash() {
   # Reload bashrc
