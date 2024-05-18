@@ -1,43 +1,43 @@
-# readline - https://www.gnu.org/software/bash/manual/html_node/Readline-Init-File-Syntax.html
+# Readline - https://www.gnu.org/software/bash/manual/html_node/Readline-Init-File-Syntax.html
 
-# controls what happens when readline wants to ring the terminal bell
+# Controls what happens when readline wants to ring the terminal bell
 set bell-style none
 
-# displays the common prefix of the set of possible completions using a different color
+# Displays the common prefix of the set of possible completions using a different color
 set colored-completion-prefix on
 
-# displays possible completions using different colors to indicate their file type
+# Displays possible completions using different colors to indicate their file type
 set colored-stats on
 
-# performs filename matching and completion in a case-insensitive fashion
+# Performs filename matching and completion in a case-insensitive fashion
 set completion-ignore-case on
 
-# number of possible completions that determines when the user is asked whether
+# Number of possible completions that determines when the user is asked whether
 # the list of possibilities should be displayed
 set completion-query-items 200
 
-# allow utf-8 input and output, instead of showing stuff like $'\0123\0456'
+# Allow utf-8 input and output, instead of showing stuff like $'\0123\0456'
 set convert-meta off
 set input-meta on
 set output-meta on
 
-# completed names which are symbolic links to directories have a slash appended
+# Completed names which are symbolic links to directories have a slash appended
 set mark-symlinked-directories on
 
-# do not autocomplete hidden files unless the pattern explicitly begins with a dot
+# Do not autocomplete hidden files unless the pattern explicitly begins with a dot
 set match-hidden-files off
 
-# show all autocomplete results at once
+# Show all autocomplete results at once
 set page-completions off
 
-# list all matches in case multiple possible completions are possible
+# List all matches in case multiple possible completions are possible
 set show-all-if-ambiguous on
 
-# be more intelligent when autocompleting by also looking at the text after
+# More intelligent when autocompleting by also looking at the text after
 # the cursor. for example, when the current line is "cd ~/src/mozil", and
 # the cursor is on the "z", pressing tab will not autocomplete it to "cd
 # ~/src/mozillail", but to "cd ~/src/mozilla".
 set skip-completed-text on
 
-# show extra file information
+# Show extra file information
 set visible-stats on
