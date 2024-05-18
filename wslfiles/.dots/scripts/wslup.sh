@@ -4,7 +4,7 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.1.0
+# Version       - 0.1.1
 
 # ANSI escape sequences for different colors
 red='\e[31m'
@@ -91,15 +91,16 @@ function get-brew-apps() {
     brew install \
       ansible \
       azcopy \
-      kubectl \
+      entr \
+      fzf \
       helm \
       k9s \
+      kubectl \
+      kubectx \
       nvm \
-      tfenv \
       terragrunt \
-      tlrc \
-      entr \
-      fzf
+      tfenv \
+      tlrc
   fi
 }
 
