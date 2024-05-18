@@ -93,26 +93,26 @@ if (-not (Test-Path -Path "$HOME\wk" -PathType Container)) {
 }
 
 function Get-Help {
-    Write-Host 'Available commands:'
-    Write-Host @'
-    help        -   Print help message
-    drivers
-    :   min     -   Download minimum needed drivers
-    :   all     -   Download all drivers
-    fonts       -   Download and install fonts
-    ctt         -   Invoke CTT - winutil script
-    apps
-    :   base    -   Install base applications
-    :   util    -   Install utility applications
-    psmods      -   Install PowerShell modules
-    dots        -   Invoke dotfiles setup script
-    wsl
-    :   Debian          -   Install Debian on WSL
-    :   Ubuntu-24.04    -   Install Ubuntu-24.04 on WSL
-    :   Ubuntu-22.04    -   Install Ubuntu-22.04 on WSL
-    :   Ubuntu-20.04    -   Install Ubuntu-20.04 on WSL
-    :   kali-linux      -   Install kali-linux on WSL
-'@
+    Write-Host "Available $($yellow)commands$($resetColor):"
+    Write-Host @"
+$($yellow)  help    $($resetColor) - Print help message
+$($yellow)  drivers $($resetColor)
+$($yellow)  :  min  $($resetColor) - Download minimum needed drivers
+$($yellow)  :  all  $($resetColor) - Download all drivers
+$($yellow)  fonts   $($resetColor) - Download and install fonts
+$($yellow)  ctt     $($resetColor) - Invoke CTT - winutil script
+$($yellow)  apps    $($resetColor)
+$($yellow)  :  base $($resetColor) - Install base applications
+$($yellow)  :  util $($resetColor) - Install utility applications
+$($yellow)  psmods  $($resetColor) - Install PowerShell modules
+$($yellow)  dots    $($resetColor) - Invoke dotfiles setup script
+$($yellow)  wsl     $($resetColor)
+$($yellow)  :  Debian       $($resetColor) - Install Debian on WSL
+$($yellow)  :  Ubuntu-24.04 $($resetColor) - Install Ubuntu-24.04 on WSL
+$($yellow)  :  Ubuntu-22.04 $($resetColor) - Install Ubuntu-22.04 on WSL
+$($yellow)  :  Ubuntu-20.04 $($resetColor) - Install Ubuntu-20.04 on WSL
+$($yellow)  :  kali-linux   $($resetColor) - Install kali-linux on WSL
+"@
 }
 
 function New-Directory([string]$path) {
