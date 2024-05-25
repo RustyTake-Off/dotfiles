@@ -235,5 +235,6 @@
     },
     // jupyter
     "jupyter.interactiveWindow.textEditor.executeSelection": true,
-    "notebook.lineNumbers": "on"
+    "notebook.lineNumbers": "on",
+    "notebook.output.wordWrap": true
 }
