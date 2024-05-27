@@ -58,7 +58,7 @@ style = 'cyan bold'
 disabled = false
 
 [git_branch]
-format = '\[[$branch:]($style)'
+format = '\[[$branch/]($style)'
 truncation_symbol = '…/'
 style = 'green bold'
 disabled = false
