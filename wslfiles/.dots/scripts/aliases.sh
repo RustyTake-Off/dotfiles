@@ -4,7 +4,7 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.1.0
+# Version       - 0.1.1
 
 alias cd......="cd ../../../../../.."
 alias cd.....="cd ../../../../.."
@@ -56,6 +56,7 @@ alias dot='git --git-dir="$HOME/.dots" --work-tree=$HOME'
 alias setdots=". \$HOME/.dots/scripts/set-dotfiles.sh"
 alias wslup=". \$HOME/.dots/scripts/wslup.sh"
 
+alias apti="sudo apt install"
 alias sup="sudo apt update"
 alias supup="sudo apt update && sudo apt upgrade -y"
 alias brup="brew upgrade"

@@ -31,22 +31,6 @@ unset bash_config_files
 [ -f "$(command -v zoxide)" ] && eval "$(zoxide init bash)"
 [ -f "$(command -v fzf)" ] && eval "$(fzf --bash)"
 
-# Set up SSH agent for key management
-# {
-#   if eval "$(ssh-agent -s)"; then
-#     keys="pr-ed-key wk-ed-key"
-#     for key in $keys; do
-#       file="$HOME/.ssh/$key"
-#       if [ -e "$file" ]; then
-#         chmod go-rwx "$HOME/.ssh/$key"
-#         ssh-add "$HOME/.ssh/$key"
-#       fi
-#     done
-#     trap 'kill $SSH_AGENT_PID' EXIT
-#   fi
-# } 1> /dev/null 2>&1
-# unset keys key file
-
 # Set optional shell behavior: https://www.gnu.org/software/bash/manual/html_node/The-Shopt-Builtin.html
 shopt -s autocd
 shopt -s cdspell
