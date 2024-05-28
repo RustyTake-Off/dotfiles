@@ -37,7 +37,6 @@
 
 [merge]
     conflictStyle = zdiff3  # https://ductile.systems/zdiff3/
-    # log = true
 
 [pull]
     # ff = only
@@ -58,10 +57,10 @@
 
 # Include separate gitconfigs
 [includeIf "gitdir:~/pr/"]
-    path = ~/pr/.gitconfig-pr
+    path = ~/pr/.gitconfig
 
 [includeIf "gitdir:~/wk/"]
-    path = ~/wk/.gitconfig-wk
+    path = ~/wk/.gitconfig
 
 [alias]
     alias = config --get-regexp '^alias\.' # Print all aliases
