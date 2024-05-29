@@ -19,8 +19,8 @@ export MANPAGER="/usr/bin/sh -c \"col -b | vim -c 'set ft=man ts=8 nomod nolist 
 bash_config_files="aliases functions completions"
 if [ -d "$HOME/.dots" ]; then
   for file in $bash_config_files; do
-    if [ -f "$HOME/.dots/$file.sh" ]; then
-      source "$HOME/.dots/$file.sh"
+    if [ -f "$HOME/.dots/scripts/$file.sh" ]; then
+      source "$HOME/.dots/scripts/$file.sh"
     fi
   done
 fi
