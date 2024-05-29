@@ -15,6 +15,7 @@ export EDITOR="vim"
 # Set vim as MANPAGER: https://zameermanji.com/blog/2012/12/30/using-vim-as-manpager/
 export MANPAGER="/usr/bin/sh -c \"col -b | vim -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
 
+# Load bash files
 bash_config_files="aliases functions completions"
 if [ -d "$HOME/.dots" ]; then
   for file in $bash_config_files; do
@@ -25,6 +26,7 @@ if [ -d "$HOME/.dots" ]; then
 fi
 unset bash_config_files
 
+# Init other apps
 [ -f "$(command -v /home/linuxbrew/.linuxbrew/bin/brew)" ] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 [ -s "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" ] && source "$HOMEBREW_PREFIX/opt/nvm/nvm.sh"
 [ -f "$(command -v starship)" ] && eval "$(starship init bash)"
