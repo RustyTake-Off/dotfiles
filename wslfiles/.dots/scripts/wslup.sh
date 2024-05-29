@@ -4,7 +4,7 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.1.1
+# Version       - 0.1.2
 
 # ANSI escape sequences for different colors
 red='\e[31m'
@@ -54,9 +54,6 @@ function get-apt-apps() {
     tree \
     trash-cli \
     unzip \
-    jq \
-    ripgrep \
-    zoxide
 
   # Install starship
   if [ ! "$(command -v starship)" ]; then
@@ -94,13 +91,17 @@ function get-brew-apps() {
       entr \
       fzf \
       helm \
+      jq \
       k9s \
       kubectl \
       kubectx \
       nvm \
+      ripgrep \
       terragrunt \
       tfenv \
-      tlrc
+      tlrc \
+      yq \
+      zoxide
   fi
 }
 
