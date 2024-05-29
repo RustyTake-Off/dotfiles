@@ -105,6 +105,7 @@ Here are some essential and useful 👷 extensions for VSCode.
 | Extension 📎                             | Description 📰                                                                                                  |
 | --------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
 | bradlc.vscode-tailwindcss               | Intelligent Tailwind CSS tooling for VS Code                                                                   |
+| charliermarsh.ruff                      | Visual Studio Code extension with support for the Ruff linter for python                                       |
 | donjayamanne.python-environment-manager | View and manage Python environments & packages                                                                 |
 | ecmel.vscode-html-css                   | CSS Intellisense for HTML                                                                                      |
 | esbenp.prettier-vscode                  | Code formatter using Prettier                                                                                  |
