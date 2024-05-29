@@ -4,8 +4,9 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.1.1
+# Version       - 0.1.2
 
+# Common aliases
 alias cd......="cd ../../../../../.."
 alias cd.....="cd ../../../../.."
 alias cd....="cd ../../../.."
