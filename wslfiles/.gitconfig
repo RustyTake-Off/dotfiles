@@ -1,8 +1,9 @@
 # Useful references
-# Git - https://git-scm.com/docs/git-config
-# henrebotha - https://github.com/henrebotha/dotfiles/blob/main/git/dot-gitconfig
-# mwhite - https://gist.github.com/mwhite/6887990
-# jvns - https://jvns.ca/blog/2024/02/16/popular-git-config-options/
+# Git           - https://git-scm.com/docs/git-config
+# henrebotha    - https://github.com/henrebotha/dotfiles/blob/main/git/dot-gitconfig
+# mwhite        - https://gist.github.com/mwhite/6887990
+# jvns          - https://jvns.ca/blog/2024/02/16/popular-git-config-options/
+# 0livare       - https://gist.github.com/0livare/4960a81addfbcdc48abfe855fae0af43
 
 [core]
     ignoreCase = false
@@ -15,11 +16,9 @@
     # autocrlf = input
     # excludesFile = ~/.gitignore  # global gitignore
     # attributesFile = ~/.gitattributes  # global gitattributes
-    # editor = vim
+    editor = vim
     # https://blog.thomasheartman.com/posts/change-your-git-comment-character
     # commentChar = ";"
-    # https://github.com/dandavison/delta
-    # pager = delta --line-numbers
 
 [branch]
     sort = -committerdate
@@ -30,7 +29,6 @@
 [diff]
     # https://luppeng.wordpress.com/2020/10/10/when-to-use-each-of-the-git-diff-algorithms/
     algorithm = histogram
-    colorMoved = default
 
 [init]
     defaultBranch = main
@@ -63,7 +61,7 @@
     path = ~/wk/.gitconfig
 
 [alias]
-    alias = config --get-regexp '^alias\.' # Print all aliases
+    alias = config --get-regexp '^alias.'
 
     i = init
     a = add
