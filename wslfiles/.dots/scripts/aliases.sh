@@ -4,7 +4,7 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.1.2
+# Version       - 0.1.3
 
 # Common aliases
 alias cd......="cd ../../../../../.."
@@ -61,16 +61,16 @@ alias apti="sudo apt install"
 alias sup="sudo apt update"
 alias supup="sudo apt update && sudo apt upgrade -y"
 alias brup="brew upgrade"
-alias lcoms="compgen -b # Print built-in commands"
+alias lcoms="compgen -b  # Print built-in commands"
 
 # Python aliases
 alias py="python3"
-alias pysetup="python3 -m venv .venv && source .venv/bin/activate && pip3 install --upgrade pip"
+alias pysetup="python3 -m venv .venv --upgrade-deps && source .venv/bin/activate"
 alias pyup="source .venv/bin/activate"
 alias pydw="deactivate"
 alias pipi="pip3 install"
 alias pipu="pip3 install --upgrade"
-alias pipuall="pip3 freeze --local | cut -d = -f 1  | xargs -n1 pip3 install --upgrade # Upgrades all packages"
+alias pipuall="pip3 freeze --local | cut -d = -f 1  | xargs -n1 pip3 install --upgrade  # Upgrades all packages"
 alias pysetreq="pip3 freeze > requirements.txt"
 alias pygetreq="pip3 install -r requirements.txt"
 
