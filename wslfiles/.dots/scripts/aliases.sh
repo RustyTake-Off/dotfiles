@@ -4,7 +4,7 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.1.3
+# Version       - 0.1.4
 
 # Common aliases
 alias cd......="cd ../../../../../.."
@@ -37,6 +37,13 @@ alias mkdir="mkdir -vp"
 alias mv="mv -vi"
 alias rm="rm -vI"
 
+# trash-cli - https://github.com/andreafrancia/trash-cli
+alias trm="trash-put"
+alias tre="trash-empty"
+alias trl="trash-list"
+alias trr="trash-restore"
+alias trc="trash-rm"
+
 alias less="less -R"
 alias diff="diff --color=auto"
 alias grep="grep --color=auto"
@@ -65,12 +72,15 @@ alias lcoms="compgen -b  # Print built-in commands"
 
 # Python aliases
 alias py="python3"
+alias pyv="pyenv versions"
+alias pyg="pyenv global"
+alias pyl="pyenv local"
 alias pysetup="python3 -m venv .venv --upgrade-deps && source .venv/bin/activate"
 alias pyup="source .venv/bin/activate"
 alias pydw="deactivate"
 alias pipi="pip3 install"
 alias pipu="pip3 install --upgrade"
-alias pipuall="pip3 freeze --local | cut -d = -f 1  | xargs -n1 pip3 install --upgrade  # Upgrades all packages"
+alias pipuall="pip3 freeze --local | cut -d = -f 1  | xargs -n1 pip3 install --upgrade  # Upgrade all packages"
 alias pysetreq="pip3 freeze > requirements.txt"
 alias pygetreq="pip3 install -r requirements.txt"
 

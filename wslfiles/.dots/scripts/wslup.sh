@@ -4,7 +4,7 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.1.2
+# Version       - 0.1.3
 
 # ANSI escape sequences for different colors
 red='\e[31m'
@@ -52,7 +52,6 @@ function get-apt-apps() {
     python3-pip \
     python3-tk \
     tree \
-    trash-cli \
     unzip \
 
   # Install starship
@@ -91,7 +90,9 @@ function get-brew-apps() {
       entr \
       fzf \
       helm \
+      pyenv \
       jq \
+      trash-cli \
       k9s \
       kubectl \
       kubectx \
