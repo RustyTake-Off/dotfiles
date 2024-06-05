@@ -1,5 +1,5 @@
-# Starship: https://starship.rs
-# Unicode characters: https://unicodes.jessetane.com
+# Starship - https://starship.rs
+# Unicode characters - https://unicodes.jessetane.com
 
 "$schema" = 'https://starship.rs/config-schema.json'
 
@@ -74,7 +74,7 @@ diverged = '⇕⇡${ahead_count}⇣${behind_count}'
 modified = 'M${count}'
 renamed = 'R${count}'
 staged = '±${count}'
-stashed = '☖${count}'
+stashed = 'S${count}'
 untracked = '?${count}'
 up_to_date = ''
 disabled = false
