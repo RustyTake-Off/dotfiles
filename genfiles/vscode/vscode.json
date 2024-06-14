@@ -170,7 +170,7 @@
         "editor.defaultFormatter": "vscode.html-language-features"
     },
     // json
-    "[json,jsonc]": {
+    "[json,jsonc,jsonl]": {
         "editor.defaultFormatter": "vscode.json-language-features"
     },
     // yaml
@@ -221,14 +221,12 @@
     },
     // python
     "python.analysis.autoFormatStrings": true,
-    "python.analysis.autoImportCompletions": true,
     "python.analysis.completeFunctionParens": true,
     "python.analysis.gotoDefinitionInStringLiteral": true,
     "python.analysis.typeCheckingMode": "basic",
     "[python]": {
         "editor.defaultFormatter": "charliermarsh.ruff",
         "editor.codeActionsOnSave": {
-            // "source.fixAll": "explicit",
             "source.organizeImports": "explicit"
         }
     },
@@ -238,7 +236,6 @@
     "notebook.lineNumbers": "on",
     "notebook.output.wordWrap": true,
     "notebook.codeActionsOnSave": {
-        // "notebook.source.fixAll": "explicit",
         "notebook.source.organizeImports": "explicit"
     }
 }
