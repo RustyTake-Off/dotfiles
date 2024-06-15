@@ -4,7 +4,7 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.1.4
+# Version       - 0.1.5
 
 # Common aliases
 alias cd......="cd ../../../../../.."
@@ -80,9 +80,9 @@ alias pyup="source .venv/bin/activate"
 alias pydw="deactivate"
 alias pipi="pip3 install"
 alias pipu="pip3 install --upgrade"
-alias pipuall="pip3 freeze --local | cut -d = -f 1  | xargs -n1 pip3 install --upgrade  # Upgrade all packages"
-alias pysetreq="pip3 freeze > requirements.txt"
-alias pygetreq="pip3 install -r requirements.txt"
+alias pipuall="pip3 freeze --local | cut -d = -f 1  | xargs -n1 pip3 install --upgrade  # Upgrades all packages"
+alias pipsetreq="pip3 freeze --require-virtualenv -l >"
+alias pipgetreq="pip3 install --require-virtualenv -rU"
 
 alias k="kubectl"
 alias hl="helm"
