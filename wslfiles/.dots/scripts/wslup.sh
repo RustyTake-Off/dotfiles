@@ -4,38 +4,54 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.1.3
+# Version       - 0.1.4
+
+set -euo pipefail
+
+# Configuration variables
+dotfilesScriptPath="$HOME/.dots/scripts/set-dotfiles.sh"
 
 # ANSI escape sequences for different colors
-red='\e[31m'
-green='\e[32m'
-yellow='\e[33m'
-blue='\e[34m'
-purple='\e[35m'
-resetColor='\e[0m'
+declare -A colors=(
+  ["red"]="\033[31m"
+  ["green"]="\033[32m"
+  ["yellow"]="\033[33m"
+  ["blue"]="\033[34m"
+  ["purple"]="\033[35m"
+  ["reset"]="\033[0m"
+)
 
 if [ ! -d "$HOME/pr" ]; then
-  echo "Creating '${yellow}personal${resetColor}' directory"
+  write_colored_message "Creating 'personal' directory" "yellow"
   mkdir "$HOME/pr"
 fi
 
 if [ ! -d "$HOME/wk" ]; then
-  echo "Creating '${yellow}work${resetColor}' directory"
+  write_colored_message "Creating 'work' directory" "yellow"
   mkdir "$HOME/wk"
 fi
 
-function get-help() {
-  # Help message
+# Function definitions
+function write_colored_message() {
+  # Color message
 
-  echo "Available ${yellow}commands${resetColor}:"
-  echo "${yellow}  -h  |  --help      ${resetColor} - Prints help message"
-  echo "${yellow}  -a  |  --apt-apps  ${resetColor} - Install apt applications"
-  echo "${yellow}  -b  |  --brew      ${resetColor} - Install homebrew"
-  echo "${yellow}  -ba |  --brew-apps ${resetColor} - Install brew applications"
-  echo "${yellow}  -d  |  --dotfiles  ${resetColor} - Invokes dotfiles setup script"
+  local message=$1
+  local color=$2
+  echo -e "${colors[$color]}$message${colors["reset"]}"
 }
 
-function get-apt-apps() {
+function get_help() {
+  # Help message
+
+  write_colored_message "Available commands:" "yellow"
+  echo "${colors["yellow"]}  -h  |  --help      ${colors["reset"]} - Prints help message"
+  echo "${colors["yellow"]}  -a  |  --apt-apps  ${colors["reset"]} - Install apt applications"
+  echo "${colors["yellow"]}  -b  |  --brew      ${colors["reset"]} - Install homebrew"
+  echo "${colors["yellow"]}  -ba |  --brew-apps ${colors["reset"]} - Install brew applications"
+  echo "${colors["yellow"]}  -d  |  --dotfiles  ${colors["reset"]} - Invokes dotfiles setup script"
+}
+
+function get_apt_apps() {
   # Install some prerequisite and utility apps
 
   sudo apt update && sudo apt upgrade -y
@@ -43,100 +59,94 @@ function get-apt-apps() {
   sudo apt install -y \
     apt-transport-https \
     build-essential \
-    software-properties-common \
     ca-certificates \
     gnupg \
     gpg \
-    wget \
-    python3-venv \
     python3-pip \
     python3-tk \
+    python3-venv \
+    software-properties-common \
     tree \
     unzip \
+    wget
 
   # Install starship
-  if [ ! "$(command -v starship)" ]; then
-    echo "Installing ${yellow}Starship${resetColor}..."
+  if [ ! -x "$(command -v starship)" ]; then
+    write_colored_message "Installing Starship..." "yellow"
     curl -sS https://starship.rs/install.sh | sudo bash
   fi
 
   # Install azure cli
-  if [ ! "$(command -v az)" ]; then
-    echo "Installing ${yellow}AzureCLI${resetColor}..."
+  if [ ! -x "$(command -v az)" ]; then
+    write_colored_message "Installing AzureCLI..." "yellow"
     curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
   fi
 }
 
-function get-brew() {
+function get_brew() {
   # Install homebrew if not installed
 
-  if [ ! "$(command -v brew)" ]; then
-    echo "Installing ${yellow}Homebrew${resetColor}..."
+  if [ ! -x "$(command -v brew)" ]; then
+    write_colored_message "Installing Homebrew..." "yellow"
     curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | sudo bash
   else
-    echo "Homebrew already ${green}installed${resetColor}"
+    write_colored_message "Homebrew already installed" "green"
   fi
 }
 
-function get-brew-apps() {
-  # Check if homebrew is installed, install if not and install brew apps
+function get_brew_apps() {
+  # Install homebrew apps
 
-  get-brew
+  get_brew
 
-  if [ ! "$(command -v brew)" ]; then
+  if [ ! -x "$(command -v brew)" ]; then
     brew install \
       ansible \
       azcopy \
       entr \
       fzf \
       helm \
-      pyenv \
       jq \
-      trash-cli \
       k9s \
       kubectl \
       kubectx \
       nvm \
+      pyenv \
       ripgrep \
       terragrunt \
       tfenv \
       tlrc \
+      trash-cli \
       yq \
       zoxide
   fi
 }
 
-function set-dotfiles() {
-  # Invokes the dotfiles setup script
+function set_dotfiles() {
+  # Invokes dotfiles setup script
 
-  echo "Invoking ${yellow}dotfiles${resetColor} setup script..."
+  write_colored_message "Invoking dotfiles setup script..." "yellow"
 
-  if [ -x "$HOME/.dots/scripts/set-dotfiles.sh" ]; then
-    source "$HOME/.dots/scripts/set-dotfiles.sh"
+  if [ -x "$dotfilesScriptPath" ]; then
+    source "$dotfilesScriptPath"
   else
-    curl -fsS https://raw.githubusercontent.com/RustyTake-Off/wsl-dotfiles/main/.dots/scripts/set-dotfiles.sh | sudo bash
+    curl -fsS https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/wslfiles/.dots/scripts/set-dotfiles.sh | sudo bash
   fi
 
-  echo "Invocation ${green}complete${resetColor}"
+  write_colored_message "Invocation complete" "green"
 }
 
 case "$1" in
   -h|--help)
-    get-help
-    ;;
+    get_help ;;
   -a|--apt-apps)
-    get-apt-apps
-    ;;
+    get_apt_apps ;;
   -b|--brew)
-    get-brew
-    ;;
+    get_brew ;;
   -ba|--brew-apps)
-    get-brew-apps
-    ;;
+    get_brew_apps ;;
   -d|--dotfiles)
-    set-dotfiles
-    ;;
+    set_dotfiles ;;
   *)
-    get-help
-    ;;
+    get_help ;;
 esac

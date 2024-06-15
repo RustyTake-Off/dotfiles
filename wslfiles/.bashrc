@@ -12,7 +12,7 @@ export HISTIGNORE="&:ls:la:ll:cd:exit:pwd:cls:[ ]*"
 export TERM="xterm-256color"
 export EDITOR="vim"
 
-# Set vim as MANPAGER: https://zameermanji.com/blog/2012/12/30/using-vim-as-manpager/
+# Set vim as MANPAGER - https://zameermanji.com/blog/2012/12/30/using-vim-as-manpager/
 export MANPAGER="/usr/bin/sh -c \"col -b | vim -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
 
 # Load bash files
@@ -33,7 +33,7 @@ unset bash_config_files
 [ -f "$(command -v zoxide)" ] && eval "$(zoxide init bash)"
 [ -f "$(command -v fzf)" ] && eval "$(fzf --bash)"
 
-# Set optional shell behavior: https://www.gnu.org/software/bash/manual/html_node/The-Shopt-Builtin.html
+# Set optional shell behavior - https://www.gnu.org/software/bash/manual/html_node/The-Shopt-Builtin.html
 shopt -s autocd
 shopt -s cdspell
 shopt -s checkhash
@@ -59,7 +59,7 @@ shopt -s promptvars
 shopt -s sourcepath
 shopt -s xpg_echo
 
-# Set shell options: https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html
+# Set shell options - https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html
 set -o braceexpand
 set -o emacs
 set -o hashall
