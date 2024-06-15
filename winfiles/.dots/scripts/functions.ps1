@@ -11,9 +11,10 @@ GitHub Repo - https://github.com/RustyTake-Off/dotfiles
 
 .NOTES
 Author  - RustyTake-Off
-Version - 0.1.5
+Version - 0.1.6
 #>
 
+# Common functions
 function cd...... { Set-Location ../../../../../.. }
 function cd..... { Set-Location ../../../../.. }
 function cd.... { Set-Location ../../../.. }
