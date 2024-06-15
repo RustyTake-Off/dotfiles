@@ -21,7 +21,7 @@ param (
 )
 
 # Configuration variables
-$repoUrl      = 'https://github.com/RustyTake-Off/dotfiles.git'
+$repoUrl = 'https://github.com/RustyTake-Off/dotfiles.git'
 $dotfilesPath = "$HOME/.dotfiles"
 $winfilesPath = "$HOME/winfiles"
 $toCheckout = @{
@@ -137,7 +137,7 @@ try {
     # Clone dotfiles
     if (-not $skipDotfiles) {
         if (-not (Get-Command -Name git -ErrorAction SilentlyContinue)) {
-            throw "Git is not installed"
+            throw 'Git is not installed'
         }
 
         function Move-Winfiles {
@@ -165,7 +165,7 @@ try {
         if (-not (Test-Path -Path $dotfilesPath -PathType Container)) {
             $paths = $toCheckout.GetEnumerator() | ForEach-Object { $_.Value | ForEach-Object { "$($_.Key)/$_" } }
 
-            Write-ColoredMessage "Cloning dotfiles..." 'yellow'
+            Write-ColoredMessage 'Cloning dotfiles...' 'yellow'
 
             git clone --bare $repoUrl $dotfilesPath
             git --git-dir=$dotfilesPath --work-tree=$HOME checkout $paths
@@ -173,7 +173,7 @@ try {
 
             Move-Winfiles -winfilesPath $winfilesPath -toCheckout $toCheckout
         } else {
-            Write-ColoredMessage "Dotfiles are set. Checking for updates..." 'yellow'
+            Write-ColoredMessage 'Dotfiles are set. Checking for updates...' 'yellow'
 
             git --git-dir=$dotfilesPath --work-tree=$HOME reset --hard
             git --git-dir=$dotfilesPath --work-tree=$HOME pull

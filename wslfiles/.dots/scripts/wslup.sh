@@ -4,7 +4,7 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.1.4
+# Version       - 0.1.5
 
 set -euo pipefail
 
@@ -22,12 +22,12 @@ declare -A colors=(
 )
 
 if [ ! -d "$HOME/pr" ]; then
-  write_colored_message "Creating 'personal' directory" "yellow"
+  echo "Creating ${colors["yellow"]}'personal'${colors["reset"]} directory"
   mkdir "$HOME/pr"
 fi
 
 if [ ! -d "$HOME/wk" ]; then
-  write_colored_message "Creating 'work' directory" "yellow"
+  echo "Creating ${colors["yellow"]}'work'${colors["reset"]} directory"
   mkdir "$HOME/wk"
 fi
 

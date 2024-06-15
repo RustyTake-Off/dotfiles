@@ -25,9 +25,9 @@ Version - 0.1.6
 $ErrorActionPreference = 'SilentlyContinue'
 
 # Configuration variables
-$repoUrl            = 'https://github.com/RustyTake-Off/dotfiles.git'
-$dotfilesPath       = "$HOME/.dotfiles"
-$winfilesPath       = "$HOME/winfiles"
+$repoUrl = 'https://github.com/RustyTake-Off/dotfiles.git'
+$dotfilesPath = "$HOME/.dotfiles"
+$winfilesPath = "$HOME/winfiles"
 $dotfilesScriptPath = "$HOME/.dots/scripts/set-dotfiles.ps1"
 $toCheckout = @{
     docs     = @('images')
@@ -68,7 +68,7 @@ function CheckAndAskToInstall {
 
         switch ($choice) {
             'y' { return $true }
-            'n' { Write-ColoredMessage "Stopping script. Bye, bye" 'red'; exit 1 }
+            'n' { Write-ColoredMessage 'Stopping script. Bye, bye' 'red'; exit 1 }
             default { Write-ColoredMessage "Invalid input, please enter 'y' or 'n'" 'red' }
         }
     }
@@ -78,27 +78,27 @@ function CheckAndAskToInstall {
 try {
     # Check and install winget
     if (CheckAndAskToInstall 'winget') {
-        Write-ColoredMessage "Installing Winget and its dependencies..." 'yellow'
+        Write-ColoredMessage 'Installing Winget and its dependencies...' 'yellow'
         Invoke-RestMethod -Uri 'https://github.com/asheroto/winget-install/releases/latest/download/winget-install.ps1' | Invoke-Expression
-        Write-ColoredMessage "Installed Winget and its dependencies" 'green'
+        Write-ColoredMessage 'Installed Winget and its dependencies' 'green'
     } else {
-        Write-ColoredMessage "Winget is installed" 'green'
+        Write-ColoredMessage 'Winget is installed' 'green'
     }
 
     # Check and install git
     if (CheckAndAskToInstall 'git') {
-        Write-ColoredMessage "Installing Git..." 'yellow'
+        Write-ColoredMessage 'Installing Git...' 'yellow'
         Start-Process winget -ArgumentList 'install --exact --id Git.Git --source winget --interactive --accept-package-agreements --accept-source-agreements' -NoNewWindow -Wait
-        Write-ColoredMessage "Installed Git" 'green'
+        Write-ColoredMessage 'Installed Git' 'green'
     } else {
-        Write-ColoredMessage "Git is installed" 'green'
+        Write-ColoredMessage 'Git is installed' 'green'
     }
 
     # Clone dotfiles
     if (-not (Test-Path -Path $dotfilesPath -PathType Container)) {
         $paths = $toCheckout.GetEnumerator() | ForEach-Object { $_.Value | ForEach-Object { "$($_.Key)/$_" } }
 
-        Write-ColoredMessage "Cloning dotfiles..." 'yellow'
+        Write-ColoredMessage 'Cloning dotfiles...' 'yellow'
 
         git clone --bare $repoUrl $dotfilesPath
         git --git-dir=$dotfilesPath --work-tree=$HOME checkout $paths
@@ -123,9 +123,9 @@ try {
 
     # Run dotfiles script
     if (Test-Path -Path $dotfilesScriptPath -PathType Leaf) {
-        Write-ColoredMessage "Setting dotfiles..." 'yellow'
+        Write-ColoredMessage 'Setting dotfiles...' 'yellow'
         Invoke-Expression $dotfilesScriptPath -skipDotfiles
-        Write-ColoredMessage "Dotfiles are set" 'green'
+        Write-ColoredMessage 'Dotfiles are set' 'green'
     } else {
         throw "Script file in path '$dotfilesScriptPath' does not exist"
     }
