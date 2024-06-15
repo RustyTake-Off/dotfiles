@@ -110,22 +110,24 @@ function Set-Configuration {
 
     if ($targetFile) {
         $sourceFiles = Get-ChildItem -Path $dotPath -File -Recurse
-        if ($sourceFiles) {
-            if (-not (Test-Path -Path $destPath -PathType Container)) {
-                $null = New-Item -Path $destPath -ItemType Directory
-            }
-
-            foreach ($file in $sourceFiles) {
-                $sourceFile = Join-Path -Path $dotPath -ChildPath $file.Name
-                $targetFilePath = Join-Path -Path $destPath -ChildPath $targetFile
-                Invoke-HashAndCopyOrCopy -sourceFile $sourceFile -targetFile $targetFilePath
-                if ($backupFile) {
-                    $backupFilePath = Join-Path -Path $destPath -ChildPath $backupFile
-                    Invoke-HashAndCopyOrCopy -sourceFile $sourceFile -targetFile $backupFilePath
-                }
-            }
-        } else {
+        if ($sourceFiles.Count -eq 0) {
             Write-ColoredMessage "Configuration files are missing from $dotPath" 'red'
+            return
+        }
+
+        if (-not (Test-Path -Path $destPath -PathType Container)) {
+            $null = New-Item -Path $destPath -ItemType Directory
+        }
+
+        $targetFilePath = Join-Path -Path $destPath -ChildPath $targetFile
+        $backupFilePath = if ($backupFile) { Join-Path -Path $destPath -ChildPath $backupFile } else { $null }
+
+        foreach ($file in $sourceFiles) {
+            $sourceFile = $file.FullName
+            Invoke-HashAndCopyOrCopy -sourceFile $sourceFile -targetFile $targetFilePath
+            if ($backupFilePath) {
+                Invoke-HashAndCopyOrCopy -sourceFile $sourceFile -targetFile $backupFilePath
+            }
         }
     }
 }
@@ -138,48 +140,45 @@ try {
             throw "Git is not installed"
         }
 
+        function Move-Winfiles {
+            param (
+                [string]$winfilesPath,
+                [hashtable]$toCheckout
+            )
+
+            if (-not (Test-Path -Path $winfilesPath -PathType Container)) {
+                throw "Directory 'winfiles' not found in '$HOME'"
+            }
+
+            foreach ($item in $toCheckout['winfiles']) {
+                $sourcePath = "$winfilesPath/$item"
+                if (Test-Path -Path $sourcePath -PathType Container) {
+                    Get-ChildItem -Path $sourcePath | ForEach-Object {
+                        Move-Item -Path $_.FullName -Destination $HOME -Force
+                    }
+                } elseif (Test-Path -Path $sourcePath -PathType Leaf) {
+                    Move-Item -Path $sourcePath -Destination $HOME -Force
+                }
+            }
+        }
+
         if (-not (Test-Path -Path $dotfilesPath -PathType Container)) {
             $paths = $toCheckout.GetEnumerator() | ForEach-Object { $_.Value | ForEach-Object { "$($_.Key)/$_" } }
 
             Write-ColoredMessage "Cloning dotfiles..." 'yellow'
+
             git clone --bare $repoUrl $dotfilesPath
             git --git-dir=$dotfilesPath --work-tree=$HOME checkout $paths
             git --git-dir=$dotfilesPath --work-tree=$HOME config status.showUntrackedFiles no
 
-            if (Test-Path -Path $winfilesPath -PathType Container) {
-                foreach ($item in $toCheckout['winfiles']) {
-                    $sourcePath = "$winfilesPath/$item"
-                    if (Test-Path -Path $sourcePath -PathType Container) {
-                        Get-ChildItem -Path $sourcePath | ForEach-Object {
-                            Move-Item -Path $_.FullName -Destination $HOME -Force
-                        }
-                    } elseif (Test-Path -Path $sourcePath -PathType Leaf) {
-                        Move-Item -Path $sourcePath -Destination $HOME -Force
-                    }
-                }
-            } else {
-                throw "Directory 'winfiles' not found in '$HOME'"
-            }
+            Move-Winfiles -winfilesPath $winfilesPath -toCheckout $toCheckout
         } else {
             Write-ColoredMessage "Dotfiles are set. Checking for updates..." 'yellow'
 
             git --git-dir=$dotfilesPath --work-tree=$HOME reset --hard
             git --git-dir=$dotfilesPath --work-tree=$HOME pull
 
-            if (Test-Path -Path $winfilesPath -PathType Container) {
-                foreach ($item in $toCheckout['winfiles']) {
-                    $sourcePath = "$winfilesPath/$item"
-                    if (Test-Path -Path $sourcePath -PathType Container) {
-                        Get-ChildItem -Path $sourcePath | ForEach-Object {
-                            Move-Item -Path $_.FullName -Destination $HOME -Force
-                        }
-                    } elseif (Test-Path -Path $sourcePath -PathType Leaf) {
-                        Move-Item -Path $sourcePath -Destination $HOME -Force
-                    }
-                }
-            } else {
-                throw "Directory 'winfiles' not found in '$HOME'"
-            }
+            Move-Winfiles -winfilesPath $winfilesPath -toCheckout $toCheckout
         }
     } else {
         Write-ColoredMessage 'Skipping dotfiles' 'yellow'
