@@ -11,18 +11,12 @@ GitHub Repo - https://github.com/RustyTake-Off/dotfiles
 
 .NOTES
 Author  - RustyTake-Off
-Version - 0.1.2
+Version - 0.1.3
 #>
 
+# Configuration variables
 $profilePath = "$HOME/Documents/PowerShell/Microsoft.PowerShell_profile.ps1"
 
-try {
-    if (Test-Path $profilePath -PathType Leaf) {
-        Invoke-Expression $profilePath
-    }
-
-    exit 0 # success
-} catch {
-    "Error in line $($_.InvocationInfo.ScriptLineNumber): $($Error[0])"
-    exit 1
+if (Test-Path $profilePath -PathType Leaf) {
+    Invoke-Expression $profilePath
 }

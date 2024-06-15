@@ -11,128 +11,117 @@ GitHub Repo - https://github.com/RustyTake-Off/dotfiles
 
 .NOTES
 Author  - RustyTake-Off
-Version - 0.1.4
+Version - 0.1.5
 #>
 
-# ANSI escape sequences for different colors
-$red = [char]27 + '[31m'
-$resetColor = [char]27 + '[0m'
+function cd...... { Set-Location ../../../../../.. }
+function cd..... { Set-Location ../../../../.. }
+function cd.... { Set-Location ../../../.. }
+function cd... { Set-Location ../../.. }
+function cd.. { Set-Location ../.. }
+function cd. { Set-Location .. }
+function hm { Set-Location $HOME }
+function hpr { Set-Location "$HOME/pr" }
+function hwk { Set-Location "$HOME/wk" }
+function dl { Set-Location "$HOME/Downloads" }
+function doc { Set-Location "$HOME/Documents" }
+function desk { Set-Location "$HOME/Desktop" }
 
-try {
-    function cd...... { Set-Location ../../../../../.. }
-    function cd..... { Set-Location ../../../../.. }
-    function cd.... { Set-Location ../../../.. }
-    function cd... { Set-Location ../../.. }
-    function cd.. { Set-Location ../.. }
-    function cd. { Set-Location .. }
-    function hm { Set-Location $HOME }
-    function hpr { Set-Location "$HOME/pr" }
-    function hwk { Set-Location "$HOME/wk" }
-    function dl { Set-Location "$HOME/Downloads" }
-    function doc { Set-Location "$HOME/Documents" }
-    function desk { Set-Location "$HOME/Desktop" }
+function h { Get-History }
+function cls { Clear-Host }
 
-    function h { Get-History }
-    function cls { Clear-Host }
+function ls { Get-ChildItem }
+function la { Get-ChildItem }
+function ll { Get-ChildItem }
 
-    function ls { Get-ChildItem }
-    function la { Get-ChildItem }
-    function ll { Get-ChildItem }
+function df {
+    Get-Volume
+}
 
-    function df {
-        Get-Volume
+# Create new env variable
+function export ([string]$name, [string]$value) {
+    Set-Item -Path "env:$name" -Value $value -Force
+}
+
+function pkill ([string]$name) {
+    Get-Process -Name $name -ErrorAction SilentlyContinue | Stop-Process
+}
+
+function pgrep ([string]$name) {
+    Get-Process | Where-Object { $_.ProcessName -like "*$name*" }
+}
+
+function head ([string]$path, [int]$n = 10) {
+    Get-Content -Path $path -Head $n
+}
+
+function tail ([string]$path, [int]$n = 10) {
+    Get-Content -Path $path -Tail $n
+}
+
+function touch ([string]$file) {
+    Write-Output '' | Out-File -FilePath $file -Encoding ASCII
+}
+
+# Find files
+function ff ([string]$name) {
+    Get-ChildItem -Recurse -Filter "*$name*" -ErrorAction SilentlyContinue | ForEach-Object {
+        Write-Output $_.FullName
     }
+}
 
-    # Create new env variable
-    function export ([string]$name, [string]$value) {
-        Set-Item -Path "env:$name" -Value $value -Force
+# Find commands
+function which {
+    Get-Command -Name $args | Select-Object -ExpandProperty Definition
+}
+
+function md5 { Get-FileHash -Algorithm MD5 $args }
+function sha1 { Get-FileHash -Algorithm SHA1 $args }
+function sha256 { Get-FileHash -Algorithm SHA256 $args }
+
+# Get public ips
+function pubip4 { (Invoke-WebRequest -Uri 'https://api.ipify.org/').Content }
+function pubip6 { (Invoke-WebRequest -Uri 'https://ifconfig.me/ip').Content }
+
+function sysinfo { Get-ComputerInfo }
+function flushdns { Clear-DnsClientCache }
+
+# Open windows explorer
+function open ([string]$path) {
+    explorer.exe $path
+}
+
+# Quick admin
+function admin {
+    if ($args) {
+        Start-Process wt -Verb RunAs -ArgumentList "pwsh -NoExit -NoLogo -ExecutionPolicy Bypass -WorkingDirectory $(Get-Location) -Command $args"
+    } else {
+        Start-Process wt -Verb RunAs -ArgumentList "pwsh -NoExit -NoLogo -ExecutionPolicy Bypass -WorkingDirectory $(Get-Location)"
     }
+}
 
-    function pkill ([string]$name) {
-        Get-Process -Name $name -ErrorAction SilentlyContinue | Stop-Process
-    }
+# Manage powershell profile
+function edit-profile {
+    notepad "$HOME/Documents/PowerShell/Microsoft.PowerShell_profile.ps1"
+}
 
-    function pgrep ([string]$name) {
-        Get-Process | Where-Object { $_.ProcessName -like "*$name*" }
-    }
+function reset-profile {
+    Invoke-Expression "$HOME/Documents/PowerShell/Microsoft.PowerShell_profile.ps1"
+}
 
-    function head ([string]$path, [int]$n = 10) {
-        Get-Content -Path $path -Head $n
-    }
+function reset-vscprofile {
+    Invoke-Expression "$HOME/Documents/PowerShell/Microsoft.VSCode_profile.ps1"
+}
 
-    function tail ([string]$path, [int]$n = 10) {
-        Get-Content -Path $path -Tail $n
-    }
+# Manage dotfiles in $HOME directory
+function dot {
+    git --git-dir="$HOME/.dots" --work-tree=$HOME $args
+}
 
-    function touch ([string]$file) {
-        Write-Output '' | Out-File -FilePath $file -Encoding ASCII
-    }
+function setdots {
+    Invoke-Expression ("$HOME/.dots/scripts/set-dots.ps1")
+}
 
-    # Find files
-    function ff ([string]$name) {
-        Get-ChildItem -Recurse -Filter "*$name*" -ErrorAction SilentlyContinue | ForEach-Object {
-            Write-Output $_.FullName
-        }
-    }
-
-    # Find commands
-    function which {
-        Get-Command -Name $args | Select-Object -ExpandProperty Definition
-    }
-
-    function md5 { Get-FileHash -Algorithm MD5 $args }
-    function sha1 { Get-FileHash -Algorithm SHA1 $args }
-    function sha256 { Get-FileHash -Algorithm SHA256 $args }
-
-    # Get public ips
-    function pubip4 { (Invoke-WebRequest -Uri 'https://api.ipify.org/').Content }
-    function pubip6 { (Invoke-WebRequest -Uri 'https://ifconfig.me/ip').Content }
-
-    function sysinfo { Get-ComputerInfo }
-    function flushdns { Clear-DnsClientCache }
-
-    # Open windows explorer
-    function open ([string]$path) {
-        explorer.exe $path
-    }
-
-    # Quick admin
-    function admin {
-        if ($args) {
-            Start-Process wt -Verb RunAs -ArgumentList "pwsh -NoExit -NoLogo -ExecutionPolicy Bypass -WorkingDirectory $(Get-Location) -Command $args"
-        } else {
-            Start-Process wt -Verb RunAs -ArgumentList "pwsh -NoExit -NoLogo -ExecutionPolicy Bypass -WorkingDirectory $(Get-Location)"
-        }
-    }
-
-    # Manage powershell profile
-    function edit-profile {
-        notepad "$HOME/Documents/PowerShell/Microsoft.PowerShell_profile.ps1"
-    }
-
-    function reset-profile {
-        Invoke-Expression "$HOME/Documents/PowerShell/Microsoft.PowerShell_profile.ps1"
-    }
-
-    function reset-vscprofile {
-        Invoke-Expression "$HOME/Documents/PowerShell/Microsoft.VSCode_profile.ps1"
-    }
-
-    # Manage dotfiles in $HOME directory
-    function dot {
-        git --git-dir="$HOME/.dots" --work-tree=$HOME $args
-    }
-
-    function setdots {
-        Invoke-Expression ("$HOME/.dots/scripts/set-dots.ps1")
-    }
-
-    function winup {
-        Invoke-Expression ("$HOME/.dots/scripts/winup.ps1 $args")
-    }
-
-    exit 0 # success
-} catch {
-    "Error in line $($_.InvocationInfo.ScriptLineNumber): $($red)$($Error[0])$($resetColor)"
-    exit 1
+function winup {
+    Invoke-Expression ("$HOME/.dots/scripts/winup.ps1 $args")
 }
