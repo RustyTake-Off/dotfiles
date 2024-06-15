@@ -6,39 +6,39 @@ Winup setup script
 Script for initial setup of a fresh system install.
 
 .EXAMPLE
-winup.ps1 -command drivers -subCommand min
+winup.ps1 drivers min
 Downloads minimum needed drivers
 
 .EXAMPLE
-winup.ps1 -command drivers -subCommand all
+winup.ps1 drivers all
 Downloads all drivers
 
 .EXAMPLE
-winup.ps1 -command fonts
+winup.ps1 fonts
 Downloads and installs fonts
 
 .EXAMPLE
-winup.ps1 -command ctt
+winup.ps1 ctt
 Invokes the CTT - winutil script
 
 .EXAMPLE
-winup.ps1 -command apps -subCommand base
+winup.ps1 apps base
 Installs base applications
 
 .EXAMPLE
-winup.ps1 -command apps -subCommand util
+winup.ps1 apps util
 Installs utility applications
 
 .EXAMPLE
-winup.ps1 -command psmods
+winup.ps1 psmods
 Installs PowerShell modules
 
 .EXAMPLE
-winup.ps1 -command dots
+winup.ps1 dots
 Invokes dotfiles setup script
 
 .EXAMPLE
-winup.ps1 -command wsl -subCommand Ubuntu-22.04
+winup.ps1 wsl Ubuntu-22.04
 Installs Ubuntu-22.04 on WSL
 
 .LINK
@@ -47,89 +47,118 @@ GitHub Repo - https://github.com/RustyTake-Off/dotfiles
 
 .NOTES
 Author  - RustyTake-Off
-Version - 0.2.1
+Version - 0.3.2
 #>
 
 [CmdletBinding(SupportsShouldProcess)]
-$ErrorActionPreference = 'SilentlyContinue'
-
 param (
     [Parameter(Mandatory = $false, Position = 0)]
     [ValidateSet('drivers', 'fonts', 'ctt', 'psmods', 'apps', 'dots', 'wsl', 'help')]
-    [Alias('-c')]
-    [String] $command,
+    [string] $command,
 
     [Parameter(Mandatory = $false, Position = 1)]
-    [ValidateSet('min', 'all', 'base', 'util', 'Debian', 'Ubuntu-24.04', 'Ubuntu-22.04', 'Ubuntu-20.04', 'kali-linux', 'help')]
-    [Alias('-s')]
-    [String] $subCommand
+    [string] $subCommand
 )
 
-$dotsPath = "$HOME/.dots"
-$configPath = "$HOME/.dots/config.json"
-if (Test-Path -Path $configPath -PathType Leaf) {
-    $config = Get-Content -Path configPath | ConvertFrom-Json
+# Define valid subCommands for each command
+$validSubCommands = @{
+    'drivers' = @('min', 'all')
+    'apps'    = @('base', 'util')
+    'wsl'     = @('Debian', 'Ubuntu-24.04', 'Ubuntu-22.04', 'Ubuntu-20.04', 'kali-linux')
 }
-$repoDotsUrl = 'https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/winfiles/.dots/'
 
-# ANSI escape sequences for different colors
-$red = [char]27 + '[31m'
-$green = [char]27 + '[32m'
-$yellow = [char]27 + '[33m'
-$blue = [char]27 + '[34m'
-$purple = [char]27 + '[35m'
-$resetColor = [char]27 + '[0m'
+# Validate subCommand based on the selected command
+if ($validSubCommands.ContainsKey($command) -and -not $validSubCommands[$command].Contains($subCommand)) {
+    Write-Error "Invalid subCommand '$subCommand' for command '$command'. Valid options are: $($validSubCommands[$command] -join ', ')"
+    exit 1
+}
 
+# Configuration variables
+$dotsPath = "$HOME/.config"
+$configPath = "$HOME/.config/config.json"
+if (Test-Path -Path $configPath -PathType Leaf) {
+    $config = Get-Content -Path $configPath | ConvertFrom-Json
+}
+$repoDotsUrl = 'https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/winfiles/.dots/scripts/set-dotfiles.ps1'
 $userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36'
 
+# ANSI escape sequences for different colors
+$colors = @{
+    red    = [char]27 + '[31m'
+    green  = [char]27 + '[32m'
+    yellow = [char]27 + '[33m'
+    blue   = [char]27 + '[34m'
+    purple = [char]27 + '[35m'
+    reset  = [char]27 + '[0m'
+}
+
 if (-not (Test-Path -Path "$HOME\pr" -PathType Container)) {
-    Write-Host "Creating '$($yellow)personal$($resetColor)' directory"
+    Write-Host "Creating $($colors.yellow)'personal'$($colors.reset) directory"
     $null = New-Item -Path "$HOME\pr" -ItemType Directory
 }
 
 if (-not (Test-Path -Path "$HOME\wk" -PathType Container)) {
-    Write-Host "Creating '$($yellow)work$($resetColor)' directory"
+    Write-Host "Creating $($colors.yellow)'work'$($colors.reset) directory"
     $null = New-Item -Path "$HOME\wk" -ItemType Directory
 }
 
-function Get-Help {
-    Write-Host "Available $($yellow)commands$($resetColor):"
+# Function definitions
+function Write-ColoredMessage {
+    param (
+        [string]$message,
+        [string]$color
+    )
+    Write-Host "$($colors[$color])$message$($colors.reset)"
+}
+
+function Show-Help {
+    Write-ColoredMessage 'Available commands:' 'yellow'
     Write-Host @"
-$($yellow)  help    $($resetColor) - Print help message
-$($yellow)  drivers $($resetColor)
-$($yellow)  :  min  $($resetColor) - Download minimum needed drivers
-$($yellow)  :  all  $($resetColor) - Download all drivers
-$($yellow)  fonts   $($resetColor) - Download and install fonts
-$($yellow)  ctt     $($resetColor) - Invoke CTT - winutil script
-$($yellow)  apps    $($resetColor)
-$($yellow)  :  base $($resetColor) - Install base applications
-$($yellow)  :  util $($resetColor) - Install utility applications
-$($yellow)  psmods  $($resetColor) - Install PowerShell modules
-$($yellow)  dots    $($resetColor) - Invoke dotfiles setup script
-$($yellow)  wsl     $($resetColor)
-$($yellow)  :  Debian       $($resetColor) - Install Debian on WSL
-$($yellow)  :  Ubuntu-24.04 $($resetColor) - Install Ubuntu-24.04 on WSL
-$($yellow)  :  Ubuntu-22.04 $($resetColor) - Install Ubuntu-22.04 on WSL
-$($yellow)  :  Ubuntu-20.04 $($resetColor) - Install Ubuntu-20.04 on WSL
-$($yellow)  :  kali-linux   $($resetColor) - Install kali-linux on WSL
+$($colors.yellow)  help    $($colors.reset) - Print help message
+$($colors.yellow)  drivers $($colors.reset)
+$($colors.yellow)  :  min  $($colors.reset) - Download minimum needed drivers
+$($colors.yellow)  :  all  $($colors.reset) - Download all drivers
+$($colors.yellow)  fonts   $($colors.reset) - Download and install fonts
+$($colors.yellow)  ctt     $($colors.reset) - Invoke CTT - winutil script
+$($colors.yellow)  apps    $($colors.reset)
+$($colors.yellow)  :  base $($colors.reset) - Install base applications
+$($colors.yellow)  :  util $($colors.reset) - Install utility applications
+$($colors.yellow)  psmods  $($colors.reset) - Install PowerShell modules
+$($colors.yellow)  dots    $($colors.reset) - Invoke dotfiles setup script
+$($colors.yellow)  wsl     $($colors.reset)
+$($colors.yellow)  :  Debian       $($colors.reset) - Install Debian on WSL
+$($colors.yellow)  :  Ubuntu-24.04 $($colors.reset) - Install Ubuntu-24.04 on WSL
+$($colors.yellow)  :  Ubuntu-22.04 $($colors.reset) - Install Ubuntu-22.04 on WSL
+$($colors.yellow)  :  Ubuntu-20.04 $($colors.reset) - Install Ubuntu-20.04 on WSL
+$($colors.yellow)  :  kali-linux   $($colors.reset) - Install kali-linux on WSL
 "@
 }
 
-function New-Directory([string]$path) {
-    Write-Host "Creating $($yellow)$path$($resetColor)..."
+function New-Directory() {
+    param (
+        [string]$path
+    )
 
+    Write-ColoredMessage "Creating $path..." 'yellow'
     $null = New-Item -Path $path -ItemType Directory
 }
 
-function Invoke-Download([string]$url, [string]$path) {
+function Invoke-Download() {
+    param (
+        [string]$url,
+        [string]$path
+    )
     $fileName = Split-Path -Path $url -Leaf
     $downloadPath = Join-Path -Path $path -ChildPath $fileName
 
-    Write-Host "Downloading $($yellow)$url$($resetColor)..."
+    Write-ColoredMessage "Downloading $url..." 'yellow'
     Invoke-WebRequest -Uri $url -UserAgent $userAgent -OutFile $downloadPath -ProgressAction SilentlyContinue
 }
 
-function Install-Fonts([System.IO.FileInfo][object]$fontFile) {
+function Install-Fonts() {
+    param (
+        [System.IO.FileInfo][object]$fontFile
+    )
     $fontsGTF = [Windows.Media.GlyphTypeface]::New($fontFile.FullName)
 
     $family = $fontsGTF.Win32FamilyNames['en-US']
@@ -152,26 +181,25 @@ function Install-Fonts([System.IO.FileInfo][object]$fontFile) {
         }
     }
 
-    Write-Host "Installing $($yellow)$fontName$($resetColor)..."
+    Write-ColoredMessage "Installing $fontName..." 'yellow'
     $fontPath = "$env:SystemRoot/fonts/$($fontFile.Name)"
     if (-not (Test-Path -Path $fontPath)) {
-        Write-Host "Copying font $($yellow)$fontName$($resetColor)..."
+        Write-ColoredMessage "Copying font $fontName..." 'yellow'
         Copy-Item -Path $fontFile.FullName -Destination $fontPath -Force
     } else {
-        Write-Host "Font already in place $($green)$fontName$($resetColor)"
+        Write-ColoredMessage "Font already in place $fontName" 'green'
     }
 
     if (-not (Get-ItemProperty -Name $fontName -Path 'HKLM:\Software\Microsoft\Windows NT\CurrentVersion\Fonts' -ErrorAction SilentlyContinue)) {
-        Write-Host "Registering $($yellow)$fontName$($resetColor)..."
-        $null = New-ItemProperty -Name $fontName -Path 'HKLM:\Software\Microsoft\Windows NT\CurrentVersion\Fonts' -PropertyType String -Value $fontFile.Name -Force -ErrorAction SilentlyContinue
+        Write-ColoredMessage "Registering $fontName..." 'yellow'
+        New-ItemProperty -Name $fontName -Path 'HKLM:\Software\Microsoft\Windows NT\CurrentVersion\Fonts' -PropertyType String -Value $fontFile.Name -Force -ErrorAction SilentlyContinue | Out-Null
     } else {
-        Write-Host "Font already registered $($green)$fontName$($resetColor)"
+        Write-ColoredMessage "Font already registered $fontName" 'green'
     }
 }
 
 function Invoke-GetDrivers {
     param (
-        [Parameter(Mandatory)]
         [string]$type
     )
 
@@ -180,13 +208,11 @@ function Invoke-GetDrivers {
         New-Directory -path $driversPath
     }
 
-    Write-Host "Downloading $($purple)drivers$($resetColor)..."
-
+    Write-ColoredMessage 'Downloading drivers...' 'purple'
     foreach ($driverUrl in $config.drivers.$type) {
         Invoke-Download -url $driverUrl -path $driversPath
     }
-
-    Write-Host "Download $($green)complete$($resetColor)"
+    Write-ColoredMessage 'Download complete' 'green'
 }
 
 function Invoke-InstallFonts {
@@ -195,15 +221,13 @@ function Invoke-InstallFonts {
         New-Directory -path $fontsPath
     }
 
-    Write-Host "Downloading $($purple)fonts$($resetColor)..."
-
+    Write-ColoredMessage 'Downloading fonts...' 'yellow'
     foreach ($fontUrl in $config.fonts) {
         Invoke-Download -url $fontUrl -path $fontsPath
     }
+    Write-ColoredMessage 'Download complete' 'green'
 
-    Write-Host "Download $($green)complete$($resetColor)"
-
-    Write-Host "Extracting $($yellow)fonts$($resetColor)..."
+    Write-ColoredMessage 'Extracting fonts...' 'yellow'
     $fontsZipFiles = Get-ChildItem -Path $fontsPath -Filter '*.zip'
     foreach ($zipFile in $fontsZipFiles) {
         $extractionDirectoryPath = "$fontsPath/$zipFile.BaseName"
@@ -215,30 +239,26 @@ function Invoke-InstallFonts {
         Write-Host "Extracting $($yellow)$($zipFile.Name)$($resetColor) to $($purple)$extractionDirectoryPath$($resetColor)"
         Expand-Archive -Path $zipFile.FullName -DestinationPath $extractionDirectoryPath -Force
         Remove-Item -Path $zipFile.FullName -Force
-        Write-Host "Extraction $($green)complete$($resetColor)"
+        Write-ColoredMessage 'Extraction complete' 'green'
 
-        Write-Host "Installing fonts $($yellow)$($zipFile.BaseName)$($resetColor)..."
+        Write-ColoredMessage "Installing fonts $($zipFile.BaseName)..." 'yellow'
         $fonts = Get-ChildItem -Path $extractionDirectoryPath | Where-Object { ($_.Name -like '*.ttf') -or ($_.Name -like '*.otf') }
         Add-Type -AssemblyName PresentationCore
         foreach ($fontItem in $fonts) {
             Install-Fonts -fontFile $fontItem.FullName
         }
-
-        Write-Host "Installation of $($green)$($zipFile.BaseName) complete$($resetColor)"
+        Write-ColoredMessage "Installation of $($zipFile.BaseName) complete" 'green'
     }
 }
 
 function Invoke-CTT {
-    Write-Host "Invoking $($yellow)CTT - winutil$($resetColor)..."
-
+    Write-ColoredMessage 'Invoking CTT - winutil...' 'yellow'
     Invoke-WebRequest 'https://christitus.com/win' | Invoke-Expression
-
-    Write-Host "Invocation $($green)complete$($resetColor)"
+    Write-ColoredMessage 'Invocation complete' 'green'
 }
 
-function Get-Apps {
+function Invoke-InstallApps {
     param (
-        [Parameter(Mandatory)]
         [string]$type
     )
 
@@ -248,8 +268,7 @@ function Get-Apps {
         throw 'Winget is not installed'
     }
 
-    Write-Host "Installing $($yellow)applications$($resetColor)..."
-
+    Write-ColoredMessage 'Installing applications...' 'yellow'
     foreach ($app in $config.apps.$type) {
         if ($app.source -eq 'winget') {
             if (-not (winget list --exact --id $app.name | Select-String -SimpleMatch $app.name)) {
@@ -269,13 +288,11 @@ function Get-Apps {
             }
         }
     }
-
-    Write-Host "Installation $($green)complete$($resetColor)"
+    Write-ColoredMessage 'Installation complete' 'green'
 }
 
-function Get-PSModules {
-    Write-Host "Installing $($yellow)Powershell modules$($resetColor)..."
-
+function Invoke-InstallPSModules {
+    Write-ColoredMessage 'Installing Powershell modules...' 'yellow'
     if (-not (Get-PackageProvider | Select-String -SimpleMatch NuGet)) {
         Install-PackageProvider -Name NuGet
     }
@@ -283,105 +300,62 @@ function Get-PSModules {
     Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
 
     foreach ($module in $config.psmodules) {
-        Write-Host "Installing $($yellow)$module$($resetColor)..."
+        Write-ColoredMessage "Installing $module..." 'yellow'
         Install-Module -Name $module -Repository PSGallery -Force
     }
 
     Set-PSRepository -Name PSGallery -InstallationPolicy Untrusted
-
-    Write-Host "Installation $($green)complete$($resetColor)"
+    Write-ColoredMessage 'Installation complete' 'green'
 }
 
 function Invoke-DotfilesScript {
-    Write-Host "Invoking $($yellow)Dotfiles$($resetColor) setup script..."
-
+    Write-ColoredMessage 'Invoking Dotfiles setup script...' 'yellow'
     $dotfilesScriptPath = "$dotsPath/scripts/set-dotfiles.ps1"
     if (Test-Path -Path $dotfilesScriptPath -PathType Leaf) {
         Invoke-Expression $dotfilesScriptPath
     } else {
-            (Invoke-WebRequest -Uri "$repoDotsUrl/scripts/set-dotfiles.ps1").Content | Invoke-Expression
+        (Invoke-WebRequest -Uri $repoDotsUrl).Content | Invoke-Expression
     }
-
-    Write-Host "Invocation $($green)complete$($resetColor)"
+    Write-ColoredMessage 'Invocation complete' 'green'
 }
 
-function Install-WSL {
+function Invoke-InstallWSL {
     param (
-        [Parameter(Mandatory)]
-        [string]$distribution
+        [string]$distro
     )
 
-    Write-Host "Installing $($yellow)$distribution$($resetColor) on WSL..."
-
-    wsl --install --distribution $distribution
-
-    Write-Host "Installation $($green)complete$($resetColor)"
+    Write-ColoredMessage "Installing WSL ($distro)..." 'purple'
+    wsl --install --distribution $distro
+    Write-ColoredMessage 'Installation complete' 'green'
 }
 
-try {
-    switch ($command) {
-        'drivers' {
-            switch -regex ($subCommand) {
-                'min|all' {
-                    Invoke-GetDrivers -type $subCommand
-                }
-                'help' {
-                    Get-Help
-                }
-                default {
-                    Get-Help
-                }
-            }
-        }
-        'fonts' {
-            Invoke-InstallFonts
-        }
-        'ctt' {
-            Invoke-CTT
-        }
-        'apps' {
-            switch -regex ($subCommand) {
-                'base|util' {
-                    Get-Apps -type $subCommand
-                }
-                'help' {
-                    Get-Help
-                }
-                default {
-                    Get-Help
-                }
-            }
-        }
-        'psmods' {
-            Get-PSModules
-        }
-        'dots' {
-            Invoke-DotfilesScript
-        }
-        'wsl' {
-            switch -regex ($subCommand) {
-                'Debian|Ubuntu-24.04|Ubuntu-22.04|Ubuntu-20.04|kali-linux' {
-                    Install-WSL -distribution $subCommand
-                }
-                'help' {
-                    Get-Help
-                }
-                default {
-                    Get-Help
-                }
-            }
-        }
-        'help' {
-            Get-Help
-        }
-        default {
-            Get-Help
-        }
+# Command execution
+switch ($command) {
+    'drivers' {
+        Invoke-GetDrivers -type $subCommand
     }
-
-    $ErrorActionPreference = 'Continue'
-    exit 0 # success
-} catch {
-    "Error in line $($_.InvocationInfo.ScriptLineNumber): $($red)$($Error[0])$($resetColor)"
-    exit 1
+    'fonts' {
+        Invoke-InstallFonts
+    }
+    'ctt' {
+        Invoke-CTT
+    }
+    'apps' {
+        Invoke-InstallApps -type $subCommand
+    }
+    'psmods' {
+        Invoke-InstallPSModules
+    }
+    'dots' {
+        Invoke-DotfilesScript
+    }
+    'wsl' {
+        Invoke-InstallWSL -distro $subCommand
+    }
+    'help' {
+        Show-Help
+    }
+    default {
+        Show-Help
+    }
 }
