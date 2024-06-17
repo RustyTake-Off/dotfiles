@@ -39,23 +39,24 @@ winget install --exact --id Brave.Brave
 
 Here are some essential and useful extensions 📎 for Brave ⛑️. Use the name of the extension or the `id` in the web store to search for them.
 
-| Extensions                            | IDs                              |
-| ------------------------------------- | -------------------------------- |
-| uBlock Origin                         | cjpalhdlnbpafiamejdnhcphjbkeiagm |
-| Midnight Lizard                       | pbnndmlekkboofhnbonilimejonapojg |
-| Enhancer for YouTube                  | ponfpcnoihfmfllpaingbgckeeldkhle |
-| Extensity                             | jjmflmamggggndanpgfnpelongoepncg |
-| User-Agent Switcher and Manager       | bhchdcejhohfmigjafbampogmaanbfkg |
-| Volume Master                         | jghecgabfgfdldnmbfkhmffcabddioke |
-| GoFullPage - Full Page Screen Capture | fdpohaocaechififmbbbbbknoalclacl |
-| BetterTTV                             | ajopnjidmegmdimjlfnijceegpefgped |
-| Todoist                               | jldhpllghnbhlbpcmnajkpdmadaolakh |
-| Dark Reader                           | eimadpbcbfnmbkopoojfekhnkhdbieeh |
-| CSSViewer                             | ggfgijbpiheegefliciemofobhmofgce |
-| JSON Formatter                        | bcjindcccaagfpapjjmafapmmgkkhgoa |
-| Quick source viewer                   | cfmcghennfbpmhemnnfjhkdmnbidpanb |
-| Fake Filler                           | bnjjngeaknajbdcgpfkgnonkmififhfo |
-| Wappalyzer                            | gppongmhjkpfnbhagpmjfkannfbllamg |
+| Extension                             | ID                               | Description                          |
+| ------------------------------------- | -------------------------------- | ------------------------------------ |
+| uBlock Origin                         | cjpalhdlnbpafiamejdnhcphjbkeiagm | Ad and content blocker               |
+| Enhancer for YouTube                  | ponfpcnoihfmfllpaingbgckeeldkhle | Addition features for YouTube        |
+| Midnight Lizard                       | pbnndmlekkboofhnbonilimejonapojg | Dark mode                            |
+| Dark Reader                           | eimadpbcbfnmbkopoojfekhnkhdbieeh | Dark mode                            |
+| BetterTTV                             | ajopnjidmegmdimjlfnijceegpefgped | Additional features for Twitch       |
+| GoFullPage - Full Page Screen Capture | fdpohaocaechififmbbbbbknoalclacl | Full page screenshot                 |
+| Volume Master                         | jghecgabfgfdldnmbfkhmffcabddioke | Manage volume beyound default values |
+| CSSViewer                             | ggfgijbpiheegefliciemofobhmofgce | Simple CSS property viewer           |
+| Extensity                             | jjmflmamggggndanpgfnpelongoepncg | Manage all extensions                |
+| Fake Filler                           | bnjjngeaknajbdcgpfkgnonkmififhfo | Fill forms with fake data            |
+| JSON Formatter                        | bcjindcccaagfpapjjmafapmmgkkhgoa | Makes JSON easy to read              |
+| Quick source viewer                   | cfmcghennfbpmhemnnfjhkdmnbidpanb | Beautify current page sourcecode     |
+| Similarweb                            | hoklmmgfnpapgjgcpechhaamimifchmp | Website traffic & SEO checker        |
+| Todoist                               | jldhpllghnbhlbpcmnajkpdmadaolakh | Todo tracker                         |
+| User-Agent Switcher and Manager       | bhchdcejhohfmigjafbampogmaanbfkg | User-agent switcher                  |
+| Wappalyzer                            | gppongmhjkpfnbhagpmjfkannfbllamg | Identify tech stack use on a website |
 
 ### Useful domains to allow in Brave
 
@@ -76,7 +77,7 @@ You can access Brave ⛑️ flags 🏁 by entering `brave://flags` in the addres
 
 The following flags are not necessary but optional:
 
-| Flags                        | Action   |
+| Flag                         | Action   |
 | ---------------------------- | -------- |
 | #native-brave-wallet         | Disabled |
 | #brave-ai-chat               | Disabled |
@@ -99,7 +100,7 @@ winget install --exact --id Mozilla.Firefox
 
 Here are some essential and useful extensions 📎 for Firefox 🔥🦊. Use the name of the extension in the web store to search for them.
 
-| Extensions                       |
+| Extension                        |
 | -------------------------------- |
 | uBlock Origin                    |
 | Firefox Multi-Account Containers |
@@ -114,7 +115,7 @@ Here are some essential and useful extensions 📎 for Firefox 🔥🦊. Use the
 
 For when something with Teams in the browser breaks its good to throw these into allowlist ✔️.
 
-| Domains                        |
+| Domain                         |
 | ------------------------------ |
 | <https://microsoft.com>        |
 | <https://microsoftonline.com>  |
@@ -127,7 +128,7 @@ For when something with Teams in the browser breaks its good to throw these into
 
 Some changes to the 🛠️ `about:config` in Firefox 🔥🦊.
 
-| Flags                         | Action   |
+| Flag                          | Action   |
 | ----------------------------- | -------- |
 | browser.cache.disk.enable     | false    |
 | browser.cache.memory.capacity | 524288   |
@@ -140,7 +141,7 @@ Some changes to the 🛠️ `about:config` in Firefox 🔥🦊.
 
 Helps with ☕ filtering unwanted content but might break some websites or cause 😩 unwanted effects so make sure what filters you're adding.
 
-| Filters                                                                                                             |
+| Filter                                                                                                              |
 | ------------------------------------------------------------------------------------------------------------------- |
 | <https://raw.githubusercontent.com/FiltersHeroes/KAD/master/KAD.txt>                                                |
 | <https://raw.githubusercontent.com/FiltersHeroes/KADhosts/master/KADhosts.txt>                                      |
