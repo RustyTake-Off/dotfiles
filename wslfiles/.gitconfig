@@ -67,8 +67,8 @@
     uem   = config user.email
 
     i  = init
-    a  = add
-    aa = add --all
+    a = !git add {@} && git status --short
+    aa = !git add --all && git status --short
     cl = clone
     s  = status --short
 
