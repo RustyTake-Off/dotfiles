@@ -4,7 +4,7 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.1.5
+# Version       - 0.1.6
 
 set -euo pipefail
 
@@ -63,7 +63,6 @@ function get_apt_apps() {
     gnupg \
     gpg \
     python3-pip \
-    python3-tk \
     python3-venv \
     software-properties-common \
     tree \
@@ -73,13 +72,19 @@ function get_apt_apps() {
   # Install starship
   if [ ! -x "$(command -v starship)" ]; then
     write_colored_message "Installing Starship..." "yellow"
-    curl -sS https://starship.rs/install.sh | sudo bash
+    curl -sS https://starship.rs/install.sh | bash
   fi
 
   # Install azure cli
   if [ ! -x "$(command -v az)" ]; then
     write_colored_message "Installing AzureCLI..." "yellow"
-    curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+    curl -L https://aka.ms/InstallAzureCli | bash
+  fi
+
+  # Install azure developer cli
+  if [ ! -x "$(command -v azd)" ]; then
+    write_colored_message "Installing Azure Developer CLI..." "yellow"
+    curl -fsSL https://aka.ms/install-azd.sh | bash
   fi
 }
 
@@ -88,7 +93,8 @@ function get_brew() {
 
   if [ ! -x "$(command -v brew)" ]; then
     write_colored_message "Installing Homebrew..." "yellow"
-    curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | sudo bash
+    curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash
+    [ -x "$(command -v /home/linuxbrew/.linuxbrew/bin/brew)" ] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
   else
     write_colored_message "Homebrew already installed" "green"
   fi
@@ -99,7 +105,7 @@ function get_brew_apps() {
 
   get_brew
 
-  if [ ! -x "$(command -v brew)" ]; then
+  if [ -x "$(command -v brew)" ]; then
     brew install \
       ansible \
       azcopy \
@@ -108,9 +114,10 @@ function get_brew_apps() {
       helm \
       jq \
       k9s \
-      kubectl \
+      kubernetes-cli \
       kubectx \
       nvm \
+      pipx \
       pyenv \
       ripgrep \
       terragrunt \
