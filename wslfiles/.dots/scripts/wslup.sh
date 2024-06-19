@@ -127,6 +127,9 @@ function get_brew_apps() {
       yq \
       zoxide
   fi
+
+  # Finishing commands
+  [ -x "$(command -v pipx)" ] && pipx ensurepath
 }
 
 function set_dotfiles() {
