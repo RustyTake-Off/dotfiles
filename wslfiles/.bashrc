@@ -15,6 +15,13 @@ export EDITOR="vim"
 # Set vim as MANPAGER - https://zameermanji.com/blog/2012/12/30/using-vim-as-manpager/
 export MANPAGER="/usr/bin/sh -c \"col -b | vim -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
 
+# Init apps
+[ -x "$(command -v /home/linuxbrew/.linuxbrew/bin/brew)" ] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+[ -s "/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh" ] && source "/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh"
+[ -x "$(command -v starship)" ] && eval "$(starship init bash)"
+[ -x "$(command -v zoxide)" ] && eval "$(zoxide init bash)"
+[ -x "$(command -v fzf)" ] && eval "$(fzf --bash)"
+
 # Load bash files
 bash_config_files="aliases functions completions"
 if [ -d "$HOME/.dots" ]; then
@@ -25,13 +32,6 @@ if [ -d "$HOME/.dots" ]; then
   done
 fi
 unset bash_config_files
-
-# Init other apps
-[ -f "$(command -v /home/linuxbrew/.linuxbrew/bin/brew)" ] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-[ -s "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" ] && source "$HOMEBREW_PREFIX/opt/nvm/nvm.sh"
-[ -f "$(command -v starship)" ] && eval "$(starship init bash)"
-[ -f "$(command -v zoxide)" ] && eval "$(zoxide init bash)"
-[ -f "$(command -v fzf)" ] && eval "$(fzf --bash)"
 
 # Set optional shell behavior - https://www.gnu.org/software/bash/manual/html_node/The-Shopt-Builtin.html
 shopt -s autocd
