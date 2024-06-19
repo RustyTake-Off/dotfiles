@@ -4,7 +4,7 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.1.1
+# Version       - 0.1.2
 
 # Completions for bash
 if [ -f /usr/share/bash-completion/bash_completion ]; then
@@ -31,10 +31,9 @@ if [ -s "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" ]; then
 fi
 
 # Completions for pip/pip3
-if [ "$(command -v pip3)" ]; then
+if [ -x "$(command -v pip)" ]; then
   _pip_completion() {
-    mapfile -t COMPREPLY < <(COMP_WORDS="${COMP_WORDS[*]}" COMP_CWORD=$COMP_CWORD PIP_AUTO_COMPLETE=1 "$1" 2>/dev/null)
+    COMPREPLY=( $( COMP_WORDS="${COMP_WORDS[*]}" COMP_CWORD=$COMP_CWORD PIP_AUTO_COMPLETE=1 $1 2>/dev/null ) )
   }
   complete -o default -F _pip_completion pip
-  complete -o default -F _pip_completion pip3
 fi
