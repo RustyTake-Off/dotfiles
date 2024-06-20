@@ -11,22 +11,23 @@ GitHub Repo - https://github.com/RustyTake-Off/dotfiles
 
 .NOTES
 Author  - RustyTake-Off
-Version - 0.1.5
+Version - 0.1.6
 #>
 
 [CmdletBinding(SupportsShouldProcess)]
 param (
-    [Parameter(HelpMessage = 'Skips getting dotfiles and just sets them in their locations.')]
-    [switch]$skipDotfiles
+    [Parameter(HelpMessage = 'Skips cloning dotfiles and just sets them in their locations.')]
+    [switch]$skipClone
 )
 
 # Configuration variables
 $repoUrl = 'https://github.com/RustyTake-Off/dotfiles.git'
 $dotfilesPath = "$HOME/.dotfiles"
 $winfilesPath = "$HOME/winfiles"
+$dotsFilesPath = "$HOME/.dots"
 $toCheckout = @{
     docs     = @('images')
-    winfiles = @('.dots', '.gitconfig')
+    winfiles = @('.config', '.dots', '.gitconfig')
 }
 $paths = @{
     dotProfilePath = "$HOME/.dots/powershell_profile"
@@ -135,9 +136,10 @@ function Set-Configuration {
 # Main logic
 try {
     # Clone dotfiles
-    if (-not $skipDotfiles) {
+    if (-not $skipClone) {
         if (-not (Get-Command -Name git -ErrorAction SilentlyContinue)) {
-            throw 'Git is not installed'
+            Write-ColoredMessage 'Git is not installed' 'red'
+            break 1
         }
 
         function Move-Winfiles {
@@ -147,44 +149,63 @@ try {
             )
 
             if (-not (Test-Path -Path $winfilesPath -PathType Container)) {
-                throw "Directory 'winfiles' not found in '$HOME'"
+                Write-ColoredMessage "Directory 'winfiles' not found in '$HOME'" 'red'
+                break 1
             }
 
+            Write-ColoredMessage "Moving 'winfiles' contents" 'yellow'
             foreach ($item in $toCheckout['winfiles']) {
-                $sourcePath = "$winfilesPath/$item"
+                $sourcePath = "$winfilesPath\$item"
+                $targetPath = "$HOME\$item"
+
+                Write-ColoredMessage "Moving '$sourcePath'" 'purple'
                 if (Test-Path -Path $sourcePath -PathType Container) {
-                    Get-ChildItem -Path $sourcePath | ForEach-Object {
-                        Move-Item -Path $_.FullName -Destination $HOME -Force
+                    if (Test-Path -Path $targetPath) {
+                        Remove-Item -Path $targetPath -Recurse -Force
                     }
+                    Move-Item -Path $sourcePath -Destination $HOME -Force
                 } elseif (Test-Path -Path $sourcePath -PathType Leaf) {
                     Move-Item -Path $sourcePath -Destination $HOME -Force
                 }
             }
+
+            Write-ColoredMessage "Removing '$winfilesPath'" 'yellow'
+            Remove-Item -Path $winfilesPath -Recurse
         }
 
         if (-not (Test-Path -Path $dotfilesPath -PathType Container)) {
-            $paths = $toCheckout.GetEnumerator() | ForEach-Object { $_.Value | ForEach-Object { "$($_.Key)/$_" } }
+            $paths = $toCheckout.GetEnumerator() | ForEach-Object {
+                $key = $_.Key
+                $_.Value | ForEach-Object { "$key/$_" }
+            }
 
             Write-ColoredMessage 'Cloning dotfiles...' 'yellow'
 
             git clone --bare $repoUrl $dotfilesPath
-            git --git-dir=$dotfilesPath --work-tree=$HOME checkout $paths
+            git --git-dir=$dotfilesPath --work-tree=$HOME checkout HEAD $paths
             git --git-dir=$dotfilesPath --work-tree=$HOME config status.showUntrackedFiles no
 
             Move-Winfiles -winfilesPath $winfilesPath -toCheckout $toCheckout
         } else {
-            Write-ColoredMessage 'Dotfiles are set. Checking for updates...' 'yellow'
+            Write-ColoredMessage 'Dotfiles are set' 'yellow'
+            Write-ColoredMessage 'Checking for updates...' 'purple'
 
-            git --git-dir=$dotfilesPath --work-tree=$HOME reset --hard
-            git --git-dir=$dotfilesPath --work-tree=$HOME pull
+            # git --git-dir=$dotfilesPath --work-tree=$HOME reset --hard
+            # git --git-dir=$dotfilesPath --work-tree=$HOME pull
 
-            Move-Winfiles -winfilesPath $winfilesPath -toCheckout $toCheckout
+            # Move-Winfiles -winfilesPath $winfilesPath -toCheckout $toCheckout
         }
     } else {
         Write-ColoredMessage 'Skipping dotfiles' 'yellow'
     }
 
     # Set configurations
+    if (-not (Test-Path -Path $dotsFilesPath -PathType Container)) {
+        Write-ColoredMessage "Directory '.dots' not found in '$HOME'" 'red'
+        break 1
+    }
+
+    Write-ColoredMessage 'Setting config files...' 'yellow'
     foreach ($key in $paths.Keys) {
         if ($key -match 'dotProfilePath') {
             Set-Configuration -dotPath $paths.dotProfilePath -destPath $paths.profilePath
@@ -196,6 +217,7 @@ try {
             Set-Configuration -dotPath $paths.dotWSLPath -destPath $paths.wslPath -targetFile '.wslconfig'
         }
     }
+    Write-ColoredMessage 'Dotfiles are set...' 'green'
 
     $ErrorActionPreference = 'Continue'
     exit 0

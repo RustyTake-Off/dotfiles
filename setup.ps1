@@ -136,7 +136,6 @@ try {
     if (Test-Path -Path $dotfilesScriptPath -PathType Leaf) {
         Write-ColoredMessage 'Finishing dotfiles setup...' 'yellow'
         & $dotfilesScriptPath -skipClone
-        Write-ColoredMessage 'Dotfiles are set' 'green'
     } else {
         Write-ColoredMessage "Script file in path '$dotfilesScriptPath' does not exist" 'red'
         break 1
