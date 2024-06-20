@@ -18,7 +18,7 @@ GitHub Repo - https://github.com/RustyTake-Off/dotfiles
 
 .NOTES
 Author  - RustyTake-Off
-Version - 0.1.6
+Version - 0.1.7
 #>
 
 [CmdletBinding(SupportsShouldProcess)]
@@ -39,6 +39,8 @@ $colors = @{
     red    = [char]27 + '[31m'
     green  = [char]27 + '[32m'
     yellow = [char]27 + '[33m'
+    blue   = [char]27 + '[34m'
+    purple = [char]27 + '[35m'
     reset  = [char]27 + '[0m'
 }
 
@@ -68,7 +70,7 @@ function CheckAndAskToInstall {
 
         switch ($choice) {
             'y' { return $true }
-            'n' { Write-ColoredMessage 'Stopping script. Bye, bye' 'red'; exit 1 }
+            'n' { Write-ColoredMessage 'Stopping script. Bye, bye' 'red'; break 1 }
             default { Write-ColoredMessage "Invalid input, please enter 'y' or 'n'" 'red' }
         }
     }
@@ -96,38 +98,48 @@ try {
 
     # Clone dotfiles
     if (-not (Test-Path -Path $dotfilesPath -PathType Container)) {
-        $paths = $toCheckout.GetEnumerator() | ForEach-Object { $_.Value | ForEach-Object { "$($_.Key)/$_" } }
+        $paths = $toCheckout.GetEnumerator() | ForEach-Object {
+            $key = $_.Key
+            $_.Value | ForEach-Object { "$key/$_" }
+        }
 
         Write-ColoredMessage 'Cloning dotfiles...' 'yellow'
 
         git clone --bare $repoUrl $dotfilesPath
-        git --git-dir=$dotfilesPath --work-tree=$HOME checkout $paths
+        git --git-dir=$dotfilesPath --work-tree=$HOME checkout HEAD $paths
         git --git-dir=$dotfilesPath --work-tree=$HOME config status.showUntrackedFiles no
     } else {
-        throw "Directory '.dotfiles' already exists in '$HOME'"
+        Write-ColoredMessage "Directory '.dotfiles' already exists in '$HOME'" 'red'
+        break 1
     }
 
     # Move winfiles
     if (Test-Path -Path $winfilesPath -PathType Container) {
+        Write-ColoredMessage "Moving 'winfiles' contents" 'yellow'
         foreach ($item in $toCheckout['winfiles']) {
             $sourcePath = "$winfilesPath\$item"
+            Write-ColoredMessage "Moving '$sourcePath'" 'purple'
             if (Test-Path -Path $sourcePath -PathType Container) {
-                Get-ChildItem -Path $sourcePath | ForEach-Object { Move-Item -Path $_.FullName -Destination $HOME -Force }
+                Move-Item -Path $sourcePath -Destination $HOME -Force
             } elseif (Test-Path -Path $sourcePath -PathType Leaf) {
                 Move-Item -Path $sourcePath -Destination $HOME -Force
             }
         }
+        Write-ColoredMessage "Removing '$winfilesPath'" 'yellow'
+        Remove-Item -Path $winfilesPath -Recurse
     } else {
-        throw "Directory 'winfiles' not found in '$HOME'"
+        Write-ColoredMessage "Directory 'winfiles' not found in '$HOME'" 'red'
+        break 1
     }
 
     # Run dotfiles script
     if (Test-Path -Path $dotfilesScriptPath -PathType Leaf) {
-        Write-ColoredMessage 'Setting dotfiles...' 'yellow'
-        Invoke-Expression $dotfilesScriptPath -skipDotfiles
+        Write-ColoredMessage 'Finishing dotfiles setup...' 'yellow'
+        & $dotfilesScriptPath -skipClone
         Write-ColoredMessage 'Dotfiles are set' 'green'
     } else {
-        throw "Script file in path '$dotfilesScriptPath' does not exist"
+        Write-ColoredMessage "Script file in path '$dotfilesScriptPath' does not exist" 'red'
+        break 1
     }
 
     $ErrorActionPreference = 'Continue'
