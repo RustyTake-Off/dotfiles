@@ -142,7 +142,6 @@ try {
     }
 
     $ErrorActionPreference = 'Continue'
-    exit 0
 } catch {
     Write-ColoredMessage "Error in line $($_.InvocationInfo.ScriptLineNumber): $($_.Exception.Message)" 'red'
     exit 1
