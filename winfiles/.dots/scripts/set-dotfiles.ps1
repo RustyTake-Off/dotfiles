@@ -15,6 +15,8 @@ Version - 0.1.6
 #>
 
 [CmdletBinding(SupportsShouldProcess)]
+$ErrorActionPreference = 'SilentlyContinue'
+
 param (
     [Parameter(HelpMessage = 'Skips cloning dotfiles and just sets them in their locations.')]
     [switch]$skipClone
@@ -30,14 +32,18 @@ $toCheckout = @{
     winfiles = @('.config', '.dots', '.gitconfig')
 }
 $paths = @{
-    dotProfilePath = "$HOME/.dots/powershell_profile"
-    profilePath    = "$HOME/Documents/PowerShell"
-    dotWTPath      = "$HOME/.dots/windows_terminal"
-    wtPath         = "$env:LOCALAPPDATA/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState"
-    dotWingetPath  = "$HOME/.dots/winget"
-    wingetPath     = "$env:LOCALAPPDATA/Packages/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe/LocalState"
-    dotWSLPath     = "$HOME/.dots/wsl"
-    wslPath        = "$HOME"
+    dotProfilePath     = "$HOME/.dots/powershell_profile"
+    profilePath        = "$HOME/Documents/PowerShell"
+    dotWTPath          = "$HOME/.dots/windows_terminal"
+    wtPath             = "$env:LOCALAPPDATA/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState"
+    dotWingetPath      = "$HOME/.dots/winget"
+    wingetPath         = "$env:LOCALAPPDATA/Packages/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe/LocalState"
+    dotWSLPath         = "$HOME/.dots/wsl"
+    wslPath            = "$HOME"
+    dotPSProfilePath   = "$HOME/.dots/powershell_profile/Microsoft.PowerShell_profile.ps1"
+    PSProfilePath      = $PROFILE
+    dotVCPSProfilePath = "$HOME/.dots/powershell_profile/Microsoft.VSCode_profile.ps1"
+    VCPSProfilePath    = $PROFILE -replace 'PowerShell_profile', 'VSCode_profile'
 }
 
 # ANSI escape sequences for different colors
@@ -137,7 +143,7 @@ function Set-Configuration {
 try {
     # Clone dotfiles
     if (-not $skipClone) {
-        if (-not (Get-Command -Name git -ErrorAction SilentlyContinue)) {
+        if (-not (Get-Command -Name git)) {
             Write-ColoredMessage 'Git is not installed' 'red'
             break 1
         }
@@ -196,7 +202,7 @@ try {
             # Move-Winfiles -winfilesPath $winfilesPath -toCheckout $toCheckout
         }
     } else {
-        Write-ColoredMessage 'Skipping dotfiles' 'yellow'
+        Write-ColoredMessage 'Skipping cloning dotfiles' 'yellow'
     }
 
     # Set configurations
