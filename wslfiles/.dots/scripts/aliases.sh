@@ -4,7 +4,7 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.1.5
+# Version       - 0.1.6
 
 # Common aliases
 alias cd......="cd ../../../../../.."
@@ -60,7 +60,7 @@ if uname -r | grep -q "WSL2"; then
 fi
 
 # Manage dotfiles in $HOME directory
-alias dot='git --git-dir="$HOME/.dots" --work-tree=$HOME'
+alias dot="git --git-dir=\$HOME/.dots --work-tree=\$HOME"
 alias setdots=". \$HOME/.dots/scripts/set-dotfiles.sh"
 alias wslup=". \$HOME/.dots/scripts/wslup.sh"
 
@@ -72,6 +72,7 @@ alias lcoms="compgen -b  # Print built-in commands"
 
 # Python aliases
 alias py="python3"
+alias python="python3"
 alias pyv="pyenv versions"
 alias pyg="pyenv global"
 alias pyl="pyenv local"
