@@ -138,7 +138,7 @@ function set_dotfiles() {
   if [ -x "$dotfilesScriptPath" ]; then
     source "$dotfilesScriptPath"
   else
-    curl -fsS https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/wslfiles/.dots/scripts/set_dotfiles.sh | bash
+    curl -fsS https://raw.githubusercontent.com/RustyTake-Off/dotfiles/wslfiles/.dots/scripts/set_dotfiles.sh | bash
   fi
 
   write_colored_message "Invocation complete" "green"
