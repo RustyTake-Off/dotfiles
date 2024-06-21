@@ -11,12 +11,9 @@ GitHub Repo - https://github.com/RustyTake-Off/dotfiles
 
 .NOTES
 Author  - RustyTake-Off
-Version - 0.1.3
+Version - 0.1.4
 #>
 
-# Configuration variables
-$profilePath = "$HOME/Documents/PowerShell/Microsoft.PowerShell_profile.ps1"
-
-if (Test-Path $profilePath -PathType Leaf) {
-    Invoke-Expression $profilePath
+if (Test-Path $PROFILE -PathType Leaf) {
+    Invoke-Expression $PROFILE
 }
