@@ -27,12 +27,8 @@ $ErrorActionPreference = 'SilentlyContinue'
 # Configuration variables
 $repoUrl = 'https://github.com/RustyTake-Off/dotfiles.git'
 $dotfilesPath = "$HOME/.dotfiles"
-$winfilesPath = "$HOME/winfiles"
+$branchName = 'winfiles'
 $dotfilesScriptPath = "$HOME/.dots/scripts/set-dotfiles.ps1"
-$toCheckout = @{
-    docs     = @('images')
-    winfiles = @('.config', '.dots', '.gitconfig')
-}
 
 # ANSI escape sequences for different colors
 $colors = @{
@@ -98,37 +94,13 @@ try {
 
     # Clone dotfiles
     if (-not (Test-Path -Path $dotfilesPath -PathType Container)) {
-        $paths = $toCheckout.GetEnumerator() | ForEach-Object {
-            $key = $_.Key
-            $_.Value | ForEach-Object { "$key/$_" }
-        }
-
         Write-ColoredMessage 'Cloning dotfiles...' 'yellow'
 
         git clone --bare $repoUrl $dotfilesPath
-        git --git-dir=$dotfilesPath --work-tree=$HOME checkout HEAD $paths
+        git --git-dir=$dotfilesPath --work-tree=$HOME checkout $branchName
         git --git-dir=$dotfilesPath --work-tree=$HOME config status.showUntrackedFiles no
     } else {
         Write-ColoredMessage "Directory '.dotfiles' already exists in '$HOME'" 'red'
-        break 1
-    }
-
-    # Move winfiles
-    if (Test-Path -Path $winfilesPath -PathType Container) {
-        Write-ColoredMessage "Moving 'winfiles' contents" 'yellow'
-        foreach ($item in $toCheckout['winfiles']) {
-            $sourcePath = "$winfilesPath\$item"
-            Write-ColoredMessage "Moving '$sourcePath'" 'purple'
-            if (Test-Path -Path $sourcePath -PathType Container) {
-                Move-Item -Path $sourcePath -Destination $HOME -Force
-            } elseif (Test-Path -Path $sourcePath -PathType Leaf) {
-                Move-Item -Path $sourcePath -Destination $HOME -Force
-            }
-        }
-        Write-ColoredMessage "Removing '$winfilesPath'" 'yellow'
-        Remove-Item -Path $winfilesPath -Recurse
-    } else {
-        Write-ColoredMessage "Directory 'winfiles' not found in '$HOME'" 'red'
         break 1
     }
 
