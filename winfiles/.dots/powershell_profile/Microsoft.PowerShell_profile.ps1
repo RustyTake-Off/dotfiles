@@ -11,7 +11,7 @@ GitHub Repo - https://github.com/RustyTake-Off/dotfiles
 
 .NOTES
 Author  - RustyTake-Off
-Version - 0.1.4
+Version - 0.1.5
 #>
 
 # Configuration variables
@@ -19,8 +19,9 @@ $scripts = @('functions', 'completions')
 $scriptsPath = "$HOME/.dots/scripts"
 
 foreach ($script in $scripts) {
-    if (Test-Path -Path "$scriptsPath/$script" -PathType Leaf) {
-        Invoke-Expression "$scriptsPath/$script"
+    $scriptPath = Join-Path -Path $scriptsPath -ChildPath "$script.ps1"
+    if (Test-Path -Path $scriptPath -PathType Leaf) {
+        . $scriptPath
     }
 }
 
