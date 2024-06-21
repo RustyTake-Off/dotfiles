@@ -4,6 +4,8 @@
 
 ## How to install ⏺️ dotfiles?
 
+> Note: Set-Dotfiles script requires to be run as admin
+
 ### Automatic setup
 
 Open terminal as admin and first run this 🗽 command to be temporarily bypassed `ExecutionPolicy`
