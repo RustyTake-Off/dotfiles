@@ -12,9 +12,6 @@ set -euo pipefail
 repoUrl="https://github.com/RustyTake-Off/dotfiles.git"
 dotfilesPath="$HOME/.dotfiles"
 wslfilesPath="wslfiles"
-declare -A toCheckout=(
-  ["wslfiles"]=(".config" ".dots" ".bash_logout" ".bash_profile" ".bashrc" ".gitconfig" ".hushlogin" ".inputrc")
-)
 
 # ANSI escape sequences for different colors
 declare -A colors=(
@@ -37,9 +34,9 @@ function write_colored_message() {
 
 # Main logic
 # Clone dotfiles
-if ! command -v git >/dev/null; then
+if [ ! -x "$(command -v git)" ]; then
   write_colored_message "Git is not installed" "red"
-  break 1
+  exit 1
 fi
 
 if [ ! -d $dotfilesPath ]; then
@@ -49,7 +46,8 @@ if [ ! -d $dotfilesPath ]; then
   git --git-dir="$dotfilesPath" --work-tree="$HOME" checkout $wslfilesPath
   git --git-dir="$dotfilesPath" --work-tree="$HOME" config status.showUntrackedFiles no
 else
-  write_colored_message "Dotfiles are set. Checking for updates..." "yellow"
+  write_colored_message "Dotfiles are set." "yellow"
+  write_colored_message "Checking for updates..." "purple"
 
   git --git-dir="$dotfilesPath" --work-tree="$HOME" reset --hard
   git --git-dir="$dotfilesPath" --work-tree="$HOME" pull
