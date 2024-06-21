@@ -5,8 +5,8 @@ on:
     push:
         branches: [main]
         paths:
-            - winfiles
-            - '!**/README.md'
+            - 'winfiles/**'
+            - '!winfiles/README.md'
 
 jobs:
     commit-changes:
