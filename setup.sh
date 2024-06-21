@@ -55,7 +55,7 @@ function check_and_ask_to_install {
 
 # Main logic
 # Check and install git
-if [ ! check_and_ask_to_install "git" ]; then
+if [ check_and_ask_to_install "git" ]; then
   write_colored_message "Installing Git..." "yellow"
   sudo apt update && sudo apt install -y git
   write_colored_message "Installed Git" "green"
@@ -72,5 +72,5 @@ if [ ! -d "$dotfilesPath" ]; then
   git --git-dir="$dotfilesPath" --work-tree="$HOME" config status.showUntrackedFiles no
 else
   write_colored_message "Directory '.dotfiles' already exists in '$HOME'" "red"
-  break 1
+  exit 1
 fi
