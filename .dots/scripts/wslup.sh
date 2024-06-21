@@ -4,7 +4,7 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.1.7
+# Version       - 0.1.8
 
 set -euo pipefail
 
@@ -140,7 +140,7 @@ function set_dotfiles() {
   if [ -x "$dotfilesScriptPath" ]; then
     source "$dotfilesScriptPath"
   else
-    curl -fsS https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/wslfiles/.dots/scripts/set-dotfiles.sh | sudo bash
+    curl -fsS https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/wslfiles/.dots/scripts/set_dotfiles.sh | sudo bash
   fi
 
   write_colored_message "Invocation complete" "green"
