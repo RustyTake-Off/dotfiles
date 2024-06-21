@@ -25,12 +25,8 @@ $ErrorActionPreference = 'SilentlyContinue'
 # Configuration variables
 $repoUrl = 'https://github.com/RustyTake-Off/dotfiles.git'
 $dotfilesPath = "$HOME/.dotfiles"
-$winfilesPath = "$HOME/winfiles"
+$branchName = 'winfiles'
 $dotsFilesPath = "$HOME/.dots"
-$toCheckout = @{
-    docs     = @('images')
-    winfiles = @('.config', '.dots', '.gitconfig')
-}
 $dotPaths = @{
     dotProfilePath = "$HOME/.dots/powershell_profile"
     profilePath    = "$HOME/Documents/PowerShell"
@@ -91,8 +87,8 @@ function Invoke-HashAndCopyOrCopy {
         [string]$sourceFile,
         [string]$targetFile
     )
-    $source = Test-Path -Path $sourceFile -PathType Leaf
-    $target = Test-Path -Path $targetFile -PathType Leaf
+    $source = Test-Path -Path $sourceFile -PathType Any
+    $target = Test-Path -Path $targetFile -PathType Any
 
     if ($source -and -not $target) {
         New-CopyFile -sourceFile $sourceFile -targetFile $targetFile
@@ -101,34 +97,6 @@ function Invoke-HashAndCopyOrCopy {
     } elseif (-not $source -and $target) {
         Write-ColoredMessage "File '$sourceFile' does not exist" 'red'
     }
-}
-
-function Set-Configuration {
-    param (
-        [string]$dotPath,
-        [string]$destPath
-        # [string]$targetFile = ''
-    )
-
-    # if ($targetFile) {
-    $sourceFiles = Get-ChildItem -Path $dotPath -File -Recurse
-    if ($sourceFiles.Count -eq 0) {
-        Write-ColoredMessage "Configuration files are missing from $dotPath" 'red'
-        return
-    }
-
-    if (-not (Test-Path -Path $destPath -PathType Container)) {
-        $null = New-Item -Path $destPath -ItemType Directory
-    }
-
-    foreach ($file in $sourceFiles) {
-        $sourceFile = $file.FullName
-        $fileName = $file.Name
-        $targetFilePath = Join-Path -Path $destPath -ChildPath $fileName
-
-        Invoke-HashAndCopyOrCopy -sourceFile $sourceFile -targetFile $targetFilePath
-    }
-    # }
 }
 
 # Main logic
@@ -140,58 +108,18 @@ try {
             break 1
         }
 
-        function Move-Winfiles {
-            param (
-                [string]$winfilesPath,
-                [hashtable]$toCheckout
-            )
-
-            if (-not (Test-Path -Path $winfilesPath -PathType Container)) {
-                Write-ColoredMessage "Directory 'winfiles' not found in '$HOME'" 'red'
-                break 1
-            }
-
-            Write-ColoredMessage "Moving 'winfiles' contents" 'yellow'
-            foreach ($item in $toCheckout['winfiles']) {
-                $sourcePath = "$winfilesPath\$item"
-                $targetPath = "$HOME\$item"
-
-                Write-ColoredMessage "Moving '$sourcePath'" 'purple'
-                if (Test-Path -Path $sourcePath -PathType Container) {
-                    if (Test-Path -Path $targetPath) {
-                        Remove-Item -Path $targetPath -Recurse -Force
-                    }
-                    Move-Item -Path $sourcePath -Destination $HOME -Force
-                } elseif (Test-Path -Path $sourcePath -PathType Leaf) {
-                    Move-Item -Path $sourcePath -Destination $HOME -Force
-                }
-            }
-
-            Write-ColoredMessage "Removing '$winfilesPath'" 'yellow'
-            Remove-Item -Path $winfilesPath -Recurse
-        }
-
         if (-not (Test-Path -Path $dotfilesPath -PathType Container)) {
-            $paths = $toCheckout.GetEnumerator() | ForEach-Object {
-                $key = $_.Key
-                $_.Value | ForEach-Object { "$key/$_" }
-            }
-
             Write-ColoredMessage 'Cloning dotfiles...' 'yellow'
 
             git clone --bare $repoUrl $dotfilesPath
-            git --git-dir=$dotfilesPath --work-tree=$HOME checkout HEAD $paths
+            git --git-dir=$dotfilesPath --work-tree=$HOME checkout $branchName
             git --git-dir=$dotfilesPath --work-tree=$HOME config status.showUntrackedFiles no
-
-            Move-Winfiles -winfilesPath $winfilesPath -toCheckout $toCheckout
         } else {
             Write-ColoredMessage 'Dotfiles are set' 'yellow'
             Write-ColoredMessage 'Checking for updates...' 'purple'
 
-            # git --git-dir=$dotfilesPath --work-tree=$HOME reset --hard
-            # git --git-dir=$dotfilesPath --work-tree=$HOME pull
-
-            # Move-Winfiles -winfilesPath $winfilesPath -toCheckout $toCheckout
+            git --git-dir=$dotfilesPath --work-tree=$HOME reset --hard
+            git --git-dir=$dotfilesPath --work-tree=$HOME pull origin $branchName
         }
     } else {
         Write-ColoredMessage 'Skipping cloning dotfiles' 'yellow'
@@ -205,15 +133,32 @@ try {
 
     Write-ColoredMessage 'Setting config files...' 'yellow'
     foreach ($key in $dotPaths.Keys) {
-        $dotPath = $dotPaths[$key]
-        $destPath = $dotPaths[$key -replace '^dot', '']
+        if ($key -like 'dot*') {
+            $sourcePath = $dotPaths[$key]
+            $targetKey = $key -replace '^dot', ''
 
-        Set-Configuration -dotPath $dotPath -destPath $destPath #-targetFile '*'
+            if ($dotPaths.ContainsKey($targetKey)) {
+                $targetPath = $dotPaths[$targetKey]
+
+                if (-not (Test-Path -Path $targetPath -PathType Container)) {
+                    $null = New-Item -Path $destPath -ItemType Directory -
+                }
+
+                $files = Get-ChildItem -Path $sourcePath -File -Recurse
+                foreach ($file in $files) {
+                    $sourceFile = Join-Path -Path $sourcePath -ChildPath $file.Name
+                    $targetFile = Join-Path -Path $targetPath -ChildPath $file.Name
+                    Invoke-HashAndCopyOrCopy -sourceFile $sourceFile -targetFile $targetFile
+                }
+            } else {
+                Write-ColoredMessage "Target key '$targetKey' does not exist" 'red'
+            }
+        }
     }
+
     Write-ColoredMessage 'Dotfiles are set...' 'green'
 
     $ErrorActionPreference = 'Continue'
-    exit 0
 } catch {
     Write-ColoredMessage "Error in line $($_.InvocationInfo.ScriptLineNumber): $($_.Exception.Message)" 'red'
     exit 1
