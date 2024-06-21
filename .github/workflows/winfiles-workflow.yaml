@@ -6,7 +6,7 @@ on:
         branches: [main]
         paths:
             - winfiles
-            - '**/README.md'
+            - '!**/README.md'
 
 jobs:
     commit-changes:
@@ -24,4 +24,4 @@ jobs:
             - name: Commit changes
               run: |
                 git add winfiles -- ':!winfiles/README.md'
-                git status
+                git status --short
