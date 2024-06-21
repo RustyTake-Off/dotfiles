@@ -110,10 +110,10 @@
                 "backgroundImageOpacity": 0.2,
                 "backgroundImageStretchMode": "none",
                 "bellStyle": "none",
-                "guid": "{e5a83caa-4c73-52b3-ae6b-bc438d721ef9}",
+                "guid": "{4dd1e689-b517-5f39-947d-78e8a8bdf958}",
                 "hidden": false,
-                "name": "Ubuntu 22.04 LTS",
-                "source": "CanonicalGroupLimited.Ubuntu22.04LTS_79rhkp1fndgsc"
+                "name": "Ubuntu 20.04 LTS",
+                "source": "CanonicalGroupLimited.Ubuntu20.04LTS_79rhkp1fndgsc"
             },
             {
                 "backgroundImage": "%USERPROFILE%\\docs\\media\\ubuntu-128x128.png",
@@ -121,10 +121,10 @@
                 "backgroundImageOpacity": 0.2,
                 "backgroundImageStretchMode": "none",
                 "bellStyle": "none",
-                "guid": "{4dd1e689-b517-5f39-947d-78e8a8bdf958}",
+                "guid": "{e5a83caa-4c73-52b3-ae6b-bc438d721ef9}",
                 "hidden": false,
-                "name": "Ubuntu 20.04 LTS",
-                "source": "CanonicalGroupLimited.Ubuntu20.04LTS_79rhkp1fndgsc"
+                "name": "Ubuntu 22.04 LTS",
+                "source": "CanonicalGroupLimited.Ubuntu22.04LTS_79rhkp1fndgsc"
             },
             {
                 "backgroundImage": "%USERPROFILE%\\docs\\media\\kali-128x128.png",
@@ -137,20 +137,6 @@
                 "icon": "%USERPROFILE%\\docs\\media\\kali-128x128.png",
                 "name": "kali-linux",
                 "source": "Windows.Terminal.Wsl"
-            },
-            {
-                "backgroundImage": "%USERPROFILE%\\docs\\media\\ps7-128x128.png",
-                "backgroundImageAlignment": "bottomRight",
-                "backgroundImageOpacity": 0.2,
-                "backgroundImageStretchMode": "none",
-                "bellStyle": "none",
-                "commandline": "\"%PROGRAMFILES%\\PowerShell\\7\\pwsh.exe\" -NoLogo",
-                "elevate": true,
-                "guid": "{20c58779-3708-4eba-878d-4732a8242c68}",
-                "hidden": true,
-                "icon": "ms-appx:///ProfileIcons/pwsh.png",
-                "name": "PowerShell (Admin)",
-                "startingDirectory": "%USERPROFILE%"
             }
         ]
     },
