@@ -24,4 +24,4 @@ jobs:
             - name: Commit changes
               run: |
                 git add winfiles -- ':!winfiles/README.md'
-                git status --short
+                git commit -m "[AUTO] Update winfiles with new changes"
