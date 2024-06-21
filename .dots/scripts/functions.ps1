@@ -123,11 +123,11 @@ try {
     }
 
     function setdots {
-        Invoke-Expression ("$HOME/.dots/scripts/set-dots.ps1")
+        Invoke-Expression "$HOME/.dots/scripts/set-dotfiles.ps1"
     }
 
     function winup {
-        Invoke-Expression ("$HOME/.dots/scripts/winup.ps1 $args")
+        Invoke-Expression "$HOME/.dots/scripts/winup.ps1 $args"
     }
 
     $ErrorActionPreference = 'Continue'
