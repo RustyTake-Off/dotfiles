@@ -13,7 +13,11 @@ export TERM="xterm-256color"
 export EDITOR="vim"
 
 # Set vim as MANPAGER - https://zameermanji.com/blog/2012/12/30/using-vim-as-manpager/
-export MANPAGER="/usr/bin/sh -c \"col -b | vim -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
+# export MANPAGER="/usr/bin/sh -c \"col -b | vim -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
+
+# Set PATH so it includes user's private bin if it exists
+[ -d "$HOME/.local/bin" ] && PATH="$HOME/.local/bin:$PATH"
+[ -d "$HOME/bin" ] && PATH="$HOME/bin:$PATH"
 
 # Init apps
 [ -x "$(command -v /home/linuxbrew/.linuxbrew/bin/brew)" ] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
@@ -23,45 +27,10 @@ export MANPAGER="/usr/bin/sh -c \"col -b | vim -c 'set ft=man ts=8 nomod nolist 
 [ -x "$(command -v fzf)" ] && eval "$(fzf --bash)"
 
 # Load bash files
-bash_config_files="aliases functions completions"
-if [ -d "$HOME/.dots" ]; then
-  for file in $bash_config_files; do
-    if [ -f "$HOME/.dots/scripts/$file.sh" ]; then
-      source "$HOME/.dots/scripts/$file.sh"
-    fi
-  done
-fi
+bash_config_files="aliases functions completions shell_options"
+for file in $bash_config_files; do
+  if [ -f "$HOME/.dots/scripts/$file.sh" ]; then
+    source "$HOME/.dots/scripts/$file.sh"
+  fi
+done
 unset bash_config_files
-
-# Set optional shell behavior - https://www.gnu.org/software/bash/manual/html_node/The-Shopt-Builtin.html
-shopt -s autocd
-shopt -s cdspell
-shopt -s checkhash
-shopt -s checkwinsize
-shopt -s cmdhist
-shopt -s complete_fullquote
-shopt -s direxpand
-shopt -s dirspell
-shopt -s expand_aliases
-shopt -s extglob
-shopt -s extquote
-shopt -s force_fignore
-shopt -s globasciiranges
-shopt -s globstar
-shopt -s histappend
-shopt -s hostcomplete
-shopt -s interactive_comments
-shopt -s lithist
-shopt -s no_empty_cmd_completion
-shopt -s nocasematch
-shopt -s progcomp
-shopt -s promptvars
-shopt -s sourcepath
-shopt -s xpg_echo
-
-# Set shell options - https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html
-set -o braceexpand
-set -o emacs
-set -o hashall
-set -o histexpand
-set -o monitor

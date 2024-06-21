@@ -32,8 +32,8 @@ alias pscpu="ps auxf | sort -nr -k 3"
 alias psmem="ps auxf | sort -nr -k 4"
 
 # Files manipulation
-alias cp="cp -vi"
 alias mkdir="mkdir -vp"
+alias cp="cp -vi"
 alias mv="mv -vi"
 alias rm="rm -vI"
 
@@ -44,8 +44,8 @@ alias trl="trash-list"
 alias trr="trash-restore"
 alias trc="trash-rm"
 
-alias less="less -R"
-alias diff="diff --color=auto"
+alias less="less -R --use-color"
+alias diff="diff --color=auto --side-by-side"
 alias grep="grep --color=auto"
 alias egrep="egrep --color=auto"
 alias fgrep="fgrep --color=auto"
@@ -56,7 +56,7 @@ alias locip="sudo ifconfig | grep -Eo 'inet (addr:)?([0-9]*\\.){3}[0-9]*' | grep
 
 # Alias for opening windows explorer
 if uname -r | grep -q "WSL2"; then
-  alias open="explorer.exe"
+  alias open="command explorer.exe"
 fi
 
 # Manage dotfiles in $HOME directory

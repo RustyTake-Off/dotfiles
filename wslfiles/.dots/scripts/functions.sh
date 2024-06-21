@@ -4,7 +4,7 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.1.0
+# Version       - 0.2.0
 
 function rebash() {
   # Reload bashrc
@@ -40,13 +40,19 @@ function extract() {
 }
 
 function cpkeys() {
-  # Copy keys from Windows host directory
+  # Copy keys from Windows .ssh directory and
+  # removes read, write and execute permissions from group and others
   # Note: Use the same user name in WSL as in Windows
 
-  keys_path="/mnt/c/Users/$LOGNAME/.ssh"
+  win_user="$(command powershell.exe '$env:USERNAME')"
+  keys_path="/mnt/c/Users/${win_user//$'\r'/}/.ssh"
+
   find $keys_path -maxdepth 1 -type f -name '*.pub' | while read -r file; do
-    cp "$keys_path/$(basename "$file" .pub)" --target-directory "$HOME/.ssh"
-    cp "$keys_path/$(basename "$file")" --target-directory "$HOME/.ssh"
+    base_name="$(basename "$file" .pub)"
+    cp "$keys_path/$base_name.pub" --target-directory "$HOME/.ssh" && \
+    chmod go-rwx "$HOME/.ssh/$base_name.pub"
+    cp "$keys_path/$base_name" --target-directory "$HOME/.ssh" && \
+    chmod go-rwx "$HOME/.ssh/$base_name"
   done
 }
 
@@ -54,7 +60,8 @@ function permkeys() {
   # Removes read, write and execute permissions from group and others
 
   find "$HOME/.ssh" -maxdepth 1 -type f -name '*.pub' | while read -r file; do
-    chmod go-rwx "$HOME/.ssh/$(basename "$file" .pub)"
-    chmod go-rwx "$HOME/.ssh/$(basename "$file")"
+    base_name="$(basename "$file" .pub)"
+    chmod go-rwx "$HOME/.ssh/$base_name.pub"
+    chmod go-rwx "$HOME/.ssh/$base_name"
   done
 }
