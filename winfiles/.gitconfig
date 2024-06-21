@@ -35,7 +35,7 @@
     defaultBranch = main
 
 [merge]
-    conflictStyle = diff3  # https://ductile.systems/zdiff3/ - zdiff3 brakes things for some reason
+    # conflictStyle = diff3  # https://ductile.systems/zdiff3/ - zdiff3 brakes things for some reason
 
 [pull]
     # ff = only
