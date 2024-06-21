@@ -6,7 +6,7 @@ on:
         branches: [main]
         paths:
             - winfiles
-            - '!winfiles/README.md'
+            - '**/README.md'
 
 jobs:
     commit-changes:
