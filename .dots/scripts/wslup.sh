@@ -6,7 +6,7 @@
 # Author        - RustyTake-Off
 # Version       - 0.1.8
 
-set -euo pipefail
+set -eo pipefail
 
 # Configuration variables
 dotfilesScriptPath="$HOME/.dots/scripts/set_dotfiles.sh"
@@ -44,11 +44,11 @@ function get_help() {
   # Help message
 
   write_colored_message "Available commands:" "yellow"
-  echo "${colors["yellow"]}  -h  |  --help      ${colors["reset"]} - Prints help message"
-  echo "${colors["yellow"]}  -a  |  --apt-apps  ${colors["reset"]} - Install apt applications"
-  echo "${colors["yellow"]}  -b  |  --brew      ${colors["reset"]} - Install homebrew"
-  echo "${colors["yellow"]}  -ba |  --brew-apps ${colors["reset"]} - Install brew applications"
-  echo "${colors["yellow"]}  -d  |  --dotfiles  ${colors["reset"]} - Invokes dotfiles setup script"
+  echo -e "${colors["yellow"]}  -h  |  --help      ${colors["reset"]} - Prints help message"
+  echo -e "${colors["yellow"]}  -a  |  --apt-apps  ${colors["reset"]} - Install apt applications"
+  echo -e "${colors["yellow"]}  -b  |  --brew      ${colors["reset"]} - Install homebrew"
+  echo -e "${colors["yellow"]}  -ba |  --brew-apps ${colors["reset"]} - Install brew applications"
+  echo -e "${colors["yellow"]}  -d  |  --dotfiles  ${colors["reset"]} - Invokes dotfiles setup script"
 }
 
 function get_apt_apps() {
@@ -140,7 +140,7 @@ function set_dotfiles() {
   if [ -x "$dotfilesScriptPath" ]; then
     source "$dotfilesScriptPath"
   else
-    curl -fsS https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/wslfiles/.dots/scripts/set_dotfiles.sh | sudo bash
+    curl -fsS https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/wslfiles/.dots/scripts/set_dotfiles.sh | bash
   fi
 
   write_colored_message "Invocation complete" "green"
