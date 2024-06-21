@@ -35,19 +35,19 @@ function check_and_ask_to_install {
   # Check and ask to install
 
   local package_name="$1"
-  if [ ! -x "$(command -v $package_name)" ]; then
+  if [ -x "$(command -v $package_name)" ]; then
     return 1
   fi
 
   write_colored_message "$package_name is not installed" "red"
 
   while true; do
-    read -rp "Do you want to install ${colors[yellow]}$package_name${colors[reset]} (y/N)? " choice
+    read -rp "Do you want to install ${colors["yellow"]}$package_name${colors["reset"]} (y/N)? " choice
     choice=$(echo "$choice" | tr '[:upper:]' '[:lower:]' | xargs)
 
     case "$choice" in
       y) return 0 ;;
-      n) write_colored_message "Stopping script. Bye, bye" "red"; break 1 ;;
+      n) write_colored_message "Stopping script. Bye, bye" "red"; exit 1 ;;
       *) write_colored_message "Invalid input, please enter 'y' or 'n'" "red" ;;
     esac
   done
@@ -55,7 +55,7 @@ function check_and_ask_to_install {
 
 # Main logic
 # Check and install git
-if [ check_and_ask_to_install "git" ]; then
+if check_and_ask_to_install "git"; then
   write_colored_message "Installing Git..." "yellow"
   sudo apt update && sudo apt install -y git
   write_colored_message "Installed Git" "green"
