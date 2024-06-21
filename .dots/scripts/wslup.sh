@@ -4,9 +4,7 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.1.8
-
-set -eo pipefail
+# Version       - 0.1.9
 
 # Configuration variables
 dotfilesScriptPath="$HOME/.dots/scripts/set_dotfiles.sh"

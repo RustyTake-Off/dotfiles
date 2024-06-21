@@ -6,8 +6,6 @@
 # Author        - RustyTake-Off
 # Version       - 0.1.2
 
-set -euo pipefail
-
 # Configuration variables
 repoUrl="https://github.com/RustyTake-Off/dotfiles.git"
 dotfilesPath="$HOME/.dotfiles"
