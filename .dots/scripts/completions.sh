@@ -37,3 +37,8 @@ if [ -x "$(command -v pip)" ]; then
   }
   complete -o default -F _pip_completion pip
 fi
+
+# Completions for azcli
+if [ -x "$(command -v az)" ]; then
+  source "$HOME/lib/azure-cli/az.completion"
+fi
