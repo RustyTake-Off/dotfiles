@@ -15,12 +15,12 @@ Version - 0.1.6
 #>
 
 [CmdletBinding(SupportsShouldProcess)]
-$ErrorActionPreference = 'SilentlyContinue'
-
 param (
     [Parameter(HelpMessage = 'Skips cloning dotfiles and just sets them in their locations.')]
     [switch]$skipClone
 )
+
+$ErrorActionPreference = 'SilentlyContinue'
 
 # Configuration variables
 $repoUrl = 'https://github.com/RustyTake-Off/dotfiles.git'
@@ -31,19 +31,15 @@ $toCheckout = @{
     docs     = @('images')
     winfiles = @('.config', '.dots', '.gitconfig')
 }
-$paths = @{
-    dotProfilePath     = "$HOME/.dots/powershell_profile"
-    profilePath        = "$HOME/Documents/PowerShell"
-    dotWTPath          = "$HOME/.dots/windows_terminal"
-    wtPath             = "$env:LOCALAPPDATA/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState"
-    dotWingetPath      = "$HOME/.dots/winget"
-    wingetPath         = "$env:LOCALAPPDATA/Packages/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe/LocalState"
-    dotWSLPath         = "$HOME/.dots/wsl"
-    wslPath            = "$HOME"
-    dotPSProfilePath   = "$HOME/.dots/powershell_profile/Microsoft.PowerShell_profile.ps1"
-    PSProfilePath      = $PROFILE
-    dotVCPSProfilePath = "$HOME/.dots/powershell_profile/Microsoft.VSCode_profile.ps1"
-    VCPSProfilePath    = $PROFILE -replace 'PowerShell_profile', 'VSCode_profile'
+$dotPaths = @{
+    dotProfilePath = "$HOME/.dots/powershell_profile"
+    profilePath    = "$HOME/Documents/PowerShell"
+    dotWTPath      = "$HOME/.dots/windows_terminal"
+    wtPath         = "$env:LOCALAPPDATA/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState"
+    dotWingetPath  = "$HOME/.dots/winget"
+    wingetPath     = "$env:LOCALAPPDATA/Packages/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe/LocalState"
+    dotWSLPath     = "$HOME/.dots/wsl"
+    wslPath        = "$HOME"
 }
 
 # ANSI escape sequences for different colors
@@ -110,33 +106,29 @@ function Invoke-HashAndCopyOrCopy {
 function Set-Configuration {
     param (
         [string]$dotPath,
-        [string]$destPath,
-        [string]$targetFile = '',
-        [string]$backupFile = ''
+        [string]$destPath
+        # [string]$targetFile = ''
     )
 
-    if ($targetFile) {
-        $sourceFiles = Get-ChildItem -Path $dotPath -File -Recurse
-        if ($sourceFiles.Count -eq 0) {
-            Write-ColoredMessage "Configuration files are missing from $dotPath" 'red'
-            return
-        }
-
-        if (-not (Test-Path -Path $destPath -PathType Container)) {
-            $null = New-Item -Path $destPath -ItemType Directory
-        }
-
-        $targetFilePath = Join-Path -Path $destPath -ChildPath $targetFile
-        $backupFilePath = if ($backupFile) { Join-Path -Path $destPath -ChildPath $backupFile } else { $null }
-
-        foreach ($file in $sourceFiles) {
-            $sourceFile = $file.FullName
-            Invoke-HashAndCopyOrCopy -sourceFile $sourceFile -targetFile $targetFilePath
-            if ($backupFilePath) {
-                Invoke-HashAndCopyOrCopy -sourceFile $sourceFile -targetFile $backupFilePath
-            }
-        }
+    # if ($targetFile) {
+    $sourceFiles = Get-ChildItem -Path $dotPath -File -Recurse
+    if ($sourceFiles.Count -eq 0) {
+        Write-ColoredMessage "Configuration files are missing from $dotPath" 'red'
+        return
     }
+
+    if (-not (Test-Path -Path $destPath -PathType Container)) {
+        $null = New-Item -Path $destPath -ItemType Directory
+    }
+
+    foreach ($file in $sourceFiles) {
+        $sourceFile = $file.FullName
+        $fileName = $file.Name
+        $targetFilePath = Join-Path -Path $destPath -ChildPath $fileName
+
+        Invoke-HashAndCopyOrCopy -sourceFile $sourceFile -targetFile $targetFilePath
+    }
+    # }
 }
 
 # Main logic
@@ -212,16 +204,11 @@ try {
     }
 
     Write-ColoredMessage 'Setting config files...' 'yellow'
-    foreach ($key in $paths.Keys) {
-        if ($key -match 'dotProfilePath') {
-            Set-Configuration -dotPath $paths.dotProfilePath -destPath $paths.profilePath
-        } elseif ($key -match 'dotWTPath') {
-            Set-Configuration -dotPath $paths.dotWTPath -destPath $paths.wtPath -targetFile 'settings.json'
-        } elseif ($key -match 'dotWingetPath') {
-            Set-Configuration -dotPath $paths.dotWingetPath -destPath $paths.wingetPath -targetFile 'settings.json' -backupFile 'settings.json.backup'
-        } elseif ($key -match 'dotWSLPath') {
-            Set-Configuration -dotPath $paths.dotWSLPath -destPath $paths.wslPath -targetFile '.wslconfig'
-        }
+    foreach ($key in $dotPaths.Keys) {
+        $dotPath = $dotPaths[$key]
+        $destPath = $dotPaths[$key -replace '^dot', '']
+
+        Set-Configuration -dotPath $dotPath -destPath $destPath #-targetFile '*'
     }
     Write-ColoredMessage 'Dotfiles are set...' 'green'
 
