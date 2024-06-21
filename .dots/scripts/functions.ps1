@@ -11,7 +11,7 @@ GitHub Repo - https://github.com/RustyTake-Off/dotfiles
 
 .NOTES
 Author  - RustyTake-Off
-Version - 0.1.7
+Version - 0.1.8
 #>
 
 $ErrorActionPreference = 'SilentlyContinue'
@@ -119,7 +119,7 @@ try {
 
     # Manage dotfiles in $HOME directory
     function dot {
-        git --git-dir="$HOME/.dots" --work-tree=$HOME $args
+        git --git-dir="$HOME/.dotfiles" --work-tree=$HOME $args
     }
 
     function setdots {
