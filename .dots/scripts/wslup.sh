@@ -4,12 +4,12 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.1.6
+# Version       - 0.1.7
 
 set -euo pipefail
 
 # Configuration variables
-dotfilesScriptPath="$HOME/.dots/scripts/set-dotfiles.sh"
+dotfilesScriptPath="$HOME/.dots/scripts/set_dotfiles.sh"
 
 # ANSI escape sequences for different colors
 declare -A colors=(

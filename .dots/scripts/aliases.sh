@@ -4,7 +4,7 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.1.6
+# Version       - 0.1.7
 
 # Common aliases
 alias cd......="cd ../../../../../.."
@@ -60,8 +60,8 @@ if uname -r | grep -q "WSL2"; then
 fi
 
 # Manage dotfiles in $HOME directory
-alias dot="git --git-dir=\$HOME/.dots --work-tree=\$HOME"
-alias setdots=". \$HOME/.dots/scripts/set-dotfiles.sh"
+alias dot="git --git-dir=\$HOME/.dotfiles --work-tree=\$HOME"
+alias setdots=". \$HOME/.dots/scripts/set_dotfiles.sh"
 alias wslup=". \$HOME/.dots/scripts/wslup.sh"
 
 alias apti="sudo apt install"
