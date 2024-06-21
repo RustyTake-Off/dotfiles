@@ -50,5 +50,5 @@ else
   write_colored_message "Checking for updates..." "purple"
 
   git --git-dir="$dotfilesPath" --work-tree="$HOME" reset --hard
-  git --git-dir="$dotfilesPath" --work-tree="$HOME" pull
+  git --git-dir="$dotfilesPath" --work-tree="$HOME" pull origin $wslfilesPath
 fi
