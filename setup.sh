@@ -11,11 +11,8 @@ set -euo pipefail
 # Configuration variables
 repoUrl="https://github.com/RustyTake-Off/dotfiles.git"
 dotfilesPath="$HOME/.dotfiles"
-wslfilesPath="$HOME/wslfiles"
-dotfilesScriptPath="$HOME/.dots/scripts/set-dotfiles.sh"
-declare -A toCheckout=(
-  ["wslfiles"]=(".config" ".dots" ".bash_logout" ".bash_profile" ".bashrc" ".gitconfig" ".hushlogin" ".inputrc")
-)
+wslfilesPath="wslfiles"
+dotfilesScriptPath="$HOME/.dots/scripts/set_dotfiles.sh"
 
 # ANSI escape sequences for different colors
 declare -A colors=(
@@ -38,7 +35,7 @@ function check_and_ask_to_install {
   # Check and ask to install
 
   local package_name="$1"
-  if command -v "$package_name" &> /dev/null; then
+  if [ ! -x "$(command -v $package_name)" ]; then
     return 1
   fi
 
@@ -50,7 +47,7 @@ function check_and_ask_to_install {
 
     case "$choice" in
       y) return 0 ;;
-      n) write_colored_message "Stopping script. Bye, bye" "red"; exit 1 ;;
+      n) write_colored_message "Stopping script. Bye, bye" "red"; break 1 ;;
       *) write_colored_message "Invalid input, please enter 'y' or 'n'" "red" ;;
     esac
   done
@@ -58,7 +55,7 @@ function check_and_ask_to_install {
 
 # Main logic
 # Check and install git
-if ! check_and_ask_to_install "git"; then
+if [ ! check_and_ask_to_install "git" ]; then
   write_colored_message "Installing Git..." "yellow"
   sudo apt update && sudo apt install -y git
   write_colored_message "Installed Git" "green"
@@ -67,45 +64,13 @@ else
 fi
 
 # Clone dotfiles
-if [[ ! -d "$dotfilesPath" ]]; then
-  paths=()
-  for category in "${!toCheckout[@]}"; do
-    for item in ${toCheckout[$category]}; do
-      paths+=("$category/$item")
-    done
-  done
-
+if [ ! -d "$dotfilesPath" ]; then
   write_colored_message "Cloning dotfiles..." "yellow"
 
   git clone --bare "$repoUrl" "$dotfilesPath"
-  git --git-dir="$dotfilesPath" --work-tree="$HOME" checkout "${paths[@]}"
+  git --git-dir="$dotfilesPath" --work-tree="$HOME" checkout "$wslfilesPath"
   git --git-dir="$dotfilesPath" --work-tree="$HOME" config status.showUntrackedFiles no
 else
   write_colored_message "Directory '.dotfiles' already exists in '$HOME'" "red"
-  exit 1
-fi
-
-# Move files
-if [[ -d "$wslfilesPath" ]]; then
-  for item in ${toCheckout["wslfiles"]}; do
-    sourcePath="$wslfilesPath/$item"
-    if [[ -d "$sourcePath" ]]; then
-      find "$sourcePath" -mindepth 1 -maxdepth 1 -exec mv -t "$HOME" {} +
-    elif [[ -f "$sourcePath" ]]; then
-      mv -f "$sourcePath" "$HOME"
-    fi
-  done
-else
-  write_colored_message "Directory 'wslfiles' not found in '$HOME'" "red"
-  exit 1
-fi
-
-# Run dotfiles script
-if [[ -f "$dotfilesScriptPath" ]]; then
-  write_colored_message "Setting dotfiles..." "yellow"
-  source "$dotfilesScriptPath" --skip-dotfiles
-  write_colored_message "Dotfiles are set" "green"
-else
-  write_colored_message "Script file in path '$dotfilesScriptPath' does not exist" "red"
-  exit 1
+  break 1
 fi

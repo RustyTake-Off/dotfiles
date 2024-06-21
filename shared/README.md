@@ -1,3 +1,0 @@
-# shared
-
-📄 Different shared things. 🛠️
