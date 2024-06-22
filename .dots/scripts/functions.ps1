@@ -11,7 +11,7 @@ GitHub Repo - https://github.com/RustyTake-Off/dotfiles
 
 .NOTES
 Author  - RustyTake-Off
-Version - 0.1.9
+Version - 0.1.10
 #>
 
 $ErrorActionPreference = 'SilentlyContinue'
@@ -105,15 +105,15 @@ try {
     }
 
     # Manage powershell profile
-    function editprofile {
+    function editpsp {
         notepad $PROFILE
     }
 
-    function reprofile {
+    function repsp {
         Invoke-Expression $PROFILE
     }
 
-    function revscprofile {
+    function revcp {
         Invoke-Expression ($PROFILE -replace 'PowerShell_profile', 'VSCode_profile')
     }
 
