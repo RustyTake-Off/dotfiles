@@ -15,6 +15,11 @@ export EDITOR="vim"
 # Set vim as MANPAGER - https://zameermanji.com/blog/2012/12/30/using-vim-as-manpager/
 # export MANPAGER="/usr/bin/sh -c \"col -b | vim -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
 
+# Misc exports
+export AZURE_DEV_COLLECT_TELEMETRY=no
+export HOMEBREW_NO_ANALYTICS=1
+export PYENV_ROOT="$HOME/.pyenv"
+
 # Set PATH so it includes user's private bin if it exists
 [ -d "$HOME/.local/bin" ] && PATH="$HOME/.local/bin:$PATH"
 [ -d "$HOME/bin" ] && PATH="$HOME/bin:$PATH"
