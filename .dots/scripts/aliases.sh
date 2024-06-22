@@ -54,9 +54,11 @@ alias fgrep="fgrep --color=auto"
 alias pubip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias locip="sudo ifconfig | grep -Eo 'inet (addr:)?([0-9]*\\.){3}[0-9]*' | grep -Eo '([0-9]*\\.){3}[0-9]*' | grep -v '127.0.0.1'"
 
-# Alias for opening windows explorer
+# Aliases for WSL
 if uname -r | grep -q "WSL2"; then
   alias open="command explorer.exe"
+  alias pwsh="command pwsh.exe"
+  alias powershell="command powersell.exe"
 fi
 
 # Manage dotfiles in $HOME directory
