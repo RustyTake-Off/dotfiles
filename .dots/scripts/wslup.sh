@@ -70,19 +70,23 @@ function get_apt_apps() {
   # Install starship
   if [ ! -x "$(command -v starship)" ]; then
     write_colored_message "Installing Starship..." "yellow"
-    curl -sS https://starship.rs/install.sh | bash
+    curl -sS https://starship.rs/install.sh | sh
   fi
 
   # Install azure cli
   if [ ! -x "$(command -v az)" ]; then
     write_colored_message "Installing AzureCLI..." "yellow"
     curl -L https://aka.ms/InstallAzureCli | bash
+
+    command az config set core.collect_telemetry=false
   fi
 
   # Install azure developer cli
   if [ ! -x "$(command -v azd)" ]; then
     write_colored_message "Installing Azure Developer CLI..." "yellow"
     curl -fsSL https://aka.ms/install-azd.sh | bash
+
+    export AZURE_DEV_COLLECT_TELEMETRY=no
   fi
 }
 
@@ -92,7 +96,12 @@ function get_brew() {
   if [ ! -x "$(command -v brew)" ]; then
     write_colored_message "Installing Homebrew..." "yellow"
     curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash
-    [ -x "$(command -v /home/linuxbrew/.linuxbrew/bin/brew)" ] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+    [ -x "$(command -v /home/linuxbrew/.linuxbrew/bin/brew)" ] && \
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+    command brew completions link
+    export HOMEBREW_NO_ANALYTICS=1
   else
     write_colored_message "Homebrew already installed" "green"
   fi
