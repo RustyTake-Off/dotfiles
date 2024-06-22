@@ -11,7 +11,7 @@ GitHub Repo - https://github.com/RustyTake-Off/dotfiles
 
 .NOTES
 Author  - RustyTake-Off
-Version - 0.1.8
+Version - 0.1.9
 #>
 
 $ErrorActionPreference = 'SilentlyContinue'
@@ -105,16 +105,16 @@ try {
     }
 
     # Manage powershell profile
-    function edit-profile {
-        notepad "$HOME/Documents/PowerShell/Microsoft.PowerShell_profile.ps1"
+    function editprofile {
+        notepad $PROFILE
     }
 
-    function reset-profile {
-        Invoke-Expression "$HOME/Documents/PowerShell/Microsoft.PowerShell_profile.ps1"
+    function reprofile {
+        Invoke-Expression $PROFILE
     }
 
-    function reset-vscprofile {
-        Invoke-Expression "$HOME/Documents/PowerShell/Microsoft.VSCode_profile.ps1"
+    function revscprofile {
+        Invoke-Expression ($PROFILE -replace 'PowerShell_profile', 'VSCode_profile')
     }
 
     # Manage dotfiles in $HOME directory
