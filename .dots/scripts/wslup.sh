@@ -85,8 +85,6 @@ function get_apt_apps() {
   if [ ! -x "$(command -v azd)" ]; then
     write_colored_message "Installing Azure Developer CLI..." "yellow"
     curl -fsSL https://aka.ms/install-azd.sh | bash
-
-    export AZURE_DEV_COLLECT_TELEMETRY=no
   fi
 }
 
@@ -101,7 +99,6 @@ function get_brew() {
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
     command brew completions link
-    export HOMEBREW_NO_ANALYTICS=1
   else
     write_colored_message "Homebrew already installed" "green"
   fi
@@ -134,9 +131,6 @@ function get_brew_apps() {
       yq \
       zoxide
   fi
-
-  # Finishing commands
-  [ -x "$(command -v pipx)" ] && pipx ensurepath
 }
 
 function set_dotfiles() {
