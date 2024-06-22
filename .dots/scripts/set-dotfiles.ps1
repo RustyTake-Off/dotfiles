@@ -120,7 +120,7 @@ try {
             git --git-dir=$dotfilesPath --work-tree=$HOME reset --hard
             $output = git --git-dir=$dotfilesPath --work-tree=$HOME pull origin $branchName
 
-            if ($output -match 'Already up do date') {
+            if ($output -match 'Already up to date.') {
                 Write-ColoredMessage 'Dotfiles up to date' 'green'
                 break 1
             }
