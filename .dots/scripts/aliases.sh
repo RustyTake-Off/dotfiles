@@ -4,7 +4,7 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.1.8
+# Version       - 0.1.9
 
 # Common aliases
 alias cd......="cd ../../../../../.."
@@ -73,21 +73,21 @@ alias brup="brew upgrade"
 alias lcoms="compgen -b  # Print built-in commands"
 
 # Python aliases
-alias py="python"
-alias py3="python3"
+alias py="python  # Used for pyenv python"
+alias py3="python3  # Used for system python"
 alias pyv="pyenv versions"
 alias pyi="pyenv install -v"
 alias pyg="pyenv global"
 alias pyl="pyenv local"
-alias pysetup="py -m venv .venv --upgrade-deps && source .venv/bin/activate"
-alias py3setup="py3 -m venv .venv --upgrade-deps && source .venv/bin/activate"
+alias pysetup="py -m venv .venv --upgrade-deps && source .venv/bin/activate  # Used for pyenv python"
+alias py3setup="py3 -m venv .venv --upgrade-deps && source .venv/bin/activate  # Used for system python"
 alias pyup="source .venv/bin/activate"
 alias pydw="deactivate"
 alias pipi="pip install"
 alias pipu="pip install --upgrade"
 alias pipuall="pip freeze --local | cut -d = -f 1 | xargs -n1 pip3 install --upgrade  # Upgrades all packages"
 alias pipsetreq="pip freeze --require-virtualenv -l >"
-alias pipgetreq="pip install --require-virtualenv -rU"
+alias pipgetreq="pip install --require-virtualenv --upgrade -r"
 
 alias k="kubectl"
 alias hl="helm"
