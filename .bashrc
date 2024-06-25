@@ -29,6 +29,7 @@ export PYENV_ROOT="$HOME/.pyenv"
 [ -s "/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh" ] && source "/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh"
 [ -x "$(command -v starship)" ] && eval "$(starship init bash)"
 [ -x "$(command -v zoxide)" ] && eval "$(zoxide init bash)"
+[ -x "$(command -v pyenv)" ] && eval "$(pyenv init -)"
 [ -x "$(command -v fzf)" ] && eval "$(fzf --bash)"
 
 # Load bash files
