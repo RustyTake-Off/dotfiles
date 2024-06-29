@@ -30,6 +30,12 @@ runs:
         git checkout ${{ inputs.sourceBranchName }} -- ${{ inputs.targetBranchName }}
 
         find "${{ inputs.targetBranchName }}" -maxdepth 1 -name '*' -exec cp -r {} . \;
+        echo '==='
+
+        ls -al
+
+        echo '==='
+
         find "${{ inputs.targetBranchName }}" -maxdepth 1 -name '.*[!.]*' -exec cp -r {} . \;
 
         # Clean up
@@ -43,3 +49,7 @@ runs:
         echo '==='
 
         ls -al
+
+        echo '==='
+
+        git status --short
