@@ -20,14 +20,31 @@ runs:
         # Switch branch
         git checkout -b ${{ inputs.targetBranchName }} --track origin/${{ inputs.targetBranchName }}
 
+        echo '---'
+
         # Remove all files
-        # git rm -r .
-        # git reset
+        git rm -r .
+
+        echo '---'
+
+        git reset
+
+        echo '---'
+
+        ls -al
+
+        echo '---'
 
         # Checkout directory and move files
         git checkout ${{ inputs.sourceBranchName }} -- ${{ inputs.targetBranchName }}
 
+        ls -al
+
+        echo '---'
+
         rsync --recursive --update ${{ inputs.sourceBranchName }} .
+
+        echo '---'
 
         ls -al
 
