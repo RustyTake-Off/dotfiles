@@ -28,7 +28,7 @@ jobs:
         run: |
           ls -al
           git branch
-          echo ${{ github.event_path }}
+          cat ${{ github.event_path }}
 
       - name: 'Move files'
         id: move-files
