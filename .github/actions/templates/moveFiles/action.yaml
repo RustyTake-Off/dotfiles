@@ -51,19 +51,21 @@ runs:
         cp -r "${{ inputs.targetBranchName }}"/* .
         find "${{ inputs.targetBranchName }}" -maxdepth 1 -name '.*[!.]*' -exec cp -r {} . \;
 
-        echo '=========='
-        ls -al
-        echo '=========='
+        # echo '=========='
+        # ls -al
+        # echo '=========='
 
-        [ -n "${{ inputs.otherSharedFiles }}" ] && \
-        for item in ${{ inputs.otherSharedFiles }}; do
-          if [ -d "$item" ]; then
-            cp "$item"/* .
-            find "$item" -maxdepth 1 -name '.*[!.]*' -exec cp -r {} . \;
-          elif [ -f "$item" ]; then
-            cp "$item" .
-          fi
-        done
+        # [ -n "${{ inputs.otherSharedFiles }}" ] && \
+        # for item in ${{ inputs.otherSharedFiles }}; do
+        #   if [ -d "$item" ]; then
+        #     shopt -s dotglob
+        #     cp "$item"/* .
+        #     cp -r "$item"/.[!.]* .
+        #     shopt -u dotglob
+        #   elif [ -f "$item" ]; then
+        #     cp "$item" .
+        #   fi
+        # done
 
         echo '=========='
         ls -al
@@ -72,8 +74,10 @@ runs:
         [ -n "${{ inputs.otherDirs }}" ] && \
         for item in ${{ inputs.otherDirs }}; do
           if [ -d "$item" ]; then
+            shopt -s dotglob
             cp -r "$item"/* .
-            find "$item" -maxdepth 1 -name '.*[!.]*' -exec cp -r {} . \;
+            cp -r "$item"/.[!.]* .
+            shopt -u dotglob
           fi
         done
 
@@ -84,7 +88,10 @@ runs:
         # Clean up
         rm -rf ${{ inputs.targetBranchName }}
         rm README.md
-        rm -rf ${{ inputs.otherSharedFiles }}
+        for item in ${{ inputs.otherSharedFiles }}; do
+          rm -rf "$item"
+        done
+
 
         echo '=========='
         ls -al
