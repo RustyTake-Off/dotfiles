@@ -6,8 +6,8 @@ on:
     branches:
       - main
     paths:
-      - '.github/workflows/*'
-      - 'wslfiles/*'
+      - '.github/**'
+      - 'wslfiles/**'
       - '!wslfiles/README.md'
   workflow_dispatch:
 
