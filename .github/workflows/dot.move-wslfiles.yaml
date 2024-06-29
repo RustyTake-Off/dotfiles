@@ -15,7 +15,7 @@ concurrency:
   group: ${{ github.workflow }}
 
 env:
-  branchName: 'wslfiles'
+  targetBranchName: 'wslfiles'
 
 jobs:
   move-files:
@@ -28,8 +28,8 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: 'Move ${{ env.branchName }} files'
+      - name: 'Move ${{ env.targetBranchName }} files'
         id: move-branch-files
         uses: ./.github/actions/templates/moveFiles
         with:
-          branchName: ${{ env.branchName }}
+          targetBranchName: ${{ env.targetBranchName }}

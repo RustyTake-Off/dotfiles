@@ -2,30 +2,35 @@ name: 'Move files'
 description: 'Move files to designated branch'
 
 inputs:
-  branchName:
-    description: 'Branch name to move files to'
+  sourceBranchName:
+    description: 'Source branch name for moving files'
+    default: 'main'
+    required: false
+  targetBranchName:
+    description: 'Target branch name for moving files'
     required: true
 
 runs:
   using: 'composite'
   steps:
-    - name: 'Move files to ${{ inputs.branchName }}'
+    - name: 'Move files to ${{ inputs.targetBranchName }}'
       id: move-files-to-branch
       shell: bash
       run: |
         # Switch branch
-        git checkout -b ${{ inputs.branchName }} --track origin/${{ inputs.branchName }}
+        git checkout -b ${{ inputs.targetBranchName }} --track origin/${{ inputs.targetBranchName }}
 
         # Remove all files
         git rm -r .
+        git reset
+
+        # Checkout directory and move files
+        git checkout ${{ inputs.sourceBranchName }} -- ${{ inputs.targetBranchName }}
+
+        mv ${{ inputs.targetBranchName }}/{.*,*} . --force
 
         ls -al
 
-        git status --short
-        # git reset
-
-        ls -al
-
-        git checkout main -- ${{ inputs.branchName }}
-
-        ls -al
+        # Clean up
+        # rmdir ${{ inputs.targetBranchName }}
+        # rm README.md
