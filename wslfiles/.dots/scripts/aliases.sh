@@ -4,7 +4,7 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.1.6
+# Version       - 0.1.9
 
 # Common aliases
 alias cd......="cd ../../../../../.."
@@ -32,8 +32,8 @@ alias pscpu="ps auxf | sort -nr -k 3"
 alias psmem="ps auxf | sort -nr -k 4"
 
 # Files manipulation
-alias cp="cp -vi"
 alias mkdir="mkdir -vp"
+alias cp="cp -vi"
 alias mv="mv -vi"
 alias rm="rm -vI"
 
@@ -44,8 +44,8 @@ alias trl="trash-list"
 alias trr="trash-restore"
 alias trc="trash-rm"
 
-alias less="less -R"
-alias diff="diff --color=auto"
+alias less="less -R --use-color"
+alias diff="diff --color=auto --side-by-side"
 alias grep="grep --color=auto"
 alias egrep="egrep --color=auto"
 alias fgrep="fgrep --color=auto"
@@ -54,14 +54,16 @@ alias fgrep="fgrep --color=auto"
 alias pubip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias locip="sudo ifconfig | grep -Eo 'inet (addr:)?([0-9]*\\.){3}[0-9]*' | grep -Eo '([0-9]*\\.){3}[0-9]*' | grep -v '127.0.0.1'"
 
-# Alias for opening windows explorer
+# Aliases for WSL
 if uname -r | grep -q "WSL2"; then
-  alias open="explorer.exe"
+  alias open="command explorer.exe"
+  alias pwsh="command pwsh.exe"
+  alias powershell="command powersell.exe"
 fi
 
 # Manage dotfiles in $HOME directory
-alias dot="git --git-dir=\$HOME/.dots --work-tree=\$HOME"
-alias setdots=". \$HOME/.dots/scripts/set-dotfiles.sh"
+alias dot="git --git-dir=\$HOME/.dotfiles --work-tree=\$HOME"
+alias setdots=". \$HOME/.dots/scripts/set_dotfiles.sh"
 alias wslup=". \$HOME/.dots/scripts/wslup.sh"
 
 alias apti="sudo apt install"
@@ -71,19 +73,21 @@ alias brup="brew upgrade"
 alias lcoms="compgen -b  # Print built-in commands"
 
 # Python aliases
-alias py="python3"
-alias python="python3"
+alias py="python"
+alias py3="python3"
 alias pyv="pyenv versions"
+alias pyi="pyenv install -v"
 alias pyg="pyenv global"
 alias pyl="pyenv local"
-alias pysetup="python3 -m venv .venv --upgrade-deps && source .venv/bin/activate"
+alias pysetup="py -m venv .venv --upgrade-deps && source .venv/bin/activate"
+alias py3setup="py3 -m venv .venv --upgrade-deps && source .venv/bin/activate"
 alias pyup="source .venv/bin/activate"
 alias pydw="deactivate"
-alias pipi="pip3 install"
-alias pipu="pip3 install --upgrade"
-alias pipuall="pip3 freeze --local | cut -d = -f 1  | xargs -n1 pip3 install --upgrade  # Upgrades all packages"
-alias pipsetreq="pip3 freeze --require-virtualenv -l >"
-alias pipgetreq="pip3 install --require-virtualenv -rU"
+alias pipi="pip install"
+alias pipu="pip install --upgrade"
+alias pipuall="pip freeze --local | cut -d = -f 1 | xargs -n1 pip3 install --upgrade"
+alias pipsetreq="pip freeze --require-virtualenv -l >"
+alias pipgetreq="pip install --require-virtualenv --upgrade -r"
 
 alias k="kubectl"
 alias hl="helm"

@@ -36,4 +36,10 @@ if [ -x "$(command -v pip)" ]; then
     COMPREPLY=( $( COMP_WORDS="${COMP_WORDS[*]}" COMP_CWORD=$COMP_CWORD PIP_AUTO_COMPLETE=1 $1 2>/dev/null ) )
   }
   complete -o default -F _pip_completion pip
+  complete -o default -F _pip_completion pip3
+fi
+
+# Completions for azcli
+if [ -x "$(command -v az)" ]; then
+  source "$HOME/lib/azure-cli/az.completion"
 fi

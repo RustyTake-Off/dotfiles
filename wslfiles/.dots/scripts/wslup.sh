@@ -4,12 +4,10 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.1.6
-
-set -euo pipefail
+# Version       - 0.1.9
 
 # Configuration variables
-dotfilesScriptPath="$HOME/.dots/scripts/set-dotfiles.sh"
+dotfilesScriptPath="$HOME/.dots/scripts/set_dotfiles.sh"
 
 # ANSI escape sequences for different colors
 declare -A colors=(
@@ -44,11 +42,11 @@ function get_help() {
   # Help message
 
   write_colored_message "Available commands:" "yellow"
-  echo "${colors["yellow"]}  -h  |  --help      ${colors["reset"]} - Prints help message"
-  echo "${colors["yellow"]}  -a  |  --apt-apps  ${colors["reset"]} - Install apt applications"
-  echo "${colors["yellow"]}  -b  |  --brew      ${colors["reset"]} - Install homebrew"
-  echo "${colors["yellow"]}  -ba |  --brew-apps ${colors["reset"]} - Install brew applications"
-  echo "${colors["yellow"]}  -d  |  --dotfiles  ${colors["reset"]} - Invokes dotfiles setup script"
+  echo -e "${colors["yellow"]}  -h  |  --help      ${colors["reset"]} - Prints help message"
+  echo -e "${colors["yellow"]}  -a  |  --apt-apps  ${colors["reset"]} - Install apt applications"
+  echo -e "${colors["yellow"]}  -b  |  --brew      ${colors["reset"]} - Install homebrew"
+  echo -e "${colors["yellow"]}  -ba |  --brew-apps ${colors["reset"]} - Install brew applications"
+  echo -e "${colors["yellow"]}  -d  |  --dotfiles  ${colors["reset"]} - Invokes dotfiles setup script"
 }
 
 function get_apt_apps() {
@@ -72,13 +70,15 @@ function get_apt_apps() {
   # Install starship
   if [ ! -x "$(command -v starship)" ]; then
     write_colored_message "Installing Starship..." "yellow"
-    curl -sS https://starship.rs/install.sh | bash
+    curl -sS https://starship.rs/install.sh | sh
   fi
 
   # Install azure cli
   if [ ! -x "$(command -v az)" ]; then
     write_colored_message "Installing AzureCLI..." "yellow"
     curl -L https://aka.ms/InstallAzureCli | bash
+
+    command az config set core.collect_telemetry=false
   fi
 
   # Install azure developer cli
@@ -94,7 +94,11 @@ function get_brew() {
   if [ ! -x "$(command -v brew)" ]; then
     write_colored_message "Installing Homebrew..." "yellow"
     curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash
-    [ -x "$(command -v /home/linuxbrew/.linuxbrew/bin/brew)" ] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+    [ -x "$(command -v /home/linuxbrew/.linuxbrew/bin/brew)" ] && \
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+    command brew completions link
   else
     write_colored_message "Homebrew already installed" "green"
   fi
@@ -127,9 +131,6 @@ function get_brew_apps() {
       yq \
       zoxide
   fi
-
-  # Finishing commands
-  [ -x "$(command -v pipx)" ] && pipx ensurepath
 }
 
 function set_dotfiles() {
@@ -140,7 +141,7 @@ function set_dotfiles() {
   if [ -x "$dotfilesScriptPath" ]; then
     source "$dotfilesScriptPath"
   else
-    curl -fsS https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/wslfiles/.dots/scripts/set-dotfiles.sh | sudo bash
+    curl -fsS https://raw.githubusercontent.com/RustyTake-Off/dotfiles/wslfiles/.dots/scripts/set_dotfiles.sh | bash
   fi
 
   write_colored_message "Invocation complete" "green"
