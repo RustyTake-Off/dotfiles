@@ -76,7 +76,7 @@ runs:
           if [ -d "$item" ]; then
             shopt -s dotglob
             cp -r "$item"/* .
-            cp -r "$item"/.[!.]* .
+            # cp -r "$item"/.[!.]* .
             shopt -u dotglob
           fi
         done

@@ -20,7 +20,7 @@ permissions:
 env:
   targetBranchName: 'winfiles'
   otherSharedFiles: 'genfiles/vscode/vscode.json genfiles/browsers'  # space separated
-  otherDirs: 'docs/images genfiles/browsers'  # space separated
+  otherDirs: 'docs/images genfiles'  # space separated
 
 jobs:
   move-files:
@@ -39,5 +39,5 @@ jobs:
         continue-on-error: true
         with:
           targetBranchName: ${{ env.targetBranchName }}
-          otherSharedFiles: ${{ env.otherSharedFiles }}
+          # otherSharedFiles: ${{ env.otherSharedFiles }}
           otherDirs: ${{ env.otherDirs }}
