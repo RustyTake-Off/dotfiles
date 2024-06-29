@@ -15,7 +15,7 @@ export EDITOR="vim"
 # Set vim as MANPAGER - https://zameermanji.com/blog/2012/12/30/using-vim-as-manpager/
 # export MANPAGER="/usr/bin/sh -c \"col -b | vim -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
 
-# Set PATH so it includes user's private bin
+# Set PATH to user's private bin
 [ -d "$HOME/.local/bin" ] && PATH="$HOME/.local/bin:$PATH"
 [ -d "$HOME/bin" ] && PATH="$HOME/bin:$PATH"
 
