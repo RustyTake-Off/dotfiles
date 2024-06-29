@@ -27,7 +27,7 @@ jobs:
         run: |
           ls -al
           git branch
-          echo ${{ github.event_path.files }}
+          echo "${{ toJson(github.event.commits[0].modified) }}"
 
       - name: 'Move files'
         id: move-files
