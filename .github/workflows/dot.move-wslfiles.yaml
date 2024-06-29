@@ -1,5 +1,5 @@
 name: 'Move wslfiles'
-run-name: 'Move wslfiles - #${{ github.run_number }}'
+run-name: 'Move wslfiles'
 
 on:
   push:

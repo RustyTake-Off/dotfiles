@@ -19,7 +19,13 @@ runs:
         # Remove all files
         git rm -r .
 
+        ls -al
+
         git status --short
         # git reset
 
+        ls -al
+
         git checkout main -- ${{ inputs.branchName }}
+
+        ls -al
