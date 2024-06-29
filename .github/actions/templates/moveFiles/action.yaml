@@ -94,6 +94,9 @@ runs:
         git config --global user.email ${{ inputs.userEmail }}
 
         git add --all
-        git commit -m "Update ${{ inputs.target_branch }}"
+        echo '=============================='
+        git status --short
+        echo '=============================='
+        git commit -m "Update ${{ inputs.targetBranchName }}"
 
-        git push origin ${{ inputs.target_branch }}
+        git push origin ${{ inputs.targetBranchName }}
