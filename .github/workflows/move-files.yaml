@@ -9,8 +9,8 @@ on:
       - '!wslfiles/README.md'
   workflow_dispatch:
 
-env:
-  branchName: 'wslfiles'
+# env:
+#   branchName: 'wslfiles'
 
 jobs:
   move-files-to-branch:
@@ -21,15 +21,15 @@ jobs:
         id: checkout-repo
         uses: actions/checkout@v4
 
-      # - name: 'Move files'
-      #   id: move-files
-      #   uses: './templates/action.yaml'
-      #   with:
-      #     branchName: ${{ env.branchName }}
-
       - name: 'Move files'
         id: move-files
-        shell: bash
-        run: |
-          pwd
-          ls -al
+        uses: './.github/actions/templates/moveFiles/action.yaml'
+        with:
+          branchName: 'wslfiles'
+
+      # - name: 'Move files'
+      #   id: move-files
+      #   shell: bash
+      #   run: |
+      #     pwd
+      #     ls -al

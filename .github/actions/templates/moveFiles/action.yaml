@@ -1,5 +1,5 @@
 name: 'Move files'
-description: 'Move files to a designated branch'
+description: 'Move files to designated branch'
 
 inputs:
   branchName:
@@ -15,3 +15,4 @@ runs:
       run: |
         ls -al
         git branch
+        echo ${{ inputs.branchName }}
