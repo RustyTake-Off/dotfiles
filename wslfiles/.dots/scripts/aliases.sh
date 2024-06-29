@@ -35,7 +35,7 @@ alias psmem="ps auxf | sort -nr -k 4"
 alias mkdir="mkdir -vp"
 alias cp="cp -vi"
 alias mv="mv -vi"
-alias rm="rm -I"
+alias rm="rm -vI"
 
 # trash-cli - https://github.com/andreafrancia/trash-cli
 alias trm="trash-put"
