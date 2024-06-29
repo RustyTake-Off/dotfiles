@@ -87,13 +87,12 @@ runs:
         # Clean up
         rm -rf ${{ inputs.targetBranchName }}
         rm README.md
-        # for item in ${{ inputs.otherSharedFiles }}; do
-        #   rm -rf "$item"
-        # done
-        for item in ${{ inputs.otherDirs }}; do
-          rm -rf "$item"
-        done
 
+        [ -n "${{ inputs.otherDirs }}" ] && \
+        for item in ${{ inputs.otherDirs }}; do
+          [ -d "$(dirname "$item")" ] && \
+          rm -rf "$(dirname "$item")"
+        done
 
         echo '=========='
         ls -al
