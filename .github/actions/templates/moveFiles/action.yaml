@@ -34,6 +34,8 @@ runs:
         rm -rf ${{ inputs.targetBranchName }}
         rm README.md
 
-        ls -al
-        git reset &>/dev/null
-        git status --short
+        # Commit and push
+        git add --all
+        git commit -m "Update ${{ inputs.target_branch }}"
+
+        git push origin ${{ inputs.target_branch }}
