@@ -35,4 +35,5 @@ runs:
         rm README.md
 
         ls -al
+        git reset &>/dev/null
         git status --short
