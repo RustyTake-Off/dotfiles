@@ -3,16 +3,15 @@ description: 'Move files to designated branch'
 
 inputs:
   branchName:
-    description: 'Branch name'
+    description: 'Branch name to move files to'
     required: true
 
 runs:
   using: 'composite'
   steps:
     - name: 'Move files to ${{ inputs.branchName }}'
-      id: move-files
+      id: move-files-to-branch
       shell: bash
       run: |
-        ls -al
-        git branch
-        echo ${{ inputs.branchName }}
+        git branch --all
+        git checkout ${{ inputs.branchName }}

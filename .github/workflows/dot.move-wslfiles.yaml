@@ -1,7 +1,6 @@
 name: 'Move wslfiles'
 run-name: 'Move wslfiles - #${{ github.run_number }}'
 
-
 on:
   push:
     branches:
@@ -12,14 +11,11 @@ on:
       - '!wslfiles/README.md'
   workflow_dispatch:
 
-
 concurrency:
   group: ${{ github.workflow }}
 
-
 env:
   branchName: 'wslfiles'
-
 
 jobs:
   move-files:
@@ -32,15 +28,8 @@ jobs:
         with:
           fetch-depth: 0
 
-      # - name: 'Test'
-      #   id: test
-      #   shell: bash
-      #   run: |
-      #     ls -al
-      #     git branch
-
       - name: 'Move ${{ env.branchName }} files'
-        id: move-files
+        id: move-branch-files
         uses: ./.github/actions/templates/moveFiles
         with:
           branchName: ${{ env.branchName }}
