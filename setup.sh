@@ -12,7 +12,6 @@ set -euo pipefail
 repoUrl="https://github.com/RustyTake-Off/dotfiles.git"
 dotfilesPath="$HOME/.dotfiles"
 wslfilesPath="wslfiles"
-dotfilesScriptPath="$HOME/.dots/scripts/set_dotfiles.sh"
 
 # ANSI escape sequences for different colors
 declare -A colors=(
