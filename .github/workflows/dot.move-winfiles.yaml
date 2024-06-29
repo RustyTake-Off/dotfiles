@@ -19,7 +19,7 @@ permissions:
 
 env:
   targetBranchName: 'winfiles'
-  otherSharedFiles: 'genfiles/vscode/vscode.json wslfiles/.config/starship.toml'  # space separated
+  otherSharedFiles: 'genfiles/vscode/vscode.json wslfiles/.config'  # space separated
   otherDirs: 'docs/images genfiles/browsers'  # space separated
 
 jobs:
