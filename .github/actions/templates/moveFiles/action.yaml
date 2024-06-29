@@ -51,6 +51,10 @@ runs:
         cp -r "${{ inputs.targetBranchName }}"/* .
         find "${{ inputs.targetBranchName }}" -maxdepth 1 -name '.*[!.]*' -exec cp -r {} . \;
 
+        echo '=========='
+        ls -al
+        echo '=========='
+
         [ -n "${{ inputs.otherSharedFiles }}" ] && \
         for item in ${{ inputs.otherSharedFiles }}; do
           if [ -d "$item" ]; then
@@ -61,6 +65,10 @@ runs:
           fi
         done
 
+        echo '=========='
+        ls -al
+        echo '=========='
+
         [ -n "${{ inputs.otherDirs }}" ] && \
         for item in ${{ inputs.otherDirs }}; do
           if [ -d "$item" ]; then
@@ -69,10 +77,18 @@ runs:
           fi
         done
 
+        echo '=========='
+        ls -al
+        echo '=========='
+
         # Clean up
         rm -rf ${{ inputs.targetBranchName }}
         rm README.md
         rm -rf ${{ inputs.otherSharedFiles }}
+
+        echo '=========='
+        ls -al
+        echo '=========='
 
         # Commit and push
         git config --global user.name ${{ inputs.userName }}
