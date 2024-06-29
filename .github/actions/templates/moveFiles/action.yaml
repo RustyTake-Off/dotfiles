@@ -42,7 +42,7 @@ runs:
 
         echo '---'
 
-        rsync --recursive --update ${{ inputs.targetBranchName }} .
+        rsync --recursive ${{ inputs.targetBranchName }} .
 
         echo '---'
 
