@@ -24,7 +24,7 @@ jobs:
 
       - name: 'Move files'
         id: move-files
-        uses: '../actions/templates/moveFiles/action.yaml'
+        uses: './templates/action.yaml'
         with:
           branchName: ${{ env.branchName }}
 
