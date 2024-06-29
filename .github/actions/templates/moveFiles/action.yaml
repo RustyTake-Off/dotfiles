@@ -27,7 +27,7 @@ runs:
         # Checkout directory and move files
         git checkout ${{ inputs.sourceBranchName }} -- ${{ inputs.targetBranchName }}
 
-        rsync -a --remove-source-files ${{ inputs.targetBranchName }} .
+        mv ${{ inputs.targetBranchName }}/* . --force
 
         ls -al
 
