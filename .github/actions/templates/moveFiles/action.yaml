@@ -87,6 +87,13 @@ runs:
         # rm -rf ${{ inputs.targetBranchName }}
         # rm README.md
 
+        [ -n "${{ inputs.otherSharedFiles }}" ] && \
+        for item in ${{ inputs.otherSharedFiles }}; do
+          if [ -d "$(dirname "$item")" ]; then
+            rm -rf "$(dirname "$item")"
+          fi
+        done
+
         # [ -n "${{ inputs.otherDirs }}" ] && \
         # for item in ${{ inputs.otherDirs }}; do
         #   if [ -d "$(dirname "$item")" ]; then
