@@ -43,11 +43,16 @@ runs:
         # Checkout directory and move files
         git checkout ${{ inputs.sourceBranchName }} -- ${{ inputs.targetBranchName }} ${{ inputs.otherDirs }} &>/dev/null
 
+        echo '==============='
+        ls -al
+        echo '==============='
+
         [ -n "${{ inputs.otherSharedFiles }}" ] && \
         echo ${{ inputs.otherSharedFiles }}
 
-
+        echo '==============='
         ls -al
+        echo '==============='
 
         cp -r "${{ inputs.targetBranchName }}"/* .
         find "${{ inputs.targetBranchName }}" -maxdepth 1 -name '.*[!.]*' -exec cp -r {} . \;
