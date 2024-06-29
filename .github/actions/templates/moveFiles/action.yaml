@@ -38,18 +38,18 @@ runs:
         # Checkout directory and move files
         git checkout ${{ inputs.sourceBranchName }} -- ${{ inputs.targetBranchName }}
 
+        echo '---'
+
+        ls -al ${{ inputs.targetBranchName }}
+
+        echo '---'
+
         ls -al
 
         echo '---'
 
-        rsync -a --force --verbose \
-          --include '.*' \
-          --include '*/' \
-          --exclude '.' \
-          --exclude '..' \
-          --exclude 'README.md' \
-          "${{ inputs.targetBranchName }}" .
-
+        find "${{ inputs.targetBranchName }}" -maxdepth 1 -name '.*[!.]*' -exec cp -r {} . \;
+        find "${{ inputs.targetBranchName }}" -maxdepth 1 -name '.*[!.]*' -type d -exec cp -r {} . \;
 
         echo '---'
 
