@@ -52,18 +52,27 @@ runs:
         find "${{ inputs.targetBranchName }}" -maxdepth 1 -name '.*[!.]*' -exec cp -r {} . \;
 
         [ -n "${{ inputs.otherSharedFiles }}" ] && \
-        for file in ${{ inputs.otherSharedFiles }}; do
-          if [ -d "$file" ]; then
-            cp -r "$file"/* .
-            find "$file" -maxdepth 1 -name '.*[!.]*' -exec cp -r {} . \;
-          elif [ -f "$file" ]; then
-            cp "$file" .
+        for item in ${{ inputs.otherSharedFiles }}; do
+          if [ -d "$item" ]; then
+            cp "$item"/* .
+            find "$item" -maxdepth 1 -name '.*[!.]*' -exec cp -r {} . \;
+          elif [ -f "$item" ]; then
+            cp "$item" .
+          fi
+        done
+
+        [ -n "${{ inputs.otherDirs }}" ] && \
+        for item in ${{ inputs.otherDirs }}; do
+          if [ -d "$item" ]; then
+            cp -r "$item"/* .
+            find "$item" -maxdepth 1 -name '.*[!.]*' -exec cp -r {} . \;
           fi
         done
 
         # Clean up
         rm -rf ${{ inputs.targetBranchName }}
         rm README.md
+        rm -rf ${{ inputs.otherSharedFiles }}
 
         # Commit and push
         git config --global user.name ${{ inputs.userName }}
