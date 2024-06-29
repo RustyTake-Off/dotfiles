@@ -19,8 +19,8 @@ permissions:
 
 env:
   targetBranchName: 'winfiles'
-  otherSharedFiles: ''  # space separated
-  otherDirs: 'genfiles/images genfiles/vscode'  # space separated
+  otherSharedFiles: 'genfiles/browser genfiles/vscode/vscode.json wslfiles/.config/starship.toml'  # space separated
+  otherDirs: 'genfiles/images'  # space separated
 
 jobs:
   move-files:

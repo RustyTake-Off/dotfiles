@@ -51,21 +51,21 @@ runs:
         cp -r "${{ inputs.targetBranchName }}"/* .
         find "${{ inputs.targetBranchName }}" -maxdepth 1 -name '.*[!.]*' -exec cp -r {} . \;
 
-        # echo '=========='
-        # ls -al
-        # echo '=========='
+        echo '=========='
+        ls -al
+        echo '=========='
 
-        # [ -n "${{ inputs.otherSharedFiles }}" ] && \
-        # for item in ${{ inputs.otherSharedFiles }}; do
-        #   if [ -d "$item" ]; then
-        #     shopt -s dotglob
-        #     cp "$item"/* .
-        #     cp -r "$item"/.[!.]* .
-        #     shopt -u dotglob
-        #   elif [ -f "$item" ]; then
-        #     cp "$item" .
-        #   fi
-        # done
+        [ -n "${{ inputs.otherSharedFiles }}" ] && \
+        for item in ${{ inputs.otherSharedFiles }}; do
+          if [ -f "$item" ] && [ -s "$item" ]; then
+            shopt -s dotglob
+            cp "$item" .
+            shopt -s dotglob
+          elif [ -d "$item" ]; then
+            shopt -s dotglob
+            cp -r "$item" .
+            shopt -s dotglob
+        done
 
         echo '=========='
         ls -al
@@ -90,8 +90,9 @@ runs:
 
         [ -n "${{ inputs.otherDirs }}" ] && \
         for item in ${{ inputs.otherDirs }}; do
-          [ -d "$(dirname "$item")" ] && \
-          rm -rf "$(dirname "$item")"
+          if [ -d "$(dirname "$item")" ]; then
+            rm -rf "$(dirname "$item")"
+          fi
         done
 
         echo '=========='
