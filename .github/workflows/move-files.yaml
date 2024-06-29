@@ -32,4 +32,4 @@ jobs:
         shell: bash
         run: |
           pwd
-          la -al
+          ls -al
