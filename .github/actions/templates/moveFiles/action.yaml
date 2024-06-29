@@ -18,38 +18,21 @@ runs:
       shell: bash
       run: |
         # Switch branch
-        git checkout -b ${{ inputs.targetBranchName }} --track origin/${{ inputs.targetBranchName }}
+        git checkout -b ${{ inputs.targetBranchName }} --track origin/${{ inputs.targetBranchName }} &>/dev/null
 
         # Remove all files
-        git rm -r .
-        git reset
-
-        ls -al
+        git rm -r . &>/dev/null
+        git reset &>/dev/null
 
         # Checkout directory and move files
-        git checkout ${{ inputs.sourceBranchName }} -- ${{ inputs.targetBranchName }}
+        git checkout ${{ inputs.sourceBranchName }} -- ${{ inputs.targetBranchName }} &>/dev/null
 
-        find "${{ inputs.targetBranchName }}" -maxdepth 1 -name '*' -exec cp -r {} . \;
-        echo '==='
-
-        ls -al
-
-        echo '==='
-
+        cp -r "${{ inputs.targetBranchName }}"/* .
         find "${{ inputs.targetBranchName }}" -maxdepth 1 -name '.*[!.]*' -exec cp -r {} . \;
 
         # Clean up
         rm -rf ${{ inputs.targetBranchName }}
-        # rm README.md
-
-        echo '==='
-
-        git status --short
-
-        echo '==='
+        rm README.md
 
         ls -al
-
-        echo '==='
-
         git status --short
