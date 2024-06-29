@@ -33,10 +33,14 @@ runs:
         find "${{ inputs.targetBranchName }}" -maxdepth 1 -name '.*[!.]*' -exec cp -r {} . \;
         find "${{ inputs.targetBranchName }}" -maxdepth 1 -name '.*[!.]*' -type d -exec cp -r {} . \;
 
-        ls -al
+        # Clean up
+        rm -rf ${{ inputs.targetBranchName }}
+        rm README.md
+
+        echo '==='
 
         git status --short
 
-        # Clean up
-        rm -rf ${{ inputs.targetBranchName }}
-        # rm README.md
+        echo '==='
+
+        ls -al
