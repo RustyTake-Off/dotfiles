@@ -96,4 +96,4 @@ runs:
         git add --all
         git commit -m "Update ${{ inputs.target_branch }}"
 
-        # git push origin ${{ inputs.target_branch }}
+        git push origin ${{ inputs.target_branch }}
