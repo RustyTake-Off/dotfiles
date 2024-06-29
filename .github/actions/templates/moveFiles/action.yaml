@@ -60,11 +60,11 @@ runs:
           if [ -f "$item" ] && [ -s "$item" ]; then
             shopt -s dotglob
             cp "$item" .
-            shopt -s dotglob
+            shopt -u dotglob
           elif [ -d "$item" ]; then
             shopt -s dotglob
             cp -r "$item" .
-            shopt -s dotglob
+            shopt -u dotglob
           fi
         done
 
