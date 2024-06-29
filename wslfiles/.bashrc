@@ -20,7 +20,7 @@ export AZURE_DEV_COLLECT_TELEMETRY=no
 export HOMEBREW_NO_ANALYTICS=1
 export PYENV_ROOT="$HOME/.pyenv"
 
-# Set PATH so it includes user's private bin if it exists
+# Set PATH so it includes user's private bin
 [ -d "$HOME/.local/bin" ] && PATH="$HOME/.local/bin:$PATH"
 [ -d "$HOME/bin" ] && PATH="$HOME/bin:$PATH"
 
