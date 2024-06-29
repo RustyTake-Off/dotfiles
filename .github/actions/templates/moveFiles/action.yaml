@@ -42,7 +42,7 @@ runs:
 
         echo '---'
 
-        mv ${{ inputs.targetBranchName }}/{[!.].?*} . --force --verbose
+        mv ${{ inputs.targetBranchName }}/{.?*} . --force --verbose
 
         echo '---'
 
