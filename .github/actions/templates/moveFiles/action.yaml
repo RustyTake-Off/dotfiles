@@ -42,7 +42,7 @@ runs:
 
         echo '---'
 
-        cp ${{ inputs.targetBranchName }}/{.[!.]?*} . --recursive --force --verbose
+        mv ${{ inputs.targetBranchName }}/{[!.].?*} . --force --verbose
 
         echo '---'
 
