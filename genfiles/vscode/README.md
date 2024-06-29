@@ -85,6 +85,8 @@ Here are some essential and useful 👷 extensions for VSCode.
 | tyriar.sort-lines                     | Sort lines of text in Visual Studio Code               |
 | vscode-icons-team.vscode-icons        | Icons for Visual Studio Code                           |
 | wayou.vscode-todo-highlight           | Highlight TODOs and FIXMEs in your code                |
+| mechatroner.rainbow-csv               | Highlight for CSV and TSV files                        |
+| tomoki1207.pdf                        | Display pdf files in VSCode                            |
 
 [back to top ☝️](#vscode-configuration)
 
@@ -122,6 +124,7 @@ Here are some essential and useful 👷 extensions for VSCode.
 | ms-vscode.powershell                    | PowerShell support for Visual Studio Code                                                                      |
 | njpwerner.autodocstring                 | Generates python docstrings automatically                                                                      |
 | timonwong.shellcheck                    | Linter for Shell scripts                                                                                       |
+| mads-hartmann.bash-ide-vscode           | Language server for Bash                                                                                       |
 
 [back to top ☝️](#vscode-configuration)
 
