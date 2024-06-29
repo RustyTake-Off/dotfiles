@@ -58,6 +58,7 @@ runs:
             find "$file" -maxdepth 1 -name '.*[!.]*' -exec cp -r {} . \;
           elif [ -f "$file" ]; then
             cp "$file" .
+          fi
         done
 
         # Clean up
