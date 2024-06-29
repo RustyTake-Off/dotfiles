@@ -5,12 +5,10 @@ on:
     branches:
       - main
     paths:
+      - '.github/workflows/*'
       - 'wslfiles/*'
       - '!wslfiles/README.md'
   workflow_dispatch:
-
-# env:
-#   branchName: 'wslfiles'
 
 jobs:
   move-files-to-branch:
@@ -23,15 +21,16 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: 'Move files to'
+        id: move-files1
+        shell: bash
+        run: |
+          ls -al
+          git branch
+          echo ${{ github.event_path.files }}
+
       - name: 'Move files'
         id: move-files
         uses: ./.github/actions/templates/moveFiles
         with:
           branchName: 'wslfiles'
-
-      # - name: 'Move files'
-      #   id: move-files
-      #   shell: bash
-      #   run: |
-      #     pwd
-      #     ls -al
