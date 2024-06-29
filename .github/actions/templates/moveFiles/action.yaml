@@ -41,11 +41,11 @@ runs:
         git reset &>/dev/null
 
         # Checkout directories and files
-        git checkout ${{ inputs.sourceBranchName }} -- ${{ inputs.targetBranchName }} &>/dev/null
+        git checkout ${{ inputs.sourceBranchName }} -- ${{ inputs.targetBranchName }}
         [ -n "${{ inputs.otherSharedFiles }}" ] && \
-        git checkout ${{ inputs.sourceBranchName }} -- ${{ inputs.otherSharedFiles }} &>/dev/null
+        git checkout ${{ inputs.sourceBranchName }} -- ${{ inputs.otherSharedFiles }}
         [ -n "${{ inputs.otherDirs }}" ] && \
-        git checkout ${{ inputs.sourceBranchName }} -- ${{ inputs.otherDirs }} &>/dev/null
+        git checkout ${{ inputs.sourceBranchName }} -- ${{ inputs.otherDirs }}
 
         # # Copy directories and files
         # cp -r "${{ inputs.targetBranchName }}"/* .
