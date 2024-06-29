@@ -90,9 +90,9 @@ runs:
         # for item in ${{ inputs.otherSharedFiles }}; do
         #   rm -rf "$item"
         # done
-        # for item in ${{ inputs.otherDirs }}; do
-        #   rm -rf "$item"
-        # done
+        for item in ${{ inputs.otherDirs }}; do
+          rm -rf "$item"
+        done
 
 
         echo '=========='

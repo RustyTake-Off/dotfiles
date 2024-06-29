@@ -20,7 +20,7 @@ permissions:
 env:
   targetBranchName: 'winfiles'
   otherSharedFiles: ''  # space separated
-  otherDirs: 'genfiles/images'  # space separated
+  otherDirs: 'genfiles/images genfiles/vscode'  # space separated
 
 jobs:
   move-files:
