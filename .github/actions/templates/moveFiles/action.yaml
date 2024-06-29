@@ -47,9 +47,9 @@ runs:
         [ -n "${{ inputs.otherDirs }}" ] && \
         git checkout ${{ inputs.sourceBranchName }} -- ${{ inputs.otherDirs }}
 
-        # # Copy directories and files
-        # cp -r "${{ inputs.targetBranchName }}"/* .
-        # find "${{ inputs.targetBranchName }}" -maxdepth 1 -name '.*[!.]*' -exec cp -r {} . \;
+        # Copy directories and files
+        cp -r "${{ inputs.targetBranchName }}"/* .
+        find "${{ inputs.targetBranchName }}" -maxdepth 1 -name '.*[!.]*' -exec cp -r {} . \;
 
         echo '=========='
         ls -al
@@ -70,22 +70,22 @@ runs:
         ls -al
         echo '=========='
 
-        # [ -n "${{ inputs.otherDirs }}" ] && \
-        # shopt -s dotglob && \
-        # for item in ${{ inputs.otherDirs }}; do
-        #   if [ -d "$item" ]; then
-        #     cp -r "$item" .
-        #   fi
-        # done
-        # shopt -u dotglob
+        [ -n "${{ inputs.otherDirs }}" ] && \
+        shopt -s dotglob && \
+        for item in ${{ inputs.otherDirs }}; do
+          if [ -d "$item" ]; then
+            cp -r "$item" .
+          fi
+        done
+        shopt -u dotglob
 
-        # echo '=========='
-        # ls -al
-        # echo '=========='
+        echo '=========='
+        ls -al
+        echo '=========='
 
         # Clean up
-        # rm -rf ${{ inputs.targetBranchName }}
-        # rm README.md
+        rm -rf ${{ inputs.targetBranchName }}
+        rm README.md
 
         [ -n "${{ inputs.otherSharedFiles }}" ] && \
         for item in ${{ inputs.otherSharedFiles }}; do
@@ -94,16 +94,16 @@ runs:
           fi
         done
 
-        # [ -n "${{ inputs.otherDirs }}" ] && \
-        # for item in ${{ inputs.otherDirs }}; do
-        #   if [ -d "$(dirname "$item")" ]; then
-        #     rm -rf "$(dirname "$item")"
-        #   fi
-        # done
+        [ -n "${{ inputs.otherDirs }}" ] && \
+        for item in ${{ inputs.otherDirs }}; do
+          if [ -d "$(dirname "$item")" ]; then
+            rm -rf "$(dirname "$item")"
+          fi
+        done
 
-        # echo '=========='
-        # ls -al
-        # echo '=========='
+        echo '=========='
+        ls -al
+        echo '=========='
 
         # Commit and push
         git config --global user.name ${{ inputs.userName }}
