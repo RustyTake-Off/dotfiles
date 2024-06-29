@@ -11,7 +11,7 @@ GitHub Repo - https://github.com/RustyTake-Off/dotfiles
 
 .NOTES
 Author  - RustyTake-Off
-Version - 0.1.7
+Version - 0.1.8
 #>
 
 [CmdletBinding(SupportsShouldProcess)]
@@ -115,11 +115,15 @@ try {
             git --git-dir=$dotfilesPath --work-tree=$HOME checkout $branchName
             git --git-dir=$dotfilesPath --work-tree=$HOME config status.showUntrackedFiles no
         } else {
-            Write-ColoredMessage 'Dotfiles are set' 'yellow'
             Write-ColoredMessage 'Checking for updates...' 'purple'
 
             git --git-dir=$dotfilesPath --work-tree=$HOME reset --hard
-            git --git-dir=$dotfilesPath --work-tree=$HOME pull origin $branchName
+            $output = git --git-dir=$dotfilesPath --work-tree=$HOME pull origin $branchName
+
+            if ($output -match 'Already up to date.') {
+                Write-ColoredMessage 'Dotfiles up to date' 'green'
+                break 1
+            }
         }
     } else {
         Write-ColoredMessage 'Skipping cloning dotfiles' 'yellow'
