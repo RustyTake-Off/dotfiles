@@ -9,6 +9,14 @@ inputs:
   targetBranchName:
     description: 'Target branch name for moving files'
     required: true
+  otherSharedFiles:
+    description: 'Shared files to move that are not in target branch (space separated)'
+    default: ''
+    required: false
+  otherDirs:
+    description: 'Other directories to move but not copy, that are not in target branch (space separated)'
+    default: ''
+    required: false
   userName:
     description: 'User name for config'
     default: 'github-actions[bot]'
@@ -33,7 +41,13 @@ runs:
         git reset &>/dev/null
 
         # Checkout directory and move files
-        git checkout ${{ inputs.sourceBranchName }} -- ${{ inputs.targetBranchName }} &>/dev/null
+        git checkout ${{ inputs.sourceBranchName }} -- ${{ inputs.targetBranchName }} ${{ inputs.otherDirs }} &>/dev/null
+
+        [ -n "${{ inputs.otherSharedFiles }}" ] && \
+        echo ${{ inputs.otherSharedFiles }}
+
+
+        ls -al
 
         cp -r "${{ inputs.targetBranchName }}"/* .
         find "${{ inputs.targetBranchName }}" -maxdepth 1 -name '.*[!.]*' -exec cp -r {} . \;
@@ -49,4 +63,4 @@ runs:
         git add --all
         git commit -m "Update ${{ inputs.target_branch }}"
 
-        git push origin ${{ inputs.target_branch }}
+        # git push origin ${{ inputs.target_branch }}

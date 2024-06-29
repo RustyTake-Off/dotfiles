@@ -1,13 +1,15 @@
-name: 'Move wslfiles'
-run-name: 'Move wslfiles'
+name: 'Move winfiles'
+run-name: 'Move winfiles'
 
 on:
   push:
     branches:
       - main
     paths:
-      - 'wslfiles/**'
-      - '!wslfiles/README.md'
+      - '.github/**'
+      - 'docs/images/**'
+      - 'winfiles/**'
+      - '!winfiles/README.md'
 
 concurrency:
   group: ${{ github.workflow }}
@@ -16,7 +18,9 @@ permissions:
   contents: write
 
 env:
-  targetBranchName: 'wslfiles'
+  targetBranchName: 'winfiles'
+  otherSharedFiles: 'genfiles/vscode/vscode.json wslfiles/.config/starship.toml'  # space separated
+  otherDirs: 'docs/images genfiles/browsers'  # space separated
 
 jobs:
   move-files:
@@ -35,3 +39,5 @@ jobs:
         continue-on-error: true
         with:
           targetBranchName: ${{ env.targetBranchName }}
+          otherSharedFiles: ${{ env.otherSharedFiles }}
+          otherDirs: ${{ env.otherDirs }}
