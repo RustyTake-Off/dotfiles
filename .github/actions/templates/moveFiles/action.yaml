@@ -13,8 +13,10 @@ runs:
       id: move-files-to-branch
       shell: bash
       run: |
-        git branch --all
+        # Switch branch
+        git checkout -b ${{ inputs.branchName }} --track origin/${{ inputs.branchName }}
+
+        # Remove all files
         ls -al
-        git checkout -b ${{ inputs.branchName }}
-        git branch --all
+        rm -rf .
         ls -al
