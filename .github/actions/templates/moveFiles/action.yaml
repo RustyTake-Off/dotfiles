@@ -9,6 +9,14 @@ inputs:
   targetBranchName:
     description: 'Target branch name for moving files'
     required: true
+  userName:
+    description: 'User name for config'
+    default: 'github-actions[bot]'
+    required: false
+  userEmail:
+    description: 'User email for config'
+    default: '41898282+github-actions[bot]@users.noreply.github.com'
+    required: false
 
 runs:
   using: 'composite'
@@ -35,8 +43,8 @@ runs:
         rm README.md
 
         # Commit and push
-        git config --global user.name "github-actions[bot]"
-        git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config --global user.name ${{ inputs.userName }}
+        git config --global user.email ${{ inputs.userEmail }}
 
         git add --all
         git commit -m "Update ${{ inputs.target_branch }}"

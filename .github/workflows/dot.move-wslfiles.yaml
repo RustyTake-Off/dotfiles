@@ -31,5 +31,6 @@ jobs:
       - name: 'Move ${{ env.targetBranchName }} files'
         id: move-branch-files
         uses: ./.github/actions/templates/moveFiles
+        continue-on-error: true
         with:
           targetBranchName: ${{ env.targetBranchName }}
