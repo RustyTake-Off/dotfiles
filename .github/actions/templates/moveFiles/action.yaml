@@ -27,7 +27,7 @@ runs:
         # Checkout directory and move files
         git checkout ${{ inputs.sourceBranchName }} -- ${{ inputs.targetBranchName }}
 
-        mv ${{ inputs.targetBranchName }}/{\.*,*} . --force
+        mv ${{ inputs.targetBranchName }}/{.*,*} . --force 2>/dev/null
 
         ls -al
 
