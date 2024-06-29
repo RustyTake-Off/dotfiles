@@ -18,5 +18,5 @@ runs:
 
         # Remove all files
         ls -al
-        rm -rf *
+        git rm -r .
         ls -al
