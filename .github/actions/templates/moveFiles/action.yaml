@@ -38,5 +38,5 @@ runs:
         git status --short
 
         # Clean up
-        rmdir ${{ inputs.targetBranchName }}
+        rm -rf ${{ inputs.targetBranchName }}
         # rm README.md
