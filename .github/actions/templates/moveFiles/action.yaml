@@ -75,7 +75,7 @@ runs:
         for item in ${{ inputs.otherDirs }}; do
           if [ -d "$item" ]; then
             shopt -s dotglob
-            cp -r "$item"/* .
+            cp "$item"/* .
             # cp -r "$item"/.[!.]* .
             shopt -u dotglob
           fi
@@ -88,9 +88,12 @@ runs:
         # Clean up
         rm -rf ${{ inputs.targetBranchName }}
         rm README.md
-        for item in ${{ inputs.otherSharedFiles }}; do
-          rm -rf "$item"
-        done
+        # for item in ${{ inputs.otherSharedFiles }}; do
+        #   rm -rf "$item"
+        # done
+        # for item in ${{ inputs.otherDirs }}; do
+        #   rm -rf "$item"
+        # done
 
 
         echo '=========='
