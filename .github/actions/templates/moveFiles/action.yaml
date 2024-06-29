@@ -20,40 +20,24 @@ runs:
         # Switch branch
         git checkout -b ${{ inputs.targetBranchName }} --track origin/${{ inputs.targetBranchName }}
 
-        echo '---'
-
         # Remove all files
-        git rm -r .
-
-        echo '---'
-
-        git reset
-
-        echo '---'
+        # git rm -r .
+        # git reset
 
         ls -al
-
-        echo '---'
 
         # Checkout directory and move files
         git checkout ${{ inputs.sourceBranchName }} -- ${{ inputs.targetBranchName }}
 
-        echo '---'
+        find "${{ inputs.targetBranchName }}" -maxdepth 1 -name '*' -exec cp -r -u {} . \;
+        find "${{ inputs.targetBranchName }}" -maxdepth 1 -name '*' -type d -exec cp -r -u {} . \;
 
-        ls -al ${{ inputs.targetBranchName }}
-
-        echo '---'
-
-        ls -al
-
-        echo '---'
-
-        find "${{ inputs.targetBranchName }}" -maxdepth 1 -name '.*[!.]*' -exec cp -r {} . \;
-        find "${{ inputs.targetBranchName }}" -maxdepth 1 -name '.*[!.]*' -type d -exec cp -r {} . \;
-
-        echo '---'
+        find "${{ inputs.targetBranchName }}" -maxdepth 1 -name '.*[!.]*' -exec cp -r -u {} . \;
+        find "${{ inputs.targetBranchName }}" -maxdepth 1 -name '.*[!.]*' -type d -exec cp -r -u {} . \;
 
         ls -al
+
+        git status --short
 
         # Clean up
         # rmdir ${{ inputs.targetBranchName }}
