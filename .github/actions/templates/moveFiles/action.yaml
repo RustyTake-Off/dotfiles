@@ -42,8 +42,14 @@ runs:
 
         echo '---'
 
-        # mv ${{ inputs.targetBranchName }}/{.?*,*} . --force --verbose
-        rsync -a --include '.*/*' --exclude '.*' "${{ inputs.targetBranchName }}/" ./
+        rsync -a --force --verbose \
+          --include '.*' \
+          --include '*/' \
+          --exclude '.' \
+          --exclude '..' \
+          --exclude 'README.md' \
+          "${{ inputs.targetBranchName }}" .
+
 
         echo '---'
 
