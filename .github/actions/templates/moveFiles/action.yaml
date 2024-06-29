@@ -21,13 +21,13 @@ runs:
         git checkout -b ${{ inputs.targetBranchName }} --track origin/${{ inputs.targetBranchName }}
 
         # Remove all files
-        git rm -r .
-        git reset
+        # git rm -r .
+        # git reset
 
         # Checkout directory and move files
         git checkout ${{ inputs.sourceBranchName }} -- ${{ inputs.targetBranchName }}
 
-        mv ${{ inputs.targetBranchName }}/.* . --force
+        rsync --recursive --update ${{ inputs.sourceBranchName }} .
 
         ls -al
 
