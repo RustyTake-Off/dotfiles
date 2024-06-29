@@ -1,4 +1,5 @@
-name: 'Move files'
+name: 'Move wslfiles'
+run-name: 'Move wslfiles - ${{ github.run_number }}'
 
 on:
   push:
@@ -27,7 +28,7 @@ jobs:
         run: |
           ls -al
           git branch
-          echo "${{ toJson(github.event.commits[0].modified) }}"
+          echo ${{ github.event_path }}
 
       - name: 'Move files'
         id: move-files
