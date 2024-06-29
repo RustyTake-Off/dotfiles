@@ -48,7 +48,7 @@ runs:
         echo '==============='
 
         [ -n "${{ inputs.otherSharedFiles }}" ] && \
-        echo ${{ inputs.otherSharedFiles }}
+        git checkout ${{ inputs.sourceBranchName }} -- ${{ inputs.otherSharedFiles }} &>/dev/null
 
         echo '==============='
         ls -al
