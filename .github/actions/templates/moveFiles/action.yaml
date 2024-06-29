@@ -42,7 +42,7 @@ runs:
 
         echo '---'
 
-        rsync --recursive ${{ inputs.targetBranchName }} .
+        cp ${{ inputs.targetBranchName }}/* . --recursive --force --verbose
 
         echo '---'
 
