@@ -21,17 +21,16 @@ runs:
         git checkout -b ${{ inputs.targetBranchName }} --track origin/${{ inputs.targetBranchName }}
 
         # Remove all files
-        # git rm -r .
-        # git reset
+        git rm -r .
+        git reset
 
         ls -al
 
         # Checkout directory and move files
         git checkout ${{ inputs.sourceBranchName }} -- ${{ inputs.targetBranchName }}
 
-        find "${{ inputs.targetBranchName }}" -maxdepth 1 -name '*' -exec cp -r {} . \;
         find "${{ inputs.targetBranchName }}" -maxdepth 1 -name '.*[!.]*' -exec cp -r {} . \;
-        find "${{ inputs.targetBranchName }}" -maxdepth 1 -name '.*[!.]*' -type d -exec cp -r {} . \;
+        # find "${{ inputs.targetBranchName }}" -maxdepth 1 -name '.*[!.]*' -type d -exec cp -r {} . \;
 
         # Clean up
         rm -rf ${{ inputs.targetBranchName }}
