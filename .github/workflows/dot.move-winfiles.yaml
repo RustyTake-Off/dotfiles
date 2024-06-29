@@ -7,7 +7,7 @@ on:
       - main
     paths:
       - '.github/**'
-      - 'docs/images/**'
+      - 'genfiles/images/**'
       - 'winfiles/**'
       - '!winfiles/README.md'
 
@@ -19,7 +19,7 @@ permissions:
 
 env:
   targetBranchName: 'winfiles'
-  otherSharedFiles: 'genfiles/browsers genfiles/vscode/vscode.json wslfiles/.config/starship.toml'  # space separated
+  otherSharedFiles: ''  # space separated
   otherDirs: 'genfiles/images'  # space separated
 
 jobs:
@@ -36,7 +36,6 @@ jobs:
       - name: 'Move ${{ env.targetBranchName }} branch files'
         id: move-branch-files
         uses: ./.github/actions/templates/moveFiles
-        # continue-on-error: true
         with:
           targetBranchName: ${{ env.targetBranchName }}
           otherSharedFiles: ${{ env.otherSharedFiles }}

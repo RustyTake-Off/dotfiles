@@ -33,27 +33,23 @@ runs:
       id: move-files-to-branch
       shell: bash
       run: |
-        # Switch branch
+        ### Switch branch
         git checkout -b ${{ inputs.targetBranchName }} --track origin/${{ inputs.targetBranchName }} &>/dev/null
 
-        # Remove all files
+        ### Remove all files
         git rm -r . &>/dev/null
         git reset &>/dev/null
 
-        # Checkout directories and files
+        ### Checkout directories and files
         git checkout ${{ inputs.sourceBranchName }} -- ${{ inputs.targetBranchName }}
         [ -n "${{ inputs.otherSharedFiles }}" ] && \
         git checkout ${{ inputs.sourceBranchName }} -- ${{ inputs.otherSharedFiles }}
         [ -n "${{ inputs.otherDirs }}" ] && \
         git checkout ${{ inputs.sourceBranchName }} -- ${{ inputs.otherDirs }}
 
-        # Copy directories and files
+        ### Copy directories and files
         cp -r "${{ inputs.targetBranchName }}"/* .
         find "${{ inputs.targetBranchName }}" -maxdepth 1 -name '.*[!.]*' -exec cp -r {} . \;
-
-        echo '=========='
-        ls -al
-        echo '=========='
 
         [ -n "${{ inputs.otherSharedFiles }}" ] && \
         shopt -s dotglob && \
@@ -66,10 +62,6 @@ runs:
         done
         shopt -u dotglob
 
-        echo '=========='
-        ls -al
-        echo '=========='
-
         [ -n "${{ inputs.otherDirs }}" ] && \
         shopt -s dotglob && \
         for item in ${{ inputs.otherDirs }}; do
@@ -79,11 +71,7 @@ runs:
         done
         shopt -u dotglob
 
-        echo '=========='
-        ls -al
-        echo '=========='
-
-        # Clean up
+        ### Clean up
         rm -rf ${{ inputs.targetBranchName }}
         rm README.md
 
@@ -101,11 +89,7 @@ runs:
           fi
         done
 
-        echo '=========='
-        ls -al
-        echo '=========='
-
-        # Commit and push
+        ### Commit and push
         git config --global user.name ${{ inputs.userName }}
         git config --global user.email ${{ inputs.userEmail }}
 
