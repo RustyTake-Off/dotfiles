@@ -29,16 +29,14 @@ runs:
         # Checkout directory and move files
         git checkout ${{ inputs.sourceBranchName }} -- ${{ inputs.targetBranchName }}
 
-        find "${{ inputs.targetBranchName }}" -maxdepth 1 -name '*' -exec cp -r -u {} . \;
-        find "${{ inputs.targetBranchName }}" -maxdepth 1 -name '*' -type d -exec cp -r -u {} . \;
-
-        find "${{ inputs.targetBranchName }}" -maxdepth 1 -name '.*[!.]*' -exec cp -r -u {} . \;
-        find "${{ inputs.targetBranchName }}" -maxdepth 1 -name '.*[!.]*' -type d -exec cp -r -u {} . \;
+        find "${{ inputs.targetBranchName }}" -maxdepth 1 -name '*' -exec cp -r {} . \;
+        find "${{ inputs.targetBranchName }}" -maxdepth 1 -name '.*[!.]*' -exec cp -r {} . \;
+        find "${{ inputs.targetBranchName }}" -maxdepth 1 -name '.*[!.]*' -type d -exec cp -r {} . \;
 
         ls -al
 
         git status --short
 
         # Clean up
-        # rmdir ${{ inputs.targetBranchName }}
+        rmdir ${{ inputs.targetBranchName }}
         # rm README.md
