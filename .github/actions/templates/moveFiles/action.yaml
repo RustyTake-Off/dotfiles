@@ -65,6 +65,7 @@ runs:
             shopt -s dotglob
             cp -r "$item" .
             shopt -s dotglob
+          fi
         done
 
         echo '=========='
