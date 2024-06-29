@@ -17,6 +17,9 @@ runs:
         git checkout -b ${{ inputs.branchName }} --track origin/${{ inputs.branchName }}
 
         # Remove all files
-        ls -al
         git rm -r .
-        ls -al
+
+        git status --short
+        # git reset
+
+        git checkout main -- ${{ inputs.branchName }}
