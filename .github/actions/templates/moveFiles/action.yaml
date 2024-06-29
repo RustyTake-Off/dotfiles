@@ -56,7 +56,7 @@ runs:
         echo '=========='
 
         [ -n "${{ inputs.otherSharedFiles }}" ] && \
-        shopt -s dotglob
+        shopt -s dotglob && \
         for item in ${{ inputs.otherSharedFiles }}; do
           if [ -f "$item" ] && [ -s "$item" ]; then
             cp "$item" .
@@ -71,7 +71,7 @@ runs:
         echo '=========='
 
         # [ -n "${{ inputs.otherDirs }}" ] && \
-        # shopt -s dotglob
+        # shopt -s dotglob && \
         # for item in ${{ inputs.otherDirs }}; do
         #   if [ -d "$item" ]; then
         #     cp -r "$item" .
