@@ -40,22 +40,18 @@ runs:
         git rm -r . &>/dev/null
         git reset &>/dev/null
 
-        # Checkout directory and move files
-        git checkout ${{ inputs.sourceBranchName }} -- ${{ inputs.targetBranchName }} ${{ inputs.otherDirs }} &>/dev/null
-
-        echo '==============='
-        ls -al
-        echo '==============='
-
+        # Checkout directories
+        git checkout ${{ inputs.sourceBranchName }} -- ${{ inputs.targetBranchName }} &>/dev/null
         [ -n "${{ inputs.otherSharedFiles }}" ] && \
         git checkout ${{ inputs.sourceBranchName }} -- ${{ inputs.otherSharedFiles }} &>/dev/null
+        [ -n "${{ inputs.otherSharedFiles }}" ] && \
+        git checkout ${{ inputs.sourceBranchName }} -- ${{ inputs.otherDirs }} &>/dev/null
 
-        echo '==============='
-        ls -al
-        echo '==============='
-
+        # Cope files
         cp -r "${{ inputs.targetBranchName }}"/* .
         find "${{ inputs.targetBranchName }}" -maxdepth 1 -name '.*[!.]*' -exec cp -r {} . \;
+        cp -r "${{ inputs.otherSharedFiles }}"/* .
+        find "${{ inputs.otherSharedFiles }}" -maxdepth 1 -name '.*[!.]*' -exec cp -r {} . \;
 
         # Clean up
         rm -rf ${{ inputs.targetBranchName }}
