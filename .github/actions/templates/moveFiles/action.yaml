@@ -14,4 +14,7 @@ runs:
       shell: bash
       run: |
         git branch --all
+        ls -al
         git checkout -b ${{ inputs.branchName }} --track origin/${{ inputs.branchName }}
+        git branch --all
+        ls -al
