@@ -30,11 +30,10 @@ runs:
         git checkout ${{ inputs.sourceBranchName }} -- ${{ inputs.targetBranchName }}
 
         find "${{ inputs.targetBranchName }}" -maxdepth 1 -name '.*[!.]*' -exec cp -r {} . \;
-        # find "${{ inputs.targetBranchName }}" -maxdepth 1 -name '.*[!.]*' -type d -exec cp -r {} . \;
 
         # Clean up
-        rm -rf ${{ inputs.targetBranchName }}
-        rm README.md
+        # rm -rf ${{ inputs.targetBranchName }}
+        # rm README.md
 
         echo '==='
 
