@@ -2,6 +2,8 @@
 
 🐮📄 Dotfiles and configs for different things Windows. 🔢🛠️
 
+    🔺 TODO: Update all of this! 🔺
+
 ## How to install ⏺️ dotfiles?
 
 ### Automatic setup
