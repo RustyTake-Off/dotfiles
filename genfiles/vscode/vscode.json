@@ -34,6 +34,8 @@
     "window.title": "${dirty}${activeEditorMedium}${separator}${rootName}",
     "window.newWindowDimensions": "maximized",
     "window.openFilesInNewWindow": "default",
+    // explorer
+    "explorer.compactFolders": false,
     // search
     "search.showLineNumbers": true,
     "search.smartCase": true,
@@ -41,11 +43,11 @@
     "scm.alwaysShowRepositories": true,
     "diffEditor.maxComputationTime": 0,
     // terminal
-    "terminal.external.windowsExec": "%PROGRAMFILES%\\PowerShell\\7\\pwsh.exe",
-    "terminal.integrated.confirmOnExit": "hasChildProcesses",
+    // "terminal.external.windowsExec": "%PROGRAMFILES%\\PowerShell\\7\\pwsh.exe",
+    // "terminal.integrated.confirmOnExit": "hasChildProcesses",
     "terminal.integrated.cursorBlinking": true,
-    "terminal.integrated.defaultProfile.linux": "bash",
-    "terminal.integrated.defaultProfile.windows": "PowerShell",
+    // "terminal.integrated.defaultProfile.linux": "bash",
+    // "terminal.integrated.defaultProfile.windows": "PowerShell",
     "terminal.integrated.fontSize": 18,
     "terminal.integrated.scrollback": 100000,
     "terminal.integrated.shellIntegration.enabled": false,
@@ -174,7 +176,7 @@
         "editor.defaultFormatter": "vscode.json-language-features"
     },
     // yaml
-    "yaml.keyOrdering": true,
+    "yaml.format.singleQuote": true,
     "[yaml]": {
         "editor.defaultFormatter": "redhat.vscode-yaml"
     },
@@ -224,6 +226,7 @@
     "python.analysis.completeFunctionParens": true,
     "python.analysis.gotoDefinitionInStringLiteral": true,
     "python.analysis.typeCheckingMode": "basic",
+    "python.terminal.activateEnvironment": false,
     "[python]": {
         "editor.defaultFormatter": "charliermarsh.ruff",
         "editor.codeActionsOnSave": {
@@ -235,6 +238,7 @@
     "notebook.formatOnSave.enabled": true,
     "notebook.lineNumbers": "on",
     "notebook.output.wordWrap": true,
+    "interactiveWindow.executeWithShiftEnter": true,
     "notebook.codeActionsOnSave": {
         "notebook.source.organizeImports": "explicit"
     }
