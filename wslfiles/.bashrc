@@ -23,6 +23,7 @@ export EDITOR="vim"
 export AZURE_DEV_COLLECT_TELEMETRY=no
 export HOMEBREW_NO_ANALYTICS=1
 export PYENV_ROOT="$HOME/.pyenv"
+export NVM_DIR="$HOME/.nvm"
 
 # Init apps
 [ -x "$(command -v /home/linuxbrew/.linuxbrew/bin/brew)" ] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
