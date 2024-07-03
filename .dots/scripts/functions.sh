@@ -4,7 +4,7 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.2.0
+# Version       - 0.2.1
 
 function rebash() {
   # Reload bashrc
@@ -40,13 +40,16 @@ function extract() {
 }
 
 function cpkeys() {
-  # Copy keys from Windows .ssh directory and
+  # Copy keys and config from Windows .ssh directory and
   # removes read, write and execute permissions from group and others
-  # Note: Use the same user name in WSL as in Windows
 
+  uname -r | grep -q "WSL2" || echo "Needs to be run on WSL2" && exit
   win_user="$(command powershell.exe '$env:USERNAME')"
   keys_path="/mnt/c/Users/${win_user//$'\r'/}/.ssh"
 
+  find $keys_path -maxdepth 1 -type f -name 'config' | while read -r file; do
+    cp "$file" --target-directory "$HOME/.ssh"
+  done
   find $keys_path -maxdepth 1 -type f -name '*.pub' | while read -r file; do
     base_name="$(basename "$file" .pub)"
     cp "$keys_path/$base_name.pub" --target-directory "$HOME/.ssh" && \
