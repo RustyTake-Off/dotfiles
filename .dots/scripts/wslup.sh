@@ -20,12 +20,12 @@ declare -A COLORS=(
 )
 
 if [ ! -d "$HOME/pr" ]; then
-  echo "Creating ${COLORS["yellow"]}'personal'${COLORS["reset"]} directory"
+  echo -e "Creating ${COLORS[yellow]}'personal'${COLORS[reset]} directory"
   mkdir "$HOME/pr"
 fi
 
 if [ ! -d "$HOME/wk" ]; then
-  echo "Creating ${COLORS["yellow"]}'work'${COLORS["reset"]} directory"
+  echo -e "Creating ${COLORS[yellow]}'work'${COLORS[reset]} directory"
   mkdir "$HOME/wk"
 fi
 

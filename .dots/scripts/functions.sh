@@ -4,9 +4,9 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.2.1
+# Version       - 0.2.2
 
-function rebash() {
+rebash() {
   # Reload bashrc
 
   if [ -f "$HOME/.bashrc" ]; then
@@ -14,7 +14,7 @@ function rebash() {
   fi
 }
 
-function extract() {
+extract() {
   # Extracts any archive(s)
 
   for archive in "$@"; do
@@ -39,7 +39,7 @@ function extract() {
   done
 }
 
-function cpkeys() {
+cpkeys() {
   # Copy keys and config from Windows .ssh directory and
   # removes read, write and execute permissions from group and others
 
@@ -59,7 +59,7 @@ function cpkeys() {
   done
 }
 
-function permkeys() {
+permkeys() {
   # Removes read, write and execute permissions from group and others
 
   find "$HOME/.ssh" -maxdepth 1 -type f -name '*.pub' | while read -r file; do
