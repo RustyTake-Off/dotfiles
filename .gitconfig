@@ -67,6 +67,7 @@
     uem   = config user.email
 
     i  = init
+    ic = !git init && git commit --allow-empty -m "Initial commit"
     a  = !git add ${@} && git status --short
     aa = !git add --all && git status --short
     cl = clone
