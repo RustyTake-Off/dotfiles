@@ -4,7 +4,7 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.1.9
+# Version       - 0.1.10
 
 # Common aliases
 alias cd......="cd ../../../../../.."
@@ -75,14 +75,26 @@ alias lcoms="compgen -b  # Print built-in commands"
 # Python aliases
 alias py="python"
 alias py3="python3"
+
 alias pyv="pyenv versions"
 alias pyi="pyenv install -v"
 alias pyg="pyenv global"
 alias pyl="pyenv local"
+
+alias ryi="rye init --no-readme"
+alias ryp="rye pin"
+alias rys="rye sync"
+alias rya="rye add"
+alias ryr="rye remove"
+alias ryad="rye add --dev"
+alias ryl="rye list"
+
 alias pysetup="py -m venv .venv --upgrade-deps && source .venv/bin/activate"
 alias py3setup="py3 -m venv .venv --upgrade-deps && source .venv/bin/activate"
+
 alias pyup="source .venv/bin/activate"
 alias pydw="deactivate"
+
 alias pipi="pip install"
 alias pipu="pip install --upgrade"
 alias pipuall="pip freeze --local | cut -d = -f 1 | xargs -n1 pip3 install --upgrade"
