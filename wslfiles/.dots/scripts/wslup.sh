@@ -4,13 +4,13 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.1.9
+# Version       - 0.1.10
 
 # Configuration variables
-dotfilesScriptPath="$HOME/.dots/scripts/set_dotfiles.sh"
+readonly DOTFILES_SCRIPT_PATH="$HOME/.dots/scripts/set_dotfiles.sh"
 
 # ANSI escape sequences for different colors
-declare -A colors=(
+declare -A COLORS=(
   ["red"]="\033[31m"
   ["green"]="\033[32m"
   ["yellow"]="\033[33m"
@@ -20,40 +20,42 @@ declare -A colors=(
 )
 
 if [ ! -d "$HOME/pr" ]; then
-  echo "Creating ${colors["yellow"]}'personal'${colors["reset"]} directory"
+  echo "Creating ${COLORS["yellow"]}'personal'${COLORS["reset"]} directory"
   mkdir "$HOME/pr"
 fi
 
 if [ ! -d "$HOME/wk" ]; then
-  echo "Creating ${colors["yellow"]}'work'${colors["reset"]} directory"
+  echo "Creating ${COLORS["yellow"]}'work'${COLORS["reset"]} directory"
   mkdir "$HOME/wk"
 fi
 
 # Function definitions
-function write_colored_message() {
+write_colored_message() {
   # Color message
 
-  local message=$1
-  local color=$2
-  echo -e "${colors[$color]}$message${colors["reset"]}"
+  local message="$1"
+  local color="$2"
+  echo -e "${COLORS[$color]}${message}${COLORS[reset]}"
 }
 
-function get_help() {
+get_help() {
   # Help message
 
   write_colored_message "Available commands:" "yellow"
-  echo -e "${colors["yellow"]}  -h  |  --help      ${colors["reset"]} - Prints help message"
-  echo -e "${colors["yellow"]}  -a  |  --apt-apps  ${colors["reset"]} - Install apt applications"
-  echo -e "${colors["yellow"]}  -b  |  --brew      ${colors["reset"]} - Install homebrew"
-  echo -e "${colors["yellow"]}  -ba |  --brew-apps ${colors["reset"]} - Install brew applications"
-  echo -e "${colors["yellow"]}  -d  |  --dotfiles  ${colors["reset"]} - Invokes dotfiles setup script"
+  echo -e "${COLORS[yellow]}  -h  |  --help      ${COLORS[reset]} - Prints help message"
+  echo -e "${COLORS[yellow]}  -a  |  --apt-apps  ${COLORS[reset]} - Install apt applications"
+  echo -e "${COLORS[yellow]}  -b  |  --brew      ${COLORS[reset]} - Install homebrew"
+  echo -e "${COLORS[yellow]}  -ba |  --brew-apps ${COLORS[reset]} - Install brew applications"
+  echo -e "${COLORS[yellow]}  -d  |  --dotfiles  ${COLORS[reset]} - Invokes dotfiles setup script"
 }
 
-function get_apt_apps() {
+get_apt_apps() {
   # Install some prerequisite and utility apps
 
+  write_colored_message "Updating and upgrading apt packages..." "yellow"
   sudo apt update && sudo apt upgrade -y
 
+  write_colored_message "Installing prerequisite and utility apps..." "yellow"
   sudo apt install -y \
     apt-transport-https \
     build-essential \
@@ -88,11 +90,12 @@ function get_apt_apps() {
   fi
 }
 
-function get_brew() {
+get_brew() {
   # Install homebrew if not installed
 
   if [ ! -x "$(command -v brew)" ]; then
     write_colored_message "Installing Homebrew..." "yellow"
+
     curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash
 
     [ -x "$(command -v /home/linuxbrew/.linuxbrew/bin/brew)" ] && \
@@ -104,12 +107,14 @@ function get_brew() {
   fi
 }
 
-function get_brew_apps() {
+get_brew_apps() {
   # Install homebrew apps
 
+  # Check and install homebrew
   get_brew
 
   if [ -x "$(command -v brew)" ]; then
+    write_colored_message "Installing Homebrew apps..." "yellow"
     brew install \
       ansible \
       azcopy \
@@ -118,12 +123,14 @@ function get_brew_apps() {
       helm \
       jq \
       k9s \
-      kubernetes-cli \
       kubectx \
+      kubernetes-cli \
       nvm \
       pipx \
       pyenv \
       ripgrep \
+      ruff \
+      rye \
       terragrunt \
       tfenv \
       tlrc \
@@ -133,13 +140,13 @@ function get_brew_apps() {
   fi
 }
 
-function set_dotfiles() {
+set_dotfiles() {
   # Invokes dotfiles setup script
 
   write_colored_message "Invoking dotfiles setup script..." "yellow"
 
-  if [ -x "$dotfilesScriptPath" ]; then
-    source "$dotfilesScriptPath"
+  if [ -x "$DOTFILES_SCRIPT_PATH" ]; then
+    source "$DOTFILES_SCRIPT_PATH"
   else
     curl -fsS https://raw.githubusercontent.com/RustyTake-Off/dotfiles/wslfiles/.dots/scripts/set_dotfiles.sh | bash
   fi
