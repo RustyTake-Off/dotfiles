@@ -69,7 +69,7 @@
         "hidechat": true,
         "hidecomments": false,
         "hiderelated": false,
-        "hideshorts": false,
+        "hideshorts": true,
         "ignoreplaylists": true,
         "ignorepopupplayer": true,
         "localecode": "pl",
