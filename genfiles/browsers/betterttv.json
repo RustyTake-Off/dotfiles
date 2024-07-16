@@ -1,6 +1,6 @@
 {
     "bttv_settings": {
-        "anonChat": true,
+        "anonChat": false,
         "anonChatWhitelistedChannels": [],
         "anonChatBlacklistedChannels": [],
         "autoTheatreMode": false,
