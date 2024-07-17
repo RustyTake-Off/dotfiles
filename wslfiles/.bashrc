@@ -23,6 +23,7 @@ export EDITOR="vim"
 export AZURE_DEV_COLLECT_TELEMETRY=no
 export HOMEBREW_NO_ANALYTICS=1
 export PYENV_ROOT="$HOME/.pyenv"
+export RYE_HOME="$HOME/.rye"
 export NVM_DIR="$HOME/.nvm"
 
 # Init apps
@@ -31,6 +32,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -x "$(command -v starship)" ] && eval "$(starship init bash)"
 [ -x "$(command -v zoxide)" ] && eval "$(zoxide init bash)"
 [ -x "$(command -v pyenv)" ] && eval "$(pyenv init -)"
+[ -x "$(command -v rye)" ] && source "$HOME/.rye/env"
 [ -x "$(command -v fzf)" ] && eval "$(fzf --bash)"
 
 # Load bash files
