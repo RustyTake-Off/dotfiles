@@ -66,17 +66,22 @@
     unm   = config user.name
     uem   = config user.email
 
-    i  = init
-    ic = !git init && git commit --allow-empty -m 'Initial commit'
-    a  = !git add ${@} && git status --short
-    aa = !git add --all && git status --short
-    cl = clone
-    s  = status --short
+    i      = init
+    ic     = !git init && git commit --allow-empty -m 'Initial commit'
+    a      = !git add ${@} && git status --short
+    aa     = !git add --all && git status --short
+    aac    = !git add --all && git status --short && git commit -m
+    autocp = !git add --all && git status --short && git commit -m 'Update' && git push
+    cl     = clone
+    s      = status --short
 
     c   = commit
     cm  = commit -m
     ca  = commit --amend
     cam = commit --amend -m
+
+    rv = revent
+    rs = reset
 
     pl  = pull
     plr = pull --rebase
@@ -92,10 +97,12 @@
     sw  = switch
     ch  = checkout
     chb = checkout -b
-    r   = remote
-    ra  = remote add
-    rsu = remote set-url
-    rrm = remote remove
 
-    lo  = log --graph --oneline
-    los = log --graph --oneline --stat -5
+    rmt   = remote
+    rmta  = remote add
+    rmtsu = remote set-url
+    rmtrm = remote remove
+
+    l  = log --graph --oneline
+    ll = !git log --graph --oneline ${@}
+    ls = !git log --graph --oneline --stat ${@}
