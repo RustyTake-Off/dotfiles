@@ -4,7 +4,7 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.1.10
+# Version       - 0.1.11
 
 # Common aliases
 alias cd......="cd ../../../../../.."
@@ -58,7 +58,7 @@ alias locip="sudo ifconfig | grep -Eo 'inet (addr:)?([0-9]*\\.){3}[0-9]*' | grep
 if uname -r | grep -q "WSL2"; then
   alias open="command explorer.exe"
   alias pwsh="command pwsh.exe"
-  alias powershell="command powersell.exe"
+  alias powershell="command powershell.exe"
 fi
 
 # Manage dotfiles in $HOME directory
@@ -70,7 +70,7 @@ alias apti="sudo apt install"
 alias sup="sudo apt update"
 alias supup="sudo apt update && sudo apt upgrade -y"
 alias brup="brew upgrade"
-alias lcoms="compgen -b  # Print built-in commands"
+alias lcoms="compgen -b"  # Print built-in commands
 
 # Python aliases
 alias py="python"
@@ -81,12 +81,12 @@ alias pyi="pyenv install -v"
 alias pyg="pyenv global"
 alias pyl="pyenv local"
 
-alias ryi="rye init --no-readme"
+alias ryi="rye init"
 alias ryp="rye pin"
 alias rys="rye sync"
 alias rya="rye add"
-alias ryr="rye remove"
 alias ryad="rye add --dev"
+alias ryr="rye remove"
 alias ryl="rye list"
 
 alias pysetup="py -m venv .venv --upgrade-deps && source .venv/bin/activate"
@@ -102,5 +102,6 @@ alias pipsetreq="pip freeze --require-virtualenv -l >"
 alias pipgetreq="pip install --require-virtualenv --upgrade -r"
 
 alias k="kubectl"
+alias kcx="kubectx"
 alias hl="helm"
 alias tf="terraform"
