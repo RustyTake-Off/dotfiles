@@ -8,10 +8,14 @@ memory=16GB
 # How many logical processors to assign to the WSL 2 VM
 processors=2
 
-# Boolean specifying if ports bound to wildcard or localhost in the WSL 2 VM
-# should be connectable from the host via localhost:port
-localhostForwarding=true
-
 # How much swap space to add to the WSL 2 VM, 0 for no swap file. Swap storage
 # is disk-based RAM used when memory demand exceeds limit on hardware device
 swap=0
+
+# Experimental features
+# https://learn.microsoft.com/en-us/windows/wsl/wsl-config#experimental-settings
+[experimental]
+
+# Automatically releases cached memory after detecting idle CPU usage. Set to
+# gradual for slow release, and dropcache for instant release of cached memory.
+autoMemoryReclaim=gradual
