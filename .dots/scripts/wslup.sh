@@ -4,7 +4,7 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.1.10
+# Version       - 0.1.11
 
 # Configuration variables
 readonly DOTFILES_SCRIPT_PATH="$HOME/.dots/scripts/set_dotfiles.sh"
@@ -80,7 +80,11 @@ get_apt_apps() {
     write_colored_message "Installing AzureCLI..." "yellow"
     curl -L https://aka.ms/InstallAzureCli | bash
 
-    command az config set core.collect_telemetry=false
+    if [ -x "$(command -v az)" ]; then
+      az config set core.collect_telemetry=false
+    else
+      write_colored_message "Failed to install AzureCLI" "red"
+    fi
   fi
 
   # Install azure developer cli
@@ -96,12 +100,16 @@ get_brew() {
   if [ ! -x "$(command -v brew)" ]; then
     write_colored_message "Installing Homebrew..." "yellow"
 
-    curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash
+    bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-    [ -x "$(command -v /home/linuxbrew/.linuxbrew/bin/brew)" ] && \
-    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
-    command brew completions link
+    # Check if Homebrew is installed and set up the environment
+    if [ -x "$(command -v /home/linuxbrew/.linuxbrew/bin/brew)" ]; then
+      eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+      command brew completions link
+      write_colored_message "Homebrew installed and configured" "green"
+    else
+      write_colored_message "Failed to install Homebrew" "red"
+    fi
   else
     write_colored_message "Homebrew already installed" "green"
   fi
@@ -117,7 +125,6 @@ get_brew_apps() {
     write_colored_message "Installing Homebrew apps..." "yellow"
     brew install \
       ansible \
-      azcopy \
       entr \
       fzf \
       helm \
@@ -131,7 +138,6 @@ get_brew_apps() {
       ripgrep \
       ruff \
       rye \
-      terragrunt \
       tfenv \
       tlrc \
       trash-cli \
@@ -148,12 +154,13 @@ set_dotfiles() {
   if [ -x "$DOTFILES_SCRIPT_PATH" ]; then
     source "$DOTFILES_SCRIPT_PATH"
   else
-    curl -fsS https://raw.githubusercontent.com/RustyTake-Off/dotfiles/wslfiles/.dots/scripts/set_dotfiles.sh | bash
+    bash -c "$(curl -fsS https://raw.githubusercontent.com/RustyTake-Off/dotfiles/wslfiles/.dots/scripts/set_dotfiles.sh)"
   fi
 
   write_colored_message "Invocation complete" "green"
 }
 
+# Main script logic
 case "$1" in
   -h|--help)
     get_help ;;
