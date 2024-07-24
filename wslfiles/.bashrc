@@ -22,9 +22,6 @@ export EDITOR="vim"
 # Misc exports
 export AZURE_DEV_COLLECT_TELEMETRY=no
 export HOMEBREW_NO_ANALYTICS=1
-export PYENV_ROOT="$HOME/.pyenv"
-export RYE_HOME="$HOME/.rye"
-export NVM_DIR="$HOME/.nvm"
 
 # Init apps
 [ -x "$(command -v /home/linuxbrew/.linuxbrew/bin/brew)" ] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
