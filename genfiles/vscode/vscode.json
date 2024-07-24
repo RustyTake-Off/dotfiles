@@ -14,6 +14,7 @@
     "editor.fontSize": 18,
     "editor.formatOnSave": true,
     "editor.acceptSuggestionOnEnter": "off",
+    "editor.minimap.enabled": false,
     // files
     "files.eol": "\n",
     "files.trimTrailingWhitespace": true,
@@ -193,6 +194,9 @@
     "powershell.enableReferencesCodeLens": false,
     "powershell.integratedConsole.showOnStartup": false,
     "powershell.integratedConsole.suppressStartupBanner": true,
+    "powershell.powerShellAdditionalExePaths": {
+        "ps7": "/mnt/c/Program Files/PowerShell/7/pwsh.exe"
+    },
     "powershell.promptToUpdatePowerShell": false,
     "[powershell]": {
         "editor.defaultFormatter": "ms-vscode.powershell"
