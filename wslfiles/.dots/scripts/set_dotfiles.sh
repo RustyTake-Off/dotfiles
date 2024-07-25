@@ -4,7 +4,7 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.1.4
+# Version       - 0.1.5
 
 # Configuration variables
 readonly REPO_URL="https://github.com/RustyTake-Off/dotfiles.git"
@@ -32,7 +32,7 @@ write_colored_message() {
 
 # Main logic
 # Check if Git is installed
-if ! command -v git &> /dev/null; then
+if [ ! -x "$(command -v git)" ]; then
   write_colored_message "Git is not installed" "red"
   exit 1
 fi
