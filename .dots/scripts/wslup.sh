@@ -4,7 +4,7 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.1.11
+# Version       - 0.1.12
 
 # Configuration variables
 readonly DOTFILES_SCRIPT_PATH="$HOME/.dots/scripts/set_dotfiles.sh"
@@ -80,11 +80,7 @@ get_apt_apps() {
     write_colored_message "Installing AzureCLI..." "yellow"
     curl -L https://aka.ms/InstallAzureCli | bash
 
-    if [ -x "$(command -v az)" ]; then
-      az config set core.collect_telemetry=false
-    else
-      write_colored_message "Failed to install AzureCLI" "red"
-    fi
+    az config set core.collect_telemetry=false
   fi
 
   # Install azure developer cli
@@ -105,10 +101,9 @@ get_brew() {
     # Check if Homebrew is installed and set up the environment
     if [ -x "$(command -v /home/linuxbrew/.linuxbrew/bin/brew)" ]; then
       eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
       command brew completions link
       write_colored_message "Homebrew installed and configured" "green"
-    else
-      write_colored_message "Failed to install Homebrew" "red"
     fi
   else
     write_colored_message "Homebrew already installed" "green"
