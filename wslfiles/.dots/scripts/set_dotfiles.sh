@@ -4,9 +4,7 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.1.7
-
-set -eu
+# Version       - 0.1.8
 
 # Configuration variables
 declare REPO_URL="https://github.com/RustyTake-Off/dotfiles.git"
