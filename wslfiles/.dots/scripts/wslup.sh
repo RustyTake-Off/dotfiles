@@ -4,10 +4,12 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.1.12
+# Version       - 0.1.13
+
+set -eu
 
 # Configuration variables
-readonly DOTFILES_SCRIPT_PATH="$HOME/.dots/scripts/set_dotfiles.sh"
+declare DOTFILES_SCRIPT_PATH="$HOME/.dots/scripts/set_dotfiles.sh"
 
 # ANSI escape sequences for different colors
 declare -A COLORS=(
@@ -95,14 +97,13 @@ get_brew() {
 
   if [ ! -x "$(command -v brew)" ]; then
     write_colored_message "Installing Homebrew..." "yellow"
-
     bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
     # Check if Homebrew is installed and set up the environment
     if [ -x "$(command -v /home/linuxbrew/.linuxbrew/bin/brew)" ]; then
       eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
       command brew completions link
+
       write_colored_message "Homebrew installed and configured" "green"
     fi
   else
@@ -155,7 +156,7 @@ set_dotfiles() {
   write_colored_message "Invocation complete" "green"
 }
 
-# Main script logic
+# Main logic
 case "$1" in
   -h|--help)
     get_help ;;
