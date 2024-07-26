@@ -19,7 +19,7 @@ param()
 
 begin {
     # Preferences
-    $ErrorActionPreference = 'Stop'
+    $ErrorActionPreference = 'SilentlyContinue'
 }
 
 process {
