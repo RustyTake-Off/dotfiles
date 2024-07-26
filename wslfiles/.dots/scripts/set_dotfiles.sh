@@ -6,7 +6,7 @@
 # Author        - RustyTake-Off
 # Version       - 0.1.7
 
-set -euo pipefail
+set -eu
 
 # Configuration variables
 declare REPO_URL="https://github.com/RustyTake-Off/dotfiles.git"
