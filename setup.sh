@@ -4,17 +4,17 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.1.3
+# Version       - 0.1.4
 
 set -euo pipefail
 
 # Configuration variables
-readonly REPO_URL="https://github.com/RustyTake-Off/dotfiles.git"
-readonly DOTFILES_PATH="$HOME/.dotfiles"
-readonly BRANCH_NAME="wslfiles"
+declare REPO_URL="https://github.com/RustyTake-Off/dotfiles.git"
+declare DOTFILES_PATH="$HOME/.dotfiles"
+declare BRANCH_NAME="wslfiles"
 
 # ANSI escape sequences for different colors
-declare -Ar COLORS=(
+declare -A COLORS=(
   ["red"]="\033[31m"
   ["green"]="\033[32m"
   ["yellow"]="\033[33m"
