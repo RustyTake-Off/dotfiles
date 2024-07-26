@@ -4,9 +4,7 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.1.13
-
-set -eu
+# Version       - 0.1.14
 
 # Configuration variables
 declare DOTFILES_SCRIPT_PATH="$HOME/.dots/scripts/set_dotfiles.sh"
@@ -171,5 +169,8 @@ else
       get_brew_apps ;;
     -d|--dotfiles)
       set_dotfiles ;;
+    *)
+	    write_colored_message "Invalid command: $1\n" "red"
+      get_help ;;
   esac
 fi
