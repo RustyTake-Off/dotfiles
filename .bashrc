@@ -39,4 +39,4 @@ for file in $bash_config_files; do
     source "$HOME/.dots/scripts/$file.sh"
   fi
 done
-unset bash_config_files
+unset bash_config_files file
