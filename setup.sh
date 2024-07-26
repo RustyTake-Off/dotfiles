@@ -4,17 +4,17 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.1.2
+# Version       - 0.1.3
 
 set -euo pipefail
 
 # Configuration variables
 readonly REPO_URL="https://github.com/RustyTake-Off/dotfiles.git"
 readonly DOTFILES_PATH="$HOME/.dotfiles"
-readonly WSLFILES_PATH="wslfiles"
+readonly BRANCH_NAME="wslfiles"
 
 # ANSI escape sequences for different colors
-declare -A COLORS=(
+declare -Ar COLORS=(
   ["red"]="\033[31m"
   ["green"]="\033[32m"
   ["yellow"]="\033[33m"
@@ -47,7 +47,7 @@ check_and_ask_to_install() {
 
     case "${choice,,}" in
       y|yes) return 0 ;;
-      n|no|"") write_colored_message "Stopping script. Bye, bye" "red"; exit 1 ;;
+      n|no) write_colored_message "Stopping script. Bye, bye" "red"; exit 1 ;;
       *) write_colored_message "Invalid input, please enter 'y' or 'n'" "red" ;;
     esac
   done
@@ -57,10 +57,9 @@ check_and_ask_to_install() {
 # Check and install git
 if check_and_ask_to_install "git"; then
   write_colored_message "Installing Git..." "yellow"
-  if ! sudo apt-get update && sudo apt-get install -y git; then
-    write_colored_message "Failed to install Git" "red"
-    exit 1
-  fi
+
+  sudo apt-get update && sudo apt-get install -y git
+
   write_colored_message "Installed Git" "green"
 else
   write_colored_message "Git is installed" "green"
@@ -70,17 +69,13 @@ fi
 if [ ! -d "$DOTFILES_PATH" ]; then
   write_colored_message "Cloning dotfiles..." "yellow"
 
-  if git clone --bare "$REPO_URL" "$DOTFILES_PATH"; then
-    git --git-dir="$DOTFILES_PATH" --work-tree="$HOME" checkout "$WSLFILES_PATH"
-    git --git-dir="$DOTFILES_PATH" --work-tree="$HOME" config status.showUntrackedFiles no
-  else
-    write_colored_message "Failed to clone dotfiles repository" "red"
-    exit 1
-  fi
+  git clone --bare "$REPO_URL" "$DOTFILES_PATH"
+  git --git-dir="$DOTFILES_PATH" --work-tree="$HOME" checkout "$BRANCH_NAME"
+  git --git-dir="$DOTFILES_PATH" --work-tree="$HOME" config status.showUntrackedFiles no
 else
   write_colored_message "Dotfiles are set" "yellow"
   write_colored_message "Checking for updates..." "purple"
 
   git --git-dir="$DOTFILES_PATH" --work-tree="$HOME" reset --hard
-  git --git-dir="$DOTFILES_PATH" --work-tree="$HOME" pull origin "$WSLFILES_PATH"
+  git --git-dir="$DOTFILES_PATH" --work-tree="$HOME" pull origin "$BRANCH_NAME"
 fi
