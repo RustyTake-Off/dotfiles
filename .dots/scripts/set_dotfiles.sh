@@ -4,15 +4,17 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.1.5
+# Version       - 0.1.6
+
+set -euo pipefail
 
 # Configuration variables
 readonly REPO_URL="https://github.com/RustyTake-Off/dotfiles.git"
 readonly DOTFILES_PATH="$HOME/.dotfiles"
-readonly WSLFILES_PATH="wslfiles"
+readonly BRANCH_NAME="wslfiles"
 
 # ANSI escape sequences for different colors
-declare -A COLORS=(
+declare -Ar COLORS=(
   ["red"]="\033[31m"
   ["green"]="\033[32m"
   ["yellow"]="\033[33m"
@@ -41,17 +43,13 @@ fi
 if [ ! -d "$DOTFILES_PATH" ]; then
   write_colored_message "Cloning dotfiles..." "yellow"
 
-  if git clone --bare "$REPO_URL" "$DOTFILES_PATH"; then
-    git --git-dir="$DOTFILES_PATH" --work-tree="$HOME" checkout "$WSLFILES_PATH"
-    git --git-dir="$DOTFILES_PATH" --work-tree="$HOME" config status.showUntrackedFiles no
-  else
-    write_colored_message "Failed to clone dotfiles repository" "red"
-    exit 1
-  fi
+  git clone --bare "$REPO_URL" "$DOTFILES_PATH"
+  git --git-dir="$DOTFILES_PATH" --work-tree="$HOME" checkout "$BRANCH_NAME"
+  git --git-dir="$DOTFILES_PATH" --work-tree="$HOME" config status.showUntrackedFiles no
 else
   write_colored_message "Dotfiles are set" "yellow"
   write_colored_message "Checking for updates..." "purple"
 
   git --git-dir="$DOTFILES_PATH" --work-tree="$HOME" reset --hard
-  git --git-dir="$DOTFILES_PATH" --work-tree="$HOME" pull origin "$WSLFILES_PATH"
+  git --git-dir="$DOTFILES_PATH" --work-tree="$HOME" pull origin "$BRANCH_NAME"
 fi
