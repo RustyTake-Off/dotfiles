@@ -37,7 +37,7 @@ write_colored_message() {
 
   local message="$1"
   local color="$2"
-  echo -e "${COLORS[$color]}${message}${COLORS[reset]}"
+  echo -e "${COLORS[$color]}$message${COLORS[reset]}"
 }
 
 get_help() {
@@ -157,17 +157,19 @@ set_dotfiles() {
 }
 
 # Main logic
-case "$1" in
-  -h|--help)
-    get_help ;;
-  -a|--apt-apps)
-    get_apt_apps ;;
-  -b|--brew)
-    get_brew ;;
-  -ba|--brew-apps)
-    get_brew_apps ;;
-  -d|--dotfiles)
-    set_dotfiles ;;
-  *)
-    get_help ;;
-esac
+if [ $# -eq 0 ]; then
+  get_help
+else
+  case "$1" in
+    -h|--help)
+      get_help ;;
+    -a|--apt-apps)
+      get_apt_apps ;;
+    -b|--brew)
+      get_brew ;;
+    -ba|--brew-apps)
+      get_brew_apps ;;
+    -d|--dotfiles)
+      set_dotfiles ;;
+  esac
+fi
