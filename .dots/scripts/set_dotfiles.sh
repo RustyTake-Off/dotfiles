@@ -4,7 +4,7 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.1.8
+# Version       - 0.1.9
 
 # Configuration variables
 declare REPO_URL="https://github.com/RustyTake-Off/dotfiles.git"
@@ -34,7 +34,7 @@ write_colored_message() {
 # Check if Git is installed
 if [ ! -x "$(command -v git)" ]; then
   write_colored_message "Git is not installed" "red"
-  exit 1
+  return 1
 fi
 
 # Clone dotfiles

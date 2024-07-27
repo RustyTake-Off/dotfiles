@@ -4,7 +4,7 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.2.3
+# Version       - 0.2.4
 
 rebash() {
   # Reload bashrc
@@ -12,6 +12,41 @@ rebash() {
   if [ -f "$HOME/.bashrc" ]; then
     source "$HOME/.bashrc"
   fi
+}
+
+iam() {
+  # Shortcut for different whoami commands
+
+  local cmd="whoami"
+  local commands="whoami who w uname users groups passwd group shadow lastlog last id finger pinky"
+
+  [ $# -eq 0 ] || cmd="${1,,}"
+
+  if [ -z "$(echo "$commands" | grep -w "$cmd")" ]; then
+    echo "Error: Invalid command. Please use one of the following:"
+    echo "$commands\n" | tr ' ' ', '
+    return 1
+  fi
+
+  case "$cmd" in
+    passwd)   [ -r "/etc/passwd" ] && cat /etc/passwd || \
+              echo "Error: Cannot read /etc/passwd. Permission denied." && \
+              return 1  ;;
+
+    group)    [ -r "/etc/group" ] && cat /etc/group || \
+              echo "Error: Cannot read /etc/group. Permission denied." && \
+              return 1  ;;
+
+    shadow)   [ -r "/etc/shadow" ] && sudo cat /etc/shadow || \
+              echo "Error: Cannot read /etc/shadow. Permission denied or sudo required." && \
+              return 1  ;;
+
+    uname)    uname -a  ;;
+
+    *)        [ "$(command -v "$cmd")" ] && $cmd || \
+              echo "Error: The command '$cmd' is not installed on this system." && \
+              return 1  ;;
+  esac
 }
 
 extract() {

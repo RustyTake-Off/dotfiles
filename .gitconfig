@@ -56,10 +56,10 @@
 
 # Include separate gitconfigs
 [includeIf "gitdir:~/pr/"]
-    path = ~/pr/.gitconfig
+    path = ~/pr/pr.gitconfig
 
 [includeIf "gitdir:~/wk/"]
-    path = ~/wk/.gitconfig
+    path = ~/wk/wk.gitconfig
 
 [alias]
     alias = config --get-regexp '^alias.'
