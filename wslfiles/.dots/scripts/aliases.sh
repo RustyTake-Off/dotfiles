@@ -4,7 +4,7 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.1.11
+# Version       - 0.1.12
 
 # Common aliases
 alias cd......="cd ../../../../../.."
@@ -13,17 +13,43 @@ alias cd....="cd ../../../.."
 alias cd...="cd ../../.."
 alias cd..="cd ../.."
 alias cd.="cd .."
-alias hm="cd ~"
-alias hpr="cd ~/pr"
-alias hwk="cd ~/wk"
-alias trash="cd ~/trash"
+alias hm="cd $HOME"
+alias hpr="cd $HOME/pr"
+alias hwk="cd $HOME/wk"
+alias tmp="cd /tmp"
+alias gotr="cd $HOME/.local/share/Trash/files"
 
 alias h="history"
+alias hf="fc -s"  # Rerun last command or last command starting with some letters
+alias hfl="fc -l"  # Prints recent commands
 alias cls="clear"
 
 alias ls="ls --color=always --group-directories-first"
 alias la="ls -a --color=always --group-directories-first"
 alias ll="ls -al --color=always --group-directories-first"
+
+# Files manipulation
+alias mkdir="mkdir -vp"
+alias mktmp="mktemp"  # Make temp file in /tmp
+alias cp="cp -vi"
+alias mv="mv -vi"
+alias rm="rm -vI"
+
+# trash-cli - https://github.com/andreafrancia/trash-cli
+alias trp="trash-put"
+alias tre="trash-empty"
+alias trl="trash-list"
+alias trr="trash-restore"
+alias trm="trash-rm"
+
+# Get ip addresses
+alias pubip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias locip="sudo ifconfig | grep -Eo 'inet (addr:)?([0-9]*\\.){3}[0-9]*' | grep -Eo '([0-9]*\\.){3}[0-9]*' | grep -v '127.0.0.1'"
+
+alias less="less -R --use-color"
+alias grep="grep --color=auto"
+alias egrep="egrep --color=auto"
+alias fgrep="fgrep --color=auto"
 
 alias df="df -h"
 alias free="free -m"
@@ -31,28 +57,23 @@ alias psa="ps auxf"
 alias pscpu="ps auxf | sort -nr -k 3"
 alias psmem="ps auxf | sort -nr -k 4"
 
-# Files manipulation
-alias mkdir="mkdir -vp"
-alias cp="cp -vi"
-alias mv="mv -vi"
-alias rm="rm -vI"
+alias apti="sudo apt install"
+alias sup="sudo apt update"
+alias supup="sudo apt update && sudo apt upgrade -y"
+alias brup="brew upgrade"
 
-# trash-cli - https://github.com/andreafrancia/trash-cli
-alias trm="trash-put"
-alias tre="trash-empty"
-alias trl="trash-list"
-alias trr="trash-restore"
-alias trc="trash-rm"
+alias acoms="compgen -a | nl"  # Print all aliases
+alias bcoms="compgen -b | nl"  # Print built-in shell commands
+alias kcoms="compgen -k | nl"  # Print shell reserved keywords
+fccoms() {
+  compgen -c "$@" | uniq | nl
+}
+alias ccoms="fccoms"  # Print all runnable commands
 
-alias less="less -R --use-color"
-alias diff="diff --color=auto --side-by-side"
-alias grep="grep --color=auto"
-alias egrep="egrep --color=auto"
-alias fgrep="fgrep --color=auto"
-
-# Get ip addresses
-alias pubip="dig +short myip.opendns.com @resolver1.opendns.com"
-alias locip="sudo ifconfig | grep -Eo 'inet (addr:)?([0-9]*\\.){3}[0-9]*' | grep -Eo '([0-9]*\\.){3}[0-9]*' | grep -v '127.0.0.1'"
+# Manage dotfiles in $HOME directory
+alias dot="git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
+alias setdots="eval $HOME/.dots/scripts/set_dotfiles.sh"
+alias wslup="eval $HOME/.dots/scripts/wslup.sh"
 
 # Aliases for WSL
 if uname -r | grep -q "WSL2"; then
@@ -60,17 +81,6 @@ if uname -r | grep -q "WSL2"; then
   alias pwsh="command pwsh.exe"
   alias powershell="command powershell.exe"
 fi
-
-# Manage dotfiles in $HOME directory
-alias dot="git --git-dir=\$HOME/.dotfiles --work-tree=\$HOME"
-alias setdots=". \$HOME/.dots/scripts/set_dotfiles.sh"
-alias wslup=". \$HOME/.dots/scripts/wslup.sh"
-
-alias apti="sudo apt install"
-alias sup="sudo apt update"
-alias supup="sudo apt update && sudo apt upgrade -y"
-alias brup="brew upgrade"
-alias lcoms="compgen -b"  # Print built-in commands
 
 # Python aliases
 alias py="python"
