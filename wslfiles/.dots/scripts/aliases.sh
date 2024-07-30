@@ -76,10 +76,10 @@ alias setdots="source $HOME/.dots/scripts/set_dotfiles.sh"
 alias wslup="source $HOME/.dots/scripts/wslup.sh"
 
 # Aliases for WSL
-if uname -r | grep -q "WSL2"; then
+if [ -n "$(uname -r | grep -w "WSL2")" ]; then
   alias open="command explorer.exe"
   alias pwsh="command pwsh.exe"
-  alias powershell="command powershell.exe"
+  alias pwsh5="command powershell.exe"
 fi
 
 # Python aliases
