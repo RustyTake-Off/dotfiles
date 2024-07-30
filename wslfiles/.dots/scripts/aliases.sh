@@ -72,8 +72,8 @@ alias ccoms="fccoms"  # Print all runnable commands
 
 # Manage dotfiles in $HOME directory
 alias dot="git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
-alias setdots="eval $HOME/.dots/scripts/set_dotfiles.sh"
-alias wslup="eval $HOME/.dots/scripts/wslup.sh"
+alias setdots="source $HOME/.dots/scripts/set_dotfiles.sh"
+alias wslup="source $HOME/.dots/scripts/wslup.sh"
 
 # Aliases for WSL
 if uname -r | grep -q "WSL2"; then
