@@ -4,7 +4,7 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.1.12
+# Version       - 0.1.13
 
 # Common aliases
 alias cd......="cd ../../../../../.."
@@ -66,7 +66,9 @@ alias acoms="compgen -a | nl"  # Print all aliases
 alias bcoms="compgen -b | nl"  # Print built-in shell commands
 alias kcoms="compgen -k | nl"  # Print shell reserved keywords
 fccoms() {
-  compgen -c "$@" | uniq | nl
+  [ -z "$1" ] \
+  && apropos -s 1 "" | sort | nl \
+  || apropos -s 1 "" | grep "$@" | sort | nl
 }
 alias ccoms="fccoms"  # Print all runnable commands
 
