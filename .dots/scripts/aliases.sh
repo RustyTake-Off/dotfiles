@@ -114,6 +114,7 @@ alias pipuall="pip freeze --local | cut -d = -f 1 | xargs -n1 pip3 install --upg
 alias pipsetreq="pip freeze --require-virtualenv -l >"
 alias pipgetreq="pip install --require-virtualenv --upgrade -r"
 
+alias d="docker"
 alias k="kubectl"
 alias kcx="kubectx"
 alias hl="helm"
