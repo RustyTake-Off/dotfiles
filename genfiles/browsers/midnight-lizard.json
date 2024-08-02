@@ -14,7 +14,7 @@
             "useDefaultSchedule": false,
             "scheduleStartHour": 0,
             "scheduleFinishHour": 24,
-            "includeMatches": "https://*.medium.com/*\nhttps://hckrnews.com/*\nhttps://news.ycombinator.com/*\nhttps://www.notebookcheck.net/*\nhttps://old.reddit.com/*\nhttps://*.docker.com/*\nhttps://hub.docker.com/*\nhttps://git-scm.com/*\nhttps://www.google.com/*\nhttps://translate.google.com/*\nhttps://*.wikipedia.org/*\nhttps://arxiv.org/*",
+            "includeMatches": "https://*.medium.com/*\nhttps://dev.to/*\nhttps://hckrnews.com/*\nhttps://news.ycombinator.com/*\nhttps://www.notebookcheck.net/*\nhttps://old.reddit.com/*\nhttps://*.docker.com/*\nhttps://hub.docker.com/*\nhttps://git-scm.com/*\nhttps://www.google.com/*\nhttps://translate.google.com/*\nhttps://*.wikipedia.org/*\nhttps://arxiv.org/*",
             "excludeMatches": "https://www.google.com/maps/*\nhttps://www.google.com/*&udm=2*\nhttps://www.google.com/*&tbm=vid*",
             "backgroundSaturationLimit": 100,
             "backgroundContrast": 50,

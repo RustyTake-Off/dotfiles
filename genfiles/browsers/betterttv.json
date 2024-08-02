@@ -4,7 +4,7 @@
         "anonChatWhitelistedChannels": [],
         "anonChatBlacklistedChannels": [],
         "autoTheatreMode": false,
-        "autoJoinRaids": false,
+        "autoJoinRaids": true,
         "autoModView": false,
         "splitChat": true,
         "deletedMessages": 0,
@@ -21,7 +21,7 @@
         "channelPointsMessageHighlights": true,
         "emoteMenu": 2,
         "autoThemeMode": false,
-        "darkenedMode": false,
+        "darkenedMode": true,
         "primePromotions": false,
         "playerExtensions": false,
         "clickToPlay": false,
@@ -36,11 +36,11 @@
         ],
         "emotes": [
             63,
-            24
+            63
         ],
         "chat": [
             65,
-            126
+            127
         ],
         "autoPlay": [
             0,
@@ -48,7 +48,7 @@
         ],
         "usernames": [
             15,
-            0
+            15
         ],
         "channelPoints": [
             3,
