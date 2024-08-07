@@ -42,6 +42,11 @@ alias trl="trash-list"
 alias trr="trash-restore"
 alias trm="trash-rm"
 
+# Get date/time
+alias nowd="date '+%d/%m/%Y'"
+alias nowdw="date '+%A %B %d %Y'"
+alias nowt="date '+%H:%M:%S'"
+
 # Get ip addresses
 alias pubip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias locip="sudo ifconfig | grep -Eo 'inet (addr:)?([0-9]*\\.){3}[0-9]*' | grep -Eo '([0-9]*\\.){3}[0-9]*' | grep -v '127.0.0.1'"
@@ -51,6 +56,7 @@ alias grep="grep --color=auto"
 alias egrep="egrep --color=auto"
 alias fgrep="fgrep --color=auto"
 
+alias j="jobs -l"
 alias df="df -h"
 alias free="free -m"
 alias psa="ps auxf"
@@ -64,6 +70,7 @@ alias brup="brew upgrade"
 
 alias acoms="compgen -a | nl"  # Print all aliases
 alias bcoms="compgen -b | nl"  # Print built-in shell commands
+alias fcoms="compgen -A function | nl"  # Print all functions that you could run
 alias kcoms="compgen -k | nl"  # Print shell reserved keywords
 fccoms() {
   [ -z "$1" ] \
