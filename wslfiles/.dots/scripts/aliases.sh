@@ -70,14 +70,14 @@ alias brup="brew upgrade"
 
 alias acoms="compgen -a | nl"  # Print all aliases
 alias bcoms="compgen -b | nl"  # Print built-in shell commands
-alias fcoms="compgen -A function | nl"  # Print all functions that you could run
-alias kcoms="compgen -k | nl"  # Print shell reserved keywords
 fccoms() {
   [ -z "$1" ] \
   && apropos -s 1 "" | sort | nl \
   || apropos -s 1 "" | grep "$@" | sort | nl
 }
 alias ccoms="fccoms"  # Print all runnable commands
+alias fcoms="compgen -A function | nl"  # Print all functions that you could run
+alias kcoms="compgen -k | nl"  # Print shell reserved keywords
 
 # Manage dotfiles in $HOME directory
 alias dot="git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
