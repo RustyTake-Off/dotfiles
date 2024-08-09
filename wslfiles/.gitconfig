@@ -20,6 +20,7 @@
     editor = vim
     # https://blog.thomasheartman.com/posts/change-your-git-comment-character
     # commentChar = ";"
+    pager = delta  # delta
 
 [branch]
     sort = -committerdate
@@ -30,9 +31,13 @@
 [diff]
     # https://luppeng.wordpress.com/2020/10/10/when-to-use-each-of-the-git-diff-algorithms/
     algorithm = histogram
+    colorMoved = default  # delta
 
 [init]
     defaultBranch = main
+
+[interactive]
+    diffFilter = delta --color-only  # delta
 
 [merge]
     conflictStyle = diff3  # https://ductile.systems/zdiff3/ - zdiff3 brakes things for some reason
@@ -54,6 +59,10 @@
 [tag]
     sort = -taggerdate
 
+[delta]
+    line-numbers = true
+    navigate = true
+
 # Include separate gitconfigs
 [includeIf "gitdir:~/pr/"]
     path = ~/pr/pr.gitconfig
@@ -74,6 +83,11 @@
     autocp = !git add --all && git status --short && git commit -m 'Update' && git push
     cl     = clone
     s      = status --short
+
+    d   = diff
+    ds  = diff --stat
+    dc  = diff --cached
+    dcs = diff --cached --stat
 
     c   = commit
     cm  = commit -m
