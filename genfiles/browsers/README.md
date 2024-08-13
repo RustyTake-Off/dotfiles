@@ -57,6 +57,10 @@ Here are some essential and useful extensions 📎 for Brave ⛑️. Use the nam
 | Todoist                               | jldhpllghnbhlbpcmnajkpdmadaolakh | Todo tracker                         |
 | User-Agent Switcher and Manager       | bhchdcejhohfmigjafbampogmaanbfkg | User-agent switcher                  |
 | Wappalyzer                            | gppongmhjkpfnbhagpmjfkannfbllamg | Identify tech stack use on a website |
+| Check My Links                        | aajoalonednamcpodaeocebfgldhcpbe | Check for broken links               |
+| ColorZilla                            | bhlhnicpbhignbdhedgjhgdocnmhomnp | Color selector                       |
+| WhatFont                              | jabopobgcpjmedljpbcaablpmlmfcogm | Identify fonts on web pages          |
+| Lorem Ipsum Generator                 | pglahbfamjiifnafcicdibiiabpakkkb | Quickly generate lorem ipsum text    |
 
 ### Useful domains to allow in Brave
 
