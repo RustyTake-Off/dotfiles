@@ -83,6 +83,7 @@
     autocp = !git add --all && git status --short && git commit -m 'Update' && git push
     cl     = clone
     s      = status --short
+    su     = status --short --untracked-files
 
     d   = diff
     ds  = diff --stat
