@@ -4,7 +4,7 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.1.13
+# Version       - 0.1.14
 
 # Common aliases
 alias cd......="cd ../../../../../.."
@@ -121,7 +121,54 @@ alias pipuall="pip freeze --local | cut -d = -f 1 | xargs -n1 pip3 install --upg
 alias pipsetreq="pip freeze --require-virtualenv -l >"
 alias pipgetreq="pip install --require-virtualenv --upgrade -r"
 
-alias d="docker"
+# Docker aliases
+alias dc="docker"
+alias dcps="docker ps"
+alias dcim="docker images"
+alias dcv="docker volume"
+alias dcn="docker network"
+alias dcs="docker stats"
+
+alias dcru="docker run -it"
+alias dcrum="docker run -it --rm"
+alias dcex="docker exec -it"
+alias dcsta="docker start"
+alias dcsto="docker stop"
+alias dcrm="docker rm"
+alias dcrma="docker rm $(docker ps -aq --filter 'status=exited')"
+alias dcl="docker logs"
+alias dckl="docker kill"
+fdci() {
+  [ -z "$2" ] \
+  && docker inspect "$1" | jq -r ".[0]" \
+  || docker inspect "$1" | jq -r ".[0].$2"
+}
+alias dci="fdci"
+
+alias dcb="docker build -t"
+alias dcpl="docker pull"
+alias dcpu="docker push"
+alias dcrmi="docker rmi"
+alias dct="docker tag"
+alias dch="docker history"
+
+alias dcom="docker compose"
+alias dcomu="docker compose up -d"
+alias dcomub="docker compose up -d --build"
+alias dcomd="docker compose down"
+alias dcomsta="docker compose start"
+alias dcomdto="docker compose stop"
+alias dcomr="docker compose restart"
+
+alias dcoms="docker compose stats"
+alias dcoml="docker compose logs"
+alias dcomb="docker compose build"
+alias dcomp="docker compose pull"
+
+alias dcicl="docker image prune"
+alias dcvcl="docker volume prune"
+alias dcncl="docker network prune"
+
 alias k="kubectl"
 alias kcx="kubectx"
 alias hl="helm"
