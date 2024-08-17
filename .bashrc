@@ -29,6 +29,8 @@ export HOMEBREW_NO_ANALYTICS=1
 [ -x "$(command -v starship)" ] && eval "$(starship init bash)"
 [ -x "$(command -v zoxide)" ] && eval "$(zoxide init bash)"
 [ -x "$(command -v pyenv)" ] && eval "$(pyenv init -)"
+[ -x "$(command -v goenv)" ] && eval "$(goenv init -)" \
+&& export PATH="$GOROOT/bin:$PATH"; export PATH="$PATH:$GOPATH/bin"
 [ -x "$(command -v rye)" ] && source "$HOME/.rye/env"
 [ -x "$(command -v fzf)" ] && eval "$(fzf --bash)"
 
