@@ -30,7 +30,7 @@
 
 ## Load settings
 
-You can [**sync your settings**](https://code.visualstudio.com/docs/editor/settings-sync) 🛠️ with GitHub or ✋ manually load the [**vscode.json**](./vscode.jsonc) file into VSCode.
+You can [**sync your settings**](https://code.visualstudio.com/docs/editor/settings-sync) 🛠️ with GitHub or ✋ manually load the [**vscode.jsonc**](./vscode.jsonc) file into VSCode.
 
 ## Extensions
 
