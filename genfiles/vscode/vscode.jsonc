@@ -31,6 +31,7 @@
     "workbench.iconTheme": "material-icon-theme",
     "workbench.sideBar.location": "right",
     "workbench.editor.enablePreview": false,
+    // "workbench.editor.enablePreview": false,
     // window
     "window.title": "${dirty}${activeEditorMedium}${separator}${rootName}",
     "window.newWindowDimensions": "maximized",
