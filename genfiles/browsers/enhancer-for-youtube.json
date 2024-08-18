@@ -1,5 +1,5 @@
 {
-    "version": "2.0.125.1",
+    "version": "2.0.126",
     "settings": {
         "blur": 0,
         "brightness": 100,
@@ -95,7 +95,7 @@
         "selectqualityfullscreenoff": false,
         "selectqualityfullscreenon": false,
         "speed": 1,
-        "speedvariation": 0.05,
+        "speedvariation": 0.1,
         "stopvideos": false,
         "theatermode": false,
         "theme": "default-dark",
