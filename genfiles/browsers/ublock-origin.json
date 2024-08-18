@@ -1,5 +1,5 @@
 {
-    "version": "1.58.0",
+    "version": "1.59.0",
     "userSettings": {
         "colorBlindFriendly": true,
         "contextMenuEnabled": false,
@@ -73,8 +73,10 @@
         "chrome-extension-scheme",
         "chrome-scheme",
         "edge-scheme",
+        "huggingface.co",
         "moz-extension-scheme",
         "opera-scheme",
+        "teams.microsoft.com",
         "vivaldi-scheme",
         "wyciwyg-scheme"
     ],
