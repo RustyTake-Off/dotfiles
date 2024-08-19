@@ -4,7 +4,7 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.1.14
+# Version       - 0.1.15
 
 # Common aliases
 alias cd......="cd ../../../../../.."
@@ -70,12 +70,12 @@ alias brup="brew upgrade"
 
 alias acoms="compgen -a | nl"  # Print all aliases
 alias bcoms="compgen -b | nl"  # Print built-in shell commands
-fccoms() {
+__f__ccoms() {
   [ -z "$1" ] \
   && apropos -s 1 "" | sort | nl \
   || apropos -s 1 "" | grep "$@" | sort | nl
 }
-alias ccoms="fccoms"  # Print all runnable commands
+alias ccoms="__f__ccoms"  # Print all runnable commands
 alias fcoms="compgen -A function | nl"  # Print all functions that you could run
 alias kcoms="compgen -k | nl"  # Print shell reserved keywords
 
@@ -122,9 +122,9 @@ alias pipsetreq="pip freeze --require-virtualenv -l >"
 alias pipgetreq="pip install --require-virtualenv --upgrade -r"
 
 # Docker aliases
-alias dc="docker"
-alias dcps="docker ps"
-alias dcim="docker images"
+alias d="docker"
+alias dps="docker ps"
+alias dcmi="docker images"
 alias dcv="docker volume"
 alias dcn="docker network"
 alias dcs="docker stats"
@@ -138,12 +138,12 @@ alias dcrm="docker rm"
 alias dcrma="docker rm $(docker ps -aq --filter 'status=exited')"
 alias dcl="docker logs"
 alias dckl="docker kill"
-fdci() {
+__f__dci() {
   [ -z "$2" ] \
   && docker inspect "$1" | jq -r ".[0]" \
   || docker inspect "$1" | jq -r ".[0].$2"
 }
-alias dci="fdci"
+alias dci="__f__dci"
 
 alias dcb="docker build -t"
 alias dcpl="docker pull"
