@@ -135,7 +135,10 @@ alias dcex="docker exec -it"
 alias dcsta="docker start"
 alias dcsto="docker stop"
 alias dcrm="docker rm"
-alias dcrma="docker rm $(docker ps -aq --filter 'status=exited')"
+__f__dcrma() {
+  docker rm "$(docker ps -aq --filter 'status=exited')"
+}
+alias dcrma="__f__dcrma"
 alias dcl="docker logs"
 alias dckl="docker kill"
 __f__dci() {
