@@ -74,6 +74,12 @@
     autocp = !git add --all && git status --short && git commit -m 'Update' && git push
     cl     = clone
     s      = status --short
+    su     = status --short --untracked-files
+
+    d   = diff
+    ds  = diff --stat
+    dc  = diff --cached
+    dcs = diff --cached --stat
 
     c   = commit
     cm  = commit -m
@@ -104,5 +110,5 @@
     rmtrm = remote remove
 
     l  = log --graph --oneline
-    ll = !git log --graph --oneline ${@}
-    ls = !git log --graph --oneline --stat ${@}
+    ll = "!f() { [ $# -eq 0 ] && git log --graph --oneline || git log --graph --oneline -"$1"; }; f"
+    ls = "!f() { [ $# -eq 0 ] && git log --graph --oneline --stat || git log --graph --oneline --stat -"$1"; }; f"
