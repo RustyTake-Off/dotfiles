@@ -66,6 +66,10 @@ alias psmem="ps auxf | sort -nr -k 4"
 alias apti="sudo apt install"
 alias sup="sudo apt update"
 alias supup="sudo apt update && sudo apt upgrade -y"
+alias brin="brew install"
+alias brun="brew uninstall"
+alias brif="brew info"
+alias brli="brew list"
 alias brup="brew upgrade"
 
 alias acoms="compgen -a | nl"  # Print all aliases
