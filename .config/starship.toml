@@ -27,8 +27,8 @@ disabled = true
 
 [os]
 format = '[$symbol]($style) '
-style = 'white bold'
-disabled = true
+style = 'orange bold'
+disabled = false
 
 [os.symbols]
 Windows = ''
