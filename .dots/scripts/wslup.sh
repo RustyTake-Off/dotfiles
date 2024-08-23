@@ -8,6 +8,7 @@
 
 # Configuration variables
 declare DOTFILES_SCRIPT_PATH="$HOME/.dots/scripts/set_dotfiles.sh"
+declare HOME_DIRS="pr wk"
 
 # ANSI escape sequences for different colors
 declare -A COLORS=(
@@ -19,15 +20,30 @@ declare -A COLORS=(
   ["reset"]="\033[0m"
 )
 
-if [ ! -d "$HOME/pr" ]; then
-  echo -e "Creating ${COLORS[yellow]}'personal'${COLORS[reset]} directory"
-  mkdir "$HOME/pr"
-fi
+create_dirs() {
+  # Create directories
+  for dir in $HOME_DIRS; do
+    if [ ! -d "$HOME/$dir" ]; then
+      echo -e "Creating ${COLORS[yellow]}'$dir'${COLORS[reset]} directory"
+      mkdir "$HOME/$dir"
+    fi
+  done
 
-if [ ! -d "$HOME/wk" ]; then
-  echo -e "Creating ${COLORS[yellow]}'work'${COLORS[reset]} directory"
-  mkdir "$HOME/wk"
-fi
+  # Copy gitconfigs if on WSL2
+  if [ "$(uname -r | grep -q 'WSL2')" ]; then
+    win_user="$(command powershell.exe '$env:USERNAME' | tr --delete '\r')"
+    win_home_path="/mnt/c/Users/${win_user}"
+
+    for dir in $HOME_DIRS; do
+      if [ ! -f "$HOME/$dir/$dir.gitconfig" ] && [ -f "$win_home_path/$dir/$dir.gitconfig" ]; then
+        echo -e "Copying ${COLORS[yellow]}'$dir.gitconfig'${COLORS[reset]}"
+        cp "$win_home_path/$dir/$dir.gitconfig" "$HOME/$dir"
+      else
+        echo -e "File ${COLORS[red]}'$dir.gitconfig'${COLORS[reset]} in '$win_home_path/$dir' does not exist"
+      fi
+    done
+  fi
+}
 
 # Function definitions
 write_colored_message() {
@@ -62,6 +78,8 @@ get_apt_apps() {
     ca-certificates \
     gnupg \
     gpg \
+    make \
+    net-tools \
     python3-pip \
     python3-venv \
     software-properties-common \
@@ -121,6 +139,7 @@ get_brew_apps() {
       ansible \
       entr \
       fzf \
+      goenv \
       helm \
       jq \
       k9s \
@@ -148,7 +167,7 @@ set_dotfiles() {
   if [ -x "$DOTFILES_SCRIPT_PATH" ]; then
     source "$DOTFILES_SCRIPT_PATH"
   else
-    bash -c "$(curl -fsS https://raw.githubusercontent.com/RustyTake-Off/dotfiles/wslfiles/.dots/scripts/set_dotfiles.sh)"
+    curl -fsS https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/wslfiles/.dots/scripts/set_dotfiles.sh | bash
   fi
 
   write_colored_message "Invocation complete" "green"
@@ -160,17 +179,33 @@ if [ $# -eq 0 ]; then
 else
   case "$1" in
     -h|--help)
-      get_help ;;
+      get_help
+      ;;
+    -c|--cr-dirs)
+      create_dirs
+      ;;
     -a|--apt-apps)
-      get_apt_apps ;;
+      get_apt_apps
+      ;;
     -b|--brew)
-      get_brew ;;
+      get_brew
+      ;;
     -ba|--brew-apps)
-      get_brew_apps ;;
+      get_brew_apps
+      ;;
     -d|--dotfiles)
-      set_dotfiles ;;
+      set_dotfiles
+      ;;
+    -all|--all)
+      create_dirs
+      get_apt_apps
+      get_brew
+      get_brew_apps
+      source "$HOME/.bashrc"
+      ;;
     *)
 	    write_colored_message "Invalid command: $1\n" "red"
-      get_help ;;
+      get_help
+      ;;
   esac
 fi
