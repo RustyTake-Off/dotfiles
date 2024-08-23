@@ -139,6 +139,8 @@ get_brew_apps() {
       ansible \
       entr \
       fzf \
+      gh \
+      git \
       goenv \
       helm \
       jq \
