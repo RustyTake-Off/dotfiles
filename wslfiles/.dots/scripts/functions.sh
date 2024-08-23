@@ -31,21 +31,26 @@ iam() {
   case "$cmd" in
     passwd)   [ -r "/etc/passwd" ] && cat /etc/passwd || \
               echo "Error: Cannot read /etc/passwd. Permission denied." && \
-              return 1  ;;
+              return 1
+              ;;
 
     group)    [ -r "/etc/group" ] && cat /etc/group || \
               echo "Error: Cannot read /etc/group. Permission denied." && \
-              return 1  ;;
+              return 1
+              ;;
 
     shadow)   [ -r "/etc/shadow" ] && sudo cat /etc/shadow || \
               echo "Error: Cannot read /etc/shadow. Permission denied or sudo required." && \
-              return 1  ;;
+              return 1
+              ;;
 
-    uname)    uname -a  ;;
+    uname)    uname -a
+              ;;
 
     *)        [ "$(command -v "$cmd")" ] && $cmd || \
               echo "Error: The command '$cmd' is not installed on this system." && \
-              return 1  ;;
+              return 1
+              ;;
   esac
 }
 
@@ -78,7 +83,7 @@ cpkeys() {
   # Copy keys and config from Windows .ssh directory and
   # removes read, write and execute permissions from group and others
 
-  if ! uname -r | grep -q "WSL2"; then
+  if [ ! "$(uname -r | grep -q 'WSL2')" ]; then
     echo "Needs to be run on WSL2"
     exit 1
   fi
