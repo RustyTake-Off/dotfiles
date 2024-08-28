@@ -145,7 +145,9 @@ get_brew_apps() {
       helm \
       jq \
       k9s \
+      kubecm \
       kubectx \
+      kubent \
       kubernetes-cli \
       nvm \
       pipx \
