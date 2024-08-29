@@ -171,11 +171,30 @@
     },
     // html
     "[html]": {
-        "editor.defaultFormatter": "vscode.html-language-features"
+        // "editor.defaultFormatter": "vscode.html-language-features"
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    // css
+    "[css]": {
+        // "editor.defaultFormatter": "vscode.css-language-features"
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[scss]": {
+        // "editor.defaultFormatter": "vscode.css-language-features"
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     // json
-    "[json,jsonc,jsonl]": {
+    "[json]": {
         "editor.defaultFormatter": "vscode.json-language-features"
+        // "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+        // "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[jsonl]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+        // "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     // yaml
     "yaml.format.singleQuote": true,
@@ -205,7 +224,7 @@
     // shell
     "shellcheck.run": "onType",
     "[shellscript]": {
-        "editor.defaultFormatter": "timonwong.shellcheck",
+        "editor.defaultFormatter": "mads-hartmann.bash-ide-vscode",
         "editor.codeActionsOnSave": {
             "source.fixAll.shellcheck": "explicit"
         }
@@ -246,5 +265,12 @@
     "interactiveWindow.executeWithShiftEnter": true,
     "notebook.codeActionsOnSave": {
         "notebook.source.organizeImports": "explicit"
+    },
+    // javascript/typescript
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
     }
 }
