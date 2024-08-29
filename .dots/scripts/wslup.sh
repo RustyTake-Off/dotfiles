@@ -155,6 +155,7 @@ get_brew_apps() {
       ripgrep \
       ruff \
       rye \
+      shellcheck \
       tfenv \
       tlrc \
       trash-cli \
