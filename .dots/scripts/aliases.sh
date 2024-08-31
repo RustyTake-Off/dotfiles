@@ -4,7 +4,7 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.1.15
+# Version       - 0.1.16
 
 # Common aliases
 alias cd......="cd ../../../../../.."
@@ -33,14 +33,16 @@ alias mkdir="mkdir -vp"
 alias mktmp="mktemp"  # Make temp file in /tmp
 alias cp="cp -vi"
 alias mv="mv -vi"
-alias rm="rm -vI"
+alias rm="rm -I"
 
 # trash-cli - https://github.com/andreafrancia/trash-cli
-alias trp="trash-put"
-alias tre="trash-empty"
-alias trl="trash-list"
-alias trr="trash-restore"
-alias trm="trash-rm"
+[ -x "$(command -v trash)" ] && {
+  alias trp="trash-put"
+  alias tre="trash-empty"
+  alias trl="trash-list"
+  alias trr="trash-restore"
+  alias trm="trash-rm"
+}
 
 # Get date/time
 alias nowd="date '+%d/%m/%Y'"
@@ -67,11 +69,16 @@ alias apti="sudo apt install"
 alias sup="sudo apt update"
 alias sug="sudo apt upgrade -y"
 alias supug="sudo apt update && sudo apt upgrade -y"
-alias brin="brew install"
-alias brun="brew uninstall"
-alias brif="brew info"
-alias brli="brew list"
-alias brup="brew upgrade"
+
+[ -x "$(command -v brew)" ] && {
+  alias br="brew"
+  complete -F _brew br  # Add completion
+  alias brin="brew install"
+  alias brun="brew uninstall"
+  alias brif="brew info"
+  alias brli="brew list"
+  alias brup="brew upgrade"
+}
 
 alias acoms="compgen -a | nl"  # Print all aliases
 alias bcoms="compgen -b | nl"  # Print built-in shell commands
@@ -100,19 +107,23 @@ fi
 alias py="python"
 alias py3="python3"
 
-alias pyv="pyenv versions"
-alias pyi="pyenv install -v"
-alias pyg="pyenv global"
-alias pyl="pyenv local"
+[ -x "$(command -v pyenv)" ] && {
+  alias pyv="pyenv versions"
+  alias pyi="pyenv install -v"
+  alias pyg="pyenv global"
+  alias pyl="pyenv local"
+}
 
-alias ryi="rye init"
-alias ryp="rye pin"
-alias rys="rye sync"
-alias rya="rye add"
-alias ryad="rye add --dev"
-alias ryrm="rye remove"
-alias ryl="rye list"
-alias ryr="rye run"
+[ -x "$(command -v rye)" ] && {
+  alias ryi="rye init"
+  alias ryp="rye pin"
+  alias rys="rye sync"
+  alias rya="rye add"
+  alias ryad="rye add --dev"
+  alias ryrm="rye remove"
+  alias ryl="rye list"
+  alias ryr="rye run"
+}
 
 alias pysetup="py -m venv .venv --upgrade-deps && source .venv/bin/activate"
 alias py3setup="py3 -m venv .venv --upgrade-deps && source .venv/bin/activate"
@@ -127,55 +138,58 @@ alias pipsetreq="pip freeze --require-virtualenv -l >"
 alias pipgetreq="pip install --require-virtualenv --upgrade -r"
 
 # Docker aliases
-alias d="docker"
-alias dps="docker ps"
-alias dcmi="docker images"
-alias dcv="docker volume"
-alias dcn="docker network"
-alias dcs="docker stats"
+[ -x "$(command -v docker)" ] && {
+  alias d="docker"
+  _completion_loader docker && complete -F __start_docker d  # Add completion
+  alias dps="docker ps"
+  alias dcmi="docker images"
+  alias dcv="docker volume"
+  alias dcn="docker network"
+  alias dcs="docker stats"
 
-alias dcru="docker run -it"
-alias dcrum="docker run -it --rm"
-alias dcex="docker exec -it"
-alias dcsta="docker start"
-alias dcsto="docker stop"
-alias dcrm="docker rm"
-__f__dcrma() {
-  docker rm "$(docker ps -aq --filter 'status=exited')"
+  alias dcru="docker run -it"
+  alias dcrum="docker run -it --rm"
+  alias dcex="docker exec -it"
+  alias dcsta="docker start"
+  alias dcsto="docker stop"
+  alias dcrm="docker rm"
+  __f__dcrma() {
+    docker rm "$(docker ps -aq --filter 'status=exited')"
+  }
+  alias dcrma="__f__dcrma"
+  alias dcl="docker logs"
+  alias dckl="docker kill"
+  __f__dci() {
+    [ -z "$2" ] \
+    && docker inspect "$1" | jq -r ".[0]" \
+    || docker inspect "$1" | jq -r ".[0].$2"
+  }
+  alias dci="__f__dci"
+
+  alias dcb="docker build -t"
+  alias dcpl="docker pull"
+  alias dcpu="docker push"
+  alias dcrmi="docker rmi"
+  alias dct="docker tag"
+  alias dch="docker history"
+
+  alias dcom="docker compose"
+  alias dcomu="docker compose up -d"
+  alias dcomub="docker compose up -d --build"
+  alias dcomd="docker compose down"
+  alias dcomsta="docker compose start"
+  alias dcomdto="docker compose stop"
+  alias dcomr="docker compose restart"
+
+  alias dcoms="docker compose stats"
+  alias dcoml="docker compose logs"
+  alias dcomb="docker compose build"
+  alias dcomp="docker compose pull"
+
+  alias dcicl="docker image prune"
+  alias dcvcl="docker volume prune"
+  alias dcncl="docker network prune"
 }
-alias dcrma="__f__dcrma"
-alias dcl="docker logs"
-alias dckl="docker kill"
-__f__dci() {
-  [ -z "$2" ] \
-  && docker inspect "$1" | jq -r ".[0]" \
-  || docker inspect "$1" | jq -r ".[0].$2"
-}
-alias dci="__f__dci"
-
-alias dcb="docker build -t"
-alias dcpl="docker pull"
-alias dcpu="docker push"
-alias dcrmi="docker rmi"
-alias dct="docker tag"
-alias dch="docker history"
-
-alias dcom="docker compose"
-alias dcomu="docker compose up -d"
-alias dcomub="docker compose up -d --build"
-alias dcomd="docker compose down"
-alias dcomsta="docker compose start"
-alias dcomdto="docker compose stop"
-alias dcomr="docker compose restart"
-
-alias dcoms="docker compose stats"
-alias dcoml="docker compose logs"
-alias dcomb="docker compose build"
-alias dcomp="docker compose pull"
-
-alias dcicl="docker image prune"
-alias dcvcl="docker volume prune"
-alias dcncl="docker network prune"
 
 alias k="kubectl"
 alias kcx="kubectx"
