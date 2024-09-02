@@ -15,8 +15,10 @@ declare OTHER_DIRS_FILES="$3"
 declare USER_NAME="$4"
 declare USER_EMAIL="$5"
 
+# Temporarily skip worktree for all files in the .github directory
+find .github -type f -exec git update-index --skip-worktree {} \;
+
 # Switch to the target branch
-git update-index --skip-worktree .github
 git checkout -b "$TARGET_BRANCH_NAME" --track "origin/$TARGET_BRANCH_NAME" > /dev/null
 
 # Remove all files and reset
