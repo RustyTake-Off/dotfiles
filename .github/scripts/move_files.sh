@@ -14,7 +14,7 @@ declare USER_NAME="$4"
 declare USER_EMAIL="$5"
 
 # Switch to the target branch
-git checkout -B "$TARGET_BRANCH_NAME" "origin/$TARGET_BRANCH_NAME"
+git checkout -B "$TARGET_BRANCH_NAME" --track "origin/$TARGET_BRANCH_NAME" > /dev/null
 
 # Remove all files and reset
 git rm -rf . > /dev/null
@@ -74,5 +74,5 @@ git commit -m "Update $TARGET_BRANCH_NAME | $(date '+%d/%m/%Y') - $(date '+%H:%M
 
 echo ''
 echo '===  Push    ==========================='
-echo ''7
+echo ''
 # git push origin "$TARGET_BRANCH_NAME"
