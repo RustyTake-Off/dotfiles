@@ -6,6 +6,8 @@
 # Author        - RustyTake-Off
 # Version       - 0.1.2
 
+set -e
+
 # Variables passed as inputs
 declare SOURCE_BRANCH_NAME="$1"
 declare TARGET_BRANCH_NAME="$2"
