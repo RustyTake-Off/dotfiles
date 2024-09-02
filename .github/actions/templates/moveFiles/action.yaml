@@ -1,102 +1,49 @@
 name: 'Move files'
-description: 'Move files to designated branch'
+description: 'Move files to branch'
 
 inputs:
-  sourceBranchName:
-    description: 'Source branch name for moving files'
+  SOURCE_BRANCH_NAME:
+    description: 'Source branch name e.g. main/master'
     default: 'main'
     required: false
-  targetBranchName:
-    description: 'Target branch name for moving files'
+  CONFIG_FILE_PATH:
+    description: 'Path to the config file with files to move'
     required: true
-  otherSharedFiles:
-    description: 'Shared files to move that are not in target branch (space separated)'
-    default: ''
-    required: false
-  otherDirs:
-    description: 'Other directories to move but not copy, that are not in target branch (space separated)'
-    default: ''
-    required: false
-  userName:
-    description: 'User name for config'
+  USER_NAME:
+    description: 'User name for git config'
     default: 'github-actions[bot]'
     required: false
-  userEmail:
-    description: 'User email for config'
-    default: '41898282+github-actions[bot]@users.noreply.github.com'
+  USER_EMAIL:
+    description: 'User email for git config'
+    default: 'github-actions[bot]@users.noreply.github.com'
     required: false
 
 runs:
   using: 'composite'
   steps:
-    - name: 'Move files to ${{ inputs.targetBranchName }}'
+    - name: 'Install yq'
+      id: install-yq
+      shell: bash
+      run: |
+        sudo curl -Lo /usr/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 \
+        && sudo chmod +x /usr/bin/yq
+
+    - name: 'Read YAML config'
+      id: read-config
+      shell: bash
+      run: |
+        TARGET_BRANCH_NAME=$(yq '.TARGET_BRANCH_NAME' "${{ inputs.CONFIG_FILE_PATH }}")
+        OTHER_DIRS_FILES=$(yq '.OTHER_DIRS_FILES' "${{ inputs.CONFIG_FILE_PATH }}")
+        echo "TARGET_BRANCH_NAME=${TARGET_BRANCH_NAME}" >> $GITHUB_ENV
+        echo "OTHER_DIRS_FILES=${OTHER_DIRS_FILES}" >> $GITHUB_ENV
+
+    - name: 'Move files to ${{ env.TARGET_BRANCH_NAME }}'
       id: move-files-to-branch
       shell: bash
       run: |
-        ### Switch branch
-        git checkout -b ${{ inputs.targetBranchName }} --track origin/${{ inputs.targetBranchName }} &>/dev/null
-
-        ### Remove all files
-        git rm -r . &>/dev/null
-        git reset &>/dev/null
-
-        ### Checkout directories and files
-        git checkout ${{ inputs.sourceBranchName }} -- ${{ inputs.targetBranchName }}
-        [ -n "${{ inputs.otherSharedFiles }}" ] && \
-        git checkout ${{ inputs.sourceBranchName }} -- ${{ inputs.otherSharedFiles }}
-        [ -n "${{ inputs.otherDirs }}" ] && \
-        git checkout ${{ inputs.sourceBranchName }} -- ${{ inputs.otherDirs }}
-
-        ### Copy directories and files
-        cp -r "${{ inputs.targetBranchName }}"/* .
-        find "${{ inputs.targetBranchName }}" -maxdepth 1 -name '.*[!.]*' -exec cp -r {} . \;
-
-        [ -n "${{ inputs.otherSharedFiles }}" ] && \
-        shopt -s dotglob && \
-        for item in ${{ inputs.otherSharedFiles }}; do
-          if [ -f "$item" ] && [ -s "$item" ]; then
-            cp "$item" .
-          elif [ -d "$item" ]; then
-            cp -r "$item" .
-          fi
-        done
-        shopt -u dotglob
-
-        [ -n "${{ inputs.otherDirs }}" ] && \
-        shopt -s dotglob && \
-        for item in ${{ inputs.otherDirs }}; do
-          if [ -d "$item" ]; then
-            cp -r "$item" .
-          fi
-        done
-        shopt -u dotglob
-
-        ### Clean up
-        rm -rf ${{ inputs.targetBranchName }}
-        rm README.md
-
-        [ -n "${{ inputs.otherSharedFiles }}" ] && \
-        for item in ${{ inputs.otherSharedFiles }}; do
-          if [ -d "$(dirname "$item")" ]; then
-            rm -rf "$(dirname "$item")"
-          fi
-        done
-
-        [ -n "${{ inputs.otherDirs }}" ] && \
-        for item in ${{ inputs.otherDirs }}; do
-          if [ -d "$(dirname "$item")" ]; then
-            rm -rf "$(dirname "$item")"
-          fi
-        done
-
-        ### Commit and push
-        git config --global user.name ${{ inputs.userName }}
-        git config --global user.email ${{ inputs.userEmail }}
-
-        git add --all
-        echo '=============================='
-        git status --short
-        echo '=============================='
-        git commit -m "Update ${{ inputs.targetBranchName }}"
-
-        git push origin ${{ inputs.targetBranchName }}
+        .github/actions/templates/move_files.sh \
+        "${{ inputs.SOURCE_BRANCH_NAME }}" \
+        "${{ env.TARGET_BRANCH_NAME }}" \
+        "${{ env.OTHER_DIRS_FILES }}" \
+        "${{ inputs.USER_NAME }}" \
+        "${{ inputs.USER_EMAIL }}"

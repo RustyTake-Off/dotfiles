@@ -1,4 +1,4 @@
-name: 'Move winfiles'
+name: 'Move files'
 run-name: 'Move winfiles'
 
 on:
@@ -16,26 +16,18 @@ concurrency:
 permissions:
   contents: write
 
-env:
-  targetBranchName: 'winfiles'
-  otherSharedFiles: ''  # space separated
-  otherDirs: 'genfiles/images'  # space separated
-
 jobs:
   move-files:
     runs-on: ubuntu-latest
-    name: ${{ github.workflow }}
+    name: 'Move winfiles'
+
     steps:
       - name: 'Checkout repository'
         id: checkout-repo
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: 'Move ${{ env.targetBranchName }} branch files'
-        id: move-branch-files
+      - name: 'Move files'
+        id: move-files
         uses: ./.github/actions/templates/moveFiles
         with:
-          targetBranchName: ${{ env.targetBranchName }}
-          otherSharedFiles: ${{ env.otherSharedFiles }}
-          otherDirs: ${{ env.otherDirs }}
+          CONFIG_FILE_PATH: 'winfiles/to_move.yaml'
