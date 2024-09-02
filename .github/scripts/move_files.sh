@@ -14,16 +14,16 @@ declare USER_NAME="$4"
 declare USER_EMAIL="$5"
 
 # Switch to the target branch
-git checkout -b $TARGET_BRANCH_NAME --track origin/$TARGET_BRANCH_NAME > /dev/null
+git checkout -b "$TARGET_BRANCH_NAME" --track "origin/$TARGET_BRANCH_NAME" > /dev/null
 
 # Remove all files and reset
 git rm -rf . > /dev/null
 git reset > /dev/null
 
 # Checkout necessary files and directories
-git checkout $SOURCE_BRANCH_NAME -- $TARGET_BRANCH_NAME > /dev/null
+git checkout "$SOURCE_BRANCH_NAME" -- "$TARGET_BRANCH_NAME" > /dev/null
 [ -n "$OTHER_DIRS_FILES" ] \
-&& git checkout $SOURCE_BRANCH_NAME -- $OTHER_DIRS_FILES > /dev/null
+&& git checkout "$SOURCE_BRANCH_NAME" -- "$OTHER_DIRS_FILES" > /dev/null
 
 # Copy files and directories
 cp -r "$TARGET_BRANCH_NAME"/* .
@@ -44,7 +44,7 @@ if [ -n "$OTHER_DIRS_FILES" ]; then
 fi
 
 # Clean up
-rm -rf $TARGET_BRANCH_NAME
+rm -rf "$TARGET_BRANCH_NAME"
 rm README.md to_move.yaml
 
 if [ -n "$OTHER_SHARED_FILES" ]; then
@@ -57,8 +57,8 @@ if [ -n "$OTHER_SHARED_FILES" ]; then
 fi
 
 # Commit and push
-git config --global user.name $USER_NAME
-git config --global user.email $USER_EMAIL
+git config --global user.name "$USER_NAME"
+git config --global user.email "$USER_EMAIL"
 
 git add --all
 
@@ -75,4 +75,4 @@ git commit -m "Update $TARGET_BRANCH_NAME | $(date '+%d/%m/%Y') - $(date '+%H:%M
 echo ''
 echo '===  Push    ==========================='
 echo ''
-git push origin $TARGET_BRANCH_NAME
+git push origin "$TARGET_BRANCH_NAME"
