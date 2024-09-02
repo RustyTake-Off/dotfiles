@@ -75,4 +75,4 @@ git commit -m "Update $TARGET_BRANCH_NAME | $(date '+%d/%m/%Y') - $(date '+%H:%M
 echo ''
 echo '===  Push    ==========================='
 echo ''
-# git push origin "$TARGET_BRANCH_NAME"
+git push origin "$TARGET_BRANCH_NAME"
