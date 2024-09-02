@@ -7,11 +7,11 @@
 # Version       - 0.1.0
 
 # Variables passed as inputs
-SOURCE_BRANCH_NAME="$1"
-TARGET_BRANCH_NAME="$2"
-OTHER_DIRS_FILES="$3"
-USER_NAME="$4"
-USER_EMAIL="$5"
+declare SOURCE_BRANCH_NAME="$1"
+declare TARGET_BRANCH_NAME="$2"
+declare OTHER_DIRS_FILES="$3"
+declare USER_NAME="$4"
+declare USER_EMAIL="$5"
 
 # Switch to the target branch
 git checkout -B "$TARGET_BRANCH_NAME" "origin/$TARGET_BRANCH_NAME"
