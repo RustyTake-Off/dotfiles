@@ -9,7 +9,7 @@
 [core]
     ignoreCase = false
     # https://github.blog/2022-06-29-improve-git-monorepo-performance-with-a-file-system-monitor/
-    # fsmonitor =
+    # fsmonitor = true
     untrackedCache = true
     # https://git-scm.com/docs/git-config#Documentation/git-config.txt-coresafecrlf
     eol = lf
