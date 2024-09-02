@@ -4,7 +4,7 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.1.0
+# Version       - 0.1.1
 
 # Variables passed as inputs
 declare SOURCE_BRANCH_NAME="$1"
@@ -45,7 +45,7 @@ fi
 
 # Clean up
 rm -rf "$TARGET_BRANCH_NAME"
-rm README.md
+rm README.md to_move.yaml
 
 if [ -n "$OTHER_SHARED_FILES" ]; then
 
