@@ -14,7 +14,7 @@ declare USER_NAME="$4"
 declare USER_EMAIL="$5"
 
 # Switch to the target branch
-git checkout -B "$TARGET_BRANCH_NAME" --track "$TARGET_BRANCH_NAME"
+git checkout "$TARGET_BRANCH_NAME" --track "$TARGET_BRANCH_NAME"
 
 # Remove all files and reset
 git rm -rf . > /dev/null
