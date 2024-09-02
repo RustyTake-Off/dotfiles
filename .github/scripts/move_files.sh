@@ -6,7 +6,7 @@
 # Author        - RustyTake-Off
 # Version       - 0.1.2
 
-set -ex
+set -e
 
 # Variables passed as inputs
 declare SOURCE_BRANCH_NAME="$1"
@@ -15,7 +15,7 @@ declare OTHER_DIRS_FILES="$3"
 declare USER_NAME="$4"
 declare USER_EMAIL="$5"
 
-# Stash changes only in the .github directory
+# Stash changes in the .github directory to fix error, after changing move_files.sh script permissions
 git stash push -m "Stash .github changes" -- .github
 
 # Switch to the target branch
