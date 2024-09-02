@@ -16,6 +16,7 @@ declare USER_NAME="$4"
 declare USER_EMAIL="$5"
 
 # Switch to the target branch
+git update-index --skip-worktree .github
 git checkout -b "$TARGET_BRANCH_NAME" --track "origin/$TARGET_BRANCH_NAME" > /dev/null
 
 # Remove all files and reset
