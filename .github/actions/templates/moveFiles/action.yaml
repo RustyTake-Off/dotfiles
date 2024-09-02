@@ -41,7 +41,7 @@ runs:
       id: move-files-to-branch
       shell: bash
       run: |
-        chmod +x .github/scripts/move_files.sh \
+        chmod +x .github/scripts/move_files.sh
         .github/scripts/move_files.sh \
         "${{ inputs.SOURCE_BRANCH_NAME }}" \
         "${{ env.TARGET_BRANCH_NAME }}" \
