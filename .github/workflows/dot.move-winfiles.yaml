@@ -1,4 +1,4 @@
-name: 'Move files'
+name: 'Move winfiles'
 run-name: 'Move winfiles'
 
 on:

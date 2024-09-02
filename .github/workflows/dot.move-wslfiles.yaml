@@ -1,4 +1,4 @@
-name: 'Move files'
+name: 'Move wslfiles'
 run-name: 'Move wslfiles'
 
 on:
