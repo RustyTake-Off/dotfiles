@@ -4,7 +4,7 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.1.1
+# Version       - 0.1.2
 
 # Variables passed as inputs
 declare SOURCE_BRANCH_NAME="$1"
@@ -14,7 +14,7 @@ declare USER_NAME="$4"
 declare USER_EMAIL="$5"
 
 # Switch to the target branch
-git checkout -B "$TARGET_BRANCH_NAME" --track "origin/$TARGET_BRANCH_NAME" > /dev/null
+git checkout -b "$TARGET_BRANCH_NAME" --track origin/$TARGET_BRANCH_NAME > /dev/null
 
 # Remove all files and reset
 git rm -rf . > /dev/null
