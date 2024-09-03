@@ -52,9 +52,9 @@ fi
 rm -rf "$TARGET_BRANCH_NAME"
 rm README.md to_move.yaml
 
-if [ -n "$OTHER_SHARED_FILES" ]; then
+if [ -n "$OTHER_DIRS_FILES" ]; then
 
-  for item in $OTHER_SHARED_FILES; do
+  for item in $OTHER_DIRS_FILES; do
     dir=$(dirname "$item")
     [ -d "$dir" ] && rm -rf "$dir"
   done
