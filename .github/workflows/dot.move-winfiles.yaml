@@ -9,6 +9,7 @@ on:
       - 'genfiles/images/**'
       - 'winfiles/**'
       - '!winfiles/README.md'
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}
