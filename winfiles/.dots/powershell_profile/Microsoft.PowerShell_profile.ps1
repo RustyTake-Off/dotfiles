@@ -11,11 +11,11 @@ GitHub Repo - https://github.com/RustyTake-Off/dotfiles
 
 .NOTES
 Author  - RustyTake-Off
-Version - 0.1.5
+Version - 0.1.6
 #>
 
 # Configuration variables
-$scripts = @('functions', 'completions')
+$scripts = @('aliases', 'functions', 'completions')
 $scriptsPath = "$HOME/.dots/scripts"
 
 foreach ($script in $scripts) {
