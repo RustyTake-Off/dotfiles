@@ -83,12 +83,12 @@ process {
 
         # Find commands
         function which {
-            Get-Command -Name $args | Select-Object -ExpandProperty Definition
+            Get-Command -Name $Args | Select-Object -ExpandProperty Definition
         }
 
-        function md5 { Get-FileHash -Algorithm MD5 $args }
-        function sha1 { Get-FileHash -Algorithm SHA1 $args }
-        function sha256 { Get-FileHash -Algorithm SHA256 $args }
+        function md5 { Get-FileHash -Algorithm MD5 $Args }
+        function sha1 { Get-FileHash -Algorithm SHA1 $Args }
+        function sha256 { Get-FileHash -Algorithm SHA256 $Args }
 
         # Get public ips
         function pubip4 { (Invoke-WebRequest -Uri 'https://api.ipify.org/').Content }
@@ -104,8 +104,8 @@ process {
 
         # Quick admin
         function admin {
-            if ($args) {
-                Start-Process wt -Verb RunAs -ArgumentList "pwsh -NoExit -NoLogo -ExecutionPolicy Bypass -WorkingDirectory $(Get-Location) -Command $args"
+            if ($Args) {
+                Start-Process wt -Verb RunAs -ArgumentList "pwsh -NoExit -NoLogo -ExecutionPolicy Bypass -WorkingDirectory $(Get-Location) -Command $Args"
             } else {
                 Start-Process wt -Verb RunAs -ArgumentList "pwsh -NoExit -NoLogo -ExecutionPolicy Bypass -WorkingDirectory $(Get-Location)"
             }
@@ -126,7 +126,7 @@ process {
 
         # Manage dotfiles in $HOME directory
         function dot {
-            git --git-dir="$HOME/.dotfiles" --work-tree=$HOME $args
+            git --git-dir="$HOME/.dotfiles" --work-tree=$HOME $Args
         }
 
         function setdots {
@@ -134,7 +134,7 @@ process {
         }
 
         function winup {
-            Invoke-Expression "$HOME/.dots/scripts/winup.ps1 $args"
+            Invoke-Expression "$HOME/.dots/scripts/winup.ps1 $Args"
         }
     } catch {
         Write-Error "Error in line $($_.InvocationInfo.ScriptLineNumber): $($_.Exception.Message)"
