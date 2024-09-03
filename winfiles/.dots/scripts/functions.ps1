@@ -1,9 +1,9 @@
 <#
 .SYNOPSIS
-Various functions/aliases
+Various functions
 
 .DESCRIPTION
-Loads useful functions/aliases for doing various things.
+Loads useful functions for doing various things.
 
 .LINK
 GitHub      - https://github.com/RustyTake-Off
@@ -11,7 +11,7 @@ GitHub Repo - https://github.com/RustyTake-Off/dotfiles
 
 .NOTES
 Author  - RustyTake-Off
-Version - 0.1.11
+Version - 0.1.0
 #>
 
 [CmdletBinding(SupportsShouldProcess)]
@@ -24,117 +24,72 @@ begin {
 
 process {
     try {
-        # Common functions
-        function cd...... { Set-Location ../../../../../.. }
-        function cd..... { Set-Location ../../../../.. }
-        function cd.... { Set-Location ../../../.. }
-        function cd... { Set-Location ../../.. }
-        function cd.. { Set-Location ../.. }
-        function cd. { Set-Location .. }
-        function hm { Set-Location $HOME }
-        function hpr { Set-Location "$HOME/pr" }
-        function hwk { Set-Location "$HOME/wk" }
-        function dl { Set-Location "$HOME/Downloads" }
-        function desk { Set-Location "$HOME/Desktop" }
-        function docs { Set-Location "$HOME/Documents" }
+        function Get-UsableFunctions {
+            <#
+            .SYNOPSIS
+            Retrieves PowerShell functions within the current session
 
-        function h { Get-History }
-        function cls { Clear-Host }
+            .DESCRIPTION
+            The Get-UsableFunctions function allows you to list, filter, and view the source code of functions
+            available in your PowerShell session.
+            You can use wildcards to filter functions by name and optionally view the source code of a specific
+            function.
 
-        function ls { Get-ChildItem }
-        function la { Get-ChildItem }
-        function ll { Get-ChildItem }
+            .EXAMPLE
+            Get-UsableFunctions -Filter "*service*"
+            List all functions with 'service' in the name
 
-        function df {
-            Get-Volume
-        }
+            .EXAMPLE
+            Get-UsableFunctions -ViewFunction "Get-MyFunction"
+            View source code of a specific function
+            #>
 
-        # Create new env variable
-        function export ([string]$Name, [string]$Value) {
-            Set-Item -Path "env:$Name" -Value $Value -Force
-        }
+            [CmdletBinding()]
+            param (
+                [Parameter(HelpMessage="Filter for function names. Use wildcards like '*' to match patterns.")]
+                [string]$Filter = "*",
 
-        function pkill ([string]$Name) {
-            Get-Process -Name $Name -ErrorAction SilentlyContinue | Stop-Process
-        }
+                [Parameter(HelpMessage="Name of a specific function to view its source code.")]
+                [string]$ViewFunction = ""
+            )
 
-        function pgrep ([string]$Name) {
-            Get-Process | Where-Object { $_.ProcessName -like "*$Name*" }
-        }
+            # If ViewFunction is specified without a filter
+            if ($ViewFunction -and $Filter -eq "*") {
+                $selectedFunction = Get-Command -CommandType Function -Name $ViewFunction -ErrorAction SilentlyContinue
 
-        function head ([string]$Path, [int]$N = 10) {
-            Get-Content -Path $Path -Head $N
-        }
-
-        function tail ([string]$Path, [int]$N = 10) {
-            Get-Content -Path $Path -Tail $N
-        }
-
-        function touch ([string]$File) {
-            Write-Output '' | Out-File -FilePath $File -Encoding ASCII
-        }
-
-        # Find files
-        function ff ([string]$Name) {
-            Get-ChildItem -Recurse -Filter "*$Name*" -ErrorAction SilentlyContinue | ForEach-Object {
-                Write-Output $_.FullName
+                if ($selectedFunction) {
+                    Write-Output "`nSource code for function '$ViewFunction':"
+                    $selectedFunction.ScriptBlock.ToString()
+                } else {
+                    Write-Output "Function '$ViewFunction' not found."
+                }
+                return
             }
-        }
 
-        # Find commands
-        function which {
-            Get-Command -Name $args | Select-Object -ExpandProperty Definition
-        }
+            # List all functions matching the filter
+            $functions = Get-Command -CommandType Function -Name $Filter
 
-        function md5 { Get-FileHash -Algorithm MD5 $args }
-        function sha1 { Get-FileHash -Algorithm SHA1 $args }
-        function sha256 { Get-FileHash -Algorithm SHA256 $args }
-
-        # Get public ips
-        function pubip4 { (Invoke-WebRequest -Uri 'https://api.ipify.org/').Content }
-        function pubip6 { (Invoke-WebRequest -Uri 'https://ifconfig.me/ip').Content }
-
-        function sysinfo { Get-ComputerInfo }
-        function flushdns { Clear-DnsClientCache }
-
-        # Open windows explorer
-        function open ([string]$Path) {
-            explorer.exe $Path
-        }
-
-        # Quick admin
-        function admin {
-            if ($args) {
-                Start-Process wt -Verb RunAs -ArgumentList "pwsh -NoExit -NoLogo -ExecutionPolicy Bypass -WorkingDirectory $(Get-Location) -Command $args"
-            } else {
-                Start-Process wt -Verb RunAs -ArgumentList "pwsh -NoExit -NoLogo -ExecutionPolicy Bypass -WorkingDirectory $(Get-Location)"
+            if ($functions.Count -eq 0) {
+                Write-Output "No functions found matching the filter: $Filter"
+                return
             }
-        }
 
-        # Manage powershell profile
-        function editpsp {
-            notepad $PROFILE
-        }
+            Write-Output "Functions matching '$Filter':"
+            $functions | ForEach-Object {
+                Write-Output "  - $($_.Name)"
+            }
 
-        function repsp {
-            Invoke-Expression $PROFILE
-        }
+            # If a specific function name is provided, display its source code
+            if ($ViewFunction) {
+                $selectedFunction = $functions | Where-Object { $_.Name -eq $ViewFunction }
 
-        function revcp {
-            Invoke-Expression ($PROFILE -replace 'PowerShell_profile', 'VSCode_profile')
-        }
-
-        # Manage dotfiles in $HOME directory
-        function dot {
-            git --git-dir="$HOME/.dotfiles" --work-tree=$HOME $args
-        }
-
-        function setdots {
-            Invoke-Expression "$HOME/.dots/scripts/set-dotfiles.ps1"
-        }
-
-        function winup {
-            Invoke-Expression "$HOME/.dots/scripts/winup.ps1 $args"
+                if ($selectedFunction) {
+                    Write-Output "`nSource code for function '$ViewFunction':"
+                    $selectedFunction.ScriptBlock.ToString()
+                } else {
+                    Write-Output "`nFunction '$ViewFunction' not found."
+                }
+            }
         }
     } catch {
         Write-Error "Error in line $($_.InvocationInfo.ScriptLineNumber): $($_.Exception.Message)"
