@@ -140,7 +140,9 @@ alias pipgetreq="pip install --require-virtualenv --upgrade -r"
 # Docker aliases
 [ -x "$(command -v docker)" ] && {
   alias d="docker"
-  _completion_loader docker && complete -F __start_docker d  # Add completion
+  type _completion_loader &> /dev/null \
+  && _completion_loader docker && complete -F __start_docker docker
+  # Add completion
   alias dps="docker ps"
   alias dcmi="docker images"
   alias dcv="docker volume"
