@@ -4,7 +4,7 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.1.16
+# Version       - 0.1.17
 
 # Common aliases
 alias cd......="cd ../../../../../.."
@@ -72,7 +72,10 @@ alias supug="sudo apt update && sudo apt upgrade -y"
 
 [ -x "$(command -v brew)" ] && {
   alias br="brew"
-  complete -F _brew br  # Add completion
+  [ -n "$(type -t __load_completion)" ] \
+  && __load_completion brew \
+  && complete -F _brew br  # Add completion
+
   alias brin="brew install"
   alias brun="brew uninstall"
   alias brif="brew info"
@@ -140,9 +143,10 @@ alias pipgetreq="pip install --require-virtualenv --upgrade -r"
 # Docker aliases
 [ -x "$(command -v docker)" ] && {
   alias d="docker"
-  type _completion_loader &> /dev/null \
-  && _completion_loader docker && complete -F __start_docker docker
-  # Add completion
+  [ -n "$(type -t __load_completion)" ] \
+  && __load_completion docker \
+  && complete -F __start_docker d  # Add completion
+
   alias dps="docker ps"
   alias dcmi="docker images"
   alias dcv="docker volume"
