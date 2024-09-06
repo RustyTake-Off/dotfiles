@@ -67,7 +67,7 @@ git config --global user.email "$USER_EMAIL"
 
 git add --all
 
-if [ "$(git diff --staged --quiet)" ]; then
+if [ -z "$(git diff --staged)" ]; then
   echo ''
   echo '===  No changes to commit   ============'
   echo ''
