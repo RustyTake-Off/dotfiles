@@ -26,9 +26,9 @@ git rm -rf . > /dev/null
 git reset > /dev/null
 
 # Checkout necessary files and directories
-git checkout "$SOURCE_BRANCH_NAME" -- "$TARGET_BRANCH_NAME" > /dev/null
+git checkout "$SOURCE_BRANCH_NAME" -- $TARGET_BRANCH_NAME > /dev/null
 [ -n "$OTHER_DIRS_FILES" ] \
-&& git checkout "$SOURCE_BRANCH_NAME" -- "$OTHER_DIRS_FILES" > /dev/null
+&& git checkout "$SOURCE_BRANCH_NAME" -- $OTHER_DIRS_FILES > /dev/null
 
 # Copy files and directories
 cp -r "$TARGET_BRANCH_NAME"/* .
