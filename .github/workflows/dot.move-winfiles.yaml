@@ -7,8 +7,9 @@ on:
       - main
     paths:
       - "genfiles/images/**"
+      - "shared/**"
       - "winfiles/**"
-      - "!winfiles/README.md"
+      - "!**/README.md"
   workflow_dispatch:
 
 concurrency:

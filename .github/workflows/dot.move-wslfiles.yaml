@@ -6,8 +6,9 @@ on:
     branches:
       - main
     paths:
+      - "shared/**"
       - "wslfiles/**"
-      - "!wslfiles/README.md"
+      - "!**/README.md"
   workflow_dispatch:
 
 concurrency:
