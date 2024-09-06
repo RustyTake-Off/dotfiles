@@ -1,9 +1,6 @@
 name: "Move winfiles"
 run-name: "🔢 Move winfiles"
 
-env:
-  ENV_NAME: "winfiles"
-
 on:
   push:
     branches:
@@ -15,7 +12,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}-${{ env.ENV_NAME }}
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ vars.ENV_STAGE }}
   cancel-in-progress: true
 
 permissions:
@@ -24,8 +21,8 @@ permissions:
 jobs:
   move-files:
     runs-on: ubuntu-latest
-    name: "Move ${{ env.ENV_NAME }}"
-    environment: ${{ env.ENV_NAME }}
+    name: "Move ${{ vars.ENV_STAGE }}"
+    environment: ${{ vars.ENV_STAGE }}
 
     steps:
       - name: "Checkout repository"
@@ -38,4 +35,4 @@ jobs:
         id: move-files
         uses: ./.github/actions/templates/moveFiles
         with:
-          CONFIG_FILE_PATH: "${{ env.ENV_NAME }}/to_move.yaml"
+          CONFIG_FILE_PATH: "${{ vars.ENV_STAGE }}/to_move.yaml"
