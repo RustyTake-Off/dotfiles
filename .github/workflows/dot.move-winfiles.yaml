@@ -1,4 +1,4 @@
-name: "Move winfiles"
+name: "🔢 Move winfiles"
 run-name: "🔢 Move winfiles"
 
 on:
@@ -21,7 +21,7 @@ permissions:
 jobs:
   move-files:
     runs-on: ubuntu-latest
-    name: "Move winfiles"
+    name: "Move files"
     environment: winfiles
 
     steps:
