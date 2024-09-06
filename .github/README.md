@@ -7,6 +7,7 @@ Repository 🏤 contains my personal dotfiles and configuration files for variou
 ## Key Files and Directories
 
 * **genfiles**: Includes generic application and miscellaneous configurations.
+* **shared**: Includes shared configurations and settings.
 * **winfiles**: Configuration files and scripts tailored for Windows.
 * **wslfiles**: Configuration files and scripts tailored for WSL/Linux.
 * **setup.ps1**: Script for setting up the environment on Windows.
@@ -19,11 +20,11 @@ To setup 💡 these dotfiles run either of bellow 🔽 commands:
 **For Windows**
 
 ```powershell
-(Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/winfiles/.dots/scripts/set-dotfiles.ps1').Content | Invoke-Expression
+(Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/setup.ps1').Content | Invoke-Expression
 ```
 
-**For WSL/Linux**
+**For Linux/WSL**
 
 ```bash
-curl -fsS https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/wslfiles/.dots/scripts/set_dotfiles.sh | bash
+curl -fsS https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/setup.sh | bash
 ```

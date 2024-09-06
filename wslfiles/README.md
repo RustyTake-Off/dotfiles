@@ -7,5 +7,13 @@
 To setup 💡 these dotfiles run bellow 🔽 command:
 
 ```bash
+curl -fsS https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/setup.sh | bash
+```
+
+## Updates
+
+For updates run `setdots` alias or this command:
+
+```powershell
 curl -fsS https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/wslfiles/.dots/scripts/set_dotfiles.sh | bash
 ```
