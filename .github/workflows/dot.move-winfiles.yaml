@@ -15,7 +15,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}-${{ github.env.ENV_NAME }}
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ env.ENV_NAME }}
   cancel-in-progress: true
 
 permissions:
@@ -24,8 +24,8 @@ permissions:
 jobs:
   move-files:
     runs-on: ubuntu-latest
-    name: "Move ${{ github.env.ENV_NAME }}"
-    environment: ${{ github.env.ENV_NAME }}
+    name: "Move ${{ env.ENV_NAME }}"
+    environment: ${{ env.ENV_NAME }}
 
     steps:
       - name: "Checkout repository"
@@ -38,4 +38,4 @@ jobs:
         id: move-files
         uses: ./.github/actions/templates/moveFiles
         with:
-          CONFIG_FILE_PATH: "${{ github.env.ENV_NAME }}/to_move.yaml"
+          CONFIG_FILE_PATH: "${{ env.ENV_NAME }}/to_move.yaml"
