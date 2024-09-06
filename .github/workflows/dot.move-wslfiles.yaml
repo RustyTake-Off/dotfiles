@@ -1,17 +1,21 @@
-name: 'Move wslfiles'
-run-name: 'Move wslfiles'
+name: "Move wslfiles"
+run-name: "🐧 Move wslfiles"
+
+env:
+  ENV_NAME: "wslfiles"
 
 on:
   push:
     branches:
       - main
     paths:
-      - 'wslfiles/**'
-      - '!wslfiles/README.md'
+      - "wslfiles/**"
+      - "!wslfiles/README.md"
   workflow_dispatch:
 
 concurrency:
-  group: ${{ github.workflow }}
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ github.env.ENV_NAME }}
+  cancel-in-progress: true
 
 permissions:
   contents: write
@@ -19,17 +23,18 @@ permissions:
 jobs:
   move-files:
     runs-on: ubuntu-latest
-    name: 'Move wslfiles'
+    name: "Move ${{ github.env.ENV_NAME }}"
+    environment: ${{ github.env.ENV_NAME }}
 
     steps:
-      - name: 'Checkout repository'
+      - name: "Checkout repository"
         id: checkout-repo
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: 'Move files'
+      - name: "Move files"
         id: move-files
         uses: ./.github/actions/templates/moveFiles
         with:
-          CONFIG_FILE_PATH: 'wslfiles/to_move.yaml'
+          CONFIG_FILE_PATH: "${{ github.env.ENV_NAME }}/to_move.yaml"
