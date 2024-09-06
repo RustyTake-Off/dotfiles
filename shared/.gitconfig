@@ -1,3 +1,5 @@
+# Shared gitconfig
+
 # Useful resources
 # Git docs       - https://git-scm.com/docs/git-config
 # henrebotha     - https://github.com/henrebotha/dotfiles/blob/main/git/dot-gitconfig
@@ -112,3 +114,8 @@
     l  = log --graph --oneline
     ll = "!f() { [ $# -eq 0 ] && git log --graph --oneline || git log --graph --oneline -"$1"; }; f"
     ls = "!f() { [ $# -eq 0 ] && git log --graph --oneline --stat || git log --graph --oneline --stat -"$1"; }; f"
+
+# Load Git configs with specific overrides
+[include]
+    path = ~/win.gitconfig
+    path = ~/wsl.gitconfig
