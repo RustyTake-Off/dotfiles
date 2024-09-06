@@ -65,6 +65,7 @@
 
 [alias]
     alias = config --get-regexp '^alias.'
+    conli = config --list
     unm   = config user.name
     uem   = config user.email
 
@@ -88,7 +89,7 @@
     ca  = commit --amend
     cam = commit --amend -m
 
-    rv = revent
+    rv = revert
     rs = reset
 
     pl  = pull
@@ -111,6 +112,7 @@
     rmtsu = remote set-url
     rmtrm = remote remove
 
+    sh = show
     l  = log --graph --oneline
     ll = "!f() { [ $# -eq 0 ] && git log --graph --oneline || git log --graph --oneline -"$1"; }; f"
     ls = "!f() { [ $# -eq 0 ] && git log --graph --oneline --stat || git log --graph --oneline --stat -"$1"; }; f"
