@@ -4,7 +4,7 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.1.2
+# Version       - 0.1.3
 
 set -e
 
@@ -66,6 +66,13 @@ git config --global user.name "$USER_NAME"
 git config --global user.email "$USER_EMAIL"
 
 git add --all
+
+if [ "$(git diff --staged --quiet)" ]; then
+  echo ''
+  echo '===  No changes to commit   ============'
+  echo ''
+  exit 0
+fi
 
 echo ''
 echo '===  Status  ==========================='
