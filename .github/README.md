@@ -28,3 +28,12 @@ To setup 💡 these dotfiles run either of bellow 🔽 commands:
 ```bash
 curl -fsS https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/setup.sh | bash
 ```
+
+## Other dotfiles repos I found useful
+
+* paulirish - <https://github.com/paulirish/dotfiles>
+* henrebotha - <https://github.com/henrebotha/dotfiles>
+* henrebotha - <https://github.com/mathiasbynens/dotfiles/>
+* henrebotha - <https://github.com/alrra/dotfiles/>
+* henrebotha - <https://github.com/paulmillr/dotfiles>
+* henrebotha - <https://github.com/gf3/dotfiles>
