@@ -1,0 +1,7 @@
+# Windows gitconfig
+
+# Useful resources
+# Git docs - https://git-scm.com/docs/git-config
+
+[core]
+    autocrlf = input
