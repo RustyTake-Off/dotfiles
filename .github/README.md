@@ -17,13 +17,13 @@ Repository 🏤 contains my personal dotfiles and configuration files for variou
 
 To setup 💡 these dotfiles run either of bellow 🔽 commands:
 
-**For Windows**
+**For Windows |  [winfiles](../winfiles)  | [setup.ps1](../setup.ps1)**
 
 ```powershell
 (Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/setup.ps1').Content | Invoke-Expression
 ```
 
-**For Linux/WSL**
+**For Linux/WSL | [wslfiles](../wslfiles) | [setup.sh](../setup.sh)**
 
 ```bash
 curl -fsS https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/setup.sh | bash

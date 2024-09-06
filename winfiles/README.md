@@ -12,7 +12,7 @@ To setup 💡 these dotfiles run bellow 🔽 command:
 
 ## Updates
 
-For updates run `setdots` alias or this command:
+For updates run `setdots` alias or command for this [`script`](../winfiles/.dots/scripts/set-dotfiles.ps1):
 
 ```powershell
 (Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/winfiles/.dots/scripts/set-dotfiles.ps1').Content | Invoke-Expression
