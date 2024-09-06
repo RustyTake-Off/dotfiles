@@ -1,6 +1,6 @@
 # Browsers configuration
 
-📄 Configurations and settings for browser things. 🛠️
+**<p align="center">📄 Configurations and settings for browser things 🛠️</p>**
 
 - [Browsers configuration](#browsers-configuration)
   - [Current settings files](#current-settings-files)

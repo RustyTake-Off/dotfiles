@@ -1,6 +1,6 @@
 # VSCode Configuration
 
-📄 Configurations and settings for VSCode things. 🛠️
+**<p align="center">📄 Configurations and settings for VSCode things 🛠️</p>**
 
 - [VSCode Configuration](#vscode-configuration)
   - [Current settings files](#current-settings-files)

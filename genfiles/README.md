@@ -1,6 +1,6 @@
 # genfiles
 
-📄 Configurations and settings for different things. 🛠️
+**<p align="center">📄 Configurations and settings for different things 🛠️</p>**
 
 - [genfiles](#genfiles)
   - [Current configs](#current-configs)

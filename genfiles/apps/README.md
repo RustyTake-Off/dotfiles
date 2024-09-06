@@ -1,6 +1,6 @@
 # Apps configuration
 
-📄 Configurations and settings for app things. 🛠️
+**<p align="center">📄 Configurations and settings for app things 🛠️</p>**
 
 - [Apps configuration](#apps-configuration)
   - [Current settings files](#current-settings-files)
