@@ -1,3 +1,5 @@
+# Shared gitconfig
+
 # Useful resources
 # Git docs       - https://git-scm.com/docs/git-config
 # henrebotha     - https://github.com/henrebotha/dotfiles/blob/main/git/dot-gitconfig
@@ -20,7 +22,6 @@
     editor = vim
     # https://blog.thomasheartman.com/posts/change-your-git-comment-character
     # commentChar = ";"
-    pager = delta  # delta
 
 [branch]
     sort = -committerdate
@@ -31,13 +32,9 @@
 [diff]
     # https://luppeng.wordpress.com/2020/10/10/when-to-use-each-of-the-git-diff-algorithms/
     algorithm = histogram
-    colorMoved = default  # delta
 
 [init]
     defaultBranch = main
-
-[interactive]
-    diffFilter = delta --color-only  # delta
 
 [merge]
     conflictStyle = diff3  # https://ductile.systems/zdiff3/ - zdiff3 brakes things for some reason
@@ -58,10 +55,6 @@
 
 [tag]
     sort = -taggerdate
-
-[delta]
-    line-numbers = true
-    navigate = true
 
 # Include separate gitconfigs
 [includeIf "gitdir:~/pr/"]
@@ -121,3 +114,8 @@
     l  = log --graph --oneline
     ll = "!f() { [ $# -eq 0 ] && git log --graph --oneline || git log --graph --oneline -"$1"; }; f"
     ls = "!f() { [ $# -eq 0 ] && git log --graph --oneline --stat || git log --graph --oneline --stat -"$1"; }; f"
+
+# Load Git configs with specific overrides
+[include]
+    path = ~/win.gitconfig
+    path = ~/wsl.gitconfig

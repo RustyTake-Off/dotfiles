@@ -1,0 +1,19 @@
+# WSL gitconfig
+
+# Useful resources
+# Git docs - https://git-scm.com/docs/git-config
+
+[core]
+    # https://github.blog/2022-06-29-improve-git-monorepo-performance-with-a-file-system-monitor/
+    fsmonitor = false
+    pager = delta  # delta
+
+[diff]
+    colorMoved = default  # delta
+
+[interactive]
+    diffFilter = delta --color-only  # delta
+
+[delta]
+    line-numbers = true
+    navigate = true
