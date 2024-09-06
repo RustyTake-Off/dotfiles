@@ -33,7 +33,7 @@ curl -fsS https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/setup.sh
 
 * paulirish - <https://github.com/paulirish/dotfiles>
 * henrebotha - <https://github.com/henrebotha/dotfiles>
-* henrebotha - <https://github.com/mathiasbynens/dotfiles/>
-* henrebotha - <https://github.com/alrra/dotfiles/>
-* henrebotha - <https://github.com/paulmillr/dotfiles>
-* henrebotha - <https://github.com/gf3/dotfiles>
+* mathiasbynens - <https://github.com/mathiasbynens/dotfiles/>
+* alrra - <https://github.com/alrra/dotfiles/>
+* paulmillr - <https://github.com/paulmillr/dotfiles>
+* gf3 - <https://github.com/gf3/dotfiles>
