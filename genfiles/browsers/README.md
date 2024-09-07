@@ -20,10 +20,10 @@
 
 | Name                                                | Description                            |
 | :-------------------------------------------------- | :------------------------------------- |
-| [ublock-origin](./ublock-origin.json)               | Settings file for uBlock Origin        |
-| [midnight-lizard](./midnight-lizard.json)           | Settings file for Midnight Lizard      |
-| [enhancer-for-youtube](./enhancer-for-youtube.json) | Settings file for Enhancer for YouTube |
-| [betterttv](./betterttv.json)                       | Settings file for BetterTTV            |
+| [uBlock Origin](./ublock-origin.json)               | Settings file for uBlock Origin        |
+| [Midnight Lizard](./midnight-lizard.json)           | Settings file for Midnight Lizard      |
+| [Enhancer for YouTube](./enhancer-for-youtube.json) | Settings file for Enhancer for YouTube |
+| [BetterTTV](./betterttv.json)                       | Settings file for BetterTTV            |
 
 ## Brave configuration
 
