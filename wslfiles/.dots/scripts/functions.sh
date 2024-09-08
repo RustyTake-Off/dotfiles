@@ -83,9 +83,9 @@ cpkeys() {
   # Copy keys and config from Windows .ssh directory and
   # removes read, write and execute permissions from group and others
 
-  if [ ! "$(uname -r | grep -q 'WSL2')" ]; then
+  if [ ! "$(uname -r | grep 'WSL2')" ]; then
     echo "Needs to be run on WSL2"
-    exit 1
+    return
   fi
 
   win_user="$(command powershell.exe '$env:USERNAME' | tr --delete '\r')"
@@ -116,4 +116,56 @@ permkeys() {
       chmod go-rwx "$HOME/.ssh/$base_name"
     fi
   done
+}
+
+prwk() {
+  # Backup or recover pr and wk directories in WSL
+  # Usage: prwk {back|rec}
+
+  if [ ! "$(uname -r | grep 'WSL2')" ]; then
+    echo "Needs to be run on WSL2"
+    return 1
+  fi
+
+  local action="$1"
+  local pr_dir_path="$HOME/pr"
+  local wk_dir_path="$HOME/wk"
+
+  win_user="$(command powershell.exe '$env:USERNAME' | tr --delete '\r')"
+  local backup_pr_dir_path="/mnt/c/Users/${win_user}/pr_wsl_backup"
+  local backup_wk_dir_path="/mnt/c/Users/${win_user}/wk_wsl_backup"
+
+  case "$action" in
+      back)
+          echo "You are about to back up directories"
+          echo "Source directories: $pr_dir_path and $wk_dir_path"
+          echo "Backup locations: $backup_pr_dir_path and $backup_wk_dir_path"
+          read -p "Are you sure you want to proceed? (y/n): " choice
+          if [[ "${choice,,}" == "y" ]]; then
+              mkdir -p "$backup_pr_dir_path"
+              mkdir -p "$backup_wk_dir_path"
+              cp -rT "$pr_dir_path" "$backup_pr_dir_path"
+              cp -rT "$wk_dir_path" "$backup_wk_dir_path"
+              echo "Backup completed"
+          else
+              echo "Backup canceled"
+          fi
+          ;;
+      rec)
+          echo "You are about to recover directories"
+          echo "Backup locations: $backup_pr_dir_path and $backup_wk_dir_path"
+          echo "Destination directories: $pr_dir_path and $wk_dir_path"
+          read -p "Are you sure you want to proceed? (y/n): " choice
+          if [[ "${choice,,}" == "y" ]]; then
+              cp -rT "$backup_pr_dir_path" "$pr_dir_path"
+              cp -rT "$backup_wk_dir_path" "$wk_dir_path"
+              echo "Recovery completed"
+          else
+              echo "Recovery canceled"
+          fi
+          ;;
+      *)
+          echo "Usage: prwk {back|rec}"
+          ;;
+  esac
 }
