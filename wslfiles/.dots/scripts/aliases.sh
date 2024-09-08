@@ -4,7 +4,7 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.1.17
+# Version       - 0.1.18
 
 # Common aliases
 alias cd......="cd ../../../../../.."
@@ -26,7 +26,7 @@ alias cls="clear"
 __f__al() {
   [ -z "$1" ] \
   && alias \
-  || alias | nl | grep "$@"
+  || alias | grep --color=always -E "$(echo "$@" | sed 's/ /|/g')"
 }
 alias al="__f__al"
 
