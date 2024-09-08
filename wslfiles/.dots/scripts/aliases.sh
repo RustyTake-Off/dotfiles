@@ -23,6 +23,12 @@ alias h="history"
 alias hf="fc -s"  # Rerun last command or last command starting with some letters
 alias hfl="fc -l"  # Prints recent commands
 alias cls="clear"
+__f__al() {
+  [ -z "$1" ] \
+  && alias \
+  || alias | nl | grep "$@"
+}
+alias al="__f__al"
 
 alias ls="ls --color=always --group-directories-first"
 alias la="ls -a --color=always --group-directories-first"
