@@ -64,7 +64,8 @@
     path = ~/wk/wk.gitconfig
 
 [alias]
-    alias = config --get-regexp '^alias.'
+    # alias = config --get-regexp '^alias.'
+    alias = "!f() { [ $# -eq 0 ] && git config --get-regexp '^alias.' || git config --get-regexp '^alias.' | grep --color=always -E "$(echo "$@" | sed 's/ /|/g')"; }; f"
     conli = config --list
     unm   = config user.name
     uem   = config user.email
