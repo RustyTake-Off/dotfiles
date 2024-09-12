@@ -1,5 +1,5 @@
 {
-    "version": "2.0.126",
+    "version": "2.0.126.1",
     "settings": {
         "blur": 0,
         "brightness": 100,
@@ -58,7 +58,7 @@
         "customcssrules": "",
         "customscript": "",
         "customtheme": false,
-        "darktheme": true,
+        "darktheme": false,
         "date": 0,
         "defaultvolume": false,
         "disableautoplay": false,
