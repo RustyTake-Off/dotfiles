@@ -25,7 +25,7 @@
         "panel.background": "#000000",
         "sideBar.background": "#000000",
         "tab.inactiveBackground": "#000000",
-        "terminal.background": "#000000",
+        "terminal.background": "#000000"
     },
     // "workbench.colorTheme": "GitHub Dark Default",
     "workbench.iconTheme": "material-icon-theme",
@@ -141,11 +141,12 @@
     // markdownlint
     "markdownlint.config": {
         // "MD013": false,
-        // "MD029": false,
         // "MD022": false,
         // "MD024": false,
+        // "MD029": false,
         // "MD032": false,
-        // "MD033": false
+        "MD033": false,
+        "MD036": false
     },
     // path-intellisense
     "path-intellisense.autoTriggerNextSuggestion": true,
@@ -271,6 +272,12 @@
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "[javascriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescriptreact]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     }
 }
