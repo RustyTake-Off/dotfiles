@@ -31,8 +31,8 @@
         "blacklistKeywords": {},
         "highlightKeywords": {},
         "sidebar": [
-            24,
-            122
+            152,
+            250
         ],
         "emotes": [
             63,
@@ -61,6 +61,6 @@
         "undefined": false,
         "emoteMenuWidth": 380,
         "hypeChat": false,
-        "version": "7.6.5"
+        "version": "7.6.6"
     }
 }
