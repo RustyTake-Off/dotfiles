@@ -4,14 +4,13 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.1.14
 
 # Configuration variables
-declare DOTFILES_SCRIPT_PATH="$HOME/.dots/scripts/set_dotfiles.sh"
-declare HOME_DIRS="pr wk"
+dotfiles_script_path="$HOME/.dots/scripts/set_dotfiles.sh"
+declare home_dirs=("pr" "wk")
 
 # ANSI escape sequences for different colors
-declare -A COLORS=(
+declare -A colors=(
   ["red"]="\033[31m"
   ["green"]="\033[32m"
   ["yellow"]="\033[33m"
@@ -22,7 +21,7 @@ declare -A COLORS=(
 
 create_dirs() {
   # Create directories
-  for dir in $HOME_DIRS; do
+  for dir in "${home_dirs[@]}"; do
     if [ ! -d "$HOME/$dir" ]; then
       echo -e "Creating ${COLORS[yellow]}'$dir'${COLORS[reset]} directory"
       mkdir "$HOME/$dir"

@@ -4,13 +4,13 @@
 [[ $- != *i* ]] && return
 
 # Exports
+export EDITOR="vim"
 export HISTSIZE=1000000
 export HISTFILESIZE=1000000
 export HISTTIMEFORMAT="%d-%m %H:%M:%S  "
 export HISTCONTROL=erasedups:ignorespace
-export HISTIGNORE="&:ls:la:ll:cd:exit:pwd:cls:[ ]*"
+export HISTIGNORE="&:ls:la:ll:history:h:hfl:rebash:exit:pwd:cls:clear:[ ]*"
 export TERM="xterm-256color"
-export EDITOR="vim"
 
 # Set vim as MANPAGER - https://zameermanji.com/blog/2012/12/30/using-vim-as-manpager/
 # export MANPAGER="/usr/bin/sh -c \"col -b | vim -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
@@ -35,10 +35,10 @@ export HOMEBREW_NO_ANALYTICS=1
 [ -x "$(command -v fzf)" ] && eval "$(fzf --bash)"
 
 # Load bash files
-bash_config_files="aliases functions completions shell_options"
-for file in $bash_config_files; do
+declare bash_config_files=("aliases" "functions" "completions" "shell_options")
+for file in "${bash_config_files[@]}"; do
   if [ -f "$HOME/.dots/scripts/$file.sh" ]; then
     source "$HOME/.dots/scripts/$file.sh"
   fi
 done
-unset bash_config_files file
+unset -v bash_config_files file
