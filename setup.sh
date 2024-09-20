@@ -1,18 +1,17 @@
 #!/usr/bin/env bash
 # Dotfiles setup script
 
-# GitHub        - https://github.com/RustyTake-Off
-# GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
-# Author        - RustyTake-Off
-# Version       - 0.1.5
+# GitHub      - https://github.com/RustyTake-Off
+# GitHub Repo - https://github.com/RustyTake-Off/dotfiles
+# Author      - RustyTake-Off
 
 # Configuration variables
-declare REPO_URL="https://github.com/RustyTake-Off/dotfiles.git"
-declare DOTFILES_PATH="$HOME/.dotfiles"
-declare BRANCH_NAME="wslfiles"
+repo_url="https://github.com/RustyTake-Off/dotfiles.git"
+dotfiles_path="$HOME/.dotfiles"
+branch_name="wslfiles"
 
 # ANSI escape sequences for different colors
-declare -A COLORS=(
+declare -A colors=(
   ["red"]="\033[31m"
   ["green"]="\033[32m"
   ["yellow"]="\033[33m"
@@ -27,7 +26,7 @@ write_colored_message() {
 
   local message="$1"
   local color="$2"
-  echo -e "${COLORS[$color]}${message}${COLORS[reset]}"
+  echo -e "${colors[$color]}${message}${colors[reset]}"
 }
 
 check_and_ask_to_install() {
@@ -41,11 +40,11 @@ check_and_ask_to_install() {
   write_colored_message "$package_name is not installed" "red"
 
   while true; do
-    read -rp "$(write_colored_message "Do you want to install $package_name (y/N)? " "yellow")" choice
+    read -rp "$(write_colored_message "Do you want to install $package_name (y/n)? " "yellow")" choice
 
     case "${choice,,}" in
       y|yes) return 0 ;;
-      n|no) write_colored_message "Stopping script. Bye, bye" "red"; exit 1 ;;
+      n|no) write_colored_message "Stopping script. Bye, bye" "red"; return 1 ;;
       *) write_colored_message "Invalid input, please enter 'y' or 'n'" "red" ;;
     esac
   done
@@ -64,16 +63,16 @@ else
 fi
 
 # Clone dotfiles
-if [ ! -d "$DOTFILES_PATH" ]; then
+if [ ! -d "$dotfiles_path" ]; then
   write_colored_message "Cloning dotfiles..." "yellow"
 
-  git clone --bare "$REPO_URL" "$DOTFILES_PATH"
-  git --git-dir="$DOTFILES_PATH" --work-tree="$HOME" checkout "$BRANCH_NAME"
-  git --git-dir="$DOTFILES_PATH" --work-tree="$HOME" config status.showUntrackedFiles no
+  git clone --bare "$repo_url" "$dotfiles_path"
+  git --git-dir="$dotfiles_path" --work-tree="$HOME" checkout "$branch_name"
+  git --git-dir="$dotfiles_path" --work-tree="$HOME" config status.showUntrackedFiles no
 else
   write_colored_message "Dotfiles are set" "yellow"
   write_colored_message "Checking for updates..." "purple"
 
-  git --git-dir="$DOTFILES_PATH" --work-tree="$HOME" reset --hard
-  git --git-dir="$DOTFILES_PATH" --work-tree="$HOME" pull origin "$BRANCH_NAME"
+  git --git-dir="$dotfiles_path" --work-tree="$HOME" reset --hard
+  git --git-dir="$dotfiles_path" --work-tree="$HOME" pull origin "$branch_name"
 fi
