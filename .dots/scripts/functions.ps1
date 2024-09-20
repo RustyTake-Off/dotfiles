@@ -11,7 +11,7 @@ GitHub Repo - https://github.com/RustyTake-Off/dotfiles
 
 .NOTES
 Author  - RustyTake-Off
-Version - 0.1.0
+Version - 0.1.1
 #>
 
 [CmdletBinding(SupportsShouldProcess)]
@@ -92,7 +92,6 @@ process {
             }
         }
     } catch {
-        Write-Error "Error in line $($_.InvocationInfo.ScriptLineNumber): $($_.Exception.Message)"
-        exit 1
+        throw "Error in line $($_.InvocationInfo.ScriptLineNumber): $($_.Exception.Message)"
     }
 }
