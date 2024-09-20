@@ -4,51 +4,53 @@
 # GitHub        - https://github.com/RustyTake-Off
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
-# Version       - 0.1.18
 
 # Common aliases
-alias cd......="cd ../../../../../.."
-alias cd.....="cd ../../../../.."
-alias cd....="cd ../../../.."
-alias cd...="cd ../../.."
-alias cd..="cd ../.."
-alias cd.="cd .."
-alias hm="cd $HOME"
-alias hpr="cd $HOME/pr"
-alias hwk="cd $HOME/wk"
-alias tmp="cd /tmp"
-alias gotr="cd $HOME/.local/share/Trash/files"
+alias cd......='cd ../../../../../..'
+alias cd.....='cd ../../../../..'
+alias cd....='cd ../../../..'
+alias cd...='cd ../../..'
+alias cd..='cd ../..'
+alias cd.='cd ..'
+alias hm='cd $HOME'
+alias hpr='cd $HOME/pr'
+alias hwk='cd $HOME/wk'
+alias tmp='cd /tmp'
+alias gotr='cd $HOME/.local/share/Trash/files'
 
-alias h="history"
-alias hf="fc -s"  # Rerun last command or last command starting with some letters
-alias hfl="fc -l"  # Prints recent commands
-alias cls="clear"
+alias h='history'
+alias hf='fc -s'  # Rerun last command or last command starting with some letters
+alias hfl='fc -l'  # Prints recent commands
+alias cls='clear'
 __f__al() {
-  [ -z "$1" ] \
-  && alias \
-  || alias | grep --color=always -E "$(echo "$@" | sed 's/ /|/g')"
+  if [[ -z "$1" ]]; then
+    alias
+  else
+    local args="${*// /|}"  # Replace spaces with '|'
+    alias | grep --color=always -E "$args"
+  fi
 }
-alias al="__f__al"
+alias al='__f__al'
 
-alias ls="ls --color=always --group-directories-first"
-alias la="ls -a --color=always --group-directories-first"
-alias ll="ls -al --color=always --group-directories-first"
+alias ls='ls --color=always --group-directories-first'
+alias la='ls -a --color=always --group-directories-first'
+alias ll='ls -al --color=always --group-directories-first'
 
 # Files manipulation
-alias mkdir="mkdir -vp"
-alias mktmp="mktemp"  # Make temp file in /tmp
-alias cp="cp -vi"
-alias mv="mv -vi"
-alias rm="rm -I"
+alias mkdir='mkdir -vp'
+alias mktmp='mktemp'  # Make temp file in /tmp
+alias cp='cp -vi'
+alias mv='mv -vi'
+alias rm='rm -I'
 
 # trash-cli - https://github.com/andreafrancia/trash-cli
-[ -x "$(command -v trash)" ] && {
-  alias trp="trash-put"
-  alias tre="trash-empty"
-  alias trl="trash-list"
-  alias trr="trash-restore"
-  alias trm="trash-rm"
-}
+if [[ -x "$(command -v trash)" ]]; then
+  alias trp='trash-put'
+  alias tre='trash-empty'
+  alias trl='trash-list'
+  alias trr='trash-restore'
+  alias trm='trash-rm'
+fi
 
 # Get date/time
 alias nowd="date '+%d/%m/%Y'"
@@ -56,57 +58,62 @@ alias nowdw="date '+%A %B %d %Y'"
 alias nowt="date '+%H:%M:%S'"
 
 # Get ip addresses
-alias pubip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias pubip='dig +short myip.opendns.com @resolver1.opendns.com'
 alias locip="sudo ifconfig | grep -Eo 'inet (addr:)?([0-9]*\\.){3}[0-9]*' | grep -Eo '([0-9]*\\.){3}[0-9]*' | grep -v '127.0.0.1'"
 
-alias less="less -R --use-color"
-alias grep="grep --color=auto"
-alias egrep="egrep --color=auto"
-alias fgrep="fgrep --color=auto"
+alias less='less -R --use-color'
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
 
-alias j="jobs -l"
-alias df="df -h"
-alias free="free -m"
-alias psa="ps auxf"
-alias pscpu="ps auxf | sort -nr -k 3"
-alias psmem="ps auxf | sort -nr -k 4"
+alias j='jobs -l'
+alias df='df -h'
+alias free='free -m'
+alias psa='ps auxf'
+alias pscpu='ps auxf | sort -nr -k 3'
+alias psmem='ps auxf | sort -nr -k 4'
 
-alias apti="sudo apt install"
-alias sup="sudo apt update"
-alias sug="sudo apt upgrade -y"
-alias supug="sudo apt update && sudo apt upgrade -y"
+alias apti='sudo apt install'
+alias sup='sudo apt update'
+alias sug='sudo apt upgrade -y'
+alias supug='sudo apt update && sudo apt upgrade -y'
 
-[ -x "$(command -v brew)" ] && {
-  alias br="brew"
-  [ -n "$(type -t __load_completion)" ] \
-  && __load_completion brew \
-  && complete -F _brew br  # Add completion
+if [[ -x "$(command -v brew)" ]]; then
+  alias br='brew'
 
-  alias brin="brew install"
-  alias brun="brew uninstall"
-  alias brif="brew info"
-  alias brli="brew list"
-  alias brup="brew upgrade"
-}
+  alias brin='brew install'
+  alias brun='brew uninstall'
+  alias brif='brew info'
+  alias brli='brew list'
+  alias brup='brew upgrade'
+
+  # Add completion if the completion function is available
+  if [[ -n "$(type -t __load_completion)" ]]; then
+    __load_completion brew
+    complete -F _brew br  # Add completion for the alias `br`
+  fi
+fi
 
 alias acoms="compgen -a | nl"  # Print all aliases
 alias bcoms="compgen -b | nl"  # Print built-in shell commands
 __f__ccoms() {
-  [ -z "$1" ] \
-  && apropos -s 1 "" | sort | nl \
-  || apropos -s 1 "" | grep "$@" | sort | nl
+  if [[ -z "$1" ]]; then
+    apropos -s 1 "" | sort | nl
+  else
+    apropos -s 1 "" | grep "$@" | sort | nl
+  fi
 }
 alias ccoms="__f__ccoms"  # Print all runnable commands
 alias fcoms="compgen -A function | nl"  # Print all functions that you could run
 alias kcoms="compgen -k | nl"  # Print shell reserved keywords
 
 # Manage dotfiles in $HOME directory
-alias dot="git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
-alias setdots="source $HOME/.dots/scripts/set_dotfiles.sh"
-alias wslup="source $HOME/.dots/scripts/wslup.sh"
+alias dot="git --git-dir=\$HOME/.dotfiles --work-tree=\$HOME"
+alias setdots="source \$HOME/.dots/scripts/set_dotfiles.sh"
+alias wslup="source \$HOME/.dots/scripts/wslup.sh"
 
 # Aliases for WSL
-if [ -n "$(uname -r | grep -w "WSL2")" ]; then
+if [[ -n "$(grep -w "WSL2" <(uname -r))" ]]; then
   alias open="command explorer.exe"
   alias pwsh="command pwsh.exe"
   alias pwsh5="command powershell.exe"
@@ -116,14 +123,14 @@ fi
 alias py="python"
 alias py3="python3"
 
-[ -x "$(command -v pyenv)" ] && {
+if [ -x "$(command -v pyenv)" ]; then
   alias pyv="pyenv versions"
   alias pyi="pyenv install -v"
   alias pyg="pyenv global"
   alias pyl="pyenv local"
-}
+fi
 
-[ -x "$(command -v rye)" ] && {
+if [ -x "$(command -v rye)" ]; then
   alias ryi="rye init"
   alias ryp="rye pin"
   alias rys="rye sync"
@@ -132,7 +139,7 @@ alias py3="python3"
   alias ryrm="rye remove"
   alias ryl="rye list"
   alias ryr="rye run"
-}
+fi
 
 alias pysetup="py -m venv .venv --upgrade-deps && source .venv/bin/activate"
 alias py3setup="py3 -m venv .venv --upgrade-deps && source .venv/bin/activate"
@@ -147,11 +154,8 @@ alias pipsetreq="pip freeze --require-virtualenv -l >"
 alias pipgetreq="pip install --require-virtualenv --upgrade -r"
 
 # Docker aliases
-[ -x "$(command -v docker)" ] && {
+if [ -x "$(command -v docker)" ]; then
   alias d="docker"
-  [ -n "$(type -t __load_completion)" ] \
-  && __load_completion docker \
-  && complete -F __start_docker d  # Add completion
 
   alias dps="docker ps"
   alias dcmi="docker images"
@@ -172,9 +176,11 @@ alias pipgetreq="pip install --require-virtualenv --upgrade -r"
   alias dcl="docker logs"
   alias dckl="docker kill"
   __f__dci() {
-    [ -z "$2" ] \
-    && docker inspect "$1" | jq -r ".[0]" \
-    || docker inspect "$1" | jq -r ".[0].$2"
+    if [ -z "$2" ]; then
+      docker inspect "$1" | jq -r ".[0]"
+    else
+      docker inspect "$1" | jq -r ".[0].$2"
+    fi
   }
   alias dci="__f__dci"
 
@@ -201,7 +207,13 @@ alias pipgetreq="pip install --require-virtualenv --upgrade -r"
   alias dcicl="docker image prune"
   alias dcvcl="docker volume prune"
   alias dcncl="docker network prune"
-}
+
+  # Add completion if the completion function is available
+  if [ -n "$(type -t __load_completion)" ]; then
+    __load_completion docker
+    complete -F __start_docker d  # Add completion for the alias `d`
+  fi
+fi
 
 alias k="kubectl"
 alias kcx="kubectx"
