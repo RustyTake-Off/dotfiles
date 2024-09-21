@@ -22,23 +22,23 @@ declare -A colors=(
 create_dirs() {
   # Create directories
   for dir in "${home_dirs[@]}"; do
-    if [ ! -d "$HOME/$dir" ]; then
-      echo -e "Creating ${COLORS[yellow]}'$dir'${COLORS[reset]} directory"
+    if [[ ! -d "$HOME/$dir" ]]; then
+      echo -e "Creating ${colors[yellow]}'$dir'${colors[reset]} directory"
       mkdir "$HOME/$dir"
     fi
   done
 
   # Copy gitconfigs if on WSL2
-  if [ "$(uname -r | grep -q 'WSL2')" ]; then
-    win_user="$(command powershell.exe '$env:USERNAME' | tr --delete '\r')"
-    win_home_path="/mnt/c/Users/${win_user}"
+  if [[ "$(grep -w 'WSL2' <(uname -r))" ]]; then
+    win_user="$(command powershell.exe '$env:USERNAME')"
+    win_home_path="/mnt/c/Users/${win_user//$'\r'/}"
 
-    for dir in $HOME_DIRS; do
-      if [ ! -f "$HOME/$dir/$dir.gitconfig" ] && [ -f "$win_home_path/$dir/$dir.gitconfig" ]; then
-        echo -e "Copying ${COLORS[yellow]}'$dir.gitconfig'${COLORS[reset]}"
+    for dir in "${home_dirs[@]}"; do
+      if [[ ! -f "$HOME/$dir/$dir.gitconfig" ]] && [[ -f "$win_home_path/$dir/$dir.gitconfig" ]]; then
+        echo -e "Copying ${colors[yellow]}'$dir.gitconfig'${colors[reset]}"
         cp "$win_home_path/$dir/$dir.gitconfig" "$HOME/$dir"
       else
-        echo -e "File ${COLORS[red]}'$dir.gitconfig'${COLORS[reset]} in '$win_home_path/$dir' does not exist"
+        echo -e "File ${colors[red]}'$dir.gitconfig'${colors[reset]} in '$win_home_path/$dir' does not exist"
       fi
     done
   fi
@@ -50,18 +50,19 @@ write_colored_message() {
 
   local message="$1"
   local color="$2"
-  echo -e "${COLORS[$color]}$message${COLORS[reset]}"
+  echo -e "${colors[$color]}$message${colors[reset]}"
 }
 
 get_help() {
   # Help message
 
   write_colored_message "Available commands:" "yellow"
-  echo -e "${COLORS[yellow]}  -h  |  --help      ${COLORS[reset]} - Prints help message"
-  echo -e "${COLORS[yellow]}  -a  |  --apt-apps  ${COLORS[reset]} - Install apt applications"
-  echo -e "${COLORS[yellow]}  -b  |  --brew      ${COLORS[reset]} - Install homebrew"
-  echo -e "${COLORS[yellow]}  -ba |  --brew-apps ${COLORS[reset]} - Install brew applications"
-  echo -e "${COLORS[yellow]}  -d  |  --dotfiles  ${COLORS[reset]} - Invokes dotfiles setup script"
+  echo -e "${colors[yellow]}  -h  |  --help      ${colors[reset]} - Prints help message"
+  echo -e "${colors[yellow]}  -a  |  --apt-apps  ${colors[reset]} - Install apt applications"
+  echo -e "${colors[yellow]}  -b  |  --brew      ${colors[reset]} - Install homebrew"
+  echo -e "${colors[yellow]}  -ba |  --brew-apps ${colors[reset]} - Install brew applications"
+  echo -e "${colors[yellow]}  -d  |  --dotfiles  ${colors[reset]} - Invokes dotfiles setup script"
+  echo -e "${colors[yellow]}  -all  |  --all  ${colors[reset]} - Creates dirs and installs apt, brew apps"
 }
 
 get_apt_apps() {
@@ -87,13 +88,13 @@ get_apt_apps() {
     wget
 
   # Install starship
-  if [ ! -x "$(command -v starship)" ]; then
+  if [[ ! -x "$(command -v starship)" ]]; then
     write_colored_message "Installing Starship..." "yellow"
     curl -sS https://starship.rs/install.sh | sh
   fi
 
   # Install azure cli
-  if [ ! -x "$(command -v az)" ]; then
+  if [[ ! -x "$(command -v az)" ]]; then
     write_colored_message "Installing AzureCLI..." "yellow"
     curl -L https://aka.ms/InstallAzureCli | bash
 
@@ -101,7 +102,7 @@ get_apt_apps() {
   fi
 
   # Install azure developer cli
-  if [ ! -x "$(command -v azd)" ]; then
+  if [[ ! -x "$(command -v azd)" ]]; then
     write_colored_message "Installing Azure Developer CLI..." "yellow"
     curl -fsSL https://aka.ms/install-azd.sh | bash
   fi
@@ -110,12 +111,12 @@ get_apt_apps() {
 get_brew() {
   # Install homebrew if not installed
 
-  if [ ! -x "$(command -v brew)" ]; then
+  if [[ ! -x "$(command -v brew)" ]]; then
     write_colored_message "Installing Homebrew..." "yellow"
     bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
     # Check if Homebrew is installed and set up the environment
-    if [ -x "$(command -v /home/linuxbrew/.linuxbrew/bin/brew)" ]; then
+    if [[ -x "$(command -v /home/linuxbrew/.linuxbrew/bin/brew)" ]]; then
       eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
       command brew completions link
 
@@ -132,7 +133,7 @@ get_brew_apps() {
   # Check and install homebrew
   get_brew
 
-  if [ -x "$(command -v brew)" ]; then
+  if [[ -x "$(command -v brew)" ]]; then
     write_colored_message "Installing Homebrew apps..." "yellow"
     brew install \
       ansible \
@@ -155,7 +156,8 @@ get_brew_apps() {
       ruff \
       rye \
       shellcheck \
-      tfenv \
+      shfmt \
+      tenv \
       tlrc \
       trash-cli \
       yq \
@@ -168,7 +170,7 @@ set_dotfiles() {
 
   write_colored_message "Invoking dotfiles setup script..." "yellow"
 
-  if [ -x "$DOTFILES_SCRIPT_PATH" ]; then
+  if [[ -x "$DOTFILES_SCRIPT_PATH" ]]; then
     source "$DOTFILES_SCRIPT_PATH"
   else
     curl -fsS https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/wslfiles/.dots/scripts/set_dotfiles.sh | bash
@@ -178,7 +180,7 @@ set_dotfiles() {
 }
 
 # Main logic
-if [ $# -eq 0 ]; then
+if [[ $# -eq 0 ]]; then
   get_help
 else
   case "$1" in
