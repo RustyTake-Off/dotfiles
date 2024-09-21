@@ -1,34 +1,34 @@
-name: 'Move files'
-description: 'Move files to branch'
+name: "Move files"
+description: "Move files to branch"
 
 inputs:
   SOURCE_BRANCH_NAME:
-    description: 'Source branch name e.g. main/master'
-    default: 'main'
+    description: "Source branch name e.g. main/master"
+    default: "main"
     required: false
   CONFIG_FILE_PATH:
-    description: 'Path to the config file with files to move'
+    description: "Path to the config file with files to move"
     required: true
   USER_NAME:
-    description: 'User name for git config'
-    default: 'github-actions[bot]'
+    description: "User name for git config"
+    default: "github-actions[bot]"
     required: false
   USER_EMAIL:
-    description: 'User email for git config'
-    default: 'github-actions[bot]@users.noreply.github.com'
+    description: "User email for git config"
+    default: "github-actions[bot]@users.noreply.github.com"
     required: false
 
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
-    - name: 'Install yq'
+    - name: "Install yq"
       id: install-yq
       shell: bash
       run: |
         sudo curl -Lo /usr/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 \
         && sudo chmod +x /usr/bin/yq
 
-    - name: 'Read YAML config'
+    - name: "Read YAML config"
       id: read-config
       shell: bash
       run: |
@@ -37,7 +37,7 @@ runs:
         echo "TARGET_BRANCH_NAME=${TARGET_BRANCH_NAME}" >> $GITHUB_ENV
         echo "OTHER_DIRS_FILES=${OTHER_DIRS_FILES}" >> $GITHUB_ENV
 
-    - name: 'Move files to ${{ env.TARGET_BRANCH_NAME }}'
+    - name: "Move files to ${{ env.TARGET_BRANCH_NAME }}"
       id: move-files-to-branch
       shell: bash
       run: |

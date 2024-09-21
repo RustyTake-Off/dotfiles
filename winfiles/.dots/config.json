@@ -1,172 +1,172 @@
 {
-    "drivers": {
-        "min": [
-            "https://dl.dell.com/FOLDER05463466M/4/Realtek-Memory-Card-Reader-Driver_R16KJ_WIN_10.0.17763.21313_A02_02.EXE",
-            "https://dl.dell.com/FOLDER07448178M/4/Dell-Touchpad-Driver_2VV2N_WIN_10.3201.101.216_A10_02.EXE",
-            "https://dl.dell.com/FOLDER06444713M/3/Dell-Touchpad-Settings-Application_CPPN8_WIN64_10.1.11.0_A03_02.EXE",
-            "https://dl.dell.com/FOLDER11613688M/1/Intel-HID-Event-Filter-Driver_78FNP_WIN64_2.2.2.9_A21.EXE",
-            "https://dl.dell.com/FOLDER12002724M/1/Dell-Power-Manager-Service_3W7J1_WIN64_3.16.0_A00.EXE",
-            "https://download.brother.com/welcome/dlf105119/Y20A_C1_ULWC_PP-inst-E1.EXE"
-        ],
-        "all": [
-            "https://dl.dell.com/FOLDER06114266M/3/Realtek-High-Definition-Audio-Driver_88XXX_WIN_6.0.8895.1_A23_02.EXE",
-            "https://dl.dell.com/FOLDER10140261M/7/Intel-Chipset-Device-Software_RVRV0_WIN_10.1.19468.8385_A23_06.EXE",
-            "https://dl.dell.com/FOLDER08493502M/3/Intel-Dynamic-Tuning-Driver_H5M3J_WIN64_8.7.10802.26924_A16_02.EXE",
-            "https://dl.dell.com/FOLDER06762917M/5/STMicroelectronics-Free-Fall-Data-Protection-Driver_FXX2G_WIN_4.10.106_A02_02.EXE",
-            "https://dl.dell.com/FOLDER05463466M/4/Realtek-Memory-Card-Reader-Driver_R16KJ_WIN_10.0.17763.21313_A02_02.EXE",
-            "https://dl.dell.com/FOLDER07448178M/4/Dell-Touchpad-Driver_2VV2N_WIN_10.3201.101.216_A10_02.EXE",
-            "https://dl.dell.com/FOLDER06444713M/3/Dell-Touchpad-Settings-Application_CPPN8_WIN64_10.1.11.0_A03_02.EXE",
-            "https://dl.dell.com/FOLDER11613688M/1/Intel-HID-Event-Filter-Driver_78FNP_WIN64_2.2.2.9_A21.EXE",
-            "https://dl.dell.com/FOLDER08377396M/6/Intel-9560-9260-8265-7265-3165-Wi-Fi-Driver_FCCJ9_WIN_22.130.0.5_A30_05.EXE",
-            "https://dl.dell.com/FOLDER11711473M/1/Intel-PCIe-Ethernet-Controller-Driver_8PGF6_WIN64_20.0.2.10_A31.EXE",
-            "https://dl.dell.com/FOLDER04017465M/5/Intel-Bluetooth-Driver_3CKVY_WIN_19.11.1639.649_A14_02.EXE",
-            "https://dl.dell.com/FOLDER12002724M/1/Dell-Power-Manager-Service_3W7J1_WIN64_3.16.0_A00.EXE",
-            "https://download.brother.com/welcome/dlf105119/Y20A_C1_ULWC_PP-inst-E1.EXE"
-        ]
-    },
-    "fonts": [
-        "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CascadiaCode.zip",
-        "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/RobotoMono.zip"
+  "drivers": {
+    "min": [
+      "https://dl.dell.com/FOLDER05463466M/4/Realtek-Memory-Card-Reader-Driver_R16KJ_WIN_10.0.17763.21313_A02_02.EXE",
+      "https://dl.dell.com/FOLDER07448178M/4/Dell-Touchpad-Driver_2VV2N_WIN_10.3201.101.216_A10_02.EXE",
+      "https://dl.dell.com/FOLDER06444713M/3/Dell-Touchpad-Settings-Application_CPPN8_WIN64_10.1.11.0_A03_02.EXE",
+      "https://dl.dell.com/FOLDER11613688M/1/Intel-HID-Event-Filter-Driver_78FNP_WIN64_2.2.2.9_A21.EXE",
+      "https://dl.dell.com/FOLDER12002724M/1/Dell-Power-Manager-Service_3W7J1_WIN64_3.16.0_A00.EXE",
+      "https://download.brother.com/welcome/dlf105119/Y20A_C1_ULWC_PP-inst-E1.EXE"
     ],
-    "apps": {
-        "base": [
-            {
-                "name": "Microsoft.VCRedist.2005.x64",
-                "source": "winget",
-                "args": "--silent"
-            },
-            {
-                "name": "Microsoft.VCRedist.2008.x64",
-                "source": "winget",
-                "args": "--silent"
-            },
-            {
-                "name": "Microsoft.VCRedist.2010.x64",
-                "source": "winget",
-                "args": "--silent"
-            },
-            {
-                "name": "Microsoft.VCRedist.2012.x64",
-                "source": "winget",
-                "args": "--silent"
-            },
-            {
-                "name": "Microsoft.VCRedist.2013.x64",
-                "source": "winget",
-                "args": "--silent"
-            },
-            {
-                "name": "Microsoft.VCRedist.2015+.x64",
-                "source": "winget",
-                "args": "--silent"
-            },
-            {
-                "id": "9MZ1SNWT0N5D",
-                "name": "Microsoft.PowerShell",
-                "source": "winget",
-                "args": "--silent"
-            }
-        ],
-        "util": [
-            {
-                "name": "7zip.7zip",
-                "source": "winget",
-                "args": "--silent"
-            },
-            {
-                "id": "XP8C9QZMS2PC1T",
-                "name": "Brave.Brave",
-                "source": "winget",
-                "args": "--silent"
-            },
-            {
-                "id": "9NZVDKPMR9RD",
-                "name": "Mozilla.Firefox",
-                "source": "winget",
-                "args": "--silent"
-            },
-            {
-                "id": "9NBLGGH516XP",
-                "name": "File-New-Project.EarTrumpet",
-                "source": "msstore",
-                "args": "--silent"
-            },
-            {
-                "id": "9PLJWWSV01LK",
-                "name": "xanderfrangos.twinkletray",
-                "source": "msstore",
-                "args": "--silent"
-            },
-            {
-                "name": "Notepad++.Notepad++",
-                "source": "winget",
-                "args": "--silent"
-            },
-            {
-                "name": "SumatraPDF.SumatraPDF",
-                "source": "winget",
-                "args": "--silent"
-            },
-            {
-                "id": "9NBLGGH4Z1SP",
-                "name": "ShareX.ShareX",
-                "source": "msstore",
-                "args": "--silent"
-            },
-            {
-                "name": "KeePassXCTeam.KeePassXC",
-                "source": "winget",
-                "args": "--silent"
-            },
-            {
-                "id": "XP89DCGQ3K6VLD",
-                "name": "Microsoft.PowerToys",
-                "source": "msstore",
-                "args": "--silent"
-            },
-            {
-                "id": "9N0DX20HK701",
-                "name": "Microsoft.WindowsTerminal",
-                "source": "msstore",
-                "args": "--silent"
-            },
-            {
-                "name": "Starship.Starship",
-                "source": "winget",
-                "args": "--silent"
-            },
-            {
-                "name": "BurntSushi.ripgrep.MSVC",
-                "source": "winget",
-                "args": "--silent"
-            },
-            {
-                "name": "ajeetdsouza.zoxide",
-                "source": "winget",
-                "args": "--silent"
-            },
-            {
-                "name": "junegunn.fzf",
-                "source": "winget",
-                "args": "--silent"
-            },
-            {
-                "name": "Git.Git",
-                "source": "winget",
-                "args": "--interactive"
-            },
-            {
-                "name": "Microsoft.VisualStudioCode",
-                "source": "winget",
-                "args": "--silent"
-            }
-        ]
-    },
-    "psmodules": [
-        "PackageManagement",
-        "PowerShellGet",
-        "PSReadLine",
-        "posh-git",
-        "Az"
+    "all": [
+      "https://dl.dell.com/FOLDER06114266M/3/Realtek-High-Definition-Audio-Driver_88XXX_WIN_6.0.8895.1_A23_02.EXE",
+      "https://dl.dell.com/FOLDER10140261M/7/Intel-Chipset-Device-Software_RVRV0_WIN_10.1.19468.8385_A23_06.EXE",
+      "https://dl.dell.com/FOLDER08493502M/3/Intel-Dynamic-Tuning-Driver_H5M3J_WIN64_8.7.10802.26924_A16_02.EXE",
+      "https://dl.dell.com/FOLDER06762917M/5/STMicroelectronics-Free-Fall-Data-Protection-Driver_FXX2G_WIN_4.10.106_A02_02.EXE",
+      "https://dl.dell.com/FOLDER05463466M/4/Realtek-Memory-Card-Reader-Driver_R16KJ_WIN_10.0.17763.21313_A02_02.EXE",
+      "https://dl.dell.com/FOLDER07448178M/4/Dell-Touchpad-Driver_2VV2N_WIN_10.3201.101.216_A10_02.EXE",
+      "https://dl.dell.com/FOLDER06444713M/3/Dell-Touchpad-Settings-Application_CPPN8_WIN64_10.1.11.0_A03_02.EXE",
+      "https://dl.dell.com/FOLDER11613688M/1/Intel-HID-Event-Filter-Driver_78FNP_WIN64_2.2.2.9_A21.EXE",
+      "https://dl.dell.com/FOLDER08377396M/6/Intel-9560-9260-8265-7265-3165-Wi-Fi-Driver_FCCJ9_WIN_22.130.0.5_A30_05.EXE",
+      "https://dl.dell.com/FOLDER11711473M/1/Intel-PCIe-Ethernet-Controller-Driver_8PGF6_WIN64_20.0.2.10_A31.EXE",
+      "https://dl.dell.com/FOLDER04017465M/5/Intel-Bluetooth-Driver_3CKVY_WIN_19.11.1639.649_A14_02.EXE",
+      "https://dl.dell.com/FOLDER12002724M/1/Dell-Power-Manager-Service_3W7J1_WIN64_3.16.0_A00.EXE",
+      "https://download.brother.com/welcome/dlf105119/Y20A_C1_ULWC_PP-inst-E1.EXE"
     ]
+  },
+  "fonts": [
+    "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CascadiaCode.zip",
+    "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/RobotoMono.zip"
+  ],
+  "apps": {
+    "base": [
+      {
+        "name": "Microsoft.VCRedist.2005.x64",
+        "source": "winget",
+        "args": "--silent"
+      },
+      {
+        "name": "Microsoft.VCRedist.2008.x64",
+        "source": "winget",
+        "args": "--silent"
+      },
+      {
+        "name": "Microsoft.VCRedist.2010.x64",
+        "source": "winget",
+        "args": "--silent"
+      },
+      {
+        "name": "Microsoft.VCRedist.2012.x64",
+        "source": "winget",
+        "args": "--silent"
+      },
+      {
+        "name": "Microsoft.VCRedist.2013.x64",
+        "source": "winget",
+        "args": "--silent"
+      },
+      {
+        "name": "Microsoft.VCRedist.2015+.x64",
+        "source": "winget",
+        "args": "--silent"
+      },
+      {
+        "id": "9MZ1SNWT0N5D",
+        "name": "Microsoft.PowerShell",
+        "source": "winget",
+        "args": "--silent"
+      }
+    ],
+    "util": [
+      {
+        "name": "7zip.7zip",
+        "source": "winget",
+        "args": "--silent"
+      },
+      {
+        "id": "XP8C9QZMS2PC1T",
+        "name": "Brave.Brave",
+        "source": "winget",
+        "args": "--silent"
+      },
+      {
+        "id": "9NZVDKPMR9RD",
+        "name": "Mozilla.Firefox",
+        "source": "winget",
+        "args": "--silent"
+      },
+      {
+        "id": "9NBLGGH516XP",
+        "name": "File-New-Project.EarTrumpet",
+        "source": "msstore",
+        "args": "--silent"
+      },
+      {
+        "id": "9PLJWWSV01LK",
+        "name": "xanderfrangos.twinkletray",
+        "source": "msstore",
+        "args": "--silent"
+      },
+      {
+        "name": "Notepad++.Notepad++",
+        "source": "winget",
+        "args": "--silent"
+      },
+      {
+        "name": "SumatraPDF.SumatraPDF",
+        "source": "winget",
+        "args": "--silent"
+      },
+      {
+        "id": "9NBLGGH4Z1SP",
+        "name": "ShareX.ShareX",
+        "source": "msstore",
+        "args": "--silent"
+      },
+      {
+        "name": "KeePassXCTeam.KeePassXC",
+        "source": "winget",
+        "args": "--silent"
+      },
+      {
+        "id": "XP89DCGQ3K6VLD",
+        "name": "Microsoft.PowerToys",
+        "source": "msstore",
+        "args": "--silent"
+      },
+      {
+        "id": "9N0DX20HK701",
+        "name": "Microsoft.WindowsTerminal",
+        "source": "msstore",
+        "args": "--silent"
+      },
+      {
+        "name": "Starship.Starship",
+        "source": "winget",
+        "args": "--silent"
+      },
+      {
+        "name": "BurntSushi.ripgrep.MSVC",
+        "source": "winget",
+        "args": "--silent"
+      },
+      {
+        "name": "ajeetdsouza.zoxide",
+        "source": "winget",
+        "args": "--silent"
+      },
+      {
+        "name": "junegunn.fzf",
+        "source": "winget",
+        "args": "--silent"
+      },
+      {
+        "name": "Git.Git",
+        "source": "winget",
+        "args": "--interactive"
+      },
+      {
+        "name": "Microsoft.VisualStudioCode",
+        "source": "winget",
+        "args": "--silent"
+      }
+    ]
+  },
+  "psmodules": [
+    "PackageManagement",
+    "PowerShellGet",
+    "PSReadLine",
+    "posh-git",
+    "Az"
+  ]
 }

@@ -1,66 +1,45 @@
 {
-    "bttv_settings": {
-        "anonChat": false,
-        "anonChatWhitelistedChannels": [],
-        "anonChatBlacklistedChannels": [],
-        "autoTheatreMode": false,
-        "autoJoinRaids": true,
-        "autoModView": false,
-        "splitChat": true,
-        "deletedMessages": 0,
-        "reverseChatDirection": false,
-        "pinnedHighlights": false,
-        "maxPinnedHighlights": 10,
-        "timeoutHighlights": true,
-        "highlightFeedback": false,
-        "chatLayout": 2,
-        "tabCompletionTooltip": false,
-        "tabCompletionEmotePriority": false,
-        "whispers": true,
-        "showDirectoryLiveTab": false,
-        "channelPointsMessageHighlights": true,
-        "emoteMenu": 2,
-        "autoThemeMode": false,
-        "darkenedMode": true,
-        "primePromotions": false,
-        "playerExtensions": false,
-        "clickToPlay": false,
-        "muteInvisiblePlayer": false,
-        "scrollVolumeControl": false,
-        "emoteAutocomplete": true,
-        "blacklistKeywords": {},
-        "highlightKeywords": {},
-        "sidebar": [
-            152,
-            250
-        ],
-        "emotes": [
-            63,
-            63
-        ],
-        "chat": [
-            65,
-            127
-        ],
-        "autoPlay": [
-            0,
-            13
-        ],
-        "usernames": [
-            15,
-            15
-        ],
-        "channelPoints": [
-            3,
-            7
-        ],
-        "autoClaim": [
-            1,
-            1
-        ],
-        "undefined": false,
-        "emoteMenuWidth": 380,
-        "hypeChat": false,
-        "version": "7.6.6"
-    }
+  "bttv_settings": {
+    "anonChat": false,
+    "anonChatWhitelistedChannels": [],
+    "anonChatBlacklistedChannels": [],
+    "autoTheatreMode": false,
+    "autoJoinRaids": true,
+    "autoModView": false,
+    "splitChat": true,
+    "deletedMessages": 0,
+    "reverseChatDirection": false,
+    "pinnedHighlights": false,
+    "maxPinnedHighlights": 10,
+    "timeoutHighlights": true,
+    "highlightFeedback": false,
+    "chatLayout": 2,
+    "tabCompletionTooltip": false,
+    "tabCompletionEmotePriority": false,
+    "whispers": true,
+    "showDirectoryLiveTab": false,
+    "channelPointsMessageHighlights": true,
+    "emoteMenu": 2,
+    "autoThemeMode": false,
+    "darkenedMode": true,
+    "primePromotions": false,
+    "playerExtensions": false,
+    "clickToPlay": false,
+    "muteInvisiblePlayer": false,
+    "scrollVolumeControl": false,
+    "emoteAutocomplete": true,
+    "blacklistKeywords": {},
+    "highlightKeywords": {},
+    "sidebar": [152, 250],
+    "emotes": [63, 63],
+    "chat": [65, 127],
+    "autoPlay": [0, 13],
+    "usernames": [15, 15],
+    "channelPoints": [3, 7],
+    "autoClaim": [1, 1],
+    "undefined": false,
+    "emoteMenuWidth": 380,
+    "hypeChat": false,
+    "version": "7.6.6"
+  }
 }
