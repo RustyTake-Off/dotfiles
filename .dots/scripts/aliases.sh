@@ -123,14 +123,14 @@ fi
 alias py="python"
 alias py3="python3"
 
-if [ -x "$(command -v pyenv)" ]; then
+if [[ -x "$(command -v pyenv)" ]]; then
   alias pyv="pyenv versions"
   alias pyi="pyenv install -v"
   alias pyg="pyenv global"
   alias pyl="pyenv local"
 fi
 
-if [ -x "$(command -v rye)" ]; then
+if [[ -x "$(command -v rye)" ]]; then
   alias ryi="rye init"
   alias ryp="rye pin"
   alias rys="rye sync"
@@ -154,7 +154,7 @@ alias pipsetreq="pip freeze --require-virtualenv -l >"
 alias pipgetreq="pip install --require-virtualenv --upgrade -r"
 
 # Docker aliases
-if [ -x "$(command -v docker)" ]; then
+if [[ -x "$(command -v docker)" ]]; then
   alias d="docker"
 
   alias dps="docker ps"
@@ -176,7 +176,7 @@ if [ -x "$(command -v docker)" ]; then
   alias dcl="docker logs"
   alias dckl="docker kill"
   __f__dci() {
-    if [ -z "$2" ]; then
+    if [[ -z "$2" ]]; then
       docker inspect "$1" | jq -r ".[0]"
     else
       docker inspect "$1" | jq -r ".[0].$2"
@@ -209,7 +209,7 @@ if [ -x "$(command -v docker)" ]; then
   alias dcncl="docker network prune"
 
   # Add completion if the completion function is available
-  if [ -n "$(type -t __load_completion)" ]; then
+  if [[ -n "$(type -t __load_completion)" ]]; then
     __load_completion docker
     complete -F __start_docker d  # Add completion for the alias `d`
   fi
