@@ -9,7 +9,7 @@ export HISTSIZE=1000000
 export HISTFILESIZE=1000000
 export HISTTIMEFORMAT="%d-%m %H:%M:%S  "
 export HISTCONTROL=ignoreboth:erasedups
-export HISTIGNORE="&:ls:la:ll:rebash:exit:pwd:cls:clear:h:h *:hfl:hfl *:z *:[ ]*"
+export HISTIGNORE="&:ls:la:ll:rebash:exit:pwd:cls:clear:h *:hfl *:z *:al *:git alias *:[ ]*"
 export TERM="xterm-256color"
 
 # Set vim as MANPAGER - https://zameermanji.com/blog/2012/12/30/using-vim-as-manpager/
