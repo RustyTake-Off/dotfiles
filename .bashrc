@@ -8,7 +8,7 @@ export EDITOR="vim"
 export HISTSIZE=1000000
 export HISTFILESIZE=1000000
 export HISTTIMEFORMAT="%d-%m %H:%M:%S  "
-export HISTCONTROL=erasedups:ignorespace
+export HISTCONTROL=ignoreboth:erasedups
 export HISTIGNORE="&:ls:la:ll:rebash:exit:pwd:cls:clear:h:h *:hfl:hfl *:z *:[ ]*"
 export TERM="xterm-256color"
 
