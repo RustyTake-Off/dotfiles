@@ -28,11 +28,11 @@ export HOMEBREW_NO_ANALYTICS=1
 [ -s "/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh" ] && source "/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh"
 [ -x "$(command -v starship)" ] && eval "$(starship init bash)"
 [ -x "$(command -v zoxide)" ] && eval "$(zoxide init bash)"
-[ -x "$(command -v pyenv)" ] && eval "$(pyenv init -)"
 [ -x "$(command -v goenv)" ] && eval "$(goenv init -)" \
 && export PATH="$GOROOT/bin:$PATH"; export PATH="$PATH:$GOPATH/bin"
-[ -x "$(command -v rye)" ] && source "$HOME/.rye/env"
 [ -x "$(command -v fzf)" ] && eval "$(fzf --bash)"
+[ -x "$(command -v uv)" ] && eval "$(uv generate-shell-completion bash)"
+[ -x "$(command -v uvx)" ] && eval "$(uvx --generate-shell-completion bash)"
 
 # Load bash files
 declare bash_config_files=("aliases" "functions" "completions" "shell_options")
