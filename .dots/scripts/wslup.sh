@@ -150,11 +150,9 @@ get_brew_apps() {
       kubent \
       kubernetes-cli \
       nvm \
-      pipx \
-      pyenv \
       ripgrep \
       ruff \
-      rye \
+      uv \
       shellcheck \
       shfmt \
       tenv \
