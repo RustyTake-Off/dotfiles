@@ -13,7 +13,7 @@ elif [[ -f "/etc/bash_completion" ]]; then
 fi
 
 # Completions for brew
-if [ -f "$(command -v /home/linuxbrew/.linuxbrew/bin/brew)" ]; then
+if [[ -f "$(command -v /home/linuxbrew/.linuxbrew/bin/brew)" ]]; then
   HOMEBREW_PREFIX="$(brew --prefix)"
   if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]; then
     source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"

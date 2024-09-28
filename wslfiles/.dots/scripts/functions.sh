@@ -46,7 +46,7 @@ iam() {
     uname)    uname -a
               ;;
 
-    *)        [[ "$(command -v "$cmd")" ]] && $cmd || \
+    *)        [[ -x "$(command -v "$cmd")" ]] && $cmd || \
               echo "Error: The command '$cmd' is not installed on this system." && \
               return 1
               ;;
@@ -113,7 +113,7 @@ permkeys() {
     base_name="${file##*/}"
     base_name="${base_name%.pub}"
     chmod go-rwx "$file"
-    if [ -f "$HOME/.ssh/$base_name" ]; then
+    if [[ -f "$HOME/.ssh/$base_name" ]]; then
       chmod go-rwx "$HOME/.ssh/$base_name"
     fi
   done
