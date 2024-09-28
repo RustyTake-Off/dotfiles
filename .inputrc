@@ -34,15 +34,10 @@ set page-completions off
 set show-all-if-ambiguous on
 
 # More intelligent when autocompleting by also looking at the text after
-# the cursor. for example, when the current line is "cd ~/src/mozil", and
+# the cursor. For example, when the current line is "cd ~/src/mozil", and
 # the cursor is on the "z", pressing tab will not autocomplete it to "cd
 # ~/src/mozillail", but to "cd ~/src/mozilla".
 set skip-completed-text on
 
 # Show extra file information
 set visible-stats on
-
-# Use the text that has already been typed as the prefix for searching through
-# commands (i.e. more intelligent Up/Down behavior)
-"\033[B": history-search-forward
-"\033[A": history-search-backward

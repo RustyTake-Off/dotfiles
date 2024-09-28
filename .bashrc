@@ -16,28 +16,28 @@ export TERM="xterm-256color"
 # export MANPAGER="/usr/bin/sh -c \"col -b | vim -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
 
 # Set PATH to user's private bin
-[ -d "$HOME/.local/bin" ] && PATH="$HOME/.local/bin:$PATH"
-[ -d "$HOME/bin" ] && PATH="$HOME/bin:$PATH"
+[[ -d "$HOME/.local/bin" ]] && PATH="$HOME/.local/bin:$PATH"
+[[ -d "$HOME/bin" ]] && PATH="$HOME/bin:$PATH"
 
 # Misc exports
 export AZURE_DEV_COLLECT_TELEMETRY=no
 export HOMEBREW_NO_ANALYTICS=1
 
 # Init apps
-[ -x "$(command -v /home/linuxbrew/.linuxbrew/bin/brew)" ] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-[ -s "/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh" ] && source "/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh"
-[ -x "$(command -v starship)" ] && eval "$(starship init bash)"
-[ -x "$(command -v zoxide)" ] && eval "$(zoxide init bash)"
-[ -x "$(command -v goenv)" ] && eval "$(goenv init -)" \
-&& export PATH="$GOROOT/bin:$PATH"; export PATH="$PATH:$GOPATH/bin"
-[ -x "$(command -v fzf)" ] && eval "$(fzf --bash)"
-[ -x "$(command -v uv)" ] && eval "$(uv generate-shell-completion bash)"
-[ -x "$(command -v uvx)" ] && eval "$(uvx --generate-shell-completion bash)"
+[[ -x "$(command -v starship)" ]] && eval "$(starship init bash)"
+[[ -x "$(command -v fzf)" ]] && eval "$(fzf --bash)"
+[[ -x "$(command -v zoxide)" ]] && eval "$(zoxide init bash)"
+
+[[ -x "$(command -v /home/linuxbrew/.linuxbrew/bin/brew)" ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+[[ -x "$(command -v uv)" ]] && eval "$(uv generate-shell-completion bash)"
+# [[ -x "$(command -v goenv)" ]] && eval "$(goenv init -)" \
+# && export PATH="$GOROOT/bin:$PATH"; export PATH="$PATH:$GOPATH/bin"
+[[ -s "/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh" ]] && source "/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh"
 
 # Load bash files
 declare bash_config_files=("aliases" "functions" "completions" "shell_options")
 for file in "${bash_config_files[@]}"; do
-  if [ -f "$HOME/.dots/scripts/$file.sh" ]; then
+  if [[ -f "$HOME/.dots/scripts/$file.sh" ]]; then
     source "$HOME/.dots/scripts/$file.sh"
   fi
 done

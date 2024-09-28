@@ -31,13 +31,13 @@ write_colored_message() {
 
 # Main logic
 # Check if Git is installed
-if [ ! -x "$(command -v git)" ]; then
+if [[ ! -x "$(command -v git)" ]]; then
   write_colored_message "Git is not installed" "red"
   return 1
 fi
 
 # Clone dotfiles
-if [ ! -d "$dotfiles_path" ]; then
+if [[ ! -d "$dotfiles_path" ]]; then
   write_colored_message "Cloning dotfiles..." "yellow"
 
   git clone --bare "$repo_url" "$dotfiles_path"
