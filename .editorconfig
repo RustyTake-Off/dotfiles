@@ -15,3 +15,6 @@ indent_size = 4
 
 [*.sh]
 indent_size = 2
+
+[*.{json,jsonc}]
+indent_size = 4
