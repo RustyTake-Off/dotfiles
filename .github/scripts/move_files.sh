@@ -54,7 +54,7 @@ rm README.md to_move.yaml
 if [[ -n "$OTHER_DIRS_FILES" ]]; then
 
   for item in $OTHER_DIRS_FILES; do
-    dir="${item%/*}"
+    dir=$(dirname "$item")
     [[ -d "$dir" ]] && rm -rf "$dir"
   done
 
