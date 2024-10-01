@@ -8,11 +8,11 @@
 set -e
 
 # Variables passed as inputs
-source_branch_name="$1"
-target_branch_name="$2"
-other_dirs_files="$3"
-user_name="$4"
-user_email="$5"
+declare source_branch_name="$1"
+declare target_branch_name="$2"
+declare other_dirs_files="$3"
+declare user_name="$4"
+declare user_email="$5"
 
 # Stash changes in the .github directory to fix error, after changing move_files.sh script permissions
 git stash push -m "Stash .github changes" -- .github
