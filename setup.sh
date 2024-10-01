@@ -12,12 +12,12 @@ branch_name="wslfiles"
 
 # ANSI escape sequences for different colors
 declare -A colors=(
-  ["red"]="\033[31m"
-  ["green"]="\033[32m"
-  ["yellow"]="\033[33m"
-  ["blue"]="\033[34m"
-  ["purple"]="\033[35m"
-  ["reset"]="\033[0m"
+  ["red"]="\e[31m"
+  ["green"]="\e[32m"
+  ["yellow"]="\e[33m"
+  ["blue"]="\e[34m"
+  ["purple"]="\e[35m"
+  ["reset"]="\e[0m"
 )
 
 # Function definitions
@@ -33,7 +33,7 @@ check_and_ask_to_install() {
   # Check and ask to install
 
   local package_name="$1"
-  if [ -x "$(command -v $package_name)" ]; then
+  if [[ -x "$(command -v $package_name)" ]]; then
     return 1
   fi
 
@@ -63,7 +63,7 @@ else
 fi
 
 # Clone dotfiles
-if [ ! -d "$dotfiles_path" ]; then
+if [[ ! -d "$dotfiles_path" ]]; then
   write_colored_message "Cloning dotfiles..." "yellow"
 
   git clone --bare "$repo_url" "$dotfiles_path"

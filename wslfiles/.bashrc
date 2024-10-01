@@ -14,6 +14,7 @@ export TERM="xterm-256color"
 
 # Set vim as MANPAGER - https://zameermanji.com/blog/2012/12/30/using-vim-as-manpager/
 # export MANPAGER="/usr/bin/sh -c \"col -b | vim -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
+export MANPAGER="less -X"
 
 # Set PATH to user's private bin
 [[ -d "$HOME/.local/bin" ]] && PATH="$HOME/.local/bin:$PATH"
