@@ -5,41 +5,41 @@
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
 
-set -ex
+set -e
 
 # Variables passed as inputs
-declare source_branch_name="$1"
-declare target_branch_name="$2"
-declare other_dirs_files="$3"
-declare user_name="$4"
-declare user_email="$5"
+source_branch_name="$1"
+target_branch_name="$2"
+other_dirs_files="$3"
+user_name="$4"
+user_email="$5"
 
 # Stash changes in the .github directory to fix error, after changing move_files.sh script permissions
 git stash push -m "Stash .github changes" -- .github
 
 # Switch to the target branch
-git checkout -b "$TARGET_BRANCH_NAME" --track "origin/$TARGET_BRANCH_NAME" > /dev/null
+git checkout -b "$target_branch_name" --track "origin/$target_branch_name" > /dev/null
 
 # Remove all files and reset
 git rm -rf . > /dev/null
 git reset > /dev/null
 
 # Checkout necessary files and directories
-git checkout "$SOURCE_BRANCH_NAME" -- $TARGET_BRANCH_NAME > /dev/null
-[ -n "$OTHER_DIRS_FILES" ] \
-&& git checkout "$SOURCE_BRANCH_NAME" -- $OTHER_DIRS_FILES > /dev/null
+git checkout "$source_branch_name" -- $target_branch_name > /dev/null
+[[ -n "$other_dirs_files" ]] \
+&& git checkout "$source_branch_name" -- $other_dirs_files > /dev/null
 
 # Copy files and directories
-cp -r "$TARGET_BRANCH_NAME"/* .
-find "$TARGET_BRANCH_NAME" -maxdepth 1 -name '.*[!.]*' -exec cp -r {} . \;
+cp -r "$target_branch_name"/* .
+find "$target_branch_name" -maxdepth 1 -name '.*[!.]*' -exec cp -r {} . \;
 
-if [ -n "$OTHER_DIRS_FILES" ]; then
+if [[ -n "$other_dirs_files" ]]; then
   shopt -s dotglob
 
-  for item in $OTHER_DIRS_FILES; do
-    if [ -f "$item" ] && [ -s "$item" ]; then
+  for item in $other_dirs_files; do
+    if [[ -f "$item" ]] && [[ -s "$item" ]]; then
       cp "$item" .
-    elif [ -d "$item" ]; then
+    elif [[ -d "$item" ]]; then
       cp -r "$item" .
     fi
   done
@@ -48,25 +48,25 @@ if [ -n "$OTHER_DIRS_FILES" ]; then
 fi
 
 # Clean up
-rm -rf "$TARGET_BRANCH_NAME"
+rm -rf "$target_branch_name"
 rm README.md to_move.yaml
 
-if [ -n "$OTHER_DIRS_FILES" ]; then
+if [[ -n "$other_dirs_files" ]]; then
 
-  for item in $OTHER_DIRS_FILES; do
-    dir=$(dirname "$item")
-    [ -d "$dir" ] && rm -rf "$dir"
+  for item in $other_dirs_files; do
+    dir="${item%/*}"
+    [[ -d "$dir" ]] && rm -rf "$dir"
   done
 
 fi
 
 # Commit and push
-git config --global user.name "$USER_NAME"
-git config --global user.email "$USER_EMAIL"
+git config --global user.name "$user_name"
+git config --global user.email "$user_email"
 
 git add --all
 
-if [ -z "$(git diff --staged)" ]; then
+if [[ -z "$(git diff --staged)" ]]; then
   echo ''
   echo '===  No changes to commit   ============'
   echo ''
@@ -81,9 +81,9 @@ git status --short
 echo ''
 echo '===  Commit  ==========================='
 echo ''
-git commit -m "Update $TARGET_BRANCH_NAME | $(date '+%d/%m/%Y') - $(date '+%H:%M:%S')"
+git commit -m "Update $target_branch_name | $(date '+%d/%m/%Y') - $(date '+%H:%M:%S')"
 
 echo ''
 echo '===  Push    ==========================='
 echo ''
-git push origin "$TARGET_BRANCH_NAME"
+git push origin "$target_branch_name"
