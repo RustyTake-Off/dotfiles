@@ -34,7 +34,6 @@ runs:
       run: |
         TARGET_BRANCH_NAME=$(yq '.TARGET_BRANCH_NAME' "${{ inputs.CONFIG_FILE_PATH }}")
         OTHER_DIRS_FILES=$(yq '.OTHER_DIRS_FILES' "${{ inputs.CONFIG_FILE_PATH }}")
-
         echo "TARGET_BRANCH_NAME=${TARGET_BRANCH_NAME}" >> $GITHUB_ENV
         echo "OTHER_DIRS_FILES=${OTHER_DIRS_FILES}" >> $GITHUB_ENV
 
@@ -43,7 +42,6 @@ runs:
       shell: bash
       run: |
         chmod +x .github/scripts/move_files.sh
-
         .github/scripts/move_files.sh \
         "${{ inputs.SOURCE_BRANCH_NAME }}" \
         "${{ env.TARGET_BRANCH_NAME }}" \
