@@ -1,14 +1,14 @@
-name: "🐧 Move wslfiles"
-run-name: "🐧 Move wslfiles"
+name: '🐧 Move wslfiles'
+run-name: '🐧 Move wslfiles'
 
 on:
   push:
     branches:
       - main
     paths:
-      - "shared/**"
-      - "wslfiles/**"
-      - "!**/README.md"
+      - 'shared/**'
+      - 'wslfiles/**'
+      - '!**/README.md'
   workflow_dispatch:
 
 concurrency:
@@ -21,18 +21,18 @@ permissions:
 jobs:
   move-files:
     runs-on: ubuntu-latest
-    name: "Move files"
+    name: 'Move files'
     environment: wslfiles
 
     steps:
-      - name: "Checkout repository"
+      - name: 'Checkout repository'
         id: checkout-repo
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: "Move files"
+      - name: 'Move files'
         id: move-files
         uses: ./.github/actions/templates/moveFiles
         with:
-          CONFIG_FILE_PATH: "wslfiles/to_move.yaml"
+          CONFIG_FILE_PATH: 'wslfiles/to_move.yaml'
