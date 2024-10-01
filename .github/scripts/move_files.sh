@@ -5,7 +5,7 @@
 # GitHub Repo   - https://github.com/RustyTake-Off/dotfiles
 # Author        - RustyTake-Off
 
-set -e
+set -ex
 
 # Variables passed as inputs
 declare source_branch_name="$1"
