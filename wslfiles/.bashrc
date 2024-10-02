@@ -25,11 +25,11 @@ export AZURE_DEV_COLLECT_TELEMETRY=no
 export HOMEBREW_NO_ANALYTICS=1
 
 # Init apps
+[[ -x "$(command -v /home/linuxbrew/.linuxbrew/bin/brew)" ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 [[ -x "$(command -v starship)" ]] && eval "$(starship init bash)"
 [[ -x "$(command -v fzf)" ]] && eval "$(fzf --bash)"
 [[ -x "$(command -v zoxide)" ]] && eval "$(zoxide init bash)"
 
-[[ -x "$(command -v /home/linuxbrew/.linuxbrew/bin/brew)" ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 [[ -x "$(command -v uv)" ]] && eval "$(uv generate-shell-completion bash)"
 # [[ -x "$(command -v goenv)" ]] && eval "$(goenv init -)" \
 # && export PATH="$GOROOT/bin:$PATH"; export PATH="$PATH:$GOPATH/bin"
