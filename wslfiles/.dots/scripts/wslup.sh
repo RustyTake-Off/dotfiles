@@ -11,12 +11,12 @@ declare home_dirs=("pr" "wk")
 
 # ANSI escape sequences for different colors
 declare -A colors=(
-  ["red"]="\e[31m"
-  ["green"]="\e[32m"
-  ["yellow"]="\e[33m"
-  ["blue"]="\e[34m"
-  ["purple"]="\e[35m"
-  ["reset"]="\e[0m"
+  ["red"]="\033[31m"
+  ["green"]="\033[32m"
+  ["yellow"]="\033[33m"
+  ["blue"]="\033[34m"
+  ["purple"]="\033[35m"
+  ["reset"]="\033[0m"
 )
 
 create_dirs() {
