@@ -10,7 +10,7 @@
 shopt -s cdspell
 shopt -s checkhash
 # shopt -s checkwinsize
-# shopt -s cmdhist
+shopt -s cmdhist
 # shopt -s complete_fullquote
 # shopt -s direxpand
 shopt -s dirspell
