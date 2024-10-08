@@ -137,11 +137,6 @@
                 "args": "--silent"
             },
             {
-                "name": "BurntSushi.ripgrep.MSVC",
-                "source": "winget",
-                "args": "--silent"
-            },
-            {
                 "name": "ajeetdsouza.zoxide",
                 "source": "winget",
                 "args": "--silent"
