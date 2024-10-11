@@ -95,7 +95,8 @@ function Invoke-DotfilesClone {
         $output = git --git-dir=$dotfilesPath --work-tree=$HOME pull origin $branchName
 
         if ($output -match 'Already up to date.') {
-            Write-ColoredMessage 'Dotfiles up to date' 'green'
+            Write-ColoredMessage 'Already up to date.' 'green'
+            return $true
         }
     }
 }
@@ -149,9 +150,11 @@ function Set-ConfigurationFiles {
 # Main execution logic
 try {
     if (-not $SkipClone) {
-        Invoke-DotfilesClone
+        if (Invoke-DotfilesClone) {
+            return
+        }
     } else {
-        Write-ColoredMessage 'Skipping cloning of dotfiles.' 'yellow'
+        Write-ColoredMessage 'Skipping dotfiles cloning' 'yellow'
     }
 
     if (-not (Test-Path -Path $dotsFilesPath -PathType Container)) {
@@ -160,7 +163,7 @@ try {
 
     Write-ColoredMessage 'Setting up configuration files...' 'yellow'
     Set-ConfigurationFiles
-    Write-ColoredMessage 'Dotfiles setup complete.' 'green'
+    Write-ColoredMessage 'Dotfiles setup complete' 'green'
 } catch {
     throw "Error in line $($_.InvocationInfo.ScriptLineNumber): $($_.Exception.Message)"
 } finally {
