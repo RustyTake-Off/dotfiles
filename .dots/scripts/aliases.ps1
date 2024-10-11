@@ -17,7 +17,7 @@ Author  - RustyTake-Off
 param()
 
 # Preferences
-$ErrAction = $ErrorActionPreference
+$errAction = $ErrorActionPreference
 $ErrorActionPreference = 'SilentlyContinue'
 
 # Main execution logic
@@ -137,5 +137,5 @@ try {
 } catch {
     throw "Error in line $($_.InvocationInfo.ScriptLineNumber): $($_.Exception.Message)"
 } finally {
-    $ErrorActionPreference = $ErrAction
+    $ErrorActionPreference = $errAction
 }

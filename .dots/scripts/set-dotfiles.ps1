@@ -11,15 +11,16 @@ GitHub Repo - https://github.com/RustyTake-Off/dotfiles
 
 .NOTES
 Author  - RustyTake-Off
-Version - 0.1.8
 #>
 
 [CmdletBinding(SupportsShouldProcess)]
 param (
     [Parameter(HelpMessage = 'Skips cloning dotfiles and just sets them in their locations.')]
-    [switch]$skipClone
+    [switch]$SkipClone
 )
 
+# Preferences
+$errAction = $ErrorActionPreference
 $ErrorActionPreference = 'SilentlyContinue'
 
 # Configuration variables
@@ -50,120 +51,118 @@ $colors = @{
 
 # Function definitions
 function Write-ColoredMessage {
+    <#
+    .SYNOPSIS
+    Write message with color
+    #>
+
     param (
-        [string]$message,
-        [string]$color
+        [Parameter(Mandatory = $true)]
+        [string]$Message,
+        [Parameter(Mandatory = $true)]
+        [ValidateScript({
+                if (-not $colors.ContainsKey($_)) {
+                    throw "Invalid color '$($_)'. Available colors are: $($colors.Keys -join ', ')"
+                }
+                $true
+            })]
+        [string]$Color
     )
-    Write-Host "$($colors[$color])$message$($colors.reset)"
+
+    Write-Host "$($colors[$Color])$Message$($colors.reset)"
 }
 
-function New-CopyFile {
-    param (
-        [string]$sourceFile,
-        [string]$targetFile
-    )
+function Invoke-DotfilesClone {
+    <#
+    .SYNOPSIS
+    Clone or update dotfiles
+    #>
 
-    Write-Host "Copying $($colors.yellow)$($(Split-Path -Path $sourceFile) -replace [Regex]::Escape($HOME), '...')/$((Get-Item $sourceFile).Name)$($colors.reset) -> $($colors.purple)$($(Split-Path -Path $targetFile) -replace [Regex]::Escape($HOME), '...')/$((Get-Item $targetFile).Name)$($colors.reset)"
-    Copy-Item -Path $sourceFile -Destination $targetFile -Force
-}
+    if (-not (Get-Command -Name git)) {
+        throw 'Git is not installed.'
+    }
 
-function New-HashThenCopyFile {
-    param (
-        [string]$sourceFile,
-        [string]$targetFile
-    )
-    $hashOne = Get-FileHash -Path $sourceFile -Algorithm SHA256
-    $hashTwo = Get-FileHash -Path $targetFile -Algorithm SHA256
+    if (-not (Test-Path -Path $dotfilesPath)) {
+        Write-ColoredMessage 'Cloning dotfiles...' 'yellow'
 
-    if ($hashOne.Hash -ne $hashTwo.Hash) {
-        New-CopyFile -sourceFile $sourceFile -targetFile $targetFile
+        git clone --bare $repoUrl $dotfilesPath
+        git --git-dir=$dotfilesPath --work-tree=$HOME checkout $branchName
+        git --git-dir=$dotfilesPath --work-tree=$HOME config status.showUntrackedFiles no
     } else {
-        Write-Host "File already set $($colors.yellow)$($(Split-Path -Path $sourceFile) -replace [Regex]::Escape($HOME), '...')/$((Get-Item $sourceFile).Name)$($colors.reset) -> $($colors.purple)$($(Split-Path -Path $targetFile) -replace [Regex]::Escape($HOME), '...')/$((Get-Item $targetFile).Name)$($colors.reset)"
+        Write-ColoredMessage 'Checking for updates...' 'purple'
+
+        git --git-dir=$dotfilesPath --work-tree=$HOME reset --hard
+        $output = git --git-dir=$dotfilesPath --work-tree=$HOME pull origin $branchName
+
+        if ($output -match 'Already up to date.') {
+            Write-ColoredMessage 'Dotfiles up to date' 'green'
+        }
     }
 }
 
-function Invoke-HashAndCopyOrCopy {
+function Invoke-FileCopy {
+    <#
+    .SYNOPSIS
+    Copy file with hash comparison
+    #>
+
     param (
-        [string]$sourceFile,
-        [string]$targetFile
+        [Parameter(Mandatory = $true)]
+        [string]$SourceFile,
+        [Parameter(Mandatory = $true)]
+        [string]$TargetFile
     )
-    $source = Test-Path -Path $sourceFile -PathType Any
-    $target = Test-Path -Path $targetFile -PathType Any
 
-    if ($source -and -not $target) {
-        New-CopyFile -sourceFile $sourceFile -targetFile $targetFile
-    } elseif ($source -and $target) {
-        New-HashThenCopyFile -sourceFile $sourceFile -targetFile $targetFile
-    } elseif (-not $source -and $target) {
-        Write-ColoredMessage "File '$sourceFile' does not exist" 'red'
+    if (-not (Test-Path -Path $TargetFile) -or (Get-FileHash -Path $SourceFile).Hash -ne (Get-FileHash -Path $TargetFile).Hash) {
+        Write-Host "$($colors.yellow)Copying file:$($colors.reset) $($(Split-Path -Path $SourceFile) -replace [Regex]::Escape($HOME), '...')/$((Get-Item $SourceFile).Name) -> $($(Split-Path -Path $TargetFile) -replace [Regex]::Escape($HOME), '...')/$((Get-Item $TargetFile).Name)"
+        Copy-Item -Path $SourceFile -Destination $TargetFile -Force
+    } else {
+        Write-Host "$($colors.green)File up-to-date:$($colors.reset) $($(Split-Path -Path $SourceFile) -replace [Regex]::Escape($HOME), '...')/$((Get-Item $SourceFile).Name) -> $($(Split-Path -Path $TargetFile) -replace [Regex]::Escape($HOME), '...')/$((Get-Item $TargetFile).Name)"
     }
 }
 
-# Main logic
-try {
-    # Clone dotfiles
-    if (-not $skipClone) {
-        if (-not (Get-Command -Name git)) {
-            Write-ColoredMessage 'Git is not installed' 'red'
-            break 1
-        }
+function Set-ConfigurationFiles {
+    <#
+    .SYNOPSIS
+    Set up configuration files from dotfiles
+    #>
 
-        if (-not (Test-Path -Path $dotfilesPath -PathType Container)) {
-            Write-ColoredMessage 'Cloning dotfiles...' 'yellow'
-
-            git clone --bare $repoUrl $dotfilesPath
-            git --git-dir=$dotfilesPath --work-tree=$HOME checkout $branchName
-            git --git-dir=$dotfilesPath --work-tree=$HOME config status.showUntrackedFiles no
-        } else {
-            Write-ColoredMessage 'Checking for updates...' 'purple'
-
-            git --git-dir=$dotfilesPath --work-tree=$HOME reset --hard
-            $output = git --git-dir=$dotfilesPath --work-tree=$HOME pull origin $branchName
-
-            if ($output -match 'Already up to date.') {
-                Write-ColoredMessage 'Dotfiles up to date' 'green'
-                break 1
-            }
-        }
-    } else {
-        Write-ColoredMessage 'Skipping cloning dotfiles' 'yellow'
-    }
-
-    # Set configurations
-    if (-not (Test-Path -Path $dotsFilesPath -PathType Container)) {
-        Write-ColoredMessage "Directory '.dots' not found in '$HOME'" 'red'
-        break 1
-    }
-
-    Write-ColoredMessage 'Setting config files...' 'yellow'
     foreach ($key in $dotPaths.Keys) {
         if ($key -like 'dot*') {
             $sourcePath = $dotPaths[$key]
             $targetKey = $key -replace '^dot', ''
+            $targetPath = $dotPaths[$targetKey]
 
-            if ($dotPaths.ContainsKey($targetKey)) {
-                $targetPath = $dotPaths[$targetKey]
+            if (-not (Test-Path -Path $targetPath -PathType Container)) {
+                $null = New-Item -Path $targetPath -ItemType Directory -Force
+            }
 
-                if (-not (Test-Path -Path $targetPath -PathType Container)) {
-                    $null = New-Item -Path $destPath -ItemType Directory -
-                }
-
-                $files = Get-ChildItem -Path $sourcePath -File -Recurse
-                foreach ($file in $files) {
-                    $sourceFile = Join-Path -Path $sourcePath -ChildPath $file.Name
-                    $targetFile = Join-Path -Path $targetPath -ChildPath $file.Name
-                    Invoke-HashAndCopyOrCopy -sourceFile $sourceFile -targetFile $targetFile
-                }
-            } else {
-                Write-ColoredMessage "Target key '$targetKey' does not exist" 'red'
+            Get-ChildItem -Path $sourcePath -File | ForEach-Object {
+                $sourceFile = $_.FullName
+                $targetFile = Join-Path -Path $targetPath -ChildPath $_.Name
+                Invoke-FileCopy -SourceFile $sourceFile -TargetFile $targetFile
             }
         }
     }
+}
 
-    Write-ColoredMessage 'Dotfiles are set...' 'green'
+# Main execution logic
+try {
+    if (-not $SkipClone) {
+        Invoke-DotfilesClone
+    } else {
+        Write-ColoredMessage 'Skipping cloning of dotfiles.' 'yellow'
+    }
 
-    $ErrorActionPreference = 'Continue'
+    if (-not (Test-Path -Path $dotsFilesPath -PathType Container)) {
+        throw "Directory '.dots' not found in '$HOME'"
+    }
+
+    Write-ColoredMessage 'Setting up configuration files...' 'yellow'
+    Set-ConfigurationFiles
+    Write-ColoredMessage 'Dotfiles setup complete.' 'green'
 } catch {
-    Write-ColoredMessage "Error in line $($_.InvocationInfo.ScriptLineNumber): $($_.Exception.Message)" 'red'
-    exit 1
+    throw "Error in line $($_.InvocationInfo.ScriptLineNumber): $($_.Exception.Message)"
+} finally {
+    $ErrorActionPreference = $errAction
 }

@@ -47,18 +47,20 @@ GitHub Repo - https://github.com/RustyTake-Off/dotfiles
 
 .NOTES
 Author  - RustyTake-Off
-Version - 0.3.2
 #>
 
 [CmdletBinding(SupportsShouldProcess)]
 param (
     [Parameter(Mandatory = $false, Position = 0)]
     [ValidateSet('drivers', 'fonts', 'ctt', 'psmods', 'apps', 'dots', 'wsl', 'help')]
-    [string] $command,
-
+    [string]$Command,
     [Parameter(Mandatory = $false, Position = 1)]
-    [string] $subCommand
+    [string]$SubCommand
 )
+
+# Preferences
+$errAction = $ErrorActionPreference
+$ErrorActionPreference = 'SilentlyContinue'
 
 # Define valid subCommands for each command
 $validSubCommands = @{
@@ -67,18 +69,10 @@ $validSubCommands = @{
     'wsl'     = @('Debian', 'Ubuntu-24.04', 'Ubuntu-22.04', 'Ubuntu-20.04', 'kali-linux')
 }
 
-# Validate subCommand based on the selected command
-if ($validSubCommands.ContainsKey($command) -and -not $validSubCommands[$command].Contains($subCommand)) {
-    Write-Error "Invalid subCommand '$subCommand' for command '$command'. Valid options are: $($validSubCommands[$command] -join ', ')"
-    exit 1
-}
-
 # Configuration variables
-$dotsPath = "$HOME/.config"
-$configPath = "$HOME/.config/config.json"
-if (Test-Path -Path $configPath -PathType Leaf) {
-    $config = Get-Content -Path $configPath | ConvertFrom-Json
-}
+$dotsPath = "$HOME/.dots"
+$configPath = "$HOME/.dots/config.json"
+$config = if (Test-Path -Path $configPath) { Get-Content -Path $configPath | ConvertFrom-Json } else { $null }
 $repoDotsUrl = 'https://raw.githubusercontent.com/RustyTake-Off/dotfiles/main/winfiles/.dots/scripts/set-dotfiles.ps1'
 $userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36'
 
@@ -92,26 +86,35 @@ $colors = @{
     reset  = [char]27 + '[0m'
 }
 
-if (-not (Test-Path -Path "$HOME\pr" -PathType Container)) {
-    Write-Host "Creating $($colors.yellow)'personal'$($colors.reset) directory"
-    $null = New-Item -Path "$HOME\pr" -ItemType Directory
-}
-
-if (-not (Test-Path -Path "$HOME\wk" -PathType Container)) {
-    Write-Host "Creating $($colors.yellow)'work'$($colors.reset) directory"
-    $null = New-Item -Path "$HOME\wk" -ItemType Directory
-}
-
 # Function definitions
 function Write-ColoredMessage {
+    <#
+    .SYNOPSIS
+    Write message with color
+    #>
+
     param (
-        [string]$message,
-        [string]$color
+        [Parameter(Mandatory = $true)]
+        [string]$Message,
+        [Parameter(Mandatory = $true)]
+        [ValidateScript({
+                if (-not $colors.ContainsKey($_)) {
+                    throw "Invalid color '$($_)'. Available colors are: $($colors.Keys -join ', ')"
+                }
+                $true
+            })]
+        [string]$Color
     )
-    Write-Host "$($colors[$color])$message$($colors.reset)"
+
+    Write-Host "$($colors[$Color])$Message$($colors.reset)"
 }
 
 function Show-Help {
+    <#
+    .SYNOPSIS
+    Help message
+    #>
+
     Write-ColoredMessage 'Available commands:' 'yellow'
     Write-Host @"
 $($colors.yellow)  help    $($colors.reset) - Print help message
@@ -134,33 +137,68 @@ $($colors.yellow)  :  kali-linux   $($colors.reset) - Install kali-linux on WSL
 "@
 }
 
-function New-Directory() {
+function Confirm-SubCommand {
+    <#
+    .SYNOPSIS
+    Validates sub-commands
+    #>
+
     param (
-        [string]$path
+        [string]$Command,
+        [string]$SubCommand,
+        [hashtable]$ValidSubCommands
     )
 
-    Write-ColoredMessage "Creating $path..." 'yellow'
-    $null = New-Item -Path $path -ItemType Directory
+    if ($ValidSubCommands.ContainsKey($Command) -and -not $ValidSubCommands[$Command].Contains($SubCommand)) {
+        throw "Invalid SubCommand '$SubCommand' for Command '$Command'. Valid options are: $($ValidSubCommands[$Command] -join ', ')"
+    }
+}
+
+function Confirm-DirectoryExists() {
+    <#
+    .SYNOPSIS
+    Validates if directory exists else creates it
+    #>
+
+    param (
+        [string]$Path
+    )
+
+    if (-not (Test-Path -Path $Path -PathType Container)) {
+        Write-ColoredMessage "Creating directory: $Path" 'yellow'
+        $null = New-Item -Path $Path -ItemType Directory
+    }
 }
 
 function Invoke-Download() {
-    param (
-        [string]$url,
-        [string]$path
-    )
-    $fileName = Split-Path -Path $url -Leaf
-    $downloadPath = Join-Path -Path $path -ChildPath $fileName
+    <#
+    .SYNOPSIS
+    Invokes download
+    #>
 
-    Write-ColoredMessage "Downloading $url..." 'yellow'
-    Invoke-WebRequest -Uri $url -UserAgent $userAgent -OutFile $downloadPath -ProgressAction SilentlyContinue
+    param (
+        [string]$Url,
+        [string]$DestinationPath
+    )
+
+    $fileName = Split-Path -Path $Url -Leaf
+    $downloadPath = Join-Path -Path $DestinationPath -ChildPath $fileName
+
+    Write-ColoredMessage "Downloading: $Url" 'yellow'
+    Invoke-WebRequest -Uri $Url -UserAgent $userAgent -OutFile $downloadPath -ProgressAction SilentlyContinue
 }
 
 function Install-Fonts() {
-    param (
-        [System.IO.FileInfo][object]$fontFile
-    )
-    $fontsGTF = [Windows.Media.GlyphTypeface]::New($fontFile.FullName)
+    <#
+    .SYNOPSIS
+    Installs fonts
+    #>
 
+    param (
+        [System.IO.FileInfo][object]$FontFile
+    )
+
+    $fontsGTF = [Windows.Media.GlyphTypeface]::New($FontFile.FullName)
     $family = $fontsGTF.Win32FamilyNames['en-US']
     if ($null -eq $family) {
         $family = $fontsGTF.Win32FamilyNames.Values.Item(0)
@@ -172,7 +210,7 @@ function Install-Fonts() {
     }
 
     $fontName = ("$family $face").Trim()
-    switch ($fontFile.Extension) {
+    switch ($FontFile.Extension) {
         '.ttf' {
             $fontName = "$fontName (TrueType)"
         }
@@ -182,61 +220,66 @@ function Install-Fonts() {
     }
 
     Write-ColoredMessage "Installing $fontName..." 'yellow'
-    $fontPath = "$env:SystemRoot/fonts/$($fontFile.Name)"
+    $fontPath = "$env:SystemRoot/fonts/$($FontFile.Name)"
     if (-not (Test-Path -Path $fontPath)) {
         Write-ColoredMessage "Copying font $fontName..." 'yellow'
-        Copy-Item -Path $fontFile.FullName -Destination $fontPath -Force
+        Copy-Item -Path $FontFile.FullName -Destination $fontPath -Force
     } else {
         Write-ColoredMessage "Font already in place $fontName" 'green'
     }
 
-    if (-not (Get-ItemProperty -Name $fontName -Path 'HKLM:\Software\Microsoft\Windows NT\CurrentVersion\Fonts' -ErrorAction SilentlyContinue)) {
+    if (-not (Get-ItemProperty -Name $fontName -Path 'HKLM:\Software\Microsoft\Windows NT\CurrentVersion\Fonts')) {
         Write-ColoredMessage "Registering $fontName..." 'yellow'
-        New-ItemProperty -Name $fontName -Path 'HKLM:\Software\Microsoft\Windows NT\CurrentVersion\Fonts' -PropertyType String -Value $fontFile.Name -Force -ErrorAction SilentlyContinue | Out-Null
+        New-ItemProperty -Name $fontName -Path 'HKLM:\Software\Microsoft\Windows NT\CurrentVersion\Fonts' -PropertyType String -Value $FontFile.Name -Force
     } else {
         Write-ColoredMessage "Font already registered $fontName" 'green'
     }
 }
 
 function Invoke-GetDrivers {
+    <#
+    .SYNOPSIS
+    Downloads drivers
+    #>
+
     param (
-        [string]$type
+        [string]$Type
     )
 
     $driversPath = "$HOME/Desktop/drivers"
-    if (-not (Test-Path -Path $driversPath -PathType Container)) {
-        New-Directory -path $driversPath
+    Confirm-DirectoryExists -Path $driversPath
+
+    Write-ColoredMessage "Downloading '$Type' drivers..." 'purple'
+
+    foreach ($driverUrl in $config.drivers.$Type) {
+        Invoke-Download -Url $driverUrl -DestinationPath $driversPath
     }
 
-    Write-ColoredMessage 'Downloading drivers...' 'purple'
-    foreach ($driverUrl in $config.drivers.$type) {
-        Invoke-Download -url $driverUrl -path $driversPath
-    }
-    Write-ColoredMessage 'Download complete' 'green'
+    Write-ColoredMessage 'Driver download complete' 'green'
 }
 
 function Invoke-InstallFonts {
+    <#
+    .SYNOPSIS
+    Installs fonts
+    #>
+
     $fontsPath = "$HOME/Desktop/fonts"
-    if (-not (Test-Path -Path $fontsPath -PathType Container)) {
-        New-Directory -path $fontsPath
-    }
+    Confirm-DirectoryExists -Path $fontsPath
 
     Write-ColoredMessage 'Downloading fonts...' 'yellow'
     foreach ($fontUrl in $config.fonts) {
-        Invoke-Download -url $fontUrl -path $fontsPath
+        Invoke-Download -Url $fontUrl -DestinationPath $fontsPath
     }
-    Write-ColoredMessage 'Download complete' 'green'
+    Write-ColoredMessage 'Fonts download complete' 'green'
 
     Write-ColoredMessage 'Extracting fonts...' 'yellow'
     $fontsZipFiles = Get-ChildItem -Path $fontsPath -Filter '*.zip'
     foreach ($zipFile in $fontsZipFiles) {
-        $extractionDirectoryPath = "$fontsPath/$zipFile.BaseName"
+        $extractionDirectoryPath = "$fontsPath/$($zipFile.BaseName)"
+        Confirm-DirectoryExists -Path $fontsPath
 
-        if (-not (Test-Path -Path $extractionDirectoryPath -PathType Container)) {
-            New-Directory -path $extractionDirectoryPath
-        }
-
-        Write-Host "Extracting $($yellow)$($zipFile.Name)$($resetColor) to $($purple)$extractionDirectoryPath$($resetColor)"
+        Write-Host "Extracting $($colors.yellow)$($zipFile.Name)$($colors.reset) to $($colors.purple)$extractionDirectoryPath$($colors.reset)"
         Expand-Archive -Path $zipFile.FullName -DestinationPath $extractionDirectoryPath -Force
         Remove-Item -Path $zipFile.FullName -Force
         Write-ColoredMessage 'Extraction complete' 'green'
@@ -245,21 +288,36 @@ function Invoke-InstallFonts {
         $fonts = Get-ChildItem -Path $extractionDirectoryPath | Where-Object { ($_.Name -like '*.ttf') -or ($_.Name -like '*.otf') }
         Add-Type -AssemblyName PresentationCore
         foreach ($fontItem in $fonts) {
-            Install-Fonts -fontFile $fontItem.FullName
+            Install-Fonts -FontFile $fontItem.FullName
         }
         Write-ColoredMessage "Installation of $($zipFile.BaseName) complete" 'green'
     }
 }
 
 function Invoke-CTT {
+    <#
+    .SYNOPSIS
+    Invokes Chris Titus Tech's windows utility
+
+    .LINK
+    GitHub repo - https://github.com/ChrisTitusTech/winutil
+    #>
+
     Write-ColoredMessage 'Invoking CTT - winutil...' 'yellow'
+
     Invoke-WebRequest 'https://christitus.com/win' | Invoke-Expression
+
     Write-ColoredMessage 'Invocation complete' 'green'
 }
 
 function Invoke-InstallApps {
+    <#
+    .SYNOPSIS
+    Installs apps
+    #>
+
     param (
-        [string]$type
+        [string]$Type
     )
 
     if (Get-Command -Name winget) {
@@ -269,30 +327,38 @@ function Invoke-InstallApps {
     }
 
     Write-ColoredMessage 'Installing applications...' 'yellow'
-    foreach ($app in $config.apps.$type) {
+
+    foreach ($app in $config.apps.$Type) {
         if ($app.source -eq 'winget') {
             if (-not (winget list --exact --id $app.name | Select-String -SimpleMatch $app.name)) {
-                Write-Host "Installing $($yellow)$($app.name)$($resetColor) $($purple)($($app.source))$($resetColor)..."
+                Write-Host "Installing $($colors.yellow)$($app.name)$($colors.reset) $($colors.purple)($($app.source))$($colors.reset)..."
 
                 Start-Process winget -ArgumentList "install --exact --id $($app.name) --source $($app.source) $($app.args) --accept-package-agreements --accept-source-agreements" -NoNewWindow -Wait
             } else {
-                Write-Host "App is already installed $($yellow)$($app.name)$($resetColor) $($purple)($($app.source))$($resetColor)"
+                Write-Host "Already installed: $($colors.yellow)$($app.name)$($colors.reset) $($colors.purple)($($app.source))$($colors.reset)"
             }
         } elseif ($app.source -eq 'msstore') {
             if (-not (winget list --exact --id $app.id | Select-String -SimpleMatch $app.id)) {
-                Write-Host "Installing $($yellow)$($app.name)$($resetColor) $($purple)($($app.id))($($app.source))$($resetColor)..."
+                Write-Host "Installing $($colors.yellow)$($app.name)$($colors.reset) $($colors.purple)($($app.id))($($app.source))$($colors.reset)..."
 
                 Start-Process winget -ArgumentList "install --exact --id $($app.id) --source $($app.source) $($app.args) --accept-package-agreements --accept-source-agreements" -NoNewWindow -Wait
             } else {
-                Write-Host "App is already installed $($yellow)$($app.name)$($resetColor) $($purple)($($app.id))($($app.source))$($resetColor)"
+                Write-Host "Already installed: $($colors.yellow)$($app.name)$($colors.reset) $($colors.purple)($($app.id))($($app.source))$($colors.reset)"
             }
         }
     }
+
     Write-ColoredMessage 'Installation complete' 'green'
 }
 
 function Invoke-InstallPSModules {
-    Write-ColoredMessage 'Installing Powershell modules...' 'yellow'
+    <#
+    .SYNOPSIS
+    Installs PowerShell modules
+    #>
+
+    Write-ColoredMessage 'Installing PowerShell modules...' 'yellow'
+
     if (-not (Get-PackageProvider | Select-String -SimpleMatch NuGet)) {
         Install-PackageProvider -Name NuGet
     }
@@ -305,57 +371,82 @@ function Invoke-InstallPSModules {
     }
 
     Set-PSRepository -Name PSGallery -InstallationPolicy Untrusted
+
     Write-ColoredMessage 'Installation complete' 'green'
 }
 
 function Invoke-DotfilesScript {
+    <#
+    .SYNOPSIS
+    Invokes dotfiles script
+    #>
+
     Write-ColoredMessage 'Invoking Dotfiles setup script...' 'yellow'
+
     $dotfilesScriptPath = "$dotsPath/scripts/set-dotfiles.ps1"
     if (Test-Path -Path $dotfilesScriptPath -PathType Leaf) {
         Invoke-Expression $dotfilesScriptPath
     } else {
         (Invoke-WebRequest -Uri $repoDotsUrl).Content | Invoke-Expression
     }
+
     Write-ColoredMessage 'Invocation complete' 'green'
 }
 
 function Invoke-InstallWSL {
+    <#
+    .SYNOPSIS
+    Installs WSL distro
+    #>
+
     param (
-        [string]$distro
+        [string]$Distro
     )
 
-    Write-ColoredMessage "Installing WSL ($distro)..." 'purple'
-    wsl --install --distribution $distro
+    Write-ColoredMessage "Installing WSL ($Distro)..." 'purple'
+
+    wsl --install --distribution $Distro
+
     Write-ColoredMessage 'Installation complete' 'green'
 }
 
-# Command execution
-switch ($command) {
-    'drivers' {
-        Invoke-GetDrivers -type $subCommand
+# Main execution logic
+try {
+    Confirm-SubCommand -Command $Command -SubCommand $SubCommand -ValidSubCommands $validSubCommands
+    Confirm-DirectoryExists -Path "$HOME\pr"
+    Confirm-DirectoryExists -Path "$HOME\wk"
+
+    switch ($Command) {
+        'drivers' {
+            Invoke-GetDrivers -Type $SubCommand
+        }
+        'fonts' {
+            Invoke-InstallFonts
+        }
+        'ctt' {
+            Invoke-CTT
+        }
+        'apps' {
+            Invoke-InstallApps -Type $SubCommand
+        }
+        'psmods' {
+            Invoke-InstallPSModules
+        }
+        'dots' {
+            Invoke-DotfilesScript
+        }
+        'wsl' {
+            Invoke-InstallWSL -Distro $SubCommand
+        }
+        'help' {
+            Show-Help
+        }
+        default {
+            Show-Help
+        }
     }
-    'fonts' {
-        Invoke-InstallFonts
-    }
-    'ctt' {
-        Invoke-CTT
-    }
-    'apps' {
-        Invoke-InstallApps -type $subCommand
-    }
-    'psmods' {
-        Invoke-InstallPSModules
-    }
-    'dots' {
-        Invoke-DotfilesScript
-    }
-    'wsl' {
-        Invoke-InstallWSL -distro $subCommand
-    }
-    'help' {
-        Show-Help
-    }
-    default {
-        Show-Help
-    }
+} catch {
+    throw "Error in line $($_.InvocationInfo.ScriptLineNumber): $($_.Exception.Message)"
+} finally {
+    $ErrorActionPreference = $errAction
 }
