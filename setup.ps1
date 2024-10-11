@@ -3,9 +3,9 @@
 Dotfiles setup script
 
 .DESCRIPTION
-This script automates the setup of dotfiles in a Windows environment. It checks for required tools
-(Git and Winget), installs them if necessary, clones a specified dotfiles repository, and sets up
-the dotfiles in the user's profile directory.
+This script automates the setup of dotfiles in a Windows environment. It checks for
+required tools (Git and Winget), installs them if necessary, clones a specified
+dotfiles repository, and sets up the dotfiles in the user's profile directory.
 
 .LINK
 GitHub      - https://github.com/RustyTake-Off
@@ -13,132 +13,133 @@ GitHub Repo - https://github.com/RustyTake-Off/dotfiles
 
 .NOTES
 Author  - RustyTake-Off
-Version - 0.1.9
 #>
 
 [CmdletBinding(SupportsShouldProcess)]
 param()
 
-begin {
-    # Preferences
-    $ErrorActionPreference = 'Stop'
-    $ProgressPreference = 'SilentlyContinue'
+# Preferences
+$errAction = $ErrorActionPreference
+$ErrorActionPreference = 'SilentlyContinue'
+$progressAction = $ProgressPreference
+$ProgressPreference = 'SilentlyContinue'
 
-    # Configuration variables
-    $script:RepoUrl = 'https://github.com/RustyTake-Off/dotfiles.git'
-    $script:DotfilesPath = Join-Path -Path $HOME -ChildPath '.dotfiles'
-    $script:BranchName = 'winfiles'
-    $script:DotfilesScriptPath = Join-Path -Path $HOME -ChildPath '.dots\scripts\set-dotfiles.ps1'
+# Configuration variables
+$repoUrl = 'https://github.com/RustyTake-Off/dotfiles.git'
+$dotfilesPath = "$HOME/.dotfiles"
+$branchName = 'winfiles'
+$dotfilesScriptPath = "$HOME/.dots/scripts/set-dotfiles.ps1"
 
-    # ANSI escape sequences for different colors
-    $script:Colors = @{
-        Red    = [char]27 + '[31m'
-        Green  = [char]27 + '[32m'
-        Yellow = [char]27 + '[33m'
-        Blue   = [char]27 + '[34m'
-        Purple = [char]27 + '[35m'
-        Reset  = [char]27 + '[0m'
-    }
+# ANSI escape sequences for different colors
+$colors = @{
+    red    = [char]27 + '[31m'
+    green  = [char]27 + '[32m'
+    yellow = [char]27 + '[33m'
+    blue   = [char]27 + '[34m'
+    purple = [char]27 + '[35m'
+    reset  = [char]27 + '[0m'
+}
 
-    # Function definitions
-    function Write-ColoredMessage {
-        [CmdletBinding()]
-        param (
-            [Parameter(Mandatory)]
-            [string]$Message,
+# Function definitions
+function Write-ColoredMessage {
+    <#
+    .SYNOPSIS
+    Write message with color
+    #>
 
-            [Parameter(Mandatory)]
-            [ValidateScript({
-                    if ($script:Colors.ContainsKey($_)) {
-                        return $true
-                    } else {
-                        throw "`nInvalid color. Valid colors are: $($script:Colors.Keys -join ', ')"
-                    }
-                })]
-            [string]$Color
-        )
-
-        process {
-            Write-Host "$($script:Colors[$Color])$Message$($script:Colors.Reset)"
-        }
-    }
-
-    function Install-Package {
-        [CmdletBinding()]
-        param (
-            [Parameter(Mandatory)]
-            [string]$PackageName
-        )
-
-        process {
-            if (Get-Command -Name $PackageName) {
-                return $false
-            }
-
-            Write-ColoredMessage -Message "$PackageName is not installed" -Color 'Red'
-
-            while ($true) {
-                $choice = Read-Host -Prompt "Do you want to install $($script:Colors.Yellow)$PackageName$($script:Colors.Reset) (y/n)?"
-                $choice = $choice.Trim().ToLower() -replace ' ', ''
-
-                switch ($choice) {
-                    'y' { return $true }
-                    'yes' { return $true }
-                    'n' { Write-ColoredMessage -Message 'Stopping script. Bye, bye' -Color 'Red'; break 1 }
-                    'no' { Write-ColoredMessage -Message 'Stopping script. Bye, bye' -Color 'Red'; break 1 }
-                    default { Write-ColoredMessage -Message "Invalid input, please enter 'y' or 'n'" -Color 'Red' }
+    param (
+        [Parameter(Mandatory = $true)]
+        [string]$Message,
+        [Parameter(Mandatory = $true)]
+        [ValidateScript({
+                if (-not $colors.ContainsKey($_)) {
+                    throw "Invalid color '$($_)'. Available colors are: $($colors.Keys -join ', ')"
                 }
-            }
+                $true
+            })]
+        [string]$Color
+    )
+
+    Write-Host "$($colors[$Color])$Message$($colors.reset)"
+}
+
+function Install-Package {
+    <#
+    .SYNOPSIS
+    Installs packages
+    #>
+
+    param (
+        [Parameter(Mandatory)]
+        [string]$PackageName
+    )
+
+    if (Get-Command -Name $PackageName) {
+        return $false
+    }
+
+    Write-ColoredMessage "$PackageName is not installed" 'red'
+
+    while ($true) {
+        $choice = Read-Host -Prompt "Do you want to install $($colors.yellow)$PackageName$($colors.reset) (y/n)?"
+        $choice = $choice.Trim().ToLower() -replace ' ', ''
+
+        switch ($choice) {
+            'y' { return $true }
+            'yes' { return $true }
+            'n' { Write-ColoredMessage 'Stopping script. Bye, bye' 'red'; break 1 }
+            'no' { Write-ColoredMessage 'Stopping script. Bye, bye' 'red'; break 1 }
+            default { Write-ColoredMessage "Invalid input, please enter 'y' or 'n'" 'red' }
         }
     }
 }
 
-# Main logic
-process {
-    try {
-        # Check and install winget
-        if (Install-Package -PackageName 'winget') {
-            Write-ColoredMessage -Message 'Installing Winget and its dependencies...' -Color 'Yellow'
+# Main execution logic
+try {
+    # Check and install winget
+    if (Install-Package -PackageName 'winget') {
+        Write-ColoredMessage 'Installing Winget and its dependencies...' 'yellow'
 
-            Invoke-RestMethod -Uri 'https://github.com/asheroto/winget-install/releases/latest/download/winget-install.ps1' | Invoke-Expression
+        Invoke-RestMethod -Uri 'https://github.com/asheroto/winget-install/releases/latest/download/winget-install.ps1' | Invoke-Expression
 
-            Write-ColoredMessage -Message 'Installed Winget and its dependencies' -Color 'Green'
-        } else {
-            Write-ColoredMessage -Message 'Winget is installed' -Color 'Green'
-        }
-
-        # Check and install git
-        if (Install-Package -PackageName 'git') {
-            Write-ColoredMessage -Message 'Installing Git...' -Color 'Yellow'
-
-            & winget install --exact --id Git.Git --source winget --interactive --accept-package-agreements --accept-source-agreements
-
-            Write-ColoredMessage -Message 'Installed Git' -Color 'Green'
-        } else {
-            Write-ColoredMessage -Message 'Git is installed' -Color 'Green'
-        }
-
-        # Clone dotfiles
-        if (-not (Test-Path -Path $DotfilesPath -PathType Container)) {
-            Write-ColoredMessage -Message 'Cloning dotfiles...' -Color 'Yellow'
-
-            & git clone --bare $RepoUrl $DotfilesPath
-            & git --git-dir=$DotfilesPath --work-tree=$HOME checkout $BranchName
-            & git --git-dir=$DotfilesPath --work-tree=$HOME config status.showUntrackedFiles no
-        } else {
-            throw "Directory '$DotfilesPath' already exists"
-        }
-
-        # Run dotfiles script
-        if (Test-Path -Path $DotfilesScriptPath -PathType Leaf) {
-            Write-ColoredMessage -Message 'Finishing dotfiles setup...' -Color 'Yellow'
-
-            & $DotfilesScriptPath -skipClone
-        } else {
-            throw "Script file in path '$DotfilesScriptPath' does not exist"
-        }
-    } catch {
-        Write-ColoredMessage -Message "Error in line $($_.InvocationInfo.ScriptLineNumber): $($_.Exception.Message)" -Color 'Red'
-        exit 1
+        Write-ColoredMessage 'Installed Winget and its dependencies' 'green'
+    } else {
+        Write-ColoredMessage 'Winget is installed' 'green'
     }
+
+    # Check and install git
+    if (Install-Package -PackageName 'git') {
+        Write-ColoredMessage 'Installing Git...' 'yellow'
+
+        Start-Process winget -ArgumentList 'install --exact --id Git.Git --source winget --interactive --accept-package-agreements --accept-source-agreements' -NoNewWindow -Wait
+
+        Write-ColoredMessage 'Installed Git' 'green'
+    } else {
+        Write-ColoredMessage 'Git is installed' 'green'
+    }
+
+    # Clone dotfiles
+    if (-not (Test-Path -Path $dotfilesPath -PathType Container)) {
+        Write-ColoredMessage 'Cloning dotfiles...' 'yellow'
+
+        git clone --bare $repoUrl $dotfilesPath
+        git --git-dir=$dotfilesPath --work-tree=$HOME checkout $branchName
+        git --git-dir=$dotfilesPath --work-tree=$HOME config status.showUntrackedFiles no
+    } else {
+        throw "Directory '$dotfilesPath' already exists"
+    }
+
+    # Run dotfiles script
+    if (Test-Path -Path $dotfilesScriptPath -PathType Leaf) {
+        Write-ColoredMessage 'Finishing dotfiles setup...' 'yellow'
+
+        & $dotfilesScriptPath -SkipClone
+    } else {
+        throw "Script file in path '$dotfilesScriptPath' does not exist"
+    }
+} catch {
+    throw "Error in line $($_.InvocationInfo.ScriptLineNumber): $($_.Exception.Message)"
+} finally {
+    $ErrorActionPreference = $errAction
+    $ProgressPreference = $progressAction
 }
