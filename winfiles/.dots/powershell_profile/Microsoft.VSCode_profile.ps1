@@ -11,9 +11,8 @@ GitHub Repo - https://github.com/RustyTake-Off/dotfiles
 
 .NOTES
 Author  - RustyTake-Off
-Version - 0.1.4
 #>
 
 if (Test-Path $PROFILE -PathType Leaf) {
-    Invoke-Expression $PROFILE
+    . $PROFILE
 }

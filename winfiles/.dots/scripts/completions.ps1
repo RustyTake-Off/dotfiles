@@ -17,16 +17,16 @@ Author  - RustyTake-Off
 param()
 
 # Preferences
-$ErrAction = $ErrorActionPreference
+$errAction = $ErrorActionPreference
 $ErrorActionPreference = 'SilentlyContinue'
 
 # Main execution logic
 try {
     # Completion and history for powershell
     if (Get-Module -Name PSReadLine) {
-        $script:psMinimumVersion = [version]'7.1.999'
+        $psMinimumVersion = [version]'7.1.999'
 
-        if (($Host.Name -eq 'ConsoleHost') -and ($PSVersionTable.PSVersion -ge $script:psMinimumVersion)) {
+        if (($Host.Name -eq 'ConsoleHost') -and ($PSVersionTable.PSVersion -ge $psMinimumVersion)) {
             Set-PSReadLineOption -PredictionSource HistoryAndPlugin
         } else {
             Set-PSReadLineOption -PredictionSource History
@@ -90,5 +90,5 @@ try {
 } catch {
     throw "Error in line $($_.InvocationInfo.ScriptLineNumber): $($_.Exception.Message)"
 } finally {
-    $ErrorActionPreference = $ErrAction
+    $ErrorActionPreference = $errAction
 }
