@@ -23,10 +23,6 @@
             "keys": "ctrl+shift+w"
         },
         {
-            "command": "newTab",
-            "keys": "ctrl+t"
-        },
-        {
             "command": "find",
             "keys": "ctrl+shift+f"
         }
