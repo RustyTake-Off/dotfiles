@@ -14,7 +14,7 @@
             "useDefaultSchedule": false,
             "scheduleStartHour": 0,
             "scheduleFinishHour": 24,
-            "includeMatches": "https://www.google.com/*\nhttps://translate.google.com/*\nhttps://*.wikipedia.org/*\nhttps://*.medium.com/*\nhttps://dev.to/*\nhttps://hckrnews.com/*\nhttps://news.ycombinator.com/*\nhttps://www.notebookcheck.net/*\nhttps://old.reddit.com/*\nhttps://arxiv.org/*\nhttps://*.gitlab.com/*\nhttps://pypi.org/*\nhttps://*.docker.com/*\nhttps://hub.docker.com/*\nhttps://git-scm.com/*",
+            "includeMatches": "https://www.google.com/*\nhttps://translate.google.com/*\nhttps://*.wikipedia.org/*\nhttps://*.medium.com/*\nhttps://dev.to/*\nhttps://hckrnews.com/*\nhttps://news.ycombinator.com/*\nhttps://www.notebookcheck.net/*\nhttps://old.reddit.com/*\nhttps://arxiv.org/*\nhttps://paperswithcode.com/*\nhttps://*.kaggle.com/*\nhttps://git-scm.com/*\nhttps://*.gitlab.com/*\nhttps://*.docker.com/*\nhttps://*.python.org/*\nhttps://pypi.org/*\nhttps://*.terraform.io/*\nhttps://kubernetes.io/*\nhttps://*.k8s.io/*\nhttps://helm.sh/*",
             "excludeMatches": "https://www.google.com/maps/*\nhttps://www.google.com/*&udm=2*\nhttps://www.google.com/*&tbm=vid*",
             "backgroundSaturationLimit": 100,
             "backgroundContrast": 50,
