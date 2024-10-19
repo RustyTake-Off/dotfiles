@@ -30,16 +30,16 @@
         "emoteAutocomplete": true,
         "blacklistKeywords": {},
         "highlightKeywords": {},
-        "sidebar": [152, 250],
-        "emotes": [63, 63],
-        "chat": [65, 127],
+        "sidebar": [80, 250],
+        "emotes": [63, 24],
+        "chat": [0, 127],
         "autoPlay": [0, 13],
-        "usernames": [15, 15],
-        "channelPoints": [3, 7],
+        "usernames": [15, 0],
+        "channelPoints": [7, 6],
         "autoClaim": [1, 1],
         "undefined": false,
         "emoteMenuWidth": 380,
         "hypeChat": false,
-        "version": "7.6.6"
+        "version": "7.6.8"
     }
 }

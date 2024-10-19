@@ -22,6 +22,7 @@
             "https://raw.githubusercontent.com/hoshsadiq/adblock-nocoin-list/master/nocoin.txt"
         ],
         "popupPanelSections": 15,
+        "suspendUntilListsAreLoaded": true,
         "tooltipsDisabled": true
     },
     "selectedFilterLists": [
@@ -33,6 +34,7 @@
         "ublock-unbreak",
         "easylist",
         "adguard-generic",
+        "adguard-mobile",
         "easyprivacy",
         "adguard-spyware",
         "adguard-spyware-url",
@@ -40,12 +42,14 @@
         "urlhaus-1",
         "curben-phishing",
         "plowe-0",
+        "dpollock-0",
         "fanboy-cookiemonster",
         "ublock-cookies-easylist",
         "adguard-cookies",
         "ublock-cookies-adguard",
         "fanboy-social",
         "adguard-social",
+        "fanboy-thirdparty_social",
         "easylist-chat",
         "easylist-newsletters",
         "easylist-notifications",
