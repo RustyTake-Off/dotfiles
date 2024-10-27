@@ -64,8 +64,9 @@
     path = ~/wk/wk.gitconfig
 
 [alias]
+    # Get all git aliases
     # alias = config --get-regexp '^alias.'
-    alias = "!f() { [ $# -eq 0 ] && git config --get-regexp '^alias.' || git config --get-regexp '^alias.' | grep --color=always -E "$(echo "$@" | sed 's/ /|/g')"; }; f"
+    al = "!f() { [ $# -eq 0 ] && git config --get-regexp '^alias.' || git config --get-regexp '^alias.' | grep --color=always -E "$(echo "$@" | sed 's/ /|/g')"; }; f"
     conli = config --list
     unm   = config user.name
     uem   = config user.email
@@ -83,6 +84,7 @@
     d   = diff
     ds  = diff --stat
     dc  = diff --cached
+    dsc = diff --stat --cached
     dcs = diff --cached --stat
 
     c   = commit
