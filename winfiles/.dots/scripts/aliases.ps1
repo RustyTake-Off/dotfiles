@@ -128,7 +128,7 @@ try {
     }
 
     function setdots {
-        Invoke-Expression "$HOME/.dots/scripts/set-dotfiles.ps1"
+        Invoke-Expression "$HOME/.dots/scripts/set-dotfiles.ps1 $Args"
     }
 
     function winup {
