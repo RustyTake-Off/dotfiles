@@ -67,58 +67,69 @@
     # Get all git aliases
     # alias = config --get-regexp '^alias.'
     al = "!f() { [ $# -eq 0 ] && git config --get-regexp '^alias.' || git config --get-regexp '^alias.' | grep --color=always -E "$(echo "$@" | sed 's/ /|/g')"; }; f"
+
+    # Configuration
     conli = config --list
     unm   = config user.name
     uem   = config user.email
 
+    # Initialization & Adding
     i      = init
+    cl     = clone
     ic     = !git init && git commit --allow-empty -m 'Initial commit'
     a      = !git add ${@} && git status --short
     aa     = !git add --all && git status --short
     aac    = !git add --all && git status --short && git commit -m
     autocp = !git add --all && git status --short && git commit -m 'Update' && git push
-    cl     = clone
-    s      = status --short
-    su     = status --short --untracked-files
 
-    d   = diff
-    ds  = diff --stat
-    dc  = diff --cached
-    dsc = diff --stat --cached
-    dcs = diff --cached --stat
-
+    # Committing
     c   = commit
     cm  = commit -m
     ca  = commit --amend
     cam = commit --amend -m
 
-    rv = revert
-    rs = reset
+    # Diff and Reset
+    d   = diff
+    ds  = diff --stat
+    dc  = diff --cached
+    dsc = diff --stat --cached
+    dcs = diff --cached --stat
+    rv  = revert
+    rs  = reset
 
+    # Push, Pull, and Status
+    s   = status --short
+    su  = status --short --untracked-files
     pl  = pull
     plr = pull --rebase
     pu  = push
 
+    # Branching and Switching
+    br  = branch
+    sw  = switch
+    ch  = checkout
+    chb = checkout -b
+
+    # Stashing
     stl = stash list
     sts = stash save
     sta = stash apply
     std = stash drop
     stc = stash clear
 
-    br  = branch
-    sw  = switch
-    ch  = checkout
-    chb = checkout -b
-
+    # Remotes
     rmt   = remote
     rmta  = remote add
     rmtsu = remote set-url
     rmtrm = remote remove
 
-    sh = show
-    l  = log --graph --oneline
-    ll = "!f() { [ $# -eq 0 ] && git log --graph --oneline || git log --graph --oneline -"$1"; }; f"
-    ls = "!f() { [ $# -eq 0 ] && git log --graph --oneline --stat || git log --graph --oneline --stat -"$1"; }; f"
+    # Viewing Logs
+    sh  = show
+    l   = log --graph --oneline
+    ll  = "!f() { [ $# -eq 0 ] && git log --graph --oneline || git log --graph --oneline -"$1"; }; f"
+    ls  = "!f() { [ $# -eq 0 ] && git log --graph --oneline --stat || git log --graph --oneline --stat -"$1"; }; f"
+    rl  = "!f() { [ $# -eq 0 ] && git reflog --date=iso --pretty=oneline || git reflog --date=iso --pretty=oneline -"$1"; }; f"
+    rls = "!f() { [ $# -eq 0 ] && git reflog --date=iso --pretty=oneline --stat || git reflog --date=iso --pretty=oneline --stat -"$1"; }; f"
 
 # Load Git configs with specific overrides
 [include]
