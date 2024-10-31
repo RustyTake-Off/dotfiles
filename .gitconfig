@@ -96,6 +96,7 @@
     dcs = diff --cached --stat
     rv  = revert
     rs  = reset
+    rss = reset --soft
 
     # Push, Pull, and Status
     s   = status --short
