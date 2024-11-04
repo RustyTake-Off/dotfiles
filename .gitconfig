@@ -110,6 +110,12 @@
     sw  = switch
     ch  = checkout
     chb = checkout -b
+    cho = checkout --ours
+    cht = checkout --theirs
+
+    # Merging and Rebasing
+    mg = merge
+    rb = rebase
 
     # Stashing
     stl = stash list
