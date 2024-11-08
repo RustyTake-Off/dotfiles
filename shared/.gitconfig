@@ -118,11 +118,13 @@
     rb = rebase
 
     # Stashing
-    stl = stash list
-    sts = stash save
-    sta = stash apply
-    std = stash drop
-    stc = stash clear
+    st   = stash
+    stl  = stash list
+    sts  = stash show
+    sta  = stash apply
+    std  = stash drop
+    stpu = stash push
+    stpo = stash pop
 
     # Remotes
     rmt   = remote
