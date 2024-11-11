@@ -17,7 +17,7 @@
         "tabCompletionTooltip": false,
         "tabCompletionEmotePriority": false,
         "whispers": true,
-        "showDirectoryLiveTab": false,
+        "showDirectoryLiveTab": true,
         "channelPointsMessageHighlights": true,
         "emoteMenu": 2,
         "autoThemeMode": false,
@@ -30,16 +30,16 @@
         "emoteAutocomplete": true,
         "blacklistKeywords": {},
         "highlightKeywords": {},
-        "sidebar": [80, 250],
-        "emotes": [63, 24],
+        "sidebar": [82, 250],
+        "emotes": [127, 88],
         "chat": [0, 127],
         "autoPlay": [0, 13],
         "usernames": [15, 0],
-        "channelPoints": [7, 6],
+        "channelPoints": [7, 7],
         "autoClaim": [1, 1],
         "undefined": false,
         "emoteMenuWidth": 380,
         "hypeChat": false,
-        "version": "7.6.8"
+        "version": "7.6.9"
     }
 }
