@@ -62,7 +62,7 @@ get_help() {
   echo -e "${colors[yellow]}  -b  |  --brew      ${colors[reset]} - Install homebrew"
   echo -e "${colors[yellow]}  -ba |  --brew-apps ${colors[reset]} - Install brew applications"
   echo -e "${colors[yellow]}  -d  |  --dotfiles  ${colors[reset]} - Invokes dotfiles setup script"
-  echo -e "${colors[yellow]}  -all  |  --all  ${colors[reset]} - Creates dirs and installs apt, brew apps"
+  echo -e "${colors[yellow]}  -all  |  --all  ${colors[reset]} - Creates dirs, installs apt apps and brew apps"
 }
 
 get_apt_apps() {
