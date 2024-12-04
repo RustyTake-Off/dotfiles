@@ -81,12 +81,6 @@ alias supug="sudo apt update && sudo apt upgrade -y"
 if [[ -x "$(command -v brew)" ]]; then
   alias br="brew"
 
-  alias brin="brew install"
-  alias brun="brew uninstall"
-  alias brif="brew info"
-  alias brli="brew list"
-  alias brup="brew upgrade"
-
   # Add completion if the completion function is available
   if [[ -n "$(type -t __load_completion)" ]]; then
     __load_completion brew
