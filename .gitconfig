@@ -64,7 +64,7 @@
     path = ~/wk/wk.gitconfig
 
 [alias]
-    # Get all git aliases
+    # List or search git aliases
     # alias = config --get-regexp '^alias.'
     al = "!f() { [ $# -eq 0 ] && git config --get-regexp '^alias.' || git config --get-regexp '^alias.' | grep --color=always -E "$(echo "$@" | sed 's/ /|/g')"; }; f"
 

@@ -12,6 +12,7 @@ alias cd....="cd ../../../.."
 alias cd...="cd ../../.."
 alias cd..="cd ../.."
 alias cd.="cd .."
+alias cd-="cd -"
 alias hm="cd \$HOME"
 alias hpr="cd \$HOME/pr"
 alias hwk="cd \$HOME/wk"
@@ -30,7 +31,7 @@ __func__al() {
     alias | grep --color=always -E "$args"
   fi
 }
-alias al="__func__al"
+alias al="__func__al"  # List or search aliases
 
 alias ls="ls --color=always --group-directories-first"
 alias la="ls -a --color=always --group-directories-first"
@@ -38,6 +39,10 @@ alias ll="ls -al --color=always --group-directories-first"
 
 # Files manipulation
 alias mkdir="mkdir -vp"
+__func__mkd() {
+  mkdir -p "$1" && cd "$1"
+}
+alias mkd="__func__mkd"  # Make dir and cd into it
 alias mktmp="mktemp"  # Make temp file in /tmp
 alias cp="cp -vi"
 alias mv="mv -vi"
@@ -134,6 +139,14 @@ alias py3="python3"
 #   alias ryl="rye list"
 #   alias ryr="rye run"
 # fi
+
+if [[ -x "$(command -v uv)" ]]; then
+  __func__uve() {
+    uv export --format requirements-txt --no-dev --no-hashes --output-file requirements.txt && \
+    uv export --format requirements-txt --dev --no-hashes --output-file requirements-dev.txt
+  }
+  alias uve="__func__uve"
+fi
 
 alias pysetup="py -m venv .venv --upgrade-deps && source .venv/bin/activate"
 alias py3setup="py3 -m venv .venv --upgrade-deps && source .venv/bin/activate"
