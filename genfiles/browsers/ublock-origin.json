@@ -1,5 +1,5 @@
 {
-    "version": "1.60.0",
+    "version": "1.61.2",
     "userSettings": {
         "colorBlindFriendly": true,
         "contextMenuEnabled": false,
@@ -80,7 +80,6 @@
         "huggingface.co",
         "moz-extension-scheme",
         "opera-scheme",
-        "teams.microsoft.com",
         "vivaldi-scheme",
         "wyciwyg-scheme"
     ],

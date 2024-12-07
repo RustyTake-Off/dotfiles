@@ -17,7 +17,7 @@
     "editor.minimap.enabled": false,
     // files
     // "files.eol": "\n",
-    // "files.trimTrailingWhitespace": true,
+    "files.trimTrailingWhitespace": true,
     // workbench
     "workbench.startupEditor": "none",
     "workbench.colorCustomizations": {
