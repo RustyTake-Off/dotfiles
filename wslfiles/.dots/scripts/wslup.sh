@@ -151,7 +151,6 @@ get_brew_apps() {
       kubernetes-cli \
       nvm \
       ripgrep \
-      ruff \
       uv \
       shellcheck \
       shfmt \
