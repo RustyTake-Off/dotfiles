@@ -1,7 +1,7 @@
 {
     "description": "Midnight Lizard Color Scheme File",
     "version": "10.7.0",
-    "timestamp": "2024-12-00T00:00:00.000Z",
+    "timestamp": "2024-12-20T02:33:22.413Z",
     "colorSchemes": [
         {
             "colorSchemeId": "4e1f0742528247899ae01d6993e595b9",
@@ -14,7 +14,7 @@
             "useDefaultSchedule": false,
             "scheduleStartHour": 0,
             "scheduleFinishHour": 24,
-            "includeMatches": "https://www.google.com/*\nhttps://www.youtube.com/redirect?*\nhttps://translate.google.com/*\nhttps://*.wikipedia.org/*\nhttps://*.medium.com/*\nhttps://dev.to/*\nhttps://hckrnews.com/*\nhttps://news.ycombinator.com/*\nhttps://www.notebookcheck.net/*\nhttps://old.reddit.com/*\nhttps://arxiv.org/*\nhttps://*.gitlab.com/*\nhttps://*.python.org/*\nhttps://pypi.org/*\nhttps://*.docker.com/*\nhttps://git-scm.com/*\nhttps://paperswithcode.com/*\nhttps://*.terraform.io/*\nhttps://kubernetes.io/*\nhttps://*.k8s.io/*\nhttps://helm.sh/*\nhttps://jodies.de/*\nhttps://cidr.xyz/*\nhttps://visualsubnetcalc.com/*\nhttps://*.davidc.net/*\nhttps://*.kaggle.com/*",
+            "includeMatches": "https://www.google.com/*\nhttps://www.youtube.com/redirect?*\nhttps://translate.google.com/*\nhttps://*.wikipedia.org/*\nhttps://*.medium.com/*\nhttps://dev.to/*\nhttps://hckrnews.com/*\nhttps://news.ycombinator.com/*\nhttps://www.notebookcheck.net/*\nhttps://old.reddit.com/*\nhttps://arxiv.org/*\nhttps://paperswithcode.com/*\nhttps://*.github.io/*\nhttps://*.gitlab.com/*\nhttps://*.python.org/*\nhttps://pypi.org/*\nhttps://*.docker.com/*\nhttps://git-scm.com/*\nhttps://*.terraform.io/*\nhttps://kubernetes.io/*\nhttps://*.k8s.io/*\nhttps://helm.sh/*\nhttps://jodies.de/*\nhttps://cidr.xyz/*\nhttps://visualsubnetcalc.com/*\nhttps://*.davidc.net/*\nhttps://*.kaggle.com/*",
             "excludeMatches": "https://www.google.com/maps/*\nhttps://www.google.com/*&udm=2*\nhttps://www.google.com/*&tbm=vid*",
             "backgroundSaturationLimit": 100,
             "backgroundContrast": 50,
