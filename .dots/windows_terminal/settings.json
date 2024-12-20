@@ -3,7 +3,9 @@
     "$schema": "https://aka.ms/terminal-profiles-schema",
     "actions": [
         {
-            "command": "copy",
+            "command": {
+                "action": "copy"
+            },
             "keys": "ctrl+c"
         },
         {
@@ -11,15 +13,21 @@
             "keys": "ctrl+v"
         },
         {
-            "command": "newTab",
+            "command": {
+                "action": "newTab"
+            },
             "keys": "ctrl+t"
         },
         {
-            "command": "closeTab",
+            "command": {
+                "action": "closeTab"
+            },
             "keys": "ctrl+w"
         },
         {
-            "command": "closeTabsAfter",
+            "command": {
+                "action": "closeTabsAfter"
+            },
             "keys": "ctrl+shift+w"
         },
         {
@@ -42,7 +50,7 @@
             "cursorShape": "filledBox",
             "font": {
                 "face": "RobotoMono Nerd Font Mono",
-                "size": 14.0
+                "size": 14
             },
             "opacity": 95
         },
@@ -147,31 +155,7 @@
             }
         ]
     },
-    "schemes": [
-        {
-            "background": "#000000",
-            "black": "#000000",
-            "blue": "#3465A4",
-            "brightBlack": "#555753",
-            "brightBlue": "#729FCF",
-            "brightCyan": "#34E2E2",
-            "brightGreen": "#8AE234",
-            "brightPurple": "#AD7FA8",
-            "brightRed": "#EF2929",
-            "brightWhite": "#EEEEEC",
-            "brightYellow": "#FCE94F",
-            "cursorColor": "#FFFFFF",
-            "cyan": "#06989A",
-            "foreground": "#D3D7CF",
-            "green": "#4E9A06",
-            "name": "Tango Dark",
-            "purple": "#75507B",
-            "red": "#CC0000",
-            "selectionBackground": "#FFFFFF",
-            "white": "#D3D7CF",
-            "yellow": "#C4A000"
-        }
-    ],
+    "schemes": [],
     "themes": [],
     "useAcrylicInTabRow": true
 }
