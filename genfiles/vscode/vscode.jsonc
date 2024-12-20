@@ -53,6 +53,9 @@
     "terminal.integrated.fontSize": 18,
     "terminal.integrated.scrollback": 100000,
     "terminal.integrated.shellIntegration.enabled": false,
+    // chat/copilot
+    "chat.commandCenter.enabled": false,
+    "chat.experimental.offerSetup": false,
     // misc
     "update.showReleaseNotes": false,
     "telemetry.telemetryLevel": "off",
@@ -111,11 +114,12 @@
     ],
     // cSpell
     "cSpell.language": "en,pl",
-    "cSpell.maxDuplicateProblems": 2,
+    "cSpell.maxDuplicateProblems": 3,
     "cSpell.maxNumberOfProblems": 10,
     "cSpell.numSuggestions": 6,
-    "cSpell.showStatus": false,
-    "cSpell.enableFiletypes": ["*"],
+    "cSpell.enabledFileTypes": {
+        "*": true
+    },
     // git
     "git.autofetch": true,
     "git.autoStash": true,
