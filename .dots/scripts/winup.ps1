@@ -359,15 +359,19 @@ function Invoke-InstallPSModules {
 
     Write-ColoredMessage 'Installing PowerShell modules...' 'yellow'
 
-    if (-not (Get-PackageProvider | Select-String -SimpleMatch NuGet)) {
-        Install-PackageProvider -Name NuGet
+    if (-not (Get-PackageProvider -Name NuGet)) {
+        Install-PackageProvider -Name NuGet -Force
     }
 
     Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
 
     foreach ($module in $config.psmodules) {
         Write-ColoredMessage "Installing $module..." 'yellow'
-        Install-Module -Name $module -Repository PSGallery -Force
+        try {
+            Install-Module -Name $module -Repository PSGallery -Force -ErrorAction Stop
+        } catch {
+            throw "Failed to install module: $module"
+        }
     }
 
     Set-PSRepository -Name PSGallery -InstallationPolicy Untrusted
