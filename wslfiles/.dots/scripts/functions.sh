@@ -132,6 +132,7 @@ prwk() {
   local pr_dir_path="$HOME/pr"
   local wk_dir_path="$HOME/wk"
 
+  local win_user
   win_user="$(command powershell.exe '$env:USERNAME')"
   win_user="${win_user//$'\r'/}"
   local backup_pr_dir_path="/mnt/c/Users/${win_user}/pr_wsl_backup"
@@ -139,15 +140,13 @@ prwk() {
 
   case "$action" in
       back)
-          echo "You are about to back up directories"
+          echo "You are about to backup directories"
           echo "Source directories: $pr_dir_path and $wk_dir_path"
-          echo "Backup locations: $backup_pr_dir_path and $backup_wk_dir_path"
-          read -p "Are you sure you want to proceed? (y/n): " choice
+          echo "Destination locations: $backup_pr_dir_path and $backup_wk_dir_path"
+          read -pr "Are you sure you want to proceed? (y/n): " choice
           if [[ "${choice,,}" == "y" ]]; then
-              mkdir -p "$backup_pr_dir_path"
-              mkdir -p "$backup_wk_dir_path"
-              cp -rT "$pr_dir_path" "$backup_pr_dir_path"
-              cp -rT "$wk_dir_path" "$backup_wk_dir_path"
+              cp -frT "$pr_dir_path" "$backup_pr_dir_path"
+              cp -frT "$wk_dir_path" "$backup_wk_dir_path"
               echo "Backup completed"
           else
               echo "Backup canceled"
@@ -155,12 +154,12 @@ prwk() {
           ;;
       rec)
           echo "You are about to recover directories"
-          echo "Backup locations: $backup_pr_dir_path and $backup_wk_dir_path"
-          echo "Destination directories: $pr_dir_path and $wk_dir_path"
-          read -p "Are you sure you want to proceed? (y/n): " choice
+          echo "Source directories: $backup_pr_dir_path and $backup_wk_dir_path"
+          echo "Destination locations: $pr_dir_path and $wk_dir_path"
+          read -pr "Are you sure you want to proceed? (y/n): " choice
           if [[ "${choice,,}" == "y" ]]; then
-              cp -rT "$backup_pr_dir_path" "$pr_dir_path"
-              cp -rT "$backup_wk_dir_path" "$wk_dir_path"
+              cp -frT "$backup_pr_dir_path" "$pr_dir_path"
+              cp -frT "$backup_wk_dir_path" "$wk_dir_path"
               echo "Recovery completed"
           else
               echo "Recovery canceled"
