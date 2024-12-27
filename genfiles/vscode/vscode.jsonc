@@ -43,6 +43,7 @@
     "search.smartCase": true,
     // scm, diff
     "scm.alwaysShowRepositories": true,
+    "diffEditor.hideUnchangedRegions.enabled": true,
     "diffEditor.maxComputationTime": 0,
     // terminal
     // "terminal.external.windowsExec": "%PROGRAMFILES%\\PowerShell\\7\\pwsh.exe",
@@ -115,7 +116,7 @@
     // cSpell
     "cSpell.language": "en,pl",
     "cSpell.maxDuplicateProblems": 3,
-    "cSpell.maxNumberOfProblems": 10,
+    // "cSpell.maxNumberOfProblems": 10,
     "cSpell.numSuggestions": 6,
     "cSpell.enabledFileTypes": {
         "*": true

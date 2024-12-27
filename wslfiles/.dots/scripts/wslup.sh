@@ -19,31 +19,6 @@ declare -A colors=(
   ["reset"]="\033[0m"
 )
 
-create_dirs() {
-  # Create directories
-  for dir in "${home_dirs[@]}"; do
-    if [[ ! -d "$HOME/$dir" ]]; then
-      echo -e "Creating ${colors[yellow]}'$dir'${colors[reset]} directory"
-      mkdir -p "$HOME/$dir"
-    fi
-  done
-
-  # Copy gitconfigs if on WSL2/Microsoft
-  if [[ "$(grep -wE 'WSL2|Microsoft' <(uname -r))" ]]; then
-    win_user="$(command powershell.exe '$env:USERNAME')"
-    win_home_path="/mnt/c/Users/${win_user//$'\r'/}"
-
-    for dir in "${home_dirs[@]}"; do
-      if [[ ! -f "$HOME/$dir/$dir.gitconfig" ]] && [[ -f "$win_home_path/$dir/$dir.gitconfig" ]]; then
-        echo -e "Copying ${colors[yellow]}'$dir.gitconfig'${colors[reset]}"
-        cp "$win_home_path/$dir/$dir.gitconfig" "$HOME/$dir"
-      else
-        echo -e "File ${colors[red]}'$dir.gitconfig'${colors[reset]} in '$win_home_path/$dir' does not exist"
-      fi
-    done
-  fi
-}
-
 # Function definitions
 write_colored_message() {
   # Color message
@@ -59,11 +34,39 @@ get_help() {
   write_colored_message "Available commands:" "yellow"
   echo -e "${colors[yellow]}  -h    |  --help      ${colors[reset]} - Prints help message"
   echo -e "${colors[yellow]}  -a    |  --apt-apps  ${colors[reset]} - Installs apt applications"
-  echo -e "${colors[yellow]}  -c    |  --cr-dirs  ${colors[reset]} - Creates home directories"
+  echo -e "${colors[yellow]}  -c    |  --cr-dirs   ${colors[reset]} - Creates home directories"
   echo -e "${colors[yellow]}  -b    |  --brew      ${colors[reset]} - Installs homebrew"
   echo -e "${colors[yellow]}  -ba   |  --brew-apps ${colors[reset]} - Installs brew applications"
   echo -e "${colors[yellow]}  -d    |  --dotfiles  ${colors[reset]} - Invokes dotfiles setup script"
   echo -e "${colors[yellow]}  -all  |  --all       ${colors[reset]} - Creates home directories, installs apt and brew applications"
+}
+
+create_dirs() {
+  # Create directories
+  for dir in "${home_dirs[@]}"; do
+    if [[ ! -d "$HOME/$dir" ]]; then
+      echo -e "Creating ${colors[yellow]}'$dir'${colors[reset]} directory"
+      mkdir -p "$HOME/$dir"
+    fi
+  done
+
+  # Copy gitconfigs if on WSL2/Microsoft
+  if [[ "$(grep -wE 'WSL2|Microsoft' <(uname -r))" ]]; then
+    win_user="$(command powershell.exe '$env:USERNAME')"
+    win_home_path="/mnt/c/Users/${win_user//$'\r'/}"
+
+    for dir in "${home_dirs[@]}"; do
+      win_file_path="$win_home_path/$dir/$dir.gitconfig"
+      local_file_path="$HOME/$dir/$dir.gitconfig"
+
+      if [[ -f "$win_file_path" ]]; then
+          echo -e "Copying ${colors[yellow]}'$dir.gitconfig'${colors[reset]}"
+          cp "$win_file_path" "$local_file_path"
+      else
+        echo -e "File ${colors[red]}'$dir.gitconfig'${colors[reset]} does not exist in '$win_home_path/$dir'."
+      fi
+    done
+  fi
 }
 
 get_apt_apps() {
@@ -87,26 +90,6 @@ get_apt_apps() {
     tree \
     unzip \
     wget
-
-  # Install starship
-  if [[ ! -x "$(command -v starship)" ]]; then
-    write_colored_message "Installing Starship..." "yellow"
-    curl -sS https://starship.rs/install.sh | sh
-  fi
-
-  # Install azure cli
-  if [[ ! -x "$(command -v az)" ]]; then
-    write_colored_message "Installing AzureCLI..." "yellow"
-    curl -L https://aka.ms/InstallAzureCli | bash
-
-    az config set core.collect_telemetry=false
-  fi
-
-  # Install azure developer cli
-  if [[ ! -x "$(command -v azd)" ]]; then
-    write_colored_message "Installing Azure Developer CLI..." "yellow"
-    curl -fsSL https://aka.ms/install-azd.sh | bash
-  fi
 }
 
 get_brew() {
@@ -138,6 +121,7 @@ get_brew_apps() {
     write_colored_message "Installing Homebrew apps..." "yellow"
     brew install \
       ansible \
+      azure-cli \
       entr \
       fzf \
       gh \
@@ -152,15 +136,27 @@ get_brew_apps() {
       kubernetes-cli \
       nvm \
       ripgrep \
-      uv \
       shellcheck \
       shfmt \
+      starship \
       tenv \
       tlrc \
       trash-cli \
+      uv \
       yq \
       zoxide
   fi
+
+}
+
+misc_config() {
+  # Set miscellaneous configurations
+
+  write_colored_message "Setting miscellaneous configurations..." "yellow"
+
+  [[ -x "$(command -v az)" ]] && {
+    az config set core.collect_telemetry=false
+  }
 }
 
 set_dotfiles() {
@@ -196,6 +192,7 @@ else
       ;;
     -ba|--brew-apps)
       get_brew_apps
+      misc_config
       ;;
     -d|--dotfiles)
       set_dotfiles
@@ -205,6 +202,7 @@ else
       get_apt_apps
       get_brew
       get_brew_apps
+      misc_config
       ;;
     *)
 	    write_colored_message "Invalid command: $1\n" "red"
