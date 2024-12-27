@@ -24,12 +24,12 @@ create_dirs() {
   for dir in "${home_dirs[@]}"; do
     if [[ ! -d "$HOME/$dir" ]]; then
       echo -e "Creating ${colors[yellow]}'$dir'${colors[reset]} directory"
-      mkdir "$HOME/$dir"
+      mkdir -p "$HOME/$dir"
     fi
   done
 
-  # Copy gitconfigs if on WSL2
-  if [[ "$(grep -w 'WSL2' <(uname -r))" ]]; then
+  # Copy gitconfigs if on WSL2/Microsoft
+  if [[ "$(grep -wE 'WSL2|Microsoft' <(uname -r))" ]]; then
     win_user="$(command powershell.exe '$env:USERNAME')"
     win_home_path="/mnt/c/Users/${win_user//$'\r'/}"
 
@@ -57,12 +57,13 @@ get_help() {
   # Help message
 
   write_colored_message "Available commands:" "yellow"
-  echo -e "${colors[yellow]}  -h  |  --help      ${colors[reset]} - Prints help message"
-  echo -e "${colors[yellow]}  -a  |  --apt-apps  ${colors[reset]} - Install apt applications"
-  echo -e "${colors[yellow]}  -b  |  --brew      ${colors[reset]} - Install homebrew"
-  echo -e "${colors[yellow]}  -ba |  --brew-apps ${colors[reset]} - Install brew applications"
-  echo -e "${colors[yellow]}  -d  |  --dotfiles  ${colors[reset]} - Invokes dotfiles setup script"
-  echo -e "${colors[yellow]}  -all  |  --all  ${colors[reset]} - Creates dirs, installs apt apps and brew apps"
+  echo -e "${colors[yellow]}  -h    |  --help      ${colors[reset]} - Prints help message"
+  echo -e "${colors[yellow]}  -a    |  --apt-apps  ${colors[reset]} - Installs apt applications"
+  echo -e "${colors[yellow]}  -c    |  --cr-dirs  ${colors[reset]} - Creates home directories"
+  echo -e "${colors[yellow]}  -b    |  --brew      ${colors[reset]} - Installs homebrew"
+  echo -e "${colors[yellow]}  -ba   |  --brew-apps ${colors[reset]} - Installs brew applications"
+  echo -e "${colors[yellow]}  -d    |  --dotfiles  ${colors[reset]} - Invokes dotfiles setup script"
+  echo -e "${colors[yellow]}  -all  |  --all       ${colors[reset]} - Creates home directories, installs apt and brew applications"
 }
 
 get_apt_apps() {
@@ -204,7 +205,6 @@ else
       get_apt_apps
       get_brew
       get_brew_apps
-      source "$HOME/.bashrc"
       ;;
     *)
 	    write_colored_message "Invalid command: $1\n" "red"
