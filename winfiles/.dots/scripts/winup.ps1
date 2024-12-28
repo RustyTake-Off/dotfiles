@@ -264,6 +264,10 @@ function Invoke-InstallFonts {
     Installs fonts
     #>
 
+    if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+        throw 'Needs to be run as admin'
+    }
+
     $fontsPath = "$HOME/Desktop/fonts"
     Confirm-DirectoryExists -Path $fontsPath
 
@@ -302,6 +306,10 @@ function Invoke-CTT {
     .LINK
     GitHub repo - https://github.com/ChrisTitusTech/winutil
     #>
+
+    if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+        throw 'Needs to be run as admin'
+    }
 
     Write-ColoredMessage 'Invoking CTT - winutil...' 'yellow'
 
@@ -359,6 +367,9 @@ function Invoke-InstallPSModules {
 
     Write-ColoredMessage 'Installing PowerShell modules...' 'yellow'
 
+    if (($Host.Name -eq 'ConsoleHost') -and ($PSVersionTable.PSVersion -le [version]'7.1.999')) {
+        throw 'Needs to be run on PowerShell 7'
+    }
     if (-not (Get-PackageProvider -Name NuGet)) {
         Install-PackageProvider -Name NuGet -Force
     }
@@ -409,6 +420,7 @@ function Invoke-InstallWSL {
 
     Write-ColoredMessage "Installing WSL ($Distro)..." 'purple'
 
+    wsl --set-default-version 2
     wsl --install --distribution $Distro
 
     Write-ColoredMessage 'Installation complete' 'green'
