@@ -142,11 +142,6 @@
                 "args": "--silent"
             },
             {
-                "name": "junegunn.fzf",
-                "source": "winget",
-                "args": "--silent"
-            },
-            {
                 "name": "Git.Git",
                 "source": "winget",
                 "args": "--interactive"
@@ -163,6 +158,7 @@
         "PowerShellGet",
         "PSReadLine",
         "posh-git",
+        "Pester",
         "Az"
     ]
 }
