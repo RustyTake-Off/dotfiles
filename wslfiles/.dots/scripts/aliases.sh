@@ -112,7 +112,7 @@ alias setdots="source \$HOME/.dots/scripts/set_dotfiles.sh"
 alias wslup="source \$HOME/.dots/scripts/wslup.sh"
 
 # Aliases for WSL
-if [[ -n "$(grep -w "WSL2" <(uname -r))" ]]; then
+if [[ -n "$(grep -wE 'wsl2|microsoft' <(uname -r))" ]]; then
   alias open="command explorer.exe"
   alias pwsh="command pwsh.exe"
   alias pwsh5="command powershell.exe"

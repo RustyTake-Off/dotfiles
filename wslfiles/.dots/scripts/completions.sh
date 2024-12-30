@@ -36,9 +36,9 @@ fi
 # fi
 
 # Completions for azcli
-if [[ -x "$(command -v az)" ]]; then
-  source "$HOME/lib/azure-cli/az.completion"
-fi
+# if [[ -x "$(command -v az)" ]]; then
+#   source "$HOME/lib/azure-cli/az.completion"
+# fi
 
 # Completions for npm
 if [[ -x "$(command -v npm)" ]]; then
