@@ -67,8 +67,10 @@ if [[ ! -d "$dotfiles_path" ]]; then
   write_colored_message "Cloning dotfiles..." "yellow"
 
   git clone --bare "$repo_url" "$dotfiles_path"
-  git --git-dir="$dotfiles_path" --work-tree="$HOME" checkout "$branch_name"
+  git --git-dir="$dotfiles_path" --work-tree="$HOME" checkout --force "$branch_name"
   git --git-dir="$dotfiles_path" --work-tree="$HOME" config status.showUntrackedFiles no
+
+  [[ -f "$HOME/.bashrc" ]] && source "$HOME/.bashrc"
 else
   write_colored_message "Dotfiles are set" "yellow"
   write_colored_message "Checking for updates..." "purple"
