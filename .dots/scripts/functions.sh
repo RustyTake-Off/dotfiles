@@ -82,7 +82,7 @@ cpkeys() {
   # Copy keys and config from Windows .ssh directory and
   # removes read, write and execute permissions from group and others
 
-  if [[ ! "$(grep -wE 'WSL2|Microsoft' <(uname -r))" ]]; then
+  if [[ ! "$(grep -wE 'wsl2|microsoft' <(uname -r))" ]]; then
     echo "Needs to be run on WSL2"
     return 1
   fi
@@ -123,7 +123,7 @@ prwk() {
   # Backup or recover pr and wk directories in WSL
   # Usage: prwk {back|rec}
 
-  if [[ ! "$(grep -wE 'WSL2|Microsoft' <(uname -r))" ]]; then
+  if [[ ! "$(grep -wE 'wsl2|microsoft' <(uname -r))" ]]; then
     echo "Needs to be run on WSL2"
     return 1
   fi

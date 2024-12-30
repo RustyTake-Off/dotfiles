@@ -146,7 +146,6 @@ get_brew_apps() {
       yq \
       zoxide
   fi
-
 }
 
 misc_config() {
