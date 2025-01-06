@@ -126,6 +126,7 @@ get_brew_apps() {
       fzf \
       gh \
       git \
+      git-delta \
       goenv \
       helm \
       jq \
