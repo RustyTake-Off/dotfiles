@@ -119,7 +119,7 @@ if [[ -n "$(grep -wE 'wsl2|microsoft' <(uname -r))" ]]; then
 fi
 
 # Python aliases
-alias py="python"
+alias py="python3"
 alias py3="python3"
 
 # if [[ -x "$(command -v pyenv)" ]]; then
@@ -154,11 +154,11 @@ alias py3setup="py3 -m venv .venv --upgrade-deps && source .venv/bin/activate"
 alias pyup="source .venv/bin/activate"
 alias pydw="deactivate"
 
-alias pipi="pip install --require-virtualenv"
-alias pipu="pip install --require-virtualenv --upgrade"
-alias pipuall="pip freeze --local | cut -d = -f 1 | xargs -n1 pip install --upgrade"
-alias pipsetreq="pip freeze --require-virtualenv -l >"
-alias pipgetreq="pip install --require-virtualenv --upgrade -r"
+alias pipi="pip3 install --require-virtualenv"
+alias pipu="pip3 install --require-virtualenv --upgrade"
+alias pipuall="pip3 freeze --local | cut -d = -f 1 | xargs -n1 pip install --upgrade"
+alias pipsetreq="pip3 freeze --require-virtualenv -l >"
+alias pipgetreq="pip3 install --require-virtualenv --upgrade -r"
 
 # Docker aliases
 if [[ -x "$(command -v docker)" ]]; then
